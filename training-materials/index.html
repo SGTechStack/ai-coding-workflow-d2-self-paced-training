@@ -1,0 +1,1401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prerequisites — Foundations of Agentic Engineering</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script>
+    (function() {
+      var saved = localStorage.getItem('eitri-theme');
+      var preferred = saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      if (preferred === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+    })();
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --border: #e2e8f0;
+      --border-light: #f1f5f9;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --text-subtle: #94a3b8;
+
+      --blue: #2563eb;
+      --blue-light: #3b82f6;
+      --accent-blue-bg: #eff6ff;
+      --accent-blue-border: #bfdbfe;
+      --accent-blue-text: #1e40af;
+
+      --orange: #ea580c;
+      --accent-orange-bg: #fff7ed;
+      --accent-orange-border: #fed7aa;
+
+      --green: #16a34a;
+      --accent-green-bg: #f0fdf4;
+      --accent-green-border: #bbf7d0;
+
+      --purple: #7c3aed;
+      --accent-purple-bg: #f5f3ff;
+      --accent-purple-border: #ddd6fe;
+      --accent-purple-text: #5b21b6;
+
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      --font-mono: 'SF Mono', 'Fira Code', 'Cascadia Code', Consolas, monospace;
+
+      --radius: 8px;
+      --radius-lg: 12px;
+      --shadow: 0 1px 3px rgba(0,0,0,.07), 0 4px 12px rgba(0,0,0,.05);
+      --shadow-sm: 0 1px 2px rgba(0,0,0,.05);
+    }
+
+    [data-theme="dark"] {
+      --bg: #0f172a;
+      --surface: #1c2b3f;
+      --border: #2a3f5a;
+      --border-light: #162234;
+      --text: #dde8f4;
+      --text-muted: #94b3cb;
+      --text-subtle: #5e7e9a;
+      --accent-blue-bg: #0d2040;
+      --accent-blue-border: #1e50a5;
+      --accent-blue-text: #7ab8f5;
+      --accent-orange-bg: #2a1005;
+      --accent-orange-border: #b04010;
+      --accent-green-bg: #08261a;
+      --accent-green-border: #145c2e;
+      --accent-purple-bg: #1e0d40;
+      --accent-purple-border: #6b28cc;
+      --shadow: 0 1px 3px rgba(0,0,0,.4), 0 4px 12px rgba(0,0,0,.3);
+      --shadow-sm: 0 1px 2px rgba(0,0,0,.25);
+    }
+    [data-theme="dark"] code { color: #f472b6; }
+    [data-theme="dark"] .callout { background: #1c1300; border-color: #3a2700; border-left-color: #b45309; }
+    [data-theme="dark"] .callout li code { color: #f472b6; background: rgba(255,255,255,.06); }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      font-size: 15px;
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    .page-wrap {
+      max-width: 880px;
+      margin: 0 auto;
+      padding: 40px 24px 80px;
+    }
+
+    /* ── Breadcrumb ── */
+    .lesson-breadcrumb {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 32px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+    .course-tag { display: flex; align-items: center; gap: 8px; }
+    .pill {
+      background: var(--accent-orange-bg);
+      color: var(--orange);
+      border: 1px solid var(--accent-orange-border);
+      border-radius: 99px;
+      padding: 2px 10px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .progress-dots { display: flex; gap: 6px; align-items: center; }
+    .dot { width: 8px; height: 8px; border-radius: 99px; background: var(--border); }
+    .dot.active { background: var(--orange); width: 22px; border-radius: 4px; }
+
+    /* ── Hero ── */
+    .lesson-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--orange);
+      margin-bottom: 10px;
+      display: block;
+    }
+    h1 {
+      font-size: 2.6rem;
+      font-weight: 800;
+      line-height: 1.1;
+      color: var(--text);
+      margin-bottom: 18px;
+      letter-spacing: -0.035em;
+    }
+    .lead {
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: var(--text-muted);
+      margin: 8px 0 12px;
+    }
+
+    /* ── Track badges ── */
+    .track-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin: 44px 0 20px;
+      padding-bottom: 14px;
+      border-bottom: 2px solid var(--border);
+    }
+    .track-badge {
+      width: 36px; height: 36px;
+      border-radius: 99px;
+      font-size: 1rem;
+      font-weight: 800;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: white;
+    }
+    .track-badge.mp { background: linear-gradient(135deg, #7c3aed, #a78bfa); box-shadow: 0 2px 6px rgba(124,58,237,.3); }
+    .track-badge.eng { background: linear-gradient(135deg, var(--blue), var(--blue-light)); box-shadow: 0 2px 6px rgba(37,99,235,.25); }
+    .track-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+    .track-desc {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    /* ── Typography ── */
+    h2 { font-size: 0.9rem; font-weight: 700; color: var(--text); margin: 24px 0 10px; }
+    h2.has-chip { display: flex; align-items: center; gap: 8px; }
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 2px 8px;
+      border-radius: 99px;
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      flex-shrink: 0;
+    }
+    .chip-green { background: var(--accent-green-bg); color: var(--green); border: 1px solid var(--accent-green-border); }
+    h3 { font-size: 0.875rem; font-weight: 700; color: var(--text); margin: 18px 0 8px; }
+    p { margin: 8px 0; font-size: 0.9rem; color: var(--text-muted); }
+    p strong { color: var(--text); }
+    hr { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    ul { padding-left: 18px; margin: 6px 0; }
+    li { margin: 5px 0; font-size: 0.875rem; color: var(--text-muted); }
+    li strong { color: var(--text); }
+
+    /* ── Code ── */
+    code {
+      font-family: var(--font-mono);
+      font-size: 0.82em;
+      background: var(--border-light);
+      color: #be185d;
+      padding: 1px 5px;
+      border-radius: 3px;
+    }
+    pre {
+      background: #1e1e2e;
+      color: #cdd6f4;
+      padding: 16px 18px;
+      border-radius: 0 0 var(--radius) var(--radius);
+      overflow-x: auto;
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      line-height: 1.65;
+      margin: 0;
+    }
+    pre code { background: none; color: inherit; padding: 0; border-radius: 0; }
+
+    /* ── Install block ── */
+    .install-block {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin: 14px 0;
+    }
+    .install-block-label {
+      background: var(--border-light);
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--text-muted);
+      padding: 7px 12px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .copy-btn {
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 2px 10px;
+      border-radius: 99px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+    }
+    .copy-btn:hover { background: var(--orange); color: white; border-color: var(--orange); }
+    .copy-btn.copied { background: var(--green); color: white; border-color: var(--green); }
+
+    /* ── Callouts ── */
+    .callout {
+      background: #fffbf0;
+      border: 1px solid #fde68a;
+      border-left: 4px solid #f59e0b;
+      border-radius: var(--radius);
+      padding: 14px 18px;
+      margin: 16px 0;
+    }
+    .callout.blue { background: var(--accent-blue-bg); border-color: var(--accent-blue-border); border-left-color: var(--blue); }
+    .callout.purple { background: var(--accent-purple-bg); border-color: var(--accent-purple-border); border-left-color: var(--purple); }
+    .callout-title { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 6px; color: var(--text); }
+    .callout p { margin: 0 0 4px; font-size: 0.875rem; }
+    .callout ul { font-size: 0.875rem; margin-top: 4px; }
+
+    /* ── Matt Pocock workflow flow ── */
+    .mp-flow {
+      display: flex;
+      align-items: stretch;
+      flex-wrap: wrap;
+      gap: 0;
+      margin: 20px 0;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+    .mp-flow-step {
+      flex: 1;
+      min-width: 120px;
+      padding: 14px 12px;
+      border-right: 1px solid var(--border);
+      position: relative;
+    }
+    .mp-flow-step:last-child { border-right: none; }
+    .mp-flow-step::after {
+      content: '→';
+      position: absolute;
+      right: 0px;
+      top: 12px;
+      transform: none;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      z-index: 1;
+    }
+    .mp-flow-step:last-child::after { display: none; }
+    .mp-flow-step--no-arrow::after { display: none; }
+    .mp-flow-cmd {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--purple);
+      margin-bottom: 3px;
+    }
+    .mp-flow-desc {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    /* ── Skills table ── */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+      margin: 14px 0;
+      background: var(--surface);
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    th {
+      text-align: left;
+      padding: 9px 14px;
+      background: var(--border-light);
+      font-weight: 600;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--border);
+    }
+    td {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+      line-height: 1.5;
+      font-size: 0.85rem;
+    }
+    tr:last-child td { border-bottom: none; }
+    td code { font-size: 0.82em; }
+    td:first-child { font-weight: 600; white-space: nowrap; }
+
+    /* ── Phase cards (engineering foundations) ── */
+    .phase-grid { display: flex; flex-direction: column; gap: 12px; margin: 20px 0; }
+    .phase-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-sm); }
+    .phase-card-header { display: flex; align-items: center; gap: 12px; padding: 12px 18px; border-bottom: 1px solid var(--border); background: var(--border-light); }
+    .phase-num-badge { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-subtle); background: var(--surface); border: 1px solid var(--border); border-radius: 99px; padding: 1px 8px; white-space: nowrap; }
+    .phase-card-title { font-size: 0.9rem; font-weight: 700; }
+    .phase-card-body { padding: 14px 18px; }
+    .concept { display: flex; flex-direction: column; padding: 10px 0; border-bottom: 1px solid var(--border-light); gap: 3px; }
+    .concept:last-child { border-bottom: none; padding-bottom: 0; }
+    .concept-name { font-weight: 700; font-size: 0.875rem; color: var(--text); }
+    .concept-desc { font-size: 0.84rem; color: var(--text-muted); line-height: 1.55; }
+
+    /* ── Key articles block ── */
+    .key-articles {
+      margin-top: 14px;
+      padding: 10px 14px;
+      background: var(--accent-blue-bg);
+      border: 1px solid var(--accent-blue-border);
+      border-radius: var(--radius);
+    }
+    .key-articles-label {
+      font-size: 0.62rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent-blue-text);
+      margin-bottom: 6px;
+    }
+    .key-articles-list { display: flex; flex-direction: column; gap: 4px; }
+    .key-articles-list a { font-size: 0.8rem; color: var(--blue); }
+    .key-articles-list a:hover { text-decoration: underline; }
+    .ref-icon { margin-right: 2px; }
+
+    /* ── Ready checklist ── */
+    .ready-section {
+      background: var(--accent-green-bg);
+      border: 1px solid var(--accent-green-border);
+      border-left: 4px solid var(--green);
+      border-radius: var(--radius-lg);
+      padding: 22px 24px;
+      margin: 32px 0;
+      box-shadow: var(--shadow-sm);
+    }
+    .ready-title {
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--green);
+      margin-bottom: 14px;
+    }
+    .ready-item {
+      position: relative;
+      padding: 7px 0 7px 20px;
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--border-light);
+    }
+    .ready-item:last-child { border-bottom: none; }
+    .ready-item::before {
+      content: '○';
+      color: var(--text-subtle);
+      font-size: 0.9rem;
+      position: absolute;
+      left: 0;
+      top: 8px;
+    }
+
+    /* ── CTA ── */
+    .cta-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      text-align: center;
+      margin: 40px 0 0;
+      padding: 28px;
+      background: linear-gradient(135deg, #fff7ed, #fff);
+      border: 1px solid var(--accent-orange-border);
+      border-radius: var(--radius-lg);
+    }
+    .cta-label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); }
+    .cta-title { font-size: 1.1rem; font-weight: 700; color: var(--text); }
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 28px;
+      background: var(--orange);
+      color: white;
+      border-radius: 99px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      text-decoration: none;
+      margin-top: 6px;
+      box-shadow: 0 2px 8px rgba(234,88,12,.25);
+      transition: background 0.15s, box-shadow 0.15s;
+    }
+    .cta-btn:hover { background: #c2410c; box-shadow: 0 3px 12px rgba(234,88,12,.35); text-decoration: none; }
+    [data-theme="dark"] .cta-block { background: linear-gradient(135deg, #1c0903, #1e293b); }
+
+    /* ── Lesson nav ── */
+    .lesson-nav {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      padding: 16px 0 0;
+      margin-top: 24px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      border-top: 1px solid var(--border);
+    }
+    .lesson-nav a { color: var(--blue); }
+    .lesson-nav a:hover { text-decoration: underline; }
+
+    /* ── Top navigation bar ── */
+    .topnav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.97);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      box-shadow: 0 1px 8px rgba(0,0,0,.05);
+      transition: background-color 0.2s ease, border-color 0.2s ease;
+    }
+    [data-theme="dark"] .topnav { background: rgba(15,23,42,0.97); }
+    .topnav-inner {
+      max-width: 880px;
+      margin: 0 auto;
+      padding: 0 24px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .topnav-brand {
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--orange);
+      padding-right: 16px;
+      white-space: nowrap;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      letter-spacing: -0.02em;
+      text-decoration: none;
+    }
+    .topnav-brand:hover { opacity: 0.8; text-decoration: none; }
+
+    .topnav-divider {
+      width: 1px;
+      height: 20px;
+      background: var(--border);
+      flex-shrink: 0;
+      margin-right: 8px;
+    }
+    .topnav-links { display: flex; align-items: center; gap: 2px; }
+    .topnav-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-decoration: none;
+      border-radius: 7px;
+      transition: color 0.15s, background 0.15s;
+      white-space: nowrap;
+    }
+    .topnav-link:hover { color: var(--text); background: var(--border-light); text-decoration: none; }
+    .topnav-link.active { color: var(--orange); background: var(--accent-orange-bg); pointer-events: none; }
+    .topnav-step {
+      min-width: 22px; height: 22px; padding: 0 4px;
+      border-radius: 99px;
+      background: var(--border-light);
+      border: 1.5px solid var(--border);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.62rem;
+      font-weight: 800;
+      flex-shrink: 0;
+      color: var(--text-subtle);
+    }
+    .topnav-link.active .topnav-step { background: var(--orange); border-color: var(--orange); color: white; }
+    .theme-toggle {
+      margin-left: auto;
+      flex-shrink: 0;
+      width: 34px; height: 34px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--border-light);
+      color: var(--text-muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.15s, border-color 0.15s, color 0.15s;
+    }
+    .theme-toggle:hover { background: var(--surface); color: var(--text); border-color: var(--text-subtle); }
+    .theme-icon { display: none; pointer-events: none; }
+    html:not([data-theme="dark"]) .moon { display: block; }
+    html[data-theme="dark"] .sun { display: block; }
+
+    /* ── Video thumbnail cards ── */
+    .video-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin: 20px 0;
+    }
+    .video-card {
+      display: block;
+      text-decoration: none;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      background: var(--surface);
+      box-shadow: var(--shadow-sm);
+      transition: box-shadow 0.15s, border-color 0.15s;
+    }
+    .video-card:hover { box-shadow: var(--shadow); border-color: #cbd5e1; text-decoration: none; }
+    .video-thumb {
+      position: relative;
+      width: 100%;
+      padding-top: 56.25%;
+      background: #111827;
+      overflow: hidden;
+    }
+    .video-thumb img {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .video-play-btn {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 52px; height: 52px;
+      border-radius: 99px;
+      background: rgba(234,88,12,0.92);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      color: white;
+      box-shadow: 0 4px 18px rgba(0,0,0,.4);
+      transition: background 0.15s, transform 0.15s;
+    }
+    .video-card:hover .video-play-btn { background: #c2410c; transform: translate(-50%, -50%) scale(1.07); }
+    .video-ts-badge {
+      position: absolute;
+      bottom: 8px; right: 8px;
+      background: rgba(0,0,0,.75);
+      color: white;
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 4px;
+      letter-spacing: 0.03em;
+    }
+    .video-card-body {
+      padding: 12px 14px;
+      border-top: 1px solid var(--border);
+    }
+    .video-card-title {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 2px;
+      line-height: 1.4;
+    }
+    .video-card-meta {
+      font-size: 0.74rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .video-card-meta::before { content: '▶'; font-size: 0.6rem; color: var(--orange); }
+
+    /* ── Horizontal resource card (roadmap) ── */
+    .video-card-h { grid-column: 1 / -1; display: flex; flex-direction: row; align-items: stretch; }
+    .video-card-h .vch-panel {
+      width: 200px;
+      flex-shrink: 0;
+      background: linear-gradient(135deg, #1e3a8a, #2563eb);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 16px;
+      gap: 6px;
+    }
+    .vch-source { font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.55); }
+    .vch-name { font-size: 1rem; font-weight: 800; color: white; text-align: center; line-height: 1.3; letter-spacing: -0.01em; }
+    .video-card-h .video-card-body { flex: 1; border-top: none; border-left: 1px solid var(--border); display: flex; flex-direction: column; justify-content: center; }
+
+    @media (max-width: 640px) {
+      h1 { font-size: 1.9rem; }
+      .mp-flow { flex-direction: column; }
+      .mp-flow-step { border-right: none; border-bottom: 1px solid var(--border); }
+      .mp-flow-step::after { content: '↓'; right: auto; top: auto; bottom: -10px; left: 50%; transform: translateX(-50%); }
+      .mp-flow-step:last-child { border-bottom: none; }
+      .topnav-inner { padding: 0 16px; }
+      .topnav-link { padding: 0 10px; font-size: 0.76rem; gap: 5px; }
+      .video-grid { grid-template-columns: 1fr; }
+      .video-card-title { font-size: 0.8rem; }
+      .video-card-h { flex-direction: column; }
+      .video-card-h .vch-panel { width: 100%; padding: 20px; }
+    }
+
+    /* ── Page sidenav ── */
+    .page-sidenav {
+      position: fixed;
+      left: max(16px, calc(50% - 660px));
+      top: 76px;
+      width: 208px;
+      max-height: calc(100vh - 96px);
+      overflow-y: auto;
+      display: none;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 0;
+      box-shadow: var(--shadow-sm);
+    }
+    @media (min-width: 1400px) { .page-sidenav { display: block; } }
+    .sidenav-label {
+      font-size: 0.62rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--orange);
+      margin: 0 12px 10px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+    .sidenav-link {
+      display: block;
+      font-size: 0.74rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      text-decoration: none;
+      padding: 5px 12px;
+      line-height: 1.4;
+      border-left: 2px solid transparent;
+      transition: all 0.12s;
+    }
+    .sidenav-link:hover { color: var(--text); background: var(--border-light); text-decoration: none; }
+    .sidenav-link.active { color: var(--orange); font-weight: 600; border-left-color: var(--orange); background: var(--accent-orange-bg); }
+    .sidenav-section-label {
+      display: block;
+      font-size: 0.68rem;
+      font-weight: 700;
+      color: var(--text);
+      padding: 8px 12px 2px;
+      margin-top: 4px;
+      letter-spacing: 0.02em;
+    }
+    .sidenav-sub { padding-left: 22px; font-size: 0.71rem; }
+    .sidenav-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      font-size: 0.74rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      background: none;
+      border: none;
+      border-left: 2px solid transparent;
+      cursor: pointer;
+      padding: 5px 12px;
+      text-align: left;
+      gap: 4px;
+      line-height: 1.4;
+      font-family: var(--font-sans);
+      transition: all 0.12s;
+    }
+    .sidenav-toggle:hover { color: var(--text); background: var(--border-light); }
+    .snav-chevron { font-size: 0.55rem; flex-shrink: 0; transition: transform 0.2s; display: inline-block; color: var(--text-subtle); }
+    .sidenav-toggle.collapsed .snav-chevron { transform: rotate(-90deg); }
+    .snav-group { overflow: hidden; max-height: 400px; transition: max-height 0.25s ease; }
+    .snav-group.collapsed { max-height: 0; }
+    [id] { scroll-margin-top: 68px; }
+    h2[id] { scroll-margin-top: 120px; }
+    .track-header[id] { scroll-margin-top: 75px; }
+    .fot-q { list-style: none !important; }
+    .fot-q details summary { cursor: pointer; list-style: none; display: block; text-align: justify; font-size: 0.82rem; color: var(--text-muted); font-weight: 500; }
+    .fot-q details summary::-webkit-details-marker { display: none; }
+    .fot-q details summary::marker { display: none; content: none; }
+    .fot-q details summary::before { content: '▾'; font-size: 1rem; margin-right: 6px; display: inline-block; transition: transform 0.15s ease; color: var(--purple); font-weight: 900; vertical-align: 1px; }
+    .fot-q details[open] summary::before { transform: rotate(180deg); }
+    .fot-answer { margin-top: 6px; padding: 8px 12px; background: var(--border-light); border-left: 2px solid var(--accent-purple-border); border-radius: 0 4px 4px 0; line-height: 1.6; font-size: 0.8rem; color: var(--text-muted); text-align: justify; }
+    .concept-desc { text-align: justify; }
+    .mp-flow-desc { text-align: justify; }
+    .track-desc { text-align: justify; }
+    .lead { text-align: justify; }
+    .callout p, .callout li { text-align: justify; }
+    .page-wrap p { text-align: justify; }
+    .key-articles-list { text-align: left; }
+  </style>
+</head>
+<body>
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a href="eitri-overview.html" class="topnav-brand">Eitri Agentic Dev Workflow</a>
+    <div class="topnav-divider"></div>
+    <div class="topnav-links">
+      <a href="index.html" class="topnav-link active"><span class="topnav-step">P</span>Prerequisites</a>
+      <a href="00-pm-ba-workflow.html" class="topnav-link"><span class="topnav-step">L0</span>PO Workflow</a>
+      <a href="01-eitri-skills.html" class="topnav-link"><span class="topnav-step">L1</span>Eitri Skills</a>
+      <a href="02-team-context-ingestion.html" class="topnav-link"><span class="topnav-step">L2</span>Team Context</a>
+    </div>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Switch to dark mode" title="Switch to dark mode">
+      <svg class="theme-icon sun" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      <svg class="theme-icon moon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+  </div>
+</nav>
+<aside class="page-sidenav">
+  <div class="sidenav-label">On this page</div>
+  <a href="#track-a" class="sidenav-link">Matt Pocock's Workflow</a>
+
+  <button class="sidenav-toggle" data-target="snav-llm" data-href="#track-b">LLM &amp; Agent Foundations <span class="snav-chevron">▾</span></button>
+  <div class="snav-group" id="snav-llm">
+    <a href="#phase-llms" class="sidenav-link sidenav-sub">How LLMs Actually Work</a>
+    <a href="#phase-engineering" class="sidenav-link sidenav-sub">Agentic Engineering</a>
+    <a href="#phase-principles" class="sidenav-link sidenav-sub">Agentic Development Principles</a>
+    <a href="#phase-multiagent" class="sidenav-link sidenav-sub">Multi-Agent Patterns</a>
+  </div>
+
+</aside>
+<div class="page-wrap">
+
+  <!-- Hero -->
+  <p class="lesson-label">Prerequisites — Matt Pocock's Workflow · LLM & Agent Foundations</p>
+  <h1>Foundations of Agentic Engineering</h1>
+  <p class="lead">The Eitri workflow is built on two foundations: Matt Pocock's Agentic Engineering Workflow and the Large Language Model (LLM) & agent concepts you need to understand, extend, and refine it. Complete both tracks before starting Lesson 1.</p>
+
+  <div class="callout blue">
+    <div class="callout-title">How the lessons connect</div>
+    <ul>
+      <li><strong>This page (Prerequisites):</strong> Learn the baseline Matt Pocock workflow and the underlying LLM foundations.</li>
+      <li><strong><a href="00-pm-ba-workflow.html">Lesson 0</a>:</strong> Follow the Product Owner journey from drafting user stories to generating a delivery plan.</li>
+      <li><strong><a href="01-eitri-skills.html">Lesson 1</a>:</strong> Discover what Eitri adds to each step of the baseline workflow and how to use the new skills.</li>
+      <li><strong><a href="02-team-context-ingestion.html">Lesson 2</a>:</strong> Learn how to inject your team's specific requirements so the workflow enforces your local standards.</li>
+    </ul>
+  </div>
+
+  <!-- ════════════════════════════════════════
+       TRACK A: MATT POCOCK
+  ════════════════════════════════════════ -->
+
+  <div class="track-header" id="track-a">
+    <div class="track-badge mp">A</div>
+    <div>
+      <div class="track-title">Matt Pocock's Agentic Engineering Workflow</div>
+      <div class="track-desc">Chosen as the Eitri foundation for its lightweight, specification-first discipline. Eitri then extends each step in his workflow.</div>
+    </div>
+  </div>
+
+  <div class="callout blue" style="margin: 0 0 12px;">
+    <div class="callout-title">How this aligns with our direction toward SPDD</div>
+    <p style="margin: 0;">Our organisation is moving toward <strong>Structured-Prompt-Driven Development (SPDD)</strong> from ThoughtWorks, which requires attending a paid course. Matt Pocock's workflow is a strong alternative that aligns to the same spec-driven development principles. Since the Eitri skills are grounded in spec-driven development principles, they apply directly within an SPDD workflow, so nothing needs to change.</p>
+  </div>
+
+  <div style="margin: 0 0 16px; padding: 16px 18px; background: var(--accent-orange-bg); border: 1px solid var(--accent-orange-border); border-left: 4px solid var(--orange); border-radius: var(--radius);">
+    <div style="font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.09em; color: var(--orange); margin-bottom: 10px;">Why Matt Pocock's framework?</div>
+    <ul style="padding-left: 16px; margin: 0; display: flex; flex-direction: column; gap: 7px;">
+      <li style="font-size: 0.875rem; color: var(--text-muted);"><strong style="color: var(--text);">Specification-first, specification as authority:</strong> a dedicated skill interviews you to produce a complete specification before any code is written, and that specification remains the source of truth throughout. When code and specification diverge, the specification wins. This directly addresses intent drift, the root failure mode of AI-assisted coding.</li>
+      <li style="font-size: 0.875rem; color: var(--text-muted);"><strong style="color: var(--text);">Composable and lightweight:</strong> provides small, focused skills deployed only when necessary. Each skill is designed to prevent a specific AI coding pitfall (such as skipping tests or losing track of context) without imposing a heavyweight process or replacing your engineering judgment.</li>
+      <li style="font-size: 0.875rem; color: var(--text-muted);"><strong style="color: var(--text);">No toolchain lock-in:</strong> compatible with any AI coding tool (Claude Code, Cursor, Cline) and any team setup, without imposing fixed directory structures or workflow conventions.</li>
+      <li style="font-size: 0.875rem; color: var(--text-muted);"><strong style="color: var(--text);">Built around real failure modes:</strong> every workflow decision addresses the primary ways AI coding fails (ambiguity, intent drift, and poor handoff quality) and is grounded in decades of engineering practice, not theoretical best practice.</li>
+    </ul>
+  </div>
+
+  <div class="video-grid">
+    <a class="video-card" href="https://www.youtube.com/watch?v=M6mYodf0dJM&t=535s" target="_blank" rel="noopener">
+      <div class="video-thumb">
+        <img src="https://img.youtube.com/vi/M6mYodf0dJM/hqdefault.jpg" alt="Matt Pocock — Agentic Engineering Workflow thumbnail" loading="lazy">
+        <div class="video-play-btn">▶</div>
+        <span class="video-ts-badge">starts 8:55</span>
+      </div>
+      <div class="video-card-body">
+        <div class="video-card-title">Matt Pocock — Agentic Engineering Workflow</div>
+        <div class="video-card-meta">Opens on YouTube</div>
+      </div>
+    </a>
+    <a class="video-card" href="https://www.youtube.com/watch?v=A8mokin_YOs&t=750s" target="_blank" rel="noopener">
+      <div class="video-thumb">
+        <img src="https://img.youtube.com/vi/A8mokin_YOs/hqdefault.jpg" alt="Matt Pocock — Agentic Engineering Deep Dive thumbnail" loading="lazy">
+        <div class="video-play-btn">▶</div>
+        <span class="video-ts-badge">starts 12:30</span>
+      </div>
+      <div class="video-card-body">
+        <div class="video-card-title">Matt Pocock — Agentic Engineering Deep Dive</div>
+        <div class="video-card-meta">Opens on YouTube</div>
+      </div>
+    </a>
+    <a class="video-card video-card-h" href="https://www.aihero.dev/ai-engineer-roadmap" target="_blank" rel="noopener">
+      <div class="vch-panel">
+        <span class="vch-source">aihero.dev</span>
+      </div>
+      <div class="video-card-body">
+        <div class="video-card-title">AI Engineer Roadmap</div>
+        <div style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 6px; line-height: 1.4;">A comprehensive guide for developers who want to build AI-powered apps, covering the essential concepts, tools, and mindset needed to become an AI Engineer.</div>
+        <div class="video-card-meta">Opens on aihero.dev</div>
+      </div>
+    </a>
+    <a class="video-card video-card-h" href="https://www.aihero.dev/skills" target="_blank" rel="noopener">
+      <div class="vch-panel" style="background: linear-gradient(135deg, #7c3aed, #a78bfa);">
+        <span class="vch-source">aihero.dev</span>
+      </div>
+      <div class="video-card-body">
+        <div class="video-card-title">AI Skills for Real Engineers</div>
+        <div style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 6px; line-height: 1.4;">A deeper dive into each skill, detailing what they do and how they fit into the main agentic workflow that we will be leveraging.</div>
+        <div class="video-card-meta">Opens on aihero.dev</div>
+      </div>
+    </a>
+  </div>
+
+  <div class="callout">
+    <div class="callout-title" style="margin-bottom: 12px;">Want a deeper understanding? — Participants to self-fund</div>
+    <p><a href="https://www.aihero.dev/cohorts/ai-coding-for-real-engineers-m0k0w" target="_blank" rel="noopener" style="text-decoration: underline;"><strong>AI Coding for Real Engineers</strong></a> by Matt Pocock is a cohort course that goes well beyond the three resources above.</p>
+    <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 5px; margin-top: 8px;">
+      <li style="display: flex; gap: 8px; align-items: flex-start; font-size: 0.875rem;"><span style="color: var(--green); font-weight: 700; flex-shrink: 0; margin-top: 1px;">✓</span><span><strong>Full structured curriculum</strong>: covers every step of the agentic workflow in depth, not just the highlights</span></li>
+      <li style="display: flex; gap: 8px; align-items: flex-start; font-size: 0.875rem;"><span style="color: var(--green); font-weight: 700; flex-shrink: 0; margin-top: 1px;">✓</span><span><strong>Hands-on exercises</strong>: real codebase practice with each skill as you learn it</span></li>
+      <li style="display: flex; gap: 8px; align-items: flex-start; font-size: 0.875rem;"><span style="color: var(--green); font-weight: 700; flex-shrink: 0; margin-top: 1px;">✓</span><span><strong>Cohort community</strong>: learn alongside peers and get direct access to Matt Pocock's insights</span></li>
+      <li style="display: flex; gap: 8px; align-items: flex-start; font-size: 0.875rem;"><span style="color: var(--green); font-weight: 700; flex-shrink: 0; margin-top: 1px;">✓</span><span><strong>Real engineering skills</strong>: apply structured practices such as Test-Driven Development (TDD), Continuous Integration (CI) pipelines, and Human-in-the-Loop (HITL) to AI-assisted development, not just ad-hoc prompting</span></li>
+    </ul>
+    <p style="margin-top:10px">If you'd like to go deeper, visit <a href="https://www.aihero.dev/" target="_blank" rel="noopener">aihero.dev</a> for more details on his courses and upcoming workshops (paid).</p>
+  </div>
+
+  <h2 class="has-chip">Hands-on practice — try the workflow yourself <span class="chip chip-green">✦ Hands on</span></h2>
+  <p>The best way to internalise the workflow before Lesson 1 is to run through it hands-on. Follow the setup steps below, then work through each slash command in order.</p>
+
+  <div class="callout purple" style="margin: 12px 0 16px;">
+    <div class="callout-title">What to watch for as you work through this</div>
+    <p style="margin: 0;">Pay attention to how the workflow structure does the heavy lifting, not the AI model. Notice how each skill resolves ambiguity through structured conversation before a line of code is written, how every step produces a written artifact the next step can build on, and where human judgment is explicitly required rather than left to the agent.</p>
+  </div>
+
+  <div class="phase-card" style="margin: 16px 0;">
+    <div class="phase-card-header">
+      <span class="phase-num-badge">Setup</span>
+      <span class="phase-card-title">Get your project ready</span>
+    </div>
+    <div class="phase-card-body">
+      <div class="concept">
+        <div class="concept-name">1. Create or open a project</div>
+        <div class="concept-desc">Create a new folder for a task you want to build, or open an existing repo. A simple feature or bug fix is enough to feel the full loop.</div>
+      </div>
+      <div class="concept">
+        <div class="concept-name">2. Open your project in your IDE</div>
+        <div class="concept-desc">Open the project in VS Code, Cursor, or your preferred Integrated Development Environment (IDE) with a terminal at the project root.</div>
+      </div>
+      <div class="concept">
+        <div class="concept-name">3. Install the agent skills</div>
+        <div class="concept-desc">In that terminal, run the command below once to install Matt Pocock's skill harness and enable all the slash commands you'll use in the workflow.</div>
+      </div>
+      <div class="install-block" style="margin: 6px 0 0;">
+        <div class="install-block-label">Terminal — project root<button class="copy-btn">Copy</button></div>
+        <pre><code>npx skills@latest add mattpocock/skills</code></pre>
+      </div>
+      <p style="margin-top: 10px; font-size: 0.8rem;">Full documentation: <a href="https://github.com/mattpocock/skills" target="_blank">github.com/mattpocock/skills</a> | <a href="https://www.aihero.dev/skills" target="_blank">aihero.dev/skills</a> (a deeper dive into each skill and the main workflow we will be leveraging)</p>
+    </div>
+  </div>
+
+  <h2>Workflow summary — what you just learnt</h2>
+  <p>Matt Pocock's agentic workflow is built around these skills, each invoked as a slash command.</p>
+
+  <div class="mp-flow">
+    <div class="mp-flow-step">
+      <div class="mp-flow-cmd">/setup-matt-pocock-skills</div>
+      <div class="mp-flow-desc">Configure the issue tracker, triage labels, and domain doc layout. Run once per repo.</div>
+    </div>
+    <div class="mp-flow-step">
+      <div class="mp-flow-cmd">/grill-with-docs <span style="font-weight:400;opacity:0.5">or</span> /wayfinder</div>
+      <div class="mp-flow-desc">Sharpen a plan through structured interview, creating Architecture Decision Records (ADRs) and a domain glossary as you go (<code>/grill-with-docs</code>), or map a complex effort as decision tickets, resolving one at a time (<code>/wayfinder</code>)</div>
+    </div>
+    <div class="mp-flow-step">
+      <div class="mp-flow-cmd">/to-spec</div>
+      <div class="mp-flow-desc">Synthesise the conversation into a Product Requirements Document (PRD) and publish it to the issue tracker</div>
+    </div>
+    <div class="mp-flow-step">
+      <div class="mp-flow-cmd">/to-tickets</div>
+      <div class="mp-flow-desc">Break a spec, plan, or conversation into tracer-bullet tickets with blocking edges on the issue tracker</div>
+    </div>
+    <div class="mp-flow-step">
+      <div class="mp-flow-cmd">/implement</div>
+      <div class="mp-flow-desc">Implement using TDD where applicable, closing with a code review before committing</div>
+    </div>
+    <div class="mp-flow-step mp-flow-step--no-arrow">
+      <div class="mp-flow-cmd">/code-review</div>
+      <div class="mp-flow-desc">Review on two axes: Standards (conventions + code smells) and Spec (faithfulness to the originating issue or PRD, including scope creep)</div>
+    </div>
+    <div class="mp-flow-step">
+      <div class="mp-flow-cmd">/diagnosing-bugs</div>
+      <div class="mp-flow-desc">Use at any point to diagnose hard bugs and regressions using a structured 6-phase loop</div>
+    </div>
+  </div>
+
+  <div class="key-articles" style="background: var(--accent-purple-bg); border-color: var(--accent-purple-border); padding: 14px 18px; margin: 16px 0;">
+    <div class="key-articles-label" style="color: var(--accent-purple-text);">Food for thought</div>
+    <ul style="margin: 6px 0 0; padding: 0; display: flex; flex-direction: column; gap: 6px; list-style: none;">
+      <li class="fot-q" style="font-size: 0.8rem; color: var(--text-muted);">
+        <details>
+          <summary>What does <code>/wayfinder</code> produce, and what does <code>/to-spec</code> consume from it?</summary>
+          <div class="fot-answer">/wayfinder maps a complex effort as decision tickets and resolves them one at a time, producing a clear route to implementation. /to-spec then synthesises that conversation into a Product Requirements Document (PRD) and publishes it to the issue tracker.</div>
+        </details>
+      </li>
+    </ul>
+  </div>
+
+
+  <!-- ════════════════════════════════════════
+       TRACK B: ENGINEERING FOUNDATIONS
+  ════════════════════════════════════════ -->
+
+  <div class="track-header" id="track-b">
+    <div class="track-badge eng">B</div>
+    <div>
+      <div class="track-title">LLM & Agent Foundations</div>
+      <div class="track-desc">Four topics that give you the foundation to understand, extend, and refine the workflow, serving as the basis for the customisations taught in Lessons 1 and 2.</div>
+    </div>
+  </div>
+
+  <div class="phase-grid">
+
+    <!-- Topic 1 -->
+    <div class="phase-card" id="phase-llms">
+      <div class="phase-card-header">
+        <span class="phase-num-badge">Topic 1</span>
+        <span class="phase-card-title">How LLMs Actually Work</span>
+      </div>
+      <div class="phase-card-body">
+        <div class="concept">
+          <div class="concept-name">Context Windows, Smart Zone / Dumb Zone, and Lost in the Middle</div>
+          <div class="concept-desc">The context window is the total text (prompt, instructions, code, conversation history) the model can see in a single call. Models perform reliably up to roughly 40% of their context limit (the <strong>Smart Zone</strong>). Beyond that, they enter the <strong>Dumb Zone</strong> where reasoning quality degrades. Within any window, content buried in the middle is recalled less accurately than content at the start or end (the <strong>Lost in the Middle</strong> effect).</div>
+        </div>
+        <div class="concept">
+          <div class="concept-name">LLM Memory Architecture</div>
+          <div class="concept-desc">LLMs have no persistent state between calls. Three memory stores: <em>in-context</em> (the current prompt and conversation, ephemeral and lost between calls), <em>external</em> (durable artifacts like files, version control, and issue trackers that persist across sessions), and <em>parametric</em> (the model's trained weights, fixed and unchangeable). The workflow relies on external memory as its durable backbone.</div>
+        </div>
+        <div class="concept">
+          <div class="concept-name">Hallucination and Non-determinism</div>
+          <div class="concept-desc"><strong>Hallucination</strong>: LLMs predict the most likely next token, not verify facts, so they generate plausible but incorrect information with confidence. This is a generation problem, not a placement problem. No amount of Smart Zone positioning can prevent it. The safeguards are human review and automated tests that catch incorrect outputs. <strong>Non-determinism</strong>: identical inputs produce different outputs across runs. Machine-verifiable tests, not eyeballing output, are the only reliable convergence signal.</div>
+        </div>
+        <div class="key-articles">
+          <div class="key-articles-label">Key articles to read</div>
+          <div class="key-articles-list">
+            <div><span class="ref-icon">📄</span><a href="https://lilianweng.github.io/posts/2023-06-23-agent" target="_blank">Lilian Weng — LLM Powered Autonomous Agents</a></div>
+            <div><span class="ref-icon">📄</span><a href="https://arxiv.org/abs/2307.03172" target="_blank">Liu et al., 2023 — Lost in the Middle (arxiv)</a></div>
+            <div><span class="ref-icon">📄</span><a href="https://alexlavaee.me/blog/harness-engineering-why-coding-agents-need-infrastructure/" target="_blank">Alex Lavaee — Harness Engineering</a></div>
+          </div>
+        </div>
+        <div class="key-articles" style="background: var(--accent-purple-bg); border-color: var(--accent-purple-border); padding: 14px 18px;">
+          <div class="key-articles-label" style="color: var(--accent-purple-text);">Food for thought</div>
+          <ul style="margin: 6px 0 0; padding: 0; display: flex; flex-direction: column; gap: 6px; list-style: none;">
+            <li class="fot-q" style="font-size: 0.8rem; color: var(--text-muted);">
+              <details>
+                <summary>What is the Smart Zone, and what does the Lost in the Middle finding tell you about where to place critical information in the context window?</summary>
+                <div class="fot-answer">The Smart Zone is the first ~40% of a model's context limit, where reasoning is most reliable. Lost in the Middle shows that even within a well-sized window, content buried in the middle is recalled less accurately than content at the start or end. Place critical instructions at the top of the context and avoid burying key reference material in the middle.</div>
+              </details>
+            </li>
+            <li class="fot-q" style="font-size: 0.8rem; color: var(--text-muted);">
+              <details>
+                <summary>What are the three LLM memory stores, and which one does the workflow rely on to persist state across sessions?</summary>
+                <div class="fot-answer">In-context (the current prompt and conversation, ephemeral and lost between calls), external (durable artifacts like files, version control, and issue trackers that persist across sessions), and parametric (the model's trained weights, fixed and unchangeable). The workflow relies on external memory (decisions, specs, and ADRs written to the repo) to persist state across sessions.</div>
+              </details>
+            </li>
+            <li class="fot-q" style="font-size: 0.8rem; color: var(--text-muted);">
+              <details>
+                <summary>What is the difference between hallucination and Lost in the Middle? Can placing reference material in the Smart Zone fully prevent hallucinations?</summary>
+                <div class="fot-answer">Lost in the Middle is an attention problem: the model recalls content placed in the middle of a long window less accurately. Hallucination is a generation problem: because LLMs predict the most likely next token rather than verify facts, they can produce incorrect outputs even when given correct reference material. Smart Zone placement helps attention, but cannot prevent hallucination.</div>
+              </details>
+            </li>
+            <li class="fot-q" style="font-size: 0.8rem; color: var(--text-muted);">
+              <details>
+                <summary>Why does non-determinism make "it looks right" an unreliable convergence signal? What should you rely on instead?</summary>
+                <div class="fot-answer">LLMs use stochastic sampling, so identical inputs produce different outputs across runs. A response that looks correct once may be wrong on the next run. Machine-verifiable tests, which pass or fail deterministically, are the only reliable signal that the loop has converged correctly.</div>
+              </details>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Topic 2 -->
+    <div class="phase-card" id="phase-engineering">
+      <div class="phase-card-header">
+        <span class="phase-num-badge">Topic 2</span>
+        <span class="phase-card-title">Agentic Engineering</span>
+      </div>
+      <div class="phase-card-body">
+        <div class="concept">
+          <div class="concept-name">Prompt Engineering</div>
+          <div class="concept-desc">Writing clear, targeted instructions for individual agent calls. Effective prompts use <strong>role framing</strong> (set the agent's expertise and perspective), <strong>positive framing</strong> (describe the target behaviour, not what to avoid, because LLMs predict tokens toward whatever pattern you surface), <strong>chain-of-thought elicitation</strong> (ask the model to reason step by step), and <strong>explicit completion criteria</strong> (define what "done" looks like).</div>
+        </div>
+        <div class="concept">
+          <div class="concept-name">Context Engineering</div>
+          <div class="concept-desc">Where Prompt Engineering focuses on <em>how</em> you phrase instructions, Context Engineering focuses on <em>what information</em> is in the context window at every step. <strong>Context rot</strong> degrades recall silently as the window fills, even before it's full. The design principle: pre-load only what's always needed, and retrieve everything else just-in-time.</div>
+        </div>
+        <div class="concept">
+          <div class="concept-name">Retrieval-Augmented Generation (RAG)</div>
+          <div class="concept-desc">Fetches relevant knowledge from an external index at inference time instead of pre-loading everything into the context window. Source documents are chunked, indexed, and searched on each request (semantic, keyword, or hybrid). The most relevant chunks are injected into the context window just-in-time. This is the mechanism that powers the retrieve-on-demand principle in Context Engineering.</div>
+        </div>
+        <div class="concept">
+          <div class="concept-name">Open Knowledge Format (OKF)</div>
+          <div class="concept-desc">A structured knowledge representation that makes retrieval more precise than raw document chunks. Andrej Karpathy argued that conventional RAG retrieves noisy, unstructured text fragments. Hybrid search (combining semantic and keyword search) helps find the right chunk, but the chunk itself may still contain irrelevant surrounding text. OKF addresses this at the representation level by organising knowledge as typed entities and relationships, so the unit of retrieval is a specific fact rather than a block of text.</div>
+        </div>
+        <div class="concept">
+          <div class="concept-name">Model Context Protocol (MCP)</div>
+          <div class="concept-desc">An open protocol for connecting AI models to external tools, data sources, and services. Where RAG retrieves from a pre-indexed snapshot, MCP lets the agent connect to external tools and query their current state: reading file systems, calling APIs, querying databases, and more, without custom integration per tool.</div>
+        </div>
+        <div class="concept">
+          <div class="concept-name">The ReAct Pattern and Agentic Loop Design</div>
+          <div class="concept-desc">The pattern that turns a single-shot LLM into a multi-step agent. The agent cycles through three phases: <strong>Reason</strong> (decide what to do next), <strong>Act</strong> (call a tool, write code, or run a command), and <strong>Observe</strong> (read the result and feed it back into the next reasoning step). This observe-then-reason loop is what lets agents self-correct based on real outcomes rather than guessing in a single pass. Every loop needs a <strong>convergence condition</strong> that tells it when to stop (e.g. all tests pass, zero must-fix findings). Without one, two failure modes emerge: the loop runs indefinitely with no signal to terminate, and each observation cycle adds to the context window, progressively degrading recall.</div>
+        </div>
+        <div class="concept">
+          <div class="concept-name">Planning-Execution Separation</div>
+          <div class="concept-desc">Complete all research, questioning, and planning before writing any code. When planning and execution are interleaved, three failure modes emerge:</div>
+          <ul style="margin-top: 8px; padding-left: 18px; display: flex; flex-direction: column; gap: 4px;">
+            <li style="font-size: 0.875rem; color: var(--text-muted);"><strong>Context overflow:</strong> researching mid-task eats up token limits that should be reserved for writing code.</li>
+            <li style="font-size: 0.875rem; color: var(--text-muted);"><strong>Plan narration:</strong> the agent gets confused and just describes what it would do instead of actually coding.</li>
+            <li style="font-size: 0.875rem; color: var(--text-muted);"><strong>Late requirement changes:</strong> ambiguities surface mid-implementation and derail the coding session.</li>
+          </ul>
+          <div class="concept-desc" style="margin-top: 8px;">In Matt Pocock's workflow, <strong>QRSPI</strong> (Questions → Research → Structure → Plan → Implement) puts this into practice by completing the first four steps before any code is written.</div>
+        </div>
+        <div class="concept">
+          <div class="concept-name">Agent Skills</div>
+          <div class="concept-desc">Reusable agent capabilities packaged as <code>SKILL.md</code> files containing instructions, scripts, and resources, each invoked via a slash command. Progressive disclosure keeps the context footprint minimal: only each skill's name and one-line description load at startup. Full instructions load only when a skill is actually invoked, so adding more skills does not bloat every session. This is how Eitri extends Matt Pocock's workflow without modifying its core.</div>
+        </div>
+        <div class="key-articles">
+          <div class="key-articles-label">Key articles to read</div>
+          <div class="key-articles-list">
+            <div><span class="ref-icon">📖</span><a href="https://www.promptingguide.ai" target="_blank">Prompt Engineering Guide — DAIR.AI</a></div>
+            <div><span class="ref-icon">📄</span><a href="https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents" target="_blank">Anthropic — Effective Context Engineering for AI Agents</a></div>
+            <div><span class="ref-icon">📄</span><a href="https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f" target="_blank">Karpathy — RAG gist</a></div>
+            <div><span class="ref-icon">📄</span><a href="https://cloud.google.com/blog/products/data-analytics/how-the-open-knowledge-format-can-improve-data-sharing" target="_blank">Google Cloud — How OKF can improve data sharing</a></div>
+            <div><span class="ref-icon">📄</span><a href="https://alexlavaee.me/blog/from-rpi-to-qrspi/" target="_blank">Alex Lavaee — From RPI to QRSPI</a></div>
+            <div><span class="ref-icon">📖</span><a href="https://agentskills.io/home" target="_blank">agentskills.io — Agent Skills Standard</a></div>
+          </div>
+        </div>
+        <div class="key-articles" style="background: var(--accent-purple-bg); border-color: var(--accent-purple-border); padding: 14px 18px;">
+          <div class="key-articles-label" style="color: var(--accent-purple-text);">Food for thought</div>
+          <ul style="margin: 6px 0 0; padding: 0; display: flex; flex-direction: column; gap: 6px; list-style: none;">
+            <li class="fot-q" style="font-size: 0.8rem; color: var(--text-muted);">
+              <details>
+                <summary>What is the difference between role framing and positive framing? Why does telling a model what to do produce more reliable results than telling it what to avoid?</summary>
+                <div class="fot-answer">Role framing sets the agent's context and expertise ("you are a senior TypeScript engineer"), orienting all responses from that perspective. Positive framing describes the target behaviour rather than prohibitions: "always write typed interfaces" rather than "never use any". Because LLMs predict the next most likely token rather than reason about constraints, stating a prohibition still surfaces the unwanted pattern in the model's attention. Positive framing gives the model a clear target to generate toward.</div>
+              </details>
+            </li>
+            <li class="fot-q" style="font-size: 0.8rem; color: var(--text-muted);">
+              <details>
+                <summary>What is context rot, and why can't you pre-load all your framework guides into every session?</summary>
+                <div class="fot-answer">Context rot is the silent degradation of model recall as the context window fills, happening before the nominal token limit is reached. Pre-loading all framework guides consumes context capacity that should be reserved for the actual task, and causes recall to degrade across everything else in the window. The fix is to retrieve only what's needed just-in-time.</div>
+              </details>
+            </li>
+            <li class="fot-q" style="font-size: 0.8rem; color: var(--text-muted);">
+              <details>
+                <summary>What is the difference between RAG and OKF? Why does retrieval quality improve when you move from raw document chunks to structured knowledge?</summary>
+                <div class="fot-answer">RAG fetches text chunks from an external index at inference time. Hybrid search (semantic + keyword) improves which chunk you find, but the chunk itself may still carry irrelevant surrounding text. OKF goes further by structuring knowledge as typed entities and relationships rather than unstructured text, so the unit of retrieval is a precise fact rather than a paragraph. As Karpathy argued, the noise problem isn't just about finding the right document; it's about what that document contains.</div>
+              </details>
+            </li>
+            <li class="fot-q" style="font-size: 0.8rem; color: var(--text-muted);">
+              <details>
+                <summary>What can MCP do that RAG cannot? What does this mean for how an agent accesses information it wasn't trained on?</summary>
+                <div class="fot-answer">RAG retrieves from pre-indexed, static knowledge stores; it cannot interact with live systems or read state that changes between sessions. MCP lets the agent connect to external tools and query their current state: querying a database for current records, calling an API for up-to-date data, or reading a file system as it exists right now. Together, RAG handles stable reference knowledge while MCP handles dynamic, current-state access, without bespoke integration code for every tool.</div>
+              </details>
+            </li>
+            <li class="fot-q" style="font-size: 0.8rem; color: var(--text-muted);">
+              <details>
+                <summary>Why does a ReAct loop need an explicit convergence condition? What happens without one?</summary>
+                <div class="fot-answer">A convergence condition is an objective, machine-verifiable signal that tells the loop when to stop (e.g. all tests pass, zero must-fix findings). Without one, the loop has no signal to stop. Each Reason → Act → Observe cycle feeds new observations back into the context, progressively filling the window until the model degrades into the Dumb Zone or hits the context limit, and the agent keeps looping without making meaningful progress.</div>
+              </details>
+            </li>
+            <li class="fot-q" style="font-size: 0.8rem; color: var(--text-muted);">
+              <details>
+                <summary>What three failure modes does Planning-Execution Separation prevent? Why do they occur when planning and execution are interleaved?</summary>
+                <div class="fot-answer">
+                  <ul style="margin: 0; padding-left: 16px; display: flex; flex-direction: column; gap: 4px;">
+                    <li><strong>Context overflow:</strong> researching mid-task eats up token limits that should be reserved for writing code.</li>
+                    <li><strong>Plan narration:</strong> the agent gets confused and just describes what it would do instead of actually coding.</li>
+                    <li><strong>Late requirement changes:</strong> ambiguities surface mid-implementation and derail the coding session.</li>
+                  </ul>
+                  <div style="margin-top: 6px;">Keeping the phases separate eliminates all three.</div>
+                </div>
+              </details>
+            </li>
+            <li class="fot-q" style="font-size: 0.8rem; color: var(--text-muted);">
+              <details>
+                <summary>What is a <code>SKILL.md</code> file, and how does progressive disclosure keep the context footprint minimal as the number of installed skills grows?</summary>
+                <div class="fot-answer">A <code>SKILL.md</code> defines a reusable agent skill: its name, a short description, and detailed instructions, along with supporting scripts and resources. Progressive disclosure means only the name and one-line description of every installed skill load at startup. Full instructions only load when a skill is actually invoked, so installing more skills doesn't proportionally increase the context footprint of every session.</div>
+              </details>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Topic 3 -->
+    <div class="phase-card" id="phase-principles">
+      <div class="phase-card-header">
+        <span class="phase-num-badge">Topic 3</span>
+        <span class="phase-card-title">Agentic Development Principles</span>
+      </div>
+      <div class="phase-card-body">
+        <div class="concept">
+          <div class="concept-name">Human-in-the-Loop (HITL) Design</div>
+          <div class="concept-desc">Because AI agents will confidently guess answers to ambiguous requirements rather than pause, you must place human review at defined checkpoints where decisions require judgment (scope changes, compliance sign-off). Let the system self-correct only where the outcome is machine-verifiable (syntax errors, test failures). A gate that can be bypassed, even accidentally, is not a gate.</div>
+        </div>
+        <div class="concept">
+          <div class="concept-name">Specification-First Development</div>
+          <div class="concept-desc">A complete, unambiguous specification must exist before implementation begins: the agent reads and implements rather than deriving requirements mid-loop. Several approaches exist, each with a different way of expressing that specification:</div>
+          <ul style="margin-top: 8px; padding-left: 18px; display: flex; flex-direction: column; gap: 3px;">
+            <li style="font-size: 0.82rem; color: var(--text-muted);"><strong><a href="https://docs.developer.tech.gov.sg/docs/software-delivery-playbook/practices/behaviour-driven-development?product=Software+Delivery+Practices" target="_blank">Behaviour Driven Development (BDD)</a></strong>: using human-readable scenarios as the spec</li>
+            <li style="font-size: 0.82rem; color: var(--text-muted);"><strong><a href="https://www.ibm.com/think/topics/spec-driven-development" target="_blank">Spec-Driven Development (SDD)</a></strong>: a formal specification document drives all downstream work</li>
+            <li style="font-size: 0.82rem; color: var(--text-muted);"><strong><a href="https://martinfowler.com/articles/structured-prompt-driven/" target="_blank">Structured Prompt Driven Development (SPDD)</a></strong>: structured prompts as the spec format</li>
+            <li style="font-size: 0.82rem; color: var(--text-muted);"><strong><a href="https://github.com/github/spec-kit" target="_blank">Spec Kit</a></strong>: structured spec templates for AI agents</li>
+            <li style="font-size: 0.82rem; color: var(--text-muted);"><strong><a href="https://github.com/open-gsd/gsd-core" target="_blank">Get Shit Done (GSD)</a></strong>: a lightweight spec-first framework</li>
+            <li style="font-size: 0.82rem; color: var(--text-muted);"><strong><a href="https://github.com/obra/superpowers" target="_blank">Obra Superpower</a></strong>: spec-first workflow tooling</li>
+            <li style="font-size: 0.82rem; color: var(--text-muted);"><strong><a href="https://www.aihero.dev/plan-mode-introduction" target="_blank">Default Coding Agent's Plan Mode</a></strong>: the built-in planning step in tools like Claude Code before execution begins</li>
+          </ul>
+          <p style="font-size: 0.82rem; color: var(--text-muted); margin-top: 10px;"><strong>Why was Matt Pocock's workflow chosen for Eitri?</strong> Because it is incredibly lightweight and flexible. While agentic frameworks like Spec Kit or GSD mandate specific directory structures, multi-file templates, and dedicated CLIs, Pocock's workflow simply relies on a folder of composable, conversational skills. You only invoke the skills you need (like <code>/grill-me</code>). The agent actively interviews you to extract requirements and then generates a single <code>plan.md</code>. It gives you the discipline of a spec-first process with near-zero overhead and no rigid lock-in.</p>
+        </div>
+        <div class="concept">
+          <div class="concept-name">Test-Driven Development (TDD)</div>
+          <div class="concept-desc">TDD follows the <strong>Red-Green-Refactor</strong> loop: write a failing test (Red), write the minimum code to make it pass (Green), then refactor without breaking tests (Refactor). In agentic work, TDD provides the machine-verifiable convergence signal: the loop exits when tests pass, not when output looks plausible. Without it, non-determinism means there is no objective way to know the agent is done.</div>
+        </div>
+        <div class="concept">
+          <div class="concept-name">Architecture Decision Records (ADRs)</div>
+          <div class="concept-desc">Short documents capturing a technical choice (context, decision, consequences). Because agents have no persistent memory between sessions, ADRs stored in version control act as their durable external memory. Without them, a future agent session has no way to know a past architectural choice was deliberate, and may silently "fix" or reverse it. Storing them in the repo ensures every new session encounters them.</div>
+        </div>
+        <div class="concept">
+          <div class="concept-name">Tracer Bullet Development</div>
+          <div class="concept-desc">A strategy for slicing work into tickets. Rather than building horizontal layers (e.g. building the entire database schema first), work is sliced vertically into a thin, production-quality feature that cuts through all layers (data, logic, interface, tests). It is essential for agents because horizontal slices cannot be demoed or tested end-to-end in isolation. If a slice can't be fully tested, the agent cannot verify its own output, and the self-correction loop stalls.</div>
+        </div>
+        <div class="concept">
+          <div class="concept-name">Living Documentation</div>
+          <div class="concept-desc">In traditional development, stale documentation is an annoyance. In agentic development, it is a fatal bug. Because agents treat your repository's documentation as their system prompt, they will faithfully generate code that perfectly complies with whatever standards they read. If your documented architecture constraints and coding standards drift from reality, the agent will confidently produce wrong outputs.</div>
+        </div>
+        <div class="key-articles">
+          <div class="key-articles-label">Key articles to read</div>
+          <div class="key-articles-list">
+            <div><span class="ref-icon">📄</span><a href="https://martinfowler.com/articles/exploring-gen-ai/humans-and-agents.html" target="_blank">Martin Fowler — Humans and Agents in Software Engineering Loops</a></div>
+            <div><span class="ref-icon">📄</span><a href="https://docs.developer.tech.gov.sg/docs/software-delivery-playbook/practices/test-driven-development?product=Software+Delivery+Practices" target="_blank">GovTech Software Delivery Playbook — Test Driven Development</a></div>
+            <div><span class="ref-icon">📄</span><a href="https://cognitect.com/blog/2011/11/15/documenting-architecture-decisions" target="_blank">Michael Nygard — Documenting Architecture Decisions</a></div>
+            <div><span class="ref-icon">📄</span><a href="https://www.aihero.dev/tracer-bullets" target="_blank">AI Hero — Tracer Bullets</a></div>
+          </div>
+        </div>
+        <div class="key-articles" style="background: var(--accent-purple-bg); border-color: var(--accent-purple-border); padding: 14px 18px;">
+          <div class="key-articles-label" style="color: var(--accent-purple-text);">Food for thought</div>
+          <ul style="margin: 6px 0 0; padding: 0; display: flex; flex-direction: column; gap: 6px; list-style: none;">
+            <li class="fot-q" style="font-size: 0.8rem; color: var(--text-muted);">
+              <details>
+                <summary>What distinguishes a decision that needs human judgment from one the system should self-correct? Give an example of each.</summary>
+                <div class="fot-answer">Because agents will guess rather than pause when faced with ambiguity, human judgment is required for decisions involving scope changes or compliance sign-off, as these are things the system cannot objectively verify. The system should only be allowed to self-correct where the outcome is purely machine-verifiable, like a failing test or a syntax error.</div>
+              </details>
+            </li>
+            <li class="fot-q" style="font-size: 0.8rem; color: var(--text-muted);">
+              <details>
+                <summary>What is the core principle of Specification-First Development, and why is Matt Pocock's workflow considered more lightweight and flexible than frameworks like Spec Kit?</summary>
+                <div class="fot-answer">The core principle is that a complete specification must exist before implementation begins so the agent implements rather than deriving requirements mid-loop. While frameworks like Spec Kit mandate specific directory structures and dedicated CLIs, Matt Pocock's workflow is lightweight and flexible because it simply uses a folder of composable conversational skills (like /grill-me) to dynamically co-create a single plan document. You only invoke what you need, avoiding heavy toolchain lock-in.</div>
+              </details>
+            </li>
+            <li class="fot-q" style="font-size: 0.8rem; color: var(--text-muted);">
+              <details>
+                <summary>Why does TDD provide a more reliable convergence signal than checking whether output looks correct?</summary>
+                <div class="fot-answer">Because of non-determinism, output that looks correct on one run may differ on the next. A passing test suite is machine-verifiable: the loop exits only when a defined, objective standard is met, not when a human or the agent judges the output to look right.</div>
+              </details>
+            </li>
+            <li class="fot-q" style="font-size: 0.8rem; color: var(--text-muted);">
+              <details>
+                <summary>What three fields does an Architecture Decision Record contain, and why does storing it in version control matter for future agent sessions?</summary>
+                <div class="fot-answer">Context (why the decision was needed), decision (what was chosen), and consequences (what this implies going forward). Because agents have no persistent state, storing ADRs in version control acts as their external memory. It ensures future sessions encounter them when reading the repo, preventing the agent from silently "fixing" or reversing deliberate decisions made in earlier sessions.</div>
+              </details>
+            </li>
+            <li class="fot-q" style="font-size: 0.8rem; color: var(--text-muted);">
+              <details>
+                <summary>What is a tracer-bullet issue and why must it touch all architectural layers?</summary>
+                <div class="fot-answer">A tracer-bullet issue is a vertically sliced ticket: a thin but production-quality feature that cuts through every layer (data, logic, interface, tests). It must touch all layers because horizontal slices (like building just the DB schema) cannot be demoed or tested end-to-end in isolation. If it can't be fully tested, the agent has no objective way to validate its own output.</div>
+              </details>
+            </li>
+            <li class="fot-q" style="font-size: 0.8rem; color: var(--text-muted);">
+              <details>
+                <summary>What happens to an agent's outputs when the coding standards it was given are out of date?</summary>
+                <div class="fot-answer">Because agents treat documentation as their system prompt, they will faithfully generate code that perfectly complies with whatever standards they read. If those standards are outdated, the agent will confidently produce wrong outputs. In agentic development, documentation isn't just a guide; it is executable configuration that must stay current.</div>
+              </details>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Topic 4 -->
+    <div class="phase-card" id="phase-multiagent">
+      <div class="phase-card-header">
+        <span class="phase-num-badge">Topic 4</span>
+        <span class="phase-card-title">Multi-Agent Patterns</span>
+      </div>
+      <div class="phase-card-body">
+        <div class="concept">
+          <div class="concept-name">Orchestrator-Worker Architecture</div>
+          <div class="concept-desc">The orchestrator coordinates (sequences work, routes blockers) and never reads files or makes implementation decisions. An orchestrator that does implementation work fills its context with detail and loses coordination accuracy.</div>
+        </div>
+        <div class="concept">
+          <div class="concept-name">Subagents and Context Isolation</div>
+          <div class="concept-desc">Each subagent starts with a clean context window, a restricted tool set, and a single bounded task. Isolation ensures a subagent reading files for one ticket cannot pollute the context of another.</div>
+        </div>
+        <div class="concept">
+          <div class="concept-name">Independent Review as Quality Architecture</div>
+          <div class="concept-desc">When using one agent to review another's work, the reviewer must only be given the final output and the original specification. If the reviewer inherits the implementing agent's full conversation history, it becomes biased by the implementer's logic and ends up reviewing the reasoning rather than checking if the actual code meets the spec.</div>
+        </div>
+        <div class="concept">
+          <div class="concept-name">Parallel Execution and Specialization</div>
+          <div class="concept-desc">Unlike a human team, an orchestrator can spawn multiple subagents to tackle independent tasks simultaneously (like running five different compliance checks at once). Subagents can also be specialized, using different system prompts or cheaper models suited to their specific bounded task, which optimizes both speed and cost.</div>
+        </div>
+        <div class="key-articles">
+          <div class="key-articles-label">Key articles to read</div>
+          <div class="key-articles-list">
+            <div><span class="ref-icon">📄</span><a href="https://www.anthropic.com/research/building-effective-agents" target="_blank">Anthropic — Building Effective Agents</a></div>
+          </div>
+        </div>
+        <div class="key-articles" style="background: var(--accent-purple-bg); border-color: var(--accent-purple-border); padding: 14px 18px;">
+          <div class="key-articles-label" style="color: var(--accent-purple-text);">Food for thought</div>
+          <ul style="margin: 6px 0 0; padding: 0; display: flex; flex-direction: column; gap: 6px; list-style: none;">
+            <li class="fot-q" style="font-size: 0.8rem; color: var(--text-muted);">
+              <details>
+                <summary>What goes wrong when the orchestrator starts reading files and making implementation decisions instead of just coordinating?</summary>
+                <div class="fot-answer">The orchestrator's context fills with implementation details (file contents, code decisions, task specifics), leaving less capacity for high-level coordination. As the window fills, coordination accuracy degrades and the orchestrator loses the overview it needs to route work and manage blockers effectively.</div>
+              </details>
+            </li>
+            <li class="fot-q" style="font-size: 0.8rem; color: var(--text-muted);">
+              <details>
+                <summary>Why does a subagent need a clean context window and a bounded task? What breaks if it inherits the orchestrator's full context?</summary>
+                <div class="fot-answer">A clean context window ensures the subagent only processes what's relevant. A single bounded task and a restricted tool set limit what the subagent can do, keeping its reasoning focused. If it inherits the orchestrator's full context instead, it receives coordination history, details from other tickets, and unrelated decisions, which pollutes its context, degrades accuracy, and risks cross-ticket interference.</div>
+              </details>
+            </li>
+            <li class="fot-q" style="font-size: 0.8rem; color: var(--text-muted);">
+              <details>
+                <summary>Why does the reviewer see only the output and specification, not the implementer's conversation history?</summary>
+                <div class="fot-answer">If the reviewer inherits the implementing agent's full conversation history, it becomes biased by the implementer's logic and ends up assessing the reasoning rather than the actual code. The review must independently judge whether the final output meets the spec, which is only possible if the reviewer starts with a clean context.</div>
+              </details>
+            </li>
+            <li class="fot-q" style="font-size: 0.8rem; color: var(--text-muted);">
+              <details>
+                <summary>How do parallel execution and specialization improve the efficiency of a multi-agent system?</summary>
+                <div class="fot-answer">Parallel execution allows an orchestrator to run multiple independent tasks simultaneously, drastically reducing wall-clock time. Specialization allows the orchestrator to route simpler tasks to cheaper, faster models while reserving expensive reasoning models for complex work, optimizing both overall cost and speed.</div>
+              </details>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-block">
+    <div class="cta-label">Prerequisites complete</div>
+    <div class="cta-title">Ready to see what Eitri adds?</div>
+    <a class="cta-btn" href="01-eitri-skills.html">Start Lesson 1 →</a>
+  </div>
+
+
+</div>
+
+<script>
+  document.querySelectorAll('.copy-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const code = btn.closest('.install-block').querySelector('code').innerText;
+      navigator.clipboard.writeText(code).then(() => {
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied');
+        setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+      });
+    });
+  });
+
+  // Collapsible sidenav groups
+  document.querySelectorAll('.sidenav-toggle').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var group = document.getElementById(btn.dataset.target);
+      var isExpanded = !btn.classList.contains('collapsed');
+      if (isExpanded && btn.dataset.href) {
+        var target = document.querySelector(btn.dataset.href);
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+      var isCollapsed = btn.classList.toggle('collapsed');
+      group.classList.toggle('collapsed', isCollapsed);
+    });
+  });
+
+  // Scroll-spy
+  (function() {
+    var links = document.querySelectorAll('.page-sidenav .sidenav-link[href^="#"]');
+    var sections = Array.from(links).map(function(l) { return document.querySelector(l.getAttribute('href')); }).filter(Boolean);
+    function update() {
+      var scrollY = window.scrollY + 130;
+      var current = sections[0];
+      for (var i = 0; i < sections.length; i++) {
+        if (sections[i].getBoundingClientRect().top + window.scrollY <= scrollY) current = sections[i];
+      }
+      if (!current) return;
+      links.forEach(function(l) {
+        l.classList.toggle('active', l.getAttribute('href') === '#' + current.id);
+      });
+    }
+    window.addEventListener('scroll', update, { passive: true });
+    update();
+  })();
+</script>
+<script>
+  (function() {
+    var btn = document.getElementById('theme-toggle');
+    btn.addEventListener('click', function() {
+      var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      if (isDark) {
+        document.documentElement.removeAttribute('data-theme');
+        localStorage.setItem('eitri-theme', 'light');
+        btn.setAttribute('aria-label', 'Switch to dark mode');
+        btn.setAttribute('title', 'Switch to dark mode');
+      } else {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem('eitri-theme', 'dark');
+        btn.setAttribute('aria-label', 'Switch to light mode');
+        btn.setAttribute('title', 'Switch to light mode');
+      }
+    });
+    if (document.documentElement.getAttribute('data-theme') === 'dark') {
+      btn.setAttribute('aria-label', 'Switch to light mode');
+      btn.setAttribute('title', 'Switch to light mode');
+    }
+  })();
+</script>
+</body>
+</html>

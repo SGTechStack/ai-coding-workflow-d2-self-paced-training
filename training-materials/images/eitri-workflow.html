@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eitri Agentic Dev Workflow - Enhanced (Presenter)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #0B1120; color: #F8FAFC; }
+        .slide-deck { display: flex; flex-direction: column; padding: 32px; align-items: center; }
+        .slide-board { width: 100%; max-width: 1500px; background: #0F172A; border-radius: 16px; padding: 32px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1); border: 1px solid #1E293B; transition: border-color 0.6s ease, box-shadow 0.6s ease; }
+        .slide-board.enhanced { border-color: rgba(154,52,18,0.5); box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1), 0 0 40px rgba(234,88,12,0.1); }
+
+        .phase-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; margin-top: 20px; }
+        /* Heights set by JS */
+        .phase-col { background: #152033; border-radius: 12px; padding: 16px; display: flex; flex-direction: column; gap: 12px; box-sizing: border-box; }
+        .col-arch { border-top: 4px solid #8B5CF6; }
+        .col-spec { border-top: 4px solid #3B82F6; }
+        .col-deco { border-top: 4px solid #06B6D4; }
+        .col-impl { border-top: 4px solid #10B981; }
+        .col-clos { border-top: 4px solid #F59E0B; }
+
+        .cmd-pill { background: #1E293B; border: 1px solid #334155; border-radius: 10px; padding: 14px 16px; position: relative; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); transition: transform 0.2s; }
+        .cmd-pill:hover { transform: translateY(-2px); }
+
+        /* Enhanced pills / gates — out of flow until revealed */
+        .cmd-pill.eds { /* display: none removed */ background: linear-gradient(180deg, #1E293B 0%, #2A1308 100%); border: 1px solid #EA580C; box-shadow: 0 4px 15px -3px rgba(234,88,12,0.25);  }
+        .cmd-pill.eds .step-num { color: #FDBA74; }
+        .cmd-pill.eds .cmd-text { color: #FFEDD5; }
+        .cmd-pill.eds .cmd-desc { color: #FDBA74; opacity: 0.85; }
+        .hitl-gate { display: flex; /* display: none removed */ background: rgba(30,58,138,0.25); border: 2px dashed #3B82F6; border-radius: 10px; padding: 12px; text-align: center; flex-direction: column; gap: 3px;  }
+
+        /* impl-slot: relative container for the implement ↔ do-work crossfade */
+        .impl-slot { position: relative; flex-shrink: 0; }
+        .implement-base { transition: opacity 0.4s ease; }
+        .implement-base.fading {   }
+
+        /* do-work: absolutely overlays /implement at top:0 */
+        .do-work-container { position: relative; width: 100%; /* absolute removed */  border-radius: 10px; padding: 14px; z-index: 2; }
+
+        /* do-work internal sub-elements — each hidden until its dw-step is reached */
+        [data-dw-step] { /* display: none removed */ }
+
+        .pill-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+        .step-num { font-size: 12px; font-weight: 700; color: #94A3B8; text-transform: uppercase; letter-spacing: 0.5px; }
+        .tag-base { background: #334155; color: #CBD5E1; font-size: 10px; padding: 2px 8px; border-radius: 4px; font-weight: 600; line-height: 14px; }
+        .tag-eds { background: #EA580C; color: #FFF; font-size: 11px; font-weight: 900; display: inline-flex; align-items: center; justify-content: center; line-height: 1; padding: 2px 5px 4px 5px; border-radius: 3px; }
+        .gate-icon { color: #60A5FA; font-size: 15px; margin-bottom: 2px; }
+        .gate-title { font-size: 11px; font-weight: 800; color: #93C5FD; text-transform: uppercase; letter-spacing: 1px; }
+        .cmd-text { font-family: 'SF Mono', 'Fira Code', Consolas, monospace; font-size: 11.5px; font-weight: 600; letter-spacing: -0.3px; color: #E2E8F0; word-wrap: break-word; }
+        .cmd-desc { font-size: 11px; color: #94A3B8; margin-top: 6px; line-height: 1.35; }
+
+        .do-work-title { font-size: 11px; color: #2DD4BF; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; padding-bottom: 6px; border-bottom: 1px solid #115E59; }
+        .loop-track { position: relative; display: flex; flex-direction: column; gap: 8px; }
+        .return-path { position: absolute; right: -2px; top: 16px; bottom: 0; width: 14px; border-right: 2px dashed #EF4444; border-top: 2px dashed #EF4444; border-bottom: 2px dashed #EF4444; border-radius: 0 10px 10px 0; z-index: 10; }
+        .return-path::before { content: ''; position: absolute; top: -6px; left: -6px; border-top: 5px solid transparent; border-bottom: 5px solid transparent; border-right: 6px solid #EF4444; }
+        .fail-badge { position: absolute; top: 50%; left: calc(100% - 3px); transform: translate(-15%,-50%); width: 72px; background: #EF4444; color: white; font-size: 9px; font-weight: 800; padding: 6px 4px; border-radius: 5px; box-shadow: 0 4px 10px rgba(0,0,0,0.5), 0 0 12px rgba(239,68,68,0.4); text-align: center; line-height: 1.2; z-index: 50; }
+        .loop-step { background: #022C22; border: 1px solid #059669; padding: 9px 11px; border-radius: 6px; font-size: 12px; color: #A7F3D0; position: relative; }
+        .validation-block { background: #020617; border: 1px dashed #3B82F6; padding: 10px; border-radius: 6px; }
+        .loop-success { margin-top: 10px; text-align: center; font-size: 11px; font-weight: 800; color: #4ADE80; background: rgba(74,222,128,0.12); padding: 6px; border-radius: 5px; }
+
+        .mr-badge { background: #14532d33; border: 2px solid #22c55e; border-radius: 12px; padding: 14px; text-align: center; box-shadow: 0 0 15px rgba(34,197,94,0.15); transition: box-shadow 0.5s; margin-top: auto; }
+        .mr-badge.compliant { box-shadow: 0 0 28px rgba(34,197,94,0.35); }
+        .mr-compliant-tag { opacity: 1 !important; transform: scale(1) !important; display: inline-block;   transition: opacity 0.4s ease, transform 0.4s ease; margin-top: 6px; font-size: 10px; font-weight: 800; color: #4ade80; background: rgba(74,222,128,0.15); border: 1px solid rgba(74,222,128,0.4); border-radius: 6px; padding: 4px 8px; letter-spacing: 0.5px; }
+        .mr-compliant-tag.visible { opacity: 1; transform: scale(1); }
+
+        #header-baseline { transition: opacity 0.4s; }
+        #header-enhanced { /* display: none removed */ }
+        #header-enhanced.visible { display: flex; }
+
+        #progress-bar { position: fixed; top: 0; left: 0; height: 3px; background: linear-gradient(90deg,#8B5CF6,#3B82F6,#06B6D4,#10B981,#F59E0B); transition: width 0.4s ease; z-index: 100; }
+    </style>
+</head>
+<body>
+
+<div class="slide-deck">
+<div class="slide-board" id="slide-board">
+
+    
+    <div id="header-enhanced" style="display: flex !important;" class="justify-between items-end border-b border-orange-900/40 pb-4 relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-96 h-96 bg-orange-500/5 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="relative z-10">
+            <h2 class="text-3xl font-bold text-white tracking-tight flex items-center gap-3">
+                <i class="fa-solid fa-bolt text-orange-500"></i> Eitri — Built on Matt Pocock's Workflow
+            </h2>
+            <p class="text-orange-200/70 text-base mt-1">Custom AI skills that close the four enterprise gaps with compliance gates, automated validation, and self-steering loops</p>
+        </div>
+    </div>
+
+    <div class="phase-grid">
+
+        <!-- 01 Architecture -->
+        <div class="phase-col col-arch">
+            <div class="flex items-center gap-3 mb-1">
+                <span class="text-2xl font-black text-purple-400 opacity-50">01</span>
+                <h3 class="text-sm font-bold text-purple-300 uppercase tracking-wider">Architecture</h3>
+            </div>
+            <div class="cmd-pill">
+                <div class="pill-header"><span class="step-num">Step 1</span><span class="tag-base">base</span></div>
+                <div class="cmd-text">/setup-matt-pocock-skills</div>
+                <div class="cmd-desc">Configures your issue tracker, triage labels, and the domain documentation that provides the core rules and vocabulary of your business. Run once per repository.</div>
+            </div>
+            <div class="cmd-pill eds">
+                <div class="pill-header"><span class="step-num">Step 2</span><span class="tag-eds">+</span></div>
+                <div class="cmd-text">/dependency-orchestrator</div>
+                <div class="cmd-desc">Analyzes project requirements to map dependencies across stories, generating a PM report (duration, team sizing, critical path) and a developer wave plan (exact build sequence).</div>
+            </div>
+            <div class="cmd-pill eds">
+                <div class="pill-header"><span class="step-num">Step 3</span><span class="tag-eds">+</span></div>
+                <div class="cmd-text">/arch-tests-plan &amp; /arch-tests-gen</div>
+                <div class="cmd-desc">Analyzes your architectural style and generates build-failing tests that instantly block boundary violations, rather than waiting for code reviews.</div>
+            </div>
+        </div>
+
+        <!-- 02 Specification -->
+        <div class="phase-col col-spec">
+            <div class="flex items-center gap-3 mb-1">
+                <span class="text-2xl font-black text-blue-400 opacity-50">02</span>
+                <h3 class="text-sm font-bold text-blue-300 uppercase tracking-wider">Specification</h3>
+            </div>
+            <div class="cmd-pill">
+                <div class="pill-header"><span class="step-num">Step 4</span><span class="tag-base">base</span></div>
+                <div class="cmd-text">/wayfinder</div>
+                <div class="cmd-desc">Breaks down complex problems into a clear sequence of step-by-step decision tickets, solving each unknown before moving forward.</div>
+            </div>
+            <div class="cmd-pill">
+                <div class="pill-header"><span class="step-num">Step 5</span><span class="tag-base">base</span></div>
+                <div class="cmd-text">/to-spec</div>
+                <div class="cmd-desc">Synthesises your technical decisions into a clear Technical Requirements Document (TRD) and publishes it.</div>
+            </div>
+            <div class="cmd-pill eds">
+                <div class="pill-header"><span class="step-num">Step 6</span><span class="tag-eds">+</span></div>
+                <div class="cmd-text">/spec-compliance</div>
+                <div class="cmd-desc">Audits the TRD against strict policies like IM8 and ARC, catching violations to ensure the specification is fully compliant.</div>
+            </div>
+            <div class="hitl-gate">
+                <i class="fa-solid fa-hand gate-icon"></i>
+                <span class="gate-title">Gate 1</span>
+                <span class="text-xs text-blue-200">TRD Sign-off</span>
+            </div>
+        </div>
+
+        <!-- 03 Decomposition -->
+        <div class="phase-col col-deco">
+            <div class="flex items-center gap-3 mb-1">
+                <span class="text-2xl font-black text-cyan-400 opacity-50">03</span>
+                <h3 class="text-sm font-bold text-cyan-300 uppercase tracking-wider">Decomposition</h3>
+            </div>
+            <div class="cmd-pill">
+                <div class="pill-header"><span class="step-num">Step 7</span><span class="tag-base">base</span></div>
+                <div class="cmd-text">/to-tickets</div>
+                <div class="cmd-desc">Converts the TRD into thin, vertical tracer-bullet tickets that cut through every layer of the app, mapping out the exact order they must be completed.</div>
+            </div>
+            <div class="cmd-pill eds">
+                <div class="pill-header"><span class="step-num">Step 8</span><span class="tag-eds">+</span></div>
+                <div class="cmd-text">/issue-verification</div>
+                <div class="cmd-desc">Checks that every ticket covers all layers, is demoable, and unambiguous. Fails are fixed before tickets are published.</div>
+            </div>
+            <div class="hitl-gate">
+                <i class="fa-solid fa-hand gate-icon"></i>
+                <span class="gate-title">Gate 2</span>
+                <span class="text-xs text-blue-200">Ticket Sign-off</span>
+            </div>
+        </div>
+
+        <!-- 04 Implementation -->
+        <div class="phase-col col-impl">
+            <div class="flex items-center gap-3 mb-1">
+                <span class="text-2xl font-black text-emerald-400 opacity-50">04</span>
+                <h3 class="text-sm font-bold text-emerald-300 uppercase tracking-wider">Implementation</h3>
+            </div>
+            <div class="impl-slot" id="impl-slot">
+                
+
+                <!-- /do-work shell: position:absolute, same top-left as /implement -->
+                <div class="do-work-container" id="do-work"
+                     style="background:linear-gradient(180deg,#1A120B 0%,#0F172A 100%);border:1.5px solid #EA580C;box-shadow:0 4px 20px -3px rgba(234,88,12,0.3);">
+                    <div class="flex justify-between items-center mb-1">
+                        <span class="step-num text-orange-300 font-bold">Step 9</span>
+                        <span class="tag-eds">+</span>
+                    </div>
+                    <div class="cmd-text text-orange-200 mb-2 font-bold" style="font-size:12px;">/do-work</div>
+                    <div class="do-work-title"><i class="fa-solid fa-arrows-spin mr-1"></i> Self-Steering Engine</div>
+
+                    <div class="loop-track">
+                        <!-- Inner div: IMPLEMENT + REVIEW stack -->
+                        <div id="dw-inner" style="position:relative;padding-right:18px;display:flex;flex-direction:column;gap:8px;">
+
+                            <!-- Return-path bracket + fail-badge: absolute, revealed at dw-step 2 -->
+                            <div class="return-path" style="">
+                                <div class="fail-badge">FAIL / HITL:<br>Fix &amp; Retry</div>
+                            </div>
+
+                            <!-- dw-step 1: IMPLEMENT box + arrow -->
+                            <div class="loop-step"
+                                 style="background:#2A1308;border-color:#EA580C;color:#FFEDD5;">
+                                <div class="font-bold text-orange-300" style="font-size:10px;"><i class="fa-solid fa-code mr-1"></i> 1. IMPLEMENT</div>
+                                <div style="font-size:10px;" class="text-orange-200 mt-0.5 leading-tight">Select ticket, query Knowledge Base for best practices, &amp; implement via TDD</div>
+                            </div>
+                            <div class="text-center text-orange-500 text-[11px]" style="">
+                                <i class="fa-solid fa-arrow-down"></i>
+                            </div>
+
+                            <!-- dw-step 2: REVIEW box -->
+                            <div class="loop-step"
+                                 style="background:#2A1308;border-color:#EA580C;color:#FFEDD5;">
+                                <div class="font-bold text-orange-300" style="font-size:10px;"><i class="fa-solid fa-robot mr-1"></i> 2. REVIEW</div>
+                                <div style="font-size:10px;" class="text-orange-200 mt-0.5 leading-tight">Cross-checks code against Knowledge Base to return must-fix findings or escalate decisions</div>
+                            </div>
+                        </div>
+
+                        <!-- dw-step 3: middle arrow + VALIDATE block -->
+                        <div class="text-center text-orange-500 text-[11px]" style="padding-right:18px;">
+                            <i class="fa-solid fa-arrow-down"></i>
+                        </div>
+                        <div style="">
+                            <div class="validation-block" style="border:1px dashed #EA580C;background:#120A05;">
+                                <div class="font-bold text-orange-300" style="margin-bottom:6px;font-size:10px;"><i class="fa-solid fa-circle-check mr-1"></i> 3. VALIDATE</div>
+                                <div style="display:flex;align-items:flex-start;gap:6px;margin-top:6px;">
+                                    <i class="fa-solid fa-vial" style="width:14px;min-width:14px;flex-shrink:0;color:#FB923C;font-size:9px;margin-top:2px;"></i>
+                                    <div><div style="font-size:9px;font-weight:600;color:#FFEDD5;">Compile &amp; Test</div><div style="font-size:8px;color:#FDBA74;">Type-checking &amp; test coverage</div></div>
+                                </div>
+                                <div style="display:flex;align-items:flex-start;gap:6px;margin-top:6px;">
+                                    <i class="fa-solid fa-shield-halved" style="width:14px;min-width:14px;flex-shrink:0;color:#FB923C;font-size:9px;margin-top:2px;"></i>
+                                    <div><div style="font-size:9px;font-weight:600;color:#FFEDD5;">Quality &amp; Security</div><div style="font-size:8px;color:#FDBA74;">Semgrep security scans &amp; Thermo-Nuclear</div></div>
+                                </div>
+                                <div style="display:flex;align-items:flex-start;gap:6px;margin-top:6px;">
+                                    <i class="fa-solid fa-bug-slash" style="width:14px;min-width:14px;flex-shrink:0;color:#FB923C;font-size:9px;margin-top:2px;"></i>
+                                    <div><div style="font-size:9px;font-weight:600;color:#FFEDD5;">Mutation Tests</div><div style="font-size:8px;color:#FDBA74;">Optional — runs on changed code</div></div>
+                                </div>
+                                <div style="margin-top:8px;border-top:1px dashed rgba(239,68,68,0.35);padding-top:6px;display:flex;align-items:center;gap:6px;color:#FCA5A5;font-size:10px;font-weight:700;">
+                                    <i class="fa-solid fa-arrows-rotate" style="width:14px;min-width:14px;flex-shrink:0;font-size:9px;"></i>
+                                    <span>FAIL &rarr; Fix &amp; Re-validate</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- dw-step 4: ALL PASS → COMMIT -->
+                    <div class="loop-success"
+                         style="background:rgba(234,88,12,0.15);color:#FDBA74;">
+                        <i class="fa-solid fa-arrow-right-from-bracket mr-1"></i> ALL PASS &rarr; COMMIT
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 05 Closeout -->
+        <div class="phase-col col-clos">
+            <div class="flex items-center gap-3 mb-1">
+                <span class="text-2xl font-black text-amber-400 opacity-50">05</span>
+                <h3 class="text-sm font-bold text-amber-300 uppercase tracking-wider">Closeout</h3>
+            </div>
+            <div class="cmd-pill">
+                <div class="pill-header"><span class="step-num">Step 10</span><span class="tag-base">base</span></div>
+                <div class="cmd-text">/improve-codebase-architecture</div>
+                <div class="cmd-desc">Scans the codebase for technical debt and refactoring opportunities after the feature is built.</div>
+            </div>
+            <div class="cmd-pill eds" style="padding-bottom: 10.5px;">
+                <div class="pill-header"><span class="step-num">Step 11</span><span class="tag-eds">+</span></div>
+                <div class="cmd-text">/arch-tests-gen-feature</div>
+                <div class="cmd-desc">Fills the placeholder architecture rules from /arch-tests-plan with real package names, converting them into automated tests that enforce boundaries.</div>
+            </div>
+            <div class="cmd-pill">
+                <div class="pill-header"><span class="step-num">Step 12</span><span class="tag-base">base</span></div>
+                <div class="cmd-text">/diagnosing-bugs</div>
+                <div class="cmd-desc">Provides a step-by-step debugging loop to safely reproduce, isolate, and fix complex issues.</div>
+            </div>
+            <div class="mr-badge compliant" id="mr-badge">
+                <div class="text-[11px] font-bold text-white tracking-widest mb-1">STATUS</div>
+                <div class="text-lg font-black text-green-400">MR READY</div>
+                <div class="text-[11px] text-green-200 mt-1">Complete</div>
+                <div class="mr-compliant-tag visible" id="mr-compliant">
+                    <i class="fa-solid fa-shield-check mr-1"></i> + Compliant
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+</div>
+
+
+</body>
+</html>

@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eitri Agentic Dev Workflow — Tutorial</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script>
+    (function() {
+      var saved = localStorage.getItem('eitri-theme');
+      var preferred = saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      if (preferred === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+    })();
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --border: #e2e8f0;
+      --border-light: #f1f5f9;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --text-subtle: #94a3b8;
+
+      --blue: #2563eb;
+      --blue-light: #3b82f6;
+      --accent-blue-bg: #eff6ff;
+      --accent-blue-border: #bfdbfe;
+      --accent-blue-text: #1e40af;
+
+      --orange: #ea580c;
+      --accent-orange-bg: #fff7ed;
+      --accent-orange-border: #fed7aa;
+
+      --green: #16a34a;
+      --accent-green-bg: #f0fdf4;
+      --accent-green-border: #bbf7d0;
+      --accent-green-text: #15803d;
+
+      --purple: #7c3aed;
+      --accent-purple-bg: #f5f3ff;
+      --accent-purple-border: #ddd6fe;
+
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      --font-mono: 'SF Mono', 'Fira Code', 'Cascadia Code', Consolas, monospace;
+
+      --radius: 8px;
+      --radius-lg: 12px;
+      --shadow: 0 1px 3px rgba(0,0,0,.07), 0 4px 12px rgba(0,0,0,.05);
+      --shadow-sm: 0 1px 2px rgba(0,0,0,.05);
+    }
+
+    [data-theme="dark"] {
+      --bg: #0f172a;
+      --surface: #1c2b3f;
+      --border: #2a3f5a;
+      --border-light: #162234;
+      --text: #dde8f4;
+      --text-muted: #94b3cb;
+      --text-subtle: #5e7e9a;
+      --accent-blue-bg: #0d2040;
+      --accent-blue-border: #1e50a5;
+      --accent-blue-text: #7ab8f5;
+      --accent-orange-bg: #2a1005;
+      --accent-orange-border: #b04010;
+      --accent-green-bg: #08261a;
+      --accent-green-border: #145c2e;
+      --accent-purple-bg: #1e0d40;
+      --accent-purple-border: #6b28cc;
+      --shadow: 0 1px 3px rgba(0,0,0,.4), 0 4px 12px rgba(0,0,0,.3);
+      --shadow-sm: 0 1px 2px rgba(0,0,0,.25);
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      font-size: 15px;
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    .page-wrap {
+      max-width: 880px;
+      margin: 0 auto;
+      padding: 40px 24px 80px;
+    }
+
+    /* ── Top navigation bar ── */
+    .topnav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.97);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      box-shadow: 0 1px 8px rgba(0,0,0,.05);
+      transition: background-color 0.2s ease, border-color 0.2s ease;
+    }
+    [data-theme="dark"] .topnav { background: rgba(15,23,42,0.97); }
+    .topnav-inner {
+      max-width: 880px;
+      margin: 0 auto;
+      padding: 0 24px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .topnav-brand {
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--orange);
+      padding-right: 16px;
+      white-space: nowrap;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      letter-spacing: -0.02em;
+      text-decoration: none;
+    }
+    .topnav-brand:hover { opacity: 0.8; text-decoration: none; }
+    .topnav-divider {
+      width: 1px;
+      height: 20px;
+      background: var(--border);
+      flex-shrink: 0;
+      margin-right: 8px;
+    }
+    .topnav-links { display: flex; align-items: center; gap: 2px; }
+    .topnav-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-decoration: none;
+      border-radius: 7px;
+      transition: color 0.15s, background 0.15s;
+      white-space: nowrap;
+    }
+    .topnav-link:hover { color: var(--text); background: var(--border-light); text-decoration: none; }
+    .topnav-link.active { color: var(--orange); background: var(--accent-orange-bg); pointer-events: none; }
+    .topnav-step {
+      min-width: 22px; height: 22px; padding: 0 4px;
+      border-radius: 99px;
+      background: var(--border-light);
+      border: 1.5px solid var(--border);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.62rem;
+      font-weight: 800;
+      flex-shrink: 0;
+      color: var(--text-subtle);
+    }
+    .topnav-link.active .topnav-step { background: var(--orange); border-color: var(--orange); color: white; }
+
+    /* ── Theme toggle ── */
+    .theme-toggle {
+      margin-left: auto;
+      flex-shrink: 0;
+      width: 34px; height: 34px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--border-light);
+      color: var(--text-muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.15s, border-color 0.15s, color 0.15s;
+    }
+    .theme-toggle:hover { background: var(--surface); color: var(--text); border-color: var(--text-subtle); }
+    .theme-icon { display: none; pointer-events: none; }
+    html:not([data-theme="dark"]) .moon { display: block; }
+    html[data-theme="dark"] .sun { display: block; }
+
+    /* ── Typography ── */
+    h1 {
+      font-size: 2.6rem;
+      font-weight: 800;
+      line-height: 1.1;
+      color: var(--text);
+      margin-bottom: 18px;
+      letter-spacing: -0.035em;
+    }
+    h2 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text);
+      margin: 40px 0 16px;
+      letter-spacing: -0.01em;
+    }
+    p { margin: 8px 0; font-size: 0.9rem; color: var(--text-muted); text-align: justify; hyphens: none; }
+    p strong { color: var(--text); }
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    ul { padding-left: 18px; margin: 6px 0; }
+    li { margin: 5px 0; font-size: 0.875rem; color: var(--text-muted); text-align: justify; hyphens: none; }
+    li strong { color: var(--text); }
+
+    /* ── Hero ── */
+    .course-eyebrow {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--orange);
+      margin-bottom: 10px;
+      display: block;
+    }
+    .lead {
+      font-size: 1rem;
+      line-height: 1.7;
+      color: var(--text-muted);
+      margin: 8px 0 32px;
+      text-align: justify;
+      hyphens: none;
+    }
+
+    /* ── Objective list ── */
+    .obj-list {
+      padding-left: 0;
+      list-style: none;
+      margin: 14px 0 0;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .obj-list li {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+      text-align: justify;
+      hyphens: none;
+    }
+    .obj-list li::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 99px;
+      background: var(--orange);
+      flex-shrink: 0;
+      margin-top: 7px;
+    }
+
+    /* ── Divider ── */
+    .section-divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 44px 0 0;
+    }
+
+    /* ── Module cards ── */
+    .module-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin: 20px 0;
+    }
+    .module-card {
+      display: flex;
+      gap: 0;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      text-decoration: none;
+      transition: box-shadow 0.15s, border-color 0.15s;
+    }
+    .module-card:hover { box-shadow: var(--shadow); border-color: #cbd5e1; text-decoration: none; }
+    [data-theme="dark"] .module-card:hover { border-color: #475569; }
+    .module-accent {
+      width: 6px;
+      flex-shrink: 0;
+    }
+    .module-accent.prereq { background: linear-gradient(180deg, var(--purple), #a78bfa); }
+    .module-accent.lesson0 { background: linear-gradient(180deg, #ea580c, #fb923c); }
+    .module-accent.lesson1 { background: linear-gradient(180deg, var(--blue), var(--blue-light)); }
+    .module-accent.lesson2 { background: linear-gradient(180deg, var(--green), #4ade80); }
+    .module-body {
+      flex: 1;
+      padding: 20px 22px;
+      display: flex;
+      gap: 18px;
+      align-items: flex-start;
+    }
+    .module-badge {
+      width: 40px; height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 800;
+      flex-shrink: 0;
+      color: white;
+    }
+    .module-badge.prereq { background: linear-gradient(135deg, var(--purple), #a78bfa); box-shadow: 0 2px 8px rgba(124,58,237,.25); }
+    .module-badge.lesson0 { background: linear-gradient(135deg, #ea580c, #fb923c); box-shadow: 0 2px 8px rgba(234,88,12,.25); }
+    .module-badge.lesson1 { background: linear-gradient(135deg, var(--blue), var(--blue-light)); box-shadow: 0 2px 8px rgba(37,99,235,.25); }
+    .module-badge.lesson2 { background: linear-gradient(135deg, var(--green), #4ade80); box-shadow: 0 2px 8px rgba(22,163,74,.25); }
+    .module-info { flex: 1; }
+    .module-eyebrow {
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-subtle);
+      margin-bottom: 4px;
+    }
+    .module-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 6px;
+      letter-spacing: -0.01em;
+    }
+    .module-desc {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+      margin-bottom: 0;
+      text-align: justify;
+      hyphens: none;
+    }
+    .module-topics {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 12px;
+    }
+    .topic-tag {
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 2px 9px;
+      border-radius: 99px;
+      background: var(--border-light);
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+    }
+    .module-arrow {
+      display: flex;
+      align-items: center;
+      padding-right: 18px;
+      color: var(--text-subtle);
+      font-size: 1rem;
+      flex-shrink: 0;
+      align-self: center;
+    }
+    .module-card:hover .module-arrow { color: var(--orange); }
+
+    /* ── Start CTA ── */
+    .cta-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      text-align: center;
+      margin: 40px 0 0;
+      padding: 28px;
+      background: linear-gradient(135deg, #fff7ed, #fff);
+      border: 1px solid var(--accent-orange-border);
+      border-radius: var(--radius-lg);
+    }
+    [data-theme="dark"] .cta-block { background: linear-gradient(135deg, #1c0903, #1e293b); }
+    .cta-label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); }
+    .cta-title { font-size: 1.1rem; font-weight: 700; color: var(--text); }
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 28px;
+      background: var(--orange);
+      color: white;
+      border-radius: 99px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      text-decoration: none;
+      margin-top: 6px;
+      box-shadow: 0 2px 8px rgba(234,88,12,.25);
+      transition: background 0.15s, box-shadow 0.15s;
+    }
+    .cta-btn:hover { background: #c2410c; box-shadow: 0 3px 12px rgba(234,88,12,.35); text-decoration: none; }
+
+    @media (max-width: 640px) {
+      h1 { font-size: 1.9rem; }
+      .topnav-inner { padding: 0 16px; }
+      .topnav-link { padding: 0 10px; font-size: 0.76rem; gap: 5px; }
+      .module-body { flex-direction: column; }
+      .module-arrow { display: none; }
+    }
+  </style>
+</head>
+<body>
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a href="eitri-overview.html" class="topnav-brand">Eitri Agentic Dev Workflow</a>
+    <div class="topnav-divider"></div>
+    <div class="topnav-links">
+      <a href="index.html" class="topnav-link"><span class="topnav-step">P</span>Prerequisites</a>
+      <a href="00-pm-ba-workflow.html" class="topnav-link"><span class="topnav-step">L0</span>PO Workflow</a>
+      <a href="01-eitri-skills.html" class="topnav-link"><span class="topnav-step">L1</span>Eitri Skills</a>
+      <a href="02-team-context-ingestion.html" class="topnav-link"><span class="topnav-step">L2</span>Team Context</a>
+    </div>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Switch to dark mode" title="Switch to dark mode">
+      <svg class="theme-icon sun" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      <svg class="theme-icon moon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+  </div>
+</nav>
+
+<div class="page-wrap">
+
+  <!-- Hero -->
+  <span class="course-eyebrow">Tutorial Overview</span>
+  <h1>Eitri Agentic Dev Workflow</h1>
+  <p class="lead">This tutorial is for developers looking to build AI engineering skills. A software development background is required. Without prior experience writing, testing, and shipping code, you will not be able to critically review and validate the code and artefacts the workflow produces. Eitri builds on Matt Pocock's agentic engineering framework, extending it with story dependency sequencing, issue quality gates, compliance reviews, architecture boundary enforcement, and a human-in-the-loop (HITL) self-steering implementation loop. This tutorial starts with the foundational concepts behind the workflow, walks through each Eitri skill and where it fits, and shows you how to inject your team's domain context, architecture standards, compliance policies, and coding best practices to ensure the skills operate according to your team's standards.</p>
+
+  <div style="margin: 24px 0; padding: 18px 20px; background: var(--accent-orange-bg); border: 1px solid var(--accent-orange-border); border-left: 4px solid var(--orange); border-radius: var(--radius);">
+    <div style="font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.09em; color: var(--orange); margin-bottom: 10px;">Why Matt Pocock's framework?</div>
+    <ul style="padding-left: 16px; margin: 0; display: flex; flex-direction: column; gap: 7px;">
+      <li style="font-size: 0.875rem; color: var(--text-muted);"><strong>Specification-first, specification as authority:</strong> a dedicated skill interviews you to produce a complete specification before any code is written, and that specification remains the source of truth throughout. When code and specification diverge, the specification wins. This directly addresses intent drift, the root failure mode of AI-assisted coding.</li>
+      <li style="font-size: 0.875rem; color: var(--text-muted);"><strong>Composable and lightweight:</strong> provides small, focused skills deployed only when necessary. Each skill is designed to prevent a specific AI coding pitfall (such as skipping tests or losing track of context) without imposing a heavyweight process or replacing your engineering judgment.</li>
+      <li style="font-size: 0.875rem; color: var(--text-muted);"><strong>No toolchain lock-in:</strong> compatible with any AI coding tool (Claude Code, Cursor, Cline) and any team setup, without imposing fixed directory structures or workflow conventions.</li>
+      <li style="font-size: 0.875rem; color: var(--text-muted);"><strong>Built around real failure modes:</strong> every workflow decision addresses the primary ways AI coding fails (ambiguity, intent drift, and poor handoff quality) and is grounded in decades of engineering practice, not theoretical best practice.</li>
+    </ul>
+  </div>
+
+  <!-- Objectives -->
+  <h2>By the end of this tutorial, you will be able to:</h2>
+  <ul class="obj-list">
+    <li>Execute Matt Pocock's agentic workflow end-to-end — from wayfinding (breaking down large efforts into investigation tickets) and PRD synthesis, to ticket decomposition, TDD implementation, two-axis code review, and structured bug diagnosis</li>
+    <li>Explain the Large Language Model (LLM) mechanics that shape the workflow's design — context windows, the Smart Zone and Dumb Zone, context rot, the three memory stores (in-context, external, parametric), hallucination, and non-determinism</li>
+    <li>Understand the engineering disciplines applied throughout the workflow — prompt engineering, context engineering, the ReAct pattern and its failure modes, QRSPI (Questions → Research → Structure → Plan → Implement) front-loading, agent skills and progressive disclosure, Retrieval-Augmented Generation (RAG), and Model Context Protocol (MCP)</li>
+    <li>Apply the development principles that structure agentic work — HITL design, specification-first development, TDD as a machine-verifiable convergence signal, Architecture Decision Records (ADRs), tracer bullet development, living documentation, and multi-agent orchestration patterns</li>
+    <li>Invoke the right Eitri skill at each workflow step — from dependency orchestration and architecture boundary enforcement through compliance audit, issue quality gates, and the self-steering implementation loop</li>
+    <li>Configure the workflow for your team by injecting business domain requirements, architecture standards, compliance policies, coding best practices, and code review standards at the right phase, ensuring every skill adheres to your team's specific standards</li>
+    <li>Ship a working application directly from user stories — applying the complete Eitri Agentic Dev Workflow to transform raw requirements into production-ready code</li>
+  </ul>
+
+  <hr class="section-divider">
+
+  <!-- Course structure -->
+  <h2>What's in this tutorial</h2>
+  <p>This tutorial consists of four modules. Please complete them in sequence.</p>
+
+  <div class="module-list">
+
+    <a href="index.html" class="module-card">
+      <div class="module-accent prereq"></div>
+      <div class="module-body">
+        <div class="module-badge prereq">P</div>
+        <div class="module-info">
+          <div class="module-eyebrow">Prerequisites — complete first</div>
+          <div class="module-title">Foundations of Agentic Engineering</div>
+          <div class="module-desc">This module is split into two tracks. Track A: watch Matt Pocock's workflow videos and practice each skill hands-on in your own repo. Track B: four foundational topics — how LLMs work, agentic engineering, agentic development principles, and multi-agent patterns.</div>
+        </div>
+        <div class="module-arrow">→</div>
+      </div>
+    </a>
+
+    <a href="00-pm-ba-workflow.html" class="module-card">
+      <div class="module-accent lesson0"></div>
+      <div class="module-body">
+        <div class="module-badge lesson0">0</div>
+        <div class="module-info">
+          <div class="module-eyebrow">Lesson 0</div>
+          <div class="module-title">PO Workflow</div>
+          <div class="module-desc">Details the full Product Owner (PO) journey in the Eitri Agentic Dev Workflow — from eliciting user stories with stakeholders, to generating a dependency-sequenced delivery plan with the Tech Lead, and finally syncing completed work into GitHub.</div>
+        </div>
+        <div class="module-arrow">→</div>
+      </div>
+    </a>
+
+    <a href="01-eitri-skills.html" class="module-card">
+      <div class="module-accent lesson1"></div>
+      <div class="module-body">
+        <div class="module-badge lesson1">1</div>
+        <div class="module-info">
+          <div class="module-eyebrow">Lesson 1</div>
+          <div class="module-title">Eitri Skills — What Was Built on Top</div>
+          <div class="module-desc">Examines each Eitri skill — where it fits in Matt Pocock's workflow, what problem it solves, what it produces, and how it connects to the next step. Practical application: execute each skill in your repository alongside the tutorial.</div>
+          <div class="module-topics">
+            <span class="topic-tag">/dependency-orchestrator</span>
+            <span class="topic-tag">/arch-tests-plan &amp; /arch-tests-gen</span>
+            <span class="topic-tag">/spec-compliance</span>
+            <span class="topic-tag">/issue-verification</span>
+            <span class="topic-tag">/do-work</span>
+            <span class="topic-tag">/arch-tests-gen-feature</span>
+            <span class="topic-tag">/grill-me</span>
+          </div>
+        </div>
+        <div class="module-arrow">→</div>
+      </div>
+    </a>
+
+    <a href="02-team-context-ingestion.html" class="module-card">
+      <div class="module-accent lesson2"></div>
+      <div class="module-body">
+        <div class="module-badge lesson2">2</div>
+        <div class="module-info">
+          <div class="module-eyebrow">Lesson 2</div>
+          <div class="module-title">Injecting Your Team's Context</div>
+          <div class="module-desc">By default, Eitri skills are not aware of your team's specific rules and require explicit configuration. Five configuration phases cover what context to inject and when: business domain &amp; requirements, architecture standards, compliance &amp; governance policies, coding best practices stored in an AWS Bedrock Knowledge Base (KB), and code review standards.</div>
+        </div>
+        <div class="module-arrow">→</div>
+      </div>
+    </a>
+
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-block">
+    <div class="cta-label">Ready to begin?</div>
+    <div class="cta-title">Start with the Prerequisites</div>
+    <a class="cta-btn" href="index.html">Go to Prerequisites →</a>
+  </div>
+
+</div>
+<script>
+  (function() {
+    var btn = document.getElementById('theme-toggle');
+    btn.addEventListener('click', function() {
+      var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      if (isDark) {
+        document.documentElement.removeAttribute('data-theme');
+        localStorage.setItem('eitri-theme', 'light');
+        btn.setAttribute('aria-label', 'Switch to dark mode');
+        btn.setAttribute('title', 'Switch to dark mode');
+      } else {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem('eitri-theme', 'dark');
+        btn.setAttribute('aria-label', 'Switch to light mode');
+        btn.setAttribute('title', 'Switch to light mode');
+      }
+    });
+    if (document.documentElement.getAttribute('data-theme') === 'dark') {
+      btn.setAttribute('aria-label', 'Switch to light mode');
+      btn.setAttribute('title', 'Switch to light mode');
+    }
+  })();
+</script>
+</body>
+</html>

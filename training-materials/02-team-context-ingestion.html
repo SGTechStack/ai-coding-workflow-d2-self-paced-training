@@ -1,0 +1,1667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 2 — Injecting Your Team's Context</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script>
+    (function() {
+      var saved = localStorage.getItem('eitri-theme');
+      var preferred = saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      if (preferred === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+    })();
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --border: #e2e8f0;
+      --border-light: #f1f5f9;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --text-subtle: #94a3b8;
+
+      --blue: #2563eb;
+      --blue-light: #3b82f6;
+      --accent-blue-bg: #eff6ff;
+      --accent-blue-border: #bfdbfe;
+      --accent-blue-text: #1e40af;
+
+      --orange: #ea580c;
+      --accent-orange: #ea580c;
+      --accent-orange-bg: #fff7ed;
+      --accent-orange-border: #fed7aa;
+
+      --green: #16a34a;
+      --accent-green-bg: #f0fdf4;
+      --accent-green-border: #bbf7d0;
+      --accent-green-text: #15803d;
+
+      --red: #dc2626;
+      --red-bg: #fef2f2;
+      --red-border: #fecaca;
+
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      --font-mono: 'SF Mono', 'Fira Code', 'Cascadia Code', Consolas, monospace;
+
+      --radius: 8px;
+      --radius-sm: 5px;
+      --radius-lg: 12px;
+      --shadow: 0 1px 3px rgba(0,0,0,.07), 0 4px 12px rgba(0,0,0,.05);
+      --shadow-sm: 0 1px 2px rgba(0,0,0,.05);
+    }
+
+    [data-theme="dark"] {
+      --bg: #0f172a;
+      --surface: #1c2b3f;
+      --border: #2a3f5a;
+      --border-light: #162234;
+      --text: #dde8f4;
+      --text-muted: #94b3cb;
+      --text-subtle: #5e7e9a;
+      --accent-blue-bg: #0d2040;
+      --accent-blue-border: #1e50a5;
+      --accent-blue-text: #7ab8f5;
+      --accent-orange-bg: #2a1005;
+      --accent-orange-border: #b04010;
+      --accent-green-bg: #08261a;
+      --accent-green-border: #145c2e;
+      --accent-purple-bg: #1e0d40;
+      --accent-purple-border: #6b28cc;
+      --shadow: 0 1px 3px rgba(0,0,0,.4), 0 4px 12px rgba(0,0,0,.3);
+      --shadow-sm: 0 1px 2px rgba(0,0,0,.25);
+    }
+    [data-theme="dark"] code { color: #f472b6; }
+    [data-theme="dark"] .callout { background: #1c1300; border-color: #3a2700; border-left-color: #b45309; }
+    [data-theme="dark"] .callout li code { color: #f472b6; background: rgba(255,255,255,.06); }
+    [data-theme="dark"] .chip-mp { background: var(--surface); color: var(--text-subtle); border-color: var(--border); }
+    [data-theme="dark"] .chip-plus { background: var(--accent-orange-bg); border-color: var(--accent-orange-border); }
+    [data-theme="dark"] .emr-example-label { background: var(--accent-blue-bg); }
+    [data-theme="dark"] .copy-btn { background: var(--surface); }
+    [data-theme="dark"] .flow-skill.mp { color: var(--text-subtle); }
+    [data-theme="dark"] .flow-skill.mp code { background: var(--border-light); color: var(--text-subtle); }
+    [data-theme="dark"] .flow-skill.mp .flow-num { background: var(--border); color: var(--text-muted); }
+    [data-theme="dark"] .flow-sep { color: var(--border); }
+    [data-theme="dark"] .flow-skill.mp .flow-desc { color: var(--text-subtle); }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      font-size: 15px;
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    .page-wrap {
+      max-width: 880px;
+      margin: 0 auto;
+      padding: 40px 24px 80px;
+    }
+
+    /* ── Lesson nav breadcrumb ── */
+    .lesson-breadcrumb {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 32px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+    .lesson-breadcrumb .course-tag {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .lesson-breadcrumb .pill {
+      background: var(--accent-orange-bg);
+      color: var(--orange);
+      border: 1px solid var(--accent-orange-border);
+      border-radius: 99px;
+      padding: 2px 10px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .progress-dots { display: flex; gap: 6px; align-items: center; }
+    .dot {
+      width: 8px; height: 8px; border-radius: 99px;
+      background: var(--border);
+    }
+    .dot.active { background: var(--orange); width: 22px; border-radius: 4px; }
+
+    /* ── Lesson hero ── */
+    .lesson-hero {
+      margin-bottom: 36px;
+    }
+    .lesson-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--orange);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    h1 {
+      font-size: 2.1rem;
+      font-weight: 800;
+      line-height: 1.15;
+      color: var(--text);
+      margin-bottom: 18px;
+      letter-spacing: -0.025em;
+    }
+
+    /* ── Typography ── */
+    h2 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--text);
+      margin: 44px 0 16px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--border);
+      letter-spacing: -0.01em;
+    }
+    h3 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text);
+      margin: 20px 0 8px;
+    }
+    p { margin: 10px 0; font-size: 0.925rem; text-align: justify; }
+    .lead {
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: var(--text-muted);
+      margin: 8px 0 12px;
+      text-align: justify;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 44px 0;
+    }
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    ul { padding-left: 18px; margin: 6px 0; }
+    li { margin: 4px 0; font-size: 0.9rem; }
+
+    /* ── Tables ── */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.875rem;
+      margin: 14px 0;
+      background: var(--surface);
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    th {
+      text-align: left;
+      padding: 10px 14px;
+      background: var(--border-light);
+      font-weight: 600;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--border);
+    }
+    td {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+      line-height: 1.55;
+    }
+    tr:last-child td { border-bottom: none; }
+    td:first-child { white-space: nowrap; font-weight: 600; }
+
+    /* ── Code ── */
+    code {
+      font-family: var(--font-mono);
+      font-size: 0.82em;
+      background: var(--border-light);
+      color: #be185d;
+      padding: 1px 5px;
+      border-radius: 3px;
+    }
+    pre {
+      background: #1e1e2e;
+      color: #cdd6f4;
+      padding: 16px 18px;
+      border-radius: 0 0 var(--radius) var(--radius);
+      overflow-x: auto;
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      line-height: 1.65;
+      margin: 0;
+    }
+    pre code {
+      background: none;
+      color: inherit;
+      padding: 0;
+      border-radius: 0;
+    }
+    .pre-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: var(--text-subtle);
+      margin: 18px 0 4px;
+    }
+
+    /* ── Chips ── */
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      padding: 1px 8px;
+      border-radius: 99px;
+      font-size: 0.67rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      vertical-align: middle;
+      white-space: nowrap;
+    }
+    .chip-plus { background: #fff3e0; color: var(--orange); border: 1px solid #fed7aa; }
+    .chip-mp   { background: #f3f4f6; color: #6b7280; border: 1px solid #d1d5db; }
+    .chip-wave { background: var(--accent-blue-bg); color: var(--accent-blue-text); border: 1px solid var(--accent-blue-border); }
+    .chip-pass { background: var(--accent-green-bg); color: var(--green); border: 1px solid var(--accent-green-border); }
+    .chip-fail { background: var(--red-bg); color: var(--red); border: 1px solid var(--red-border); }
+
+    /* ── Callouts ── */
+    .callout {
+      background: #fffbf0;
+      border: 1px solid #fde68a;
+      border-left: 4px solid #f59e0b;
+      border-radius: var(--radius);
+      padding: 14px 18px;
+      margin: 20px 0;
+    }
+    .callout.blue {
+      background: var(--accent-blue-bg);
+      border-color: var(--accent-blue-border);
+      border-left-color: var(--blue);
+    }
+    .callout.green {
+      background: var(--accent-green-bg);
+      border-color: var(--accent-green-border);
+      border-left-color: var(--green);
+    }
+    .callout-title {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      margin-bottom: 6px;
+      color: var(--text);
+    }
+    .callout p { margin: 0 0 4px; font-size: 0.875rem; color: var(--text-muted); }
+    .callout ul { font-size: 0.875rem; color: var(--text-muted); margin-top: 6px; }
+    .callout li code { color: #be185d; background: rgba(0,0,0,.05); }
+
+    /* ── Step cards ── */
+    .step-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      margin: 20px 0;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+    .step-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 18px 22px;
+      border-bottom: 1px solid var(--border);
+    }
+    .step-num {
+      width: 38px;
+      height: 38px;
+      border-radius: 99px;
+      background: linear-gradient(135deg, var(--orange), #f97316);
+      color: white;
+      font-size: 1rem;
+      font-weight: 800;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 2px 6px rgba(234,88,12,.3);
+    }
+    .step-title {
+      font-size: 1rem;
+      font-weight: 700;
+      line-height: 1.3;
+      margin-bottom: 4px;
+    }
+    .step-subtitle {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+    .step-body {
+      padding: 20px 22px;
+    }
+    .step-body p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.65; }
+    .step-body p strong { color: var(--text); }
+    .step-body ul li { color: var(--text-muted); }
+
+    /* ── Output blocks ── */
+    .output-block {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin: 14px 0;
+    }
+    .output-block-label {
+      background: var(--border-light);
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--text-muted);
+      padding: 7px 12px;
+      border-bottom: 1px solid var(--border);
+    }
+    .output-block-body { padding: 2px 0; }
+    .output-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 12px;
+      border-bottom: 1px solid var(--border-light);
+      font-size: 0.84rem;
+      flex-wrap: wrap;
+    }
+    .output-row:last-child { border-bottom: none; }
+    .output-row .label { font-weight: 600; flex-shrink: 0; min-width: 150px; color: var(--text); }
+    .output-row .value { flex: 1; font-weight: 500; }
+    .output-row .note { color: var(--text-muted); font-size: 0.8rem; flex: 1 0 100%; padding-left: 2px; }
+
+    /* ── EMR examples ── */
+    .emr-example {
+      margin: 14px 0;
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    .emr-example-label {
+      background: #f0f4ff;
+      color: var(--accent-blue-text);
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 7px 14px;
+      border-bottom: 1px solid var(--accent-blue-border);
+      font-family: var(--font-mono);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .copy-btn {
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 2px 10px;
+      border-radius: 99px;
+      border: 1px solid var(--border);
+      background: white;
+      color: var(--text-muted);
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      font-family: var(--font-sans);
+    }
+    .copy-btn:hover { background: var(--orange); color: white; border-color: var(--orange); }
+    .copy-btn.copied { background: var(--green); color: white; border-color: var(--green); }
+    .emr-example pre { border-radius: 0; }
+
+    /* ── Workflow overview (collapsible) ── */
+    .workflow-overview {
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      margin: 28px 0;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      padding: 22px 22px 10px;
+      background: var(--surface);
+    }
+
+    .flow-legend {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      padding: 10px 16px;
+      background: var(--border-light);
+      border-bottom: 1px solid var(--border);
+      font-size: 0.73rem;
+      color: var(--text-muted);
+      flex-wrap: wrap;
+    }
+    .flow-legend-item { display: flex; align-items: center; gap: 5px; }
+    .flow-phases { padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 12px; }
+
+    .flow-phase {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .flow-phase-header {
+      background: var(--border-light);
+      font-size: 0.67rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      padding: 7px 12px;
+      border-bottom: 1px solid var(--border);
+    }
+    .flow-skill {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--border-light);
+      font-size: 0.82rem;
+      line-height: 1.3;
+    }
+    .flow-skill:last-child { border-bottom: none; }
+    .flow-skill.mp { color: #9ca3af; }
+    .flow-skill.mp code { background: #f5f6f7; color: #9ca3af; }
+    .flow-num {
+      min-width: 22px; height: 22px; padding: 0 4px;
+      border-radius: 99px;
+      font-size: 0.6rem;
+      font-weight: 800;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      background: var(--orange);
+      color: white;
+    }
+    .flow-skill.mp .flow-num { background: #d1d5db; color: #6b7280; }
+    .flow-name { flex-shrink: 0; }
+    .flow-sep  { color: #d1d5db; flex-shrink: 0; }
+    .flow-desc { color: var(--text-muted); font-size: 0.75rem; }
+    .flow-skill.mp .flow-desc { color: #c5cad3; }
+    .flow-gate {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 12px;
+      background: var(--accent-blue-bg);
+      border-top: 1px solid var(--accent-blue-border);
+      border-bottom: 1px solid var(--accent-blue-border);
+      font-size: 0.74rem;
+      font-weight: 600;
+      color: var(--accent-blue-text);
+    }
+    .flow-gate::before { content: '✋'; font-size: 0.85rem; }
+
+    /* ── Sources ── */
+    .sources {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px 20px;
+    }
+    .sources strong { color: var(--text); display: block; margin-bottom: 6px; }
+    .sources ul { margin: 0; padding-left: 16px; }
+    .sources li { margin: 4px 0; }
+
+    /* ── Quiz ── */
+    .quiz {
+      background: var(--accent-green-bg);
+      border: 1px solid var(--accent-green-border);
+      border-left: 4px solid var(--green);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      margin: 40px 0;
+      box-shadow: var(--shadow);
+    }
+    .quiz-heading-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--green);
+      margin-bottom: 6px;
+    }
+    .quiz > h2 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text);
+      margin: 0 0 28px;
+      padding: 0 0 14px;
+      border-bottom: 1px solid var(--accent-green-border);
+      letter-spacing: -0.01em;
+    }
+    .quiz-question {
+      margin-bottom: 20px;
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
+    .quiz-question:first-of-type { padding-top: 0; }
+    .quiz-question:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+    .quiz-question h3 {
+      font-size: 0.925rem;
+      font-weight: 600;
+      line-height: 1.55;
+      margin: 0 0 12px;
+      color: var(--text);
+    }
+    .quiz-option {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 11px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      margin: 7px 0;
+      cursor: pointer;
+      font-size: 0.875rem;
+      line-height: 1.5;
+      color: var(--text-muted);
+      transition: border-color 0.15s, background 0.15s;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+    .quiz-option:hover { border-color: var(--blue-light); background: var(--accent-blue-bg); color: var(--text); }
+    .quiz-option input[type="radio"] { margin-top: 3px; flex-shrink: 0; accent-color: var(--blue); }
+    .quiz-option.correct {
+      border-color: var(--green);
+      background: var(--accent-green-bg);
+      color: var(--green);
+      font-weight: 600;
+    }
+    .quiz-option.incorrect {
+      border-color: var(--red);
+      background: var(--red-bg);
+      color: var(--red);
+    }
+    .quiz-option.answered { cursor: default; }
+    .quiz-option.answered:not(.correct):not(.incorrect):hover {
+      border-color: var(--border); background: transparent; color: var(--text-muted);
+    }
+    .quiz-explanation {
+      display: none;
+      background: var(--border-light);
+      border-left: 3px solid var(--blue-light);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 12px 16px;
+      margin-top: 12px;
+      font-size: 0.855rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+    .quiz-explanation strong { color: var(--text); }
+    .quiz-explanation code { font-size: 0.82em; }
+
+    /* ── Lesson navigation ── */
+    .lesson-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 0 0;
+      margin-top: 32px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      border-top: 1px solid var(--border);
+      gap: 16px;
+    }
+    .lesson-nav a { color: var(--blue); }
+    .lesson-nav a:hover { text-decoration: underline; }
+
+    /* ── Top navigation bar ── */
+    .topnav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.97);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      box-shadow: 0 1px 8px rgba(0,0,0,.05);
+      transition: background-color 0.2s ease, border-color 0.2s ease;
+    }
+    [data-theme="dark"] .topnav { background: rgba(15,23,42,0.97); }
+    .topnav-inner {
+      max-width: 880px;
+      margin: 0 auto;
+      padding: 0 24px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .topnav-brand {
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--orange);
+      padding-right: 16px;
+      white-space: nowrap;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      letter-spacing: -0.02em;
+      text-decoration: none;
+    }
+    .topnav-brand:hover { opacity: 0.8; text-decoration: none; }
+
+    .topnav-divider {
+      width: 1px;
+      height: 20px;
+      background: var(--border);
+      flex-shrink: 0;
+      margin-right: 8px;
+    }
+    .topnav-links { display: flex; align-items: center; gap: 2px; }
+    .topnav-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-decoration: none;
+      border-radius: 7px;
+      transition: color 0.15s, background 0.15s;
+      white-space: nowrap;
+    }
+    .topnav-link:hover { color: var(--text); background: var(--border-light); text-decoration: none; }
+    .topnav-link.active { color: var(--orange); background: var(--accent-orange-bg); pointer-events: none; }
+    .topnav-step {
+      min-width: 22px; height: 22px; padding: 0 4px;
+      border-radius: 99px;
+      background: var(--border-light);
+      border: 1.5px solid var(--border);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.62rem;
+      font-weight: 800;
+      flex-shrink: 0;
+      color: var(--text-subtle);
+    }
+    .topnav-link.active .topnav-step { background: var(--orange); border-color: var(--orange); color: white; }
+    .theme-toggle {
+      margin-left: auto;
+      flex-shrink: 0;
+      width: 34px; height: 34px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--border-light);
+      color: var(--text-muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.15s, border-color 0.15s, color 0.15s;
+    }
+    .theme-toggle:hover { background: var(--surface); color: var(--text); border-color: var(--text-subtle); }
+    .theme-icon { display: none; pointer-events: none; }
+    html:not([data-theme="dark"]) .moon { display: block; }
+    html[data-theme="dark"] .sun { display: block; }
+
+    /* ── Video embeds ── */
+    .video-wrap { margin: 20px 0 24px; }
+    .video-placeholder {
+      position: relative;
+      width: 100%;
+      padding-top: 56.25%;
+      background: #111827;
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    .video-placeholder-inner {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 10px,
+        rgba(255,255,255,.018) 10px,
+        rgba(255,255,255,.018) 20px
+      );
+    }
+    .video-play-btn {
+      width: 52px; height: 52px;
+      border-radius: 99px;
+      background: var(--orange);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      color: white;
+      box-shadow: 0 4px 18px rgba(234,88,12,.45);
+    }
+    .video-placeholder-label {
+      font-size: 0.68rem;
+      color: rgba(255,255,255,.38);
+      font-weight: 600;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+    }
+    .video-caption {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 8px;
+    }
+    .video-caption-title {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .video-duration {
+      font-size: 0.7rem;
+      font-weight: 700;
+      background: var(--border-light);
+      color: var(--text-muted);
+      padding: 2px 9px;
+      border-radius: 99px;
+      border: 1px solid var(--border);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    /* ── Collapsible step details ── */
+    .step-details { margin-top: 14px; }
+    .step-details > summary {
+      padding: 10px 0;
+      border-top: 1px solid var(--border);
+      cursor: pointer;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      list-style: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      user-select: none;
+      transition: color 0.15s;
+    }
+    .step-details > summary::-webkit-details-marker { display: none; }
+    .step-details > summary::after { content: '▸ expand'; font-size: 0.68rem; font-weight: 600; color: var(--blue-light); }
+    .step-details[open] > summary::after { content: '▾ collapse'; }
+    .step-details > summary:hover { color: var(--text); }
+    .step-details[open] > summary { padding-bottom: 14px; margin-bottom: 4px; }
+
+    /* ── Phase Sections (Inside Video Recaps) ── */
+    .phase-section { border: 1px solid var(--border); border-radius: 6px; margin-bottom: 12px; overflow: hidden; background: var(--bg); }
+    .phase-section-header { display: flex; align-items: center; padding: 10px 14px; background: var(--bg-alt); border-bottom: 1px solid var(--border); cursor: pointer; user-select: none; }
+    .phase-section.collapsed .phase-section-header { border-bottom: none; }
+    .phase-section-header:hover { background: var(--border-light); }
+    .phase-num { width: 24px; height: 24px; border-radius: 50%; background: var(--blue-dim); color: var(--blue); font-size: 0.75rem; font-weight: 700; display: flex; align-items: center; justify-content: center; margin-right: 12px; }
+    .phase-title { font-size: 0.85rem; font-weight: 600; color: var(--text); }
+    .phase-body { padding: 14px; font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; }
+    .phase-section.collapsed .phase-body { display: none; }
+    .phase-toggle { margin-left: auto; font-size: 0.8rem; color: var(--text-subtle); transition: transform 0.2s; }
+
+    @media (max-width: 640px) {
+      h1 { font-size: 1.6rem; }
+      .step-header { flex-wrap: wrap; }
+      .lesson-nav { flex-direction: column; align-items: flex-start; gap: 8px; }
+      .output-row .label { min-width: 100px; }
+      .topnav-inner { padding: 0 16px; }
+      .topnav-link { padding: 0 10px; font-size: 0.76rem; gap: 5px; }
+    }
+
+    /* ── Page sidenav ── */
+    .page-sidenav {
+      position: fixed;
+      left: max(16px, calc(50% - 660px));
+      top: 76px;
+      width: 208px;
+      max-height: calc(100vh - 96px);
+      overflow-y: auto;
+      display: none;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 0;
+      box-shadow: var(--shadow-sm);
+    }
+    @media (min-width: 1400px) { .page-sidenav { display: block; } }
+    .sidenav-label {
+      font-size: 0.62rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--orange);
+      margin: 0 12px 10px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+    .sidenav-link {
+      display: block;
+      font-size: 0.74rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      text-decoration: none;
+      padding: 5px 12px;
+      line-height: 1.4;
+      border-left: 2px solid transparent;
+      transition: all 0.12s;
+    }
+    .sidenav-link:hover { color: var(--text); background: var(--border-light); text-decoration: none; }
+    .sidenav-link.active { color: var(--orange); font-weight: 600; border-left-color: var(--orange); background: var(--accent-orange-bg); }
+    .sidenav-section-label {
+      display: block;
+      font-size: 0.68rem;
+      font-weight: 700;
+      color: var(--text);
+      padding: 8px 12px 2px;
+      margin-top: 4px;
+      letter-spacing: 0.02em;
+    }
+    .sidenav-sub { padding-left: 22px; font-size: 0.71rem; }
+    .sidenav-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      font-size: 0.74rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      background: none;
+      border: none;
+      border-left: 2px solid transparent;
+      cursor: pointer;
+      padding: 5px 12px;
+      text-align: left;
+      gap: 4px;
+      line-height: 1.4;
+      font-family: var(--font-sans);
+      transition: all 0.12s;
+    }
+    .sidenav-toggle:hover { color: var(--text); background: var(--border-light); }
+    .snav-chevron { font-size: 0.55rem; flex-shrink: 0; transition: transform 0.2s; display: inline-block; color: var(--text-subtle); }
+    .sidenav-toggle.collapsed .snav-chevron { transform: rotate(-90deg); }
+    .snav-group { overflow: hidden; max-height: 400px; transition: max-height 0.25s ease; }
+    .snav-group.collapsed { max-height: 0; }
+    [id] { scroll-margin-top: 68px; }
+    h2[id] { scroll-margin-top: 80px; }
+  </style>
+</head>
+<body>
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a href="eitri-overview.html" class="topnav-brand">Eitri Agentic Dev Workflow</a>
+    <div class="topnav-divider"></div>
+    <div class="topnav-links">
+      <a href="index.html" class="topnav-link"><span class="topnav-step">P</span>Prerequisites</a>
+      <a href="00-pm-ba-workflow.html" class="topnav-link"><span class="topnav-step">L0</span>PO Workflow</a>
+      <a href="01-eitri-skills.html" class="topnav-link"><span class="topnav-step">L1</span>Eitri Skills</a>
+      <a href="02-team-context-ingestion.html" class="topnav-link active"><span class="topnav-step">L2</span>Team Context</a>
+    </div>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Switch to dark mode" title="Switch to dark mode">
+      <svg class="theme-icon sun" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      <svg class="theme-icon moon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+  </div>
+</nav>
+<aside class="page-sidenav">
+  <div class="sidenav-label">On this page</div>
+  
+  <button class="sidenav-toggle" data-target="snav-phases" data-href="#context-map">Five-Phase Context Map <span class="snav-chevron">▾</span></button>
+  <div class="snav-group" id="snav-phases">
+    <a href="#phase-domain" class="sidenav-link sidenav-sub">Phase 1: Business Domain &amp; Requirements</a>
+    <a href="#phase-arch" class="sidenav-link sidenav-sub">Phase 2: Application Architecture Standards</a>
+    <a href="#phase-compliance" class="sidenav-link sidenav-sub">Phase 3: Security &amp; Governance Policies</a>
+    <a href="#phase-coding" class="sidenav-link sidenav-sub">Phase 4: Coding Best Practices (AWS Bedrock KB)</a>
+    <a href="#phase-review" class="sidenav-link sidenav-sub">Phase 5: Code Review Standards</a>
+  </div>
+  
+  <a href="#quiz" class="sidenav-link">Knowledge Check</a>
+</aside>
+<div class="page-wrap">
+
+  <!-- Hero -->
+  <div class="lesson-hero">
+    <p class="lesson-label">Lesson 2 of 2 — Eitri Agentic Dev Workflow <span class="chip chip-pass">✦ Hands on</span></p>
+    <h1>Injecting Your Team's Context</h1>
+    <p class="lead">The Eitri workflow relies on your team's unique requirements to generate accurate results. Without them, the agent will fall back on generic training data. This lesson covers the Five-Phase Context Injection Model, showing you exactly what context to provide, where it belongs in your repository, and how to inject it so the harness produces outputs perfectly tailored to your project.</p>
+    <div style="margin-top: 16px; padding: 14px 18px; background: var(--border-light); border-radius: var(--radius); border-left: 3px solid var(--orange);">
+      <div style="font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--orange); margin-bottom: 10px;">By the end of this hands-on lesson you will know:</div>
+      <ul style="padding-left: 16px; display: flex; flex-direction: column; gap: 6px; margin: 0;">
+        <li style="font-size: 0.875rem; color: var(--text-muted);">Where and when to inject your team's specific context across the five phases of development</li>
+        <li style="font-size: 0.875rem; color: var(--text-muted);">The exact files, formats, and repository structures each Eitri skill expects to read</li>
+        <li style="font-size: 0.875rem; color: var(--text-muted);">How to set up and maintain your team's context repositories to ensure the agent always follows your standards</li>
+      </ul>
+    </div>
+  </div>
+
+
+
+  <div class="callout blue">
+    <div class="callout-title">Why context injection matters</div>
+    <p>The Eitri workflow is a general-purpose engine. If you do not provide it with your team's specific context, it will fall back on generic training data, resulting in:</p>
+    <ul style="margin-top: 8px; margin-bottom: 12px; padding-left: 20px; display: flex; flex-direction: column; gap: 4px;">
+      <li><strong>User stories</strong> that miss your domain vocabulary and target the wrong personas.</li>
+      <li><strong>Implementation plans</strong> that violate your architectural boundaries and schedule dependencies in the wrong order.</li>
+      <li><strong>Technical specifications</strong> that bypass your agency's compliance controls, forcing costly rework later.</li>
+      <li><strong>Source code</strong> that suffers from deprecated API calls, build failures, and type errors due to stale training data.</li>
+      <li><strong>Code reviews</strong> that allow local anti-patterns and convention violations to pass through silently.</li>
+    </ul>
+    <p style="margin: 0;">Injecting the right context at the right phase ensures every agentic skill generates outputs perfectly aligned with your project's unique requirements.</p>
+  </div>
+
+
+  <h2 id="context-map">Five-Phase Context Map</h2>
+
+  <div class="video-wrap">
+    <video controls preload="metadata" style="width: 100%; border-radius: 8px; border: 1px solid var(--border); box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+      <source src="videos/5-phase-context.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <div class="video-caption">
+      <span class="video-caption-title">Overview: The Five-Phase Context Injection Model</span>
+      <span class="video-duration">~ 4–5 min</span>
+    </div>
+  </div>
+
+  <details class="step-details" style="margin-bottom: 24px;">
+    <summary>Video Recap</summary>
+    
+    <p style="margin-bottom: 20px; font-size: 0.95rem;">Every phase shares one rule: <strong>your context must be ready before its corresponding skill runs.</strong> If you skip context injection, the workflow falls back on generic training data, baking architectural flaws and compliance violations into your project.</p>
+
+    <h3 style="margin:24px 0 14px;font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-muted);">What to inject at each phase</h3>
+    <div style="display:flex;flex-direction:column;gap:14px;margin-bottom:8px;">
+
+      <div>
+        <div style="margin-bottom:4px;"><strong>Phase 1: Business Context</strong></div>
+        <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">Use <code>speckit.constitution</code> or <code>wayfinder</code> to define your domain vocabulary in <code>constitution.md</code> or <code>CONTEXT.md</code>. Without this, the agent invents its own generic workflows and misidentifies your personas.</p>
+      </div>
+
+      <div>
+        <div style="margin-bottom:4px;"><strong>Phase 2: Architecture Standards</strong></div>
+        <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">Add your core boundaries to the <code>dependency-orchestrator</code> foundation templates, and map your technical standards in <code>configs/standards.md</code>. This ensures the correct standards are automatically linked to every story in your delivery schedule.</p>
+      </div>
+
+      <div>
+        <div style="margin-bottom:4px;"><strong>Phase 3: Security &amp; Governance</strong></div>
+        <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">IM8 and ARC policies are built-in. Add any custom agency policies to the <code>policies</code> skill's <code>references/</code> folder and register them in its <code>SKILL.md</code>. Run this before <code>/spec-compliance</code> to catch gaps before they become code.</p>
+      </div>
+
+      <div>
+        <div style="margin-bottom:4px;"><strong>Phase 4: Coding Best Practices</strong></div>
+        <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">Upload your framework versions, design system, and internal SDKs to an AWS Bedrock Knowledge Base. Map them in <code>kb-router.md</code> so the <code>do-work</code> skill can retrieve the exact documentation it needs just-in-time.</p>
+      </div>
+
+      <div>
+        <div style="margin-bottom:4px;"><strong>Phase 5: Code Review Standards</strong></div>
+        <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">Define your team's naming, architectural, and security conventions in <code>CODING_STANDARDS.md</code> at the repository root. Matt Pocock's review skill uses this file to flag every violation. You can also extend the automated suite in <code>code-reviewer/SKILL.md</code>.</p>
+      </div>
+
+    </div>
+  </details>
+
+  <div class="phase-table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Phase</th>
+          <th>What to inject</th>
+          <th>Skill(s) that consume it</th>
+          <th>Cost of skipping</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>1. Requirements</strong></td>
+          <td>Business domain intent, persona maps, scope boundaries</td>
+          <td><code>/speckit-specify</code>, <code>/wayfinder</code>, CLARA</td>
+          <td>Agent designs the wrong features and user stories miss domain vocabulary</td>
+        </tr>
+        <tr>
+          <td><strong>2. Application Architecture Standards</strong></td>
+          <td>Shared architecture standards, integration recipes, ADR templates</td>
+          <td><code>/dependency-orchestrator</code>, <code>/wayfinder</code></td>
+          <td>Stories are decomposed without structural constraints, causing upstream architectural flaws to propagate into every ticket</td>
+        </tr>
+        <tr>
+          <td><strong>3. Compliance</strong></td>
+          <td>Regulatory and security policies (IM8, ARC, custom)</td>
+          <td><code>/spec-compliance</code>, <code>/policies</code></td>
+          <td>Policy gaps survive into implementation, requiring a rework sprint</td>
+        </tr>
+        <tr>
+          <td><strong>4. Implementation</strong></td>
+          <td>Coding best practices, framework guides, API reference docs</td>
+          <td><code>/do-work</code> (via <code>/query-kb</code> → Bedrock)</td>
+          <td>Agent writes code against stale training-data APIs, resulting in build failures and type errors</td>
+        </tr>
+        <tr>
+          <td><strong>5. Execution &amp; Code Review</strong></td>
+          <td>Repository coding style, quality gate thresholds, Registered Checks</td>
+          <td><code>/code-reviewer</code>, <code>/do-work</code></td>
+          <td>Agent runs the wrong suite of checks, and convention violations pass through undetected</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout">
+    <div class="callout-title">Shift before the phase — the core injection rule</div>
+    <p>Context must be ready <em>before</em> the workflow step that consumes it. A compliance policy written after <code>/spec-compliance</code> has already run won't be audited. An OKF standard registered after <code>/dependency-orchestrator</code> won't appear in the Dev Delivery Plan. Treat the five phases above as a <strong>preparation checklist</strong>, not a reactive one: complete each phase's setup before invoking the corresponding skill.</p>
+  </div>
+
+
+  <div class="step-card" id="phase-domain">
+    <div class="step-header">
+      <div class="step-num">1</div>
+      <div>
+        <div class="step-title">Business Domain &amp; Requirements</div>
+        <div class="step-subtitle">Inject your business domain context before user stories are generated</div>
+      </div>
+    </div>
+    <div class="step-body">
+
+  <div class="video-wrap">
+    <video controls preload="metadata" style="width: 100%; border-radius: 8px; border: 1px solid var(--border); box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+      <source src="videos/business-domain-requirements.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <div class="video-caption">
+      <span class="video-caption-title">Phase 1 — Injecting Business Domain &amp; Requirements Context</span>
+      <span class="video-duration">~ 3–6 min</span>
+    </div>
+  </div>
+
+  <details class="step-details">
+  <summary>Video Recap</summary>
+
+  <p style="margin-bottom: 20px;">The goal of Phase 1 is to ground the agent in your domain context before a single user story is written. Without this grounding, it defaults to generic assumptions (e.g., writing stories for "customers" instead of "Registration Clerks"). There are three paths to set this up:</p>
+
+  <div style="display:flex;flex-direction:column;gap:14px;margin-bottom:8px;">
+    <div>
+      <div style="margin-bottom:4px;"><strong>Path 1: Spec-Kit</strong></div>
+      <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">Run the <code>speckit.constitution</code> skill to define your domain terminology and business rules, which creates a <code>constitution.md</code> file. Then, invoke <code>speckit.specify</code> with the feature you want to build, your actual end users, and the scope of the release. Every subsequent Spec-Kit command will automatically read the constitution file.</p>
+    </div>
+
+    <div>
+      <div style="margin-bottom:4px;"><strong>Path 2: Socratic (Matt Pocock)</strong></div>
+      <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">Create a <code>CONTEXT.md</code> file with your domain vocabulary at the repo root and run the <code>setup-matt-pocock-skills</code> skill. When you invoke <code>wayfinder</code>, it begins an interactive grilling session grounded in your domain vocabulary. As decisions crystallise, the <code>domain-modeling</code> skill automatically records emerging terms in your <code>CONTEXT.md</code> file.</p>
+    </div>
+
+    <div>
+      <div style="margin-bottom:4px;"><strong>Path 3: CLARA (Product Research)</strong></div>
+      <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">Ensure your team's domain documentation is uploaded to your Confluence spaces. CLARA queries these spaces to ground its User Personas, Journey Maps, and specification files in your actual business context.</p>
+    </div>
+  </div>
+
+  <h3 style="margin:24px 0 14px;font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-muted);">Deep Dive: Path 2 (Matt Pocock Approach)</h3>
+  <p style="margin-bottom: 20px; font-size: 0.95rem;">To skew the model effectively, create a <code>CONTEXT.md</code> file at the repository root containing:</p>
+
+  <div style="display:flex;flex-direction:column;gap:14px;margin-bottom:20px;">
+    <div>
+      <div style="margin-bottom:4px;"><strong>1. Glossary</strong></div>
+      <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">Establish exact terminology using a "not" column (e.g., <em>Attendance, not visit</em>) to prevent the agent from substituting generic equivalents.</p>
+    </div>
+    <div>
+      <div style="margin-bottom:4px;"><strong>2. Systems</strong></div>
+      <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">Map out external integrations (e.g., CDLENS) to explicitly define where your application's responsibility ends.</p>
+    </div>
+    <div>
+      <div style="margin-bottom:4px;"><strong>3. Data Model</strong></div>
+      <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">Name key entities and how they relate (e.g., separating <em>TOCCScreening</em> as a distinct entity from a triage assessment).</p>
+    </div>
+    <div>
+      <div style="margin-bottom:4px;"><strong>4. Personas</strong></div>
+      <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">Define actual end-users and their goals (e.g., a <em>Charge Nurse</em> who needs real-time monitoring).</p>
+    </div>
+    <div>
+      <div style="margin-bottom:4px;"><strong>5. Scope</strong></div>
+      <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">Clearly define what is included and excluded (e.g., deferring Singpass to Phase 2) to prevent the agent from hallucinating out-of-scope workflows.</p>
+    </div>
+  </div>
+
+  <p style="margin-bottom:0; font-size: 0.95rem;">With <code>CONTEXT.md</code> in place, invoke <code>wayfinder</code>. Because its reasoning is now skewed by your requirements, every question it asks during the interactive grilling session will strictly use your domain terminology, forcing every generated ticket to speak the exact language of your project.</p>
+
+  </details>
+
+    </div>
+  </div>
+
+  <div class="step-card" id="phase-arch">
+    <div class="step-header">
+      <div class="step-num">2</div>
+      <div>
+        <div class="step-title">Application Architecture Standards</div>
+        <div class="step-subtitle">Register architectural constraints before the agent plans your delivery sequence</div>
+      </div>
+    </div>
+    <div class="step-body">
+
+  <div class="video-wrap">
+    <div class="video-placeholder">
+      <div class="video-placeholder-inner">
+        <div class="video-play-btn">▶</div>
+        <div class="video-placeholder-label">Video coming soon</div>
+      </div>
+    </div>
+    <div class="video-caption">
+      <span class="video-caption-title">Phase 2 — Injecting Application Architecture Standards</span>
+      <span class="video-duration">~ 3–6 min</span>
+    </div>
+  </div>
+
+  <details class="step-details">
+  <summary>Video Recap</summary>
+
+  <p>The harness aligns user stories with standard implementation recipes during dependency orchestration and wayfinding. This requires the <strong>AppStandards base library</strong>, and optionally your team's own additional standards.</p>
+
+  <div style="display:flex;flex-direction:column;gap:14px;margin-bottom:8px;">
+    <div>
+      <div style="margin-bottom:4px;"><strong>1. Clone AppStandards</strong></div>
+      <div class="emr-example" style="margin: 4px 0;">
+        <div class="emr-example-label">Terminal</div>
+        <pre><code>git clone https://github.com/SGTechStack/App-Standards</code></pre>
+      </div>
+      <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">The AppStandards library covers: Logging, File Management, Interface &amp; Batch, User Access Control, MFA, MCC Platform Services, and Reporting. For the EMR project, the orchestrator will automatically flag <em>User Access Control (Standalone)</em> and <em>Logging (General)</em> as relevant to every story that touches patient data.</p>
+    </div>
+
+    <div>
+      <div style="margin-bottom:4px;"><strong>2. Add Custom Team Standards (optional)</strong></div>
+      <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">If your team maintains standards beyond AppStandards (e.g., internal FHIR profile rules, hospital-specific audit log schema), structure them using the <strong>Open Knowledge Format (OKF)</strong>:</p>
+      <div class="output-block" style="margin: 4px 0;">
+        <div class="output-block-label">OKF layout — your custom standards repo</div>
+        <div class="output-block-body">
+          <div>standards-emr/</div>
+          <div>&nbsp;&nbsp;index.md &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;← concept catalog (agent reads this first)</div>
+          <div>&nbsp;&nbsp;fhir-profiles/</div>
+          <div>&nbsp;&nbsp;&nbsp;&nbsp;index.md &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;← FHIR-specific concept catalog</div>
+          <div>&nbsp;&nbsp;&nbsp;&nbsp;patient-resource.md &nbsp;&nbsp;← strict rules + code recipes</div>
+          <div>&nbsp;&nbsp;&nbsp;&nbsp;encounter-resource.md</div>
+          <div>&nbsp;&nbsp;audit-logging/</div>
+          <div>&nbsp;&nbsp;&nbsp;&nbsp;index.md</div>
+          <div>&nbsp;&nbsp;&nbsp;&nbsp;emr-audit-schema.md &nbsp;&nbsp;← audit log field rules for EMR</div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div style="margin-bottom:4px;"><strong>3. Register in the Orchestrator</strong></div>
+      <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">Add your standard's path-mapping entries into <code>APPFW_STANDARD_REFS</code> in <code>skills/dependency-orchestrator/report-generator.py</code>:</p>
+      <div class="emr-example" style="margin: 4px 0;">
+        <div class="emr-example-label">skills/dependency-orchestrator/report-generator.py</div>
+        <pre><code>APPFW_STANDARD_REFS = {
+    # ... existing AppStandards entries ...
+    "EMR_FHIR":      "../standards-emr/fhir-profiles/index.md",
+    "EMR_AUDIT":     "../standards-emr/audit-logging/emr-audit-schema.md",
+}</code></pre>
+      </div>
+    </div>
+
+    <div>
+      <div style="margin-bottom:4px;"><strong>4. Tag Stories with Standard Keys</strong></div>
+      <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">In your user story files, tag the <code>appfw_standard</code> field so the orchestrator maps each story to its relevant standards:</p>
+      <div class="emr-example" style="margin: 4px 0;">
+        <div class="emr-example-label">spec.md — Patient Registration story (excerpt)</div>
+        <pre><code>## US-01: Register Patient
+appfw_standard: [USER_ACCESS_CONTROL_STANDALONE, LOGGING_GENERAL, EMR_AUDIT]
+
+As a front-desk staff member, I want to register a new patient...</code></pre>
+      </div>
+      <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">The Dev Delivery Plan will then include the relevant standard sections for developers to reference during <code>/wayfinder</code>, without them having to search the entire standards catalog.</p>
+    </div>
+  </div>
+
+  </details>
+
+    </div>
+  </div>
+
+  <div class="step-card" id="phase-compliance">
+    <div class="step-header">
+      <div class="step-num">3</div>
+      <div>
+        <div class="step-title">Security &amp; Governance Policies</div>
+        <div class="step-subtitle">Ensure all security and governance policies are loaded before the compliance audit</div>
+      </div>
+    </div>
+    <div class="step-body">
+
+  <div class="video-wrap">
+    <div class="video-placeholder">
+      <div class="video-placeholder-inner">
+        <div class="video-play-btn">▶</div>
+        <div class="video-placeholder-label">Video coming soon</div>
+      </div>
+    </div>
+    <div class="video-caption">
+      <span class="video-caption-title">Phase 3 — Injecting Security &amp; Governance Policies</span>
+      <span class="video-duration">~ 3–6 min</span>
+    </div>
+  </div>
+
+  <details class="step-details">
+  <summary>Video Recap</summary>
+
+  <p><code>/spec-compliance</code> audits TRDs against the Markdown policy files in <code>skills/policies/references/</code>. Two are pre-loaded: IM8 (36 controls) and ARC (88 controls). Adding your agency's custom policies makes the gate enforce them automatically.</p>
+
+  <div class="output-block">
+    <div class="output-block-label">Directory — skills/policies/references/</div>
+    <div class="output-block-body">
+      <div>skills/policies/references/</div>
+      <div>&nbsp;&nbsp;im8-reform-app-policy.md &nbsp;&nbsp;&nbsp;&nbsp;← 36 IM8 Application Technical Controls (pre-loaded)</div>
+      <div>&nbsp;&nbsp;arc-framework-policy.md &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;← 88 ARC agentic AI governance controls (pre-loaded)</div>
+      <div>&nbsp;&nbsp;emr-hipaa-equivalent.md &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;← your custom policy (add here)</div>
+      <div>&nbsp;&nbsp;hospital-data-retention.md &nbsp;&nbsp;← your custom policy (add here)</div>
+    </div>
+  </div>
+
+  <h3>How to add a custom policy</h3>
+
+  <p><strong>1.</strong> Write your policy as a Markdown file. Structure it as a checklist of controls:</p>
+
+  <div class="emr-example">
+    <div class="emr-example-label">skills/policies/references/emr-data-governance.md</div>
+    <pre><code># EMR Data Governance Policy
+
+## DG-01: Patient PII Retention
+Patient PII must not be retained beyond 7 years from last clinical encounter.
+TRD must declare the data retention period and deletion mechanism.
+
+## DG-02: Cross-border Data Transfer
+Patient data must not be transmitted outside Singapore data centres without MOH approval.
+TRD must declare all data residency constraints.
+
+## DG-03: Diagnosis Code Audit Trail
+Any modification to an ICD-10 code must generate an immutable audit log entry
+with before/after values, actor ID, and timestamp.</code></pre>
+  </div>
+
+  <p><strong>2.</strong> Register it in <code>skills/policies/SKILL.md</code> so the compliance agent loads it during audits.</p>
+
+  <div class="callout green">
+    <div class="callout-title">Use /policies for targeted manual checks</div>
+    <p>If you only need to check a single control (rather than running the full compliance agent), use <code>/policies</code>. It loads the policy Markdown references without spinning up the full audit. Useful when authoring a new policy or verifying a single TRD section.</p>
+  </div>
+
+  </details>
+
+    </div>
+  </div>
+
+  <div class="step-card" id="phase-coding">
+    <div class="step-header">
+      <div class="step-num">4</div>
+      <div>
+        <div class="step-title">Coding Best Practices (AWS Bedrock KB)</div>
+        <div class="step-subtitle">Upload current library docs so the agent doesn't fall back on training data</div>
+      </div>
+    </div>
+    <div class="step-body">
+
+  <div class="video-wrap">
+    <video controls preload="metadata" style="width: 100%; border-radius: 8px; border: 1px solid var(--border); box-shadow: 0 4px 12px rgba(0,0,0,0.05); margin-bottom: 8px;">
+      <source src="videos/coding-best-practice-kb.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <div class="video-caption">
+      <span class="video-caption-title">Phase 4 — Setting Up the AWS Bedrock Knowledge Base</span>
+      <span class="video-duration">~ 3–4 min</span>
+    </div>
+  </div>
+
+  <details class="step-details">
+  <summary>Video Recap</summary>
+
+  <p style="margin-bottom: 20px; font-size: 0.95rem;">If you do not connect the agent to an external knowledge base, it falls back on static training data—resulting in deprecated methods, type errors, and API calls that no longer exist.</p>
+
+  <div style="display:flex;flex-direction:column;gap:14px;margin-bottom:8px;">
+
+    <div>
+      <div style="margin-bottom:4px;"><strong>1. The Trap: Context Rot</strong></div>
+      <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">Loading your entire standards library and framework documentation upfront exhausts the LLM's context window. Recall accuracy degrades silently, causing the agent to hallucinate or miss critical instructions.</p>
+    </div>
+
+    <div>
+      <div style="margin-bottom:4px;"><strong>2. The Solution: Hybrid Retrieval</strong></div>
+      <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">Pre-load only the global context the agent <em>always</em> needs (e.g., coding standards, ticket spec). Everything else is retrieved just-in-time and injected exactly when the agent encounters the relevant code.</p>
+    </div>
+
+    <div>
+      <div style="margin-bottom:4px;"><strong>3. What to Upload to Bedrock</strong></div>
+      <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">Upload anything the agent would otherwise have to guess at: design system docs, framework guides, internal API references, and approved coding patterns.</p>
+    </div>
+
+    <div>
+      <div style="margin-bottom:4px;"><strong>4. The Mechanism</strong> ➔ <code>kb-router.md</code></div>
+      <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">The router maps specific code signals to the AWS Bedrock KB. For example, opening a React <code>.tsx</code> file triggers the router to retrieve your Shadcn guidelines and accessibility requirements, injecting them at the point of need.</p>
+      <div class="emr-example" style="margin-top: 10px;">
+        <div class="emr-example-label">skills/do-work/common/kb-router.md — custom entry for Singpass SDK</div>
+        <pre><code>- signal: "import.*singpass"
+  prefix: SingpassSDK
+  description: Singpass MyInfo SDK patterns and approved integration methods</code></pre>
+      </div>
+    </div>
+
+    <div>
+      <div style="margin-bottom:4px;"><strong>5. Environment Configuration</strong></div>
+      <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">Connect the agent to the right knowledge base by setting three simple environment variables:</p>
+      <div class="emr-example" style="margin-top: 10px;">
+        <div class="emr-example-label">Terminal — required environment variables</div>
+        <pre><code>export AWS_REGION="ap-southeast-1"
+export BEDROCK_KB_TAG_KEY="project"
+export BEDROCK_KB_TAG_VALUE="emr-system"</code></pre>
+      </div>
+    </div>
+
+  </div>
+
+  </details>
+
+    </div>
+  </div>
+
+  <div class="step-card" id="phase-review">
+    <div class="step-header">
+      <div class="step-num">5</div>
+      <div>
+        <div class="step-title">Code Review Standards</div>
+        <div class="step-subtitle">Configure the code-reviewer dispatcher and define your team's coding conventions</div>
+      </div>
+    </div>
+    <div class="step-body">
+
+  <div class="video-wrap">
+    <video controls preload="metadata" style="width: 100%; border-radius: 8px; border: 1px solid var(--border); box-shadow: 0 4px 12px rgba(0,0,0,0.05); margin-bottom: 8px; background: #111827;">
+      <source src="videos/code-review.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <div class="video-caption">
+      <span class="video-caption-title">Phase 5 — Code Review Standards</span>
+      <span class="video-duration">~ 3–4 min</span>
+    </div>
+  </div>
+
+  <details class="step-details">
+  <summary>Video Recap</summary>
+
+  <p style="margin-bottom: 20px; font-size: 0.95rem;">At the end of every implementation loop, the <code>code-reviewer</code> skill acts as a dispatcher, launching an entire suite of automated checks that run in parallel against your code changes.</p>
+
+  <div style="display:flex;flex-direction:column;gap:14px;margin-bottom:8px;">
+
+    <div>
+      <div style="margin-bottom:4px;"><strong>1. The Parallel Dispatcher</strong></div>
+      <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">By default, it runs build validation, security analysis (Semgrep), IM8 controls, framework checks, and Matt Pocock's code review. All results are aggregated into a single HTML compliance report.</p>
+    </div>
+
+    <div>
+      <div style="margin-bottom:4px;"><strong>2. Extending the Suite</strong> ➔ <code>code-reviewer/SKILL.md</code></div>
+      <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">To register a new check (e.g., mutation testing), simply add a row to the table in <code>code-reviewer/SKILL.md</code>. The dispatcher will automatically include it in every subsequent run.</p>
+    </div>
+
+    <div>
+      <div style="margin-bottom:4px;"><strong>3. The Two-Axis Code Review</strong></div>
+      <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">Matt Pocock's review skill uses two independent sub-agents to eliminate blended verdicts. The <strong>Specification Axis</strong> verifies that your code faithfully implements the originating ticket, while the <strong>Standards Axis</strong> ensures it adheres to your team's documented conventions.</p>
+    </div>
+
+    <div>
+      <div style="margin-bottom:4px;"><strong>4. Defining Your Rules</strong> ➔ <code>CODING_STANDARDS.md</code></div>
+      <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">For the Standards Axis to enforce your specific engineering rules, create a <code>CODING_STANDARDS.md</code> file at your repository root. Define naming conventions, architectural patterns (e.g., mandating <code>AuditLogger</code> over standard SLF4J), and security conventions here.</p>
+      <div class="emr-example" style="margin-top: 10px;">
+        <div class="emr-example-label">CODING_STANDARDS.md (EMR project, excerpt)</div>
+        <pre><code># EMR Coding Standards
+
+## Naming
+- Patient-facing DTOs: suffix `Request` (input) / `Response` (output)
+
+## Architecture
+- All audit events must be routed through the custom `AuditLogger` class, not standard SLF4J.
+- No `Optional.get()` without `isPresent()` check (use `orElseThrow()`)</code></pre>
+      </div>
+    </div>
+  </div>
+
+  </details>
+
+    </div>
+  </div>
+  <!-- Quiz -->
+  <div class="quiz" id="quiz">
+    <div class="quiz-heading-label">Knowledge check</div>
+    <h2>Check Your Understanding — 8 Questions</h2>
+    <form id="quiz-form">
+
+<div class="quiz-question">
+        <h3>1. You want the harness to use TOCC risk terminology correctly when generating investigation tickets in <code>/wayfinder</code>. In which phase should you inject this context?</h3>
+        <label class="quiz-option"><input type="radio" name="q1" value="a"><span>Phase 4 — upload a TOCC glossary to the AWS Bedrock KB so <code>/wayfinder</code> can query it</span></label>
+        <label class="quiz-option"><input type="radio" name="q1" value="b"><span>Phase 1 — supply domain terminology in <code>CONTEXT.md</code> (for <code>/wayfinder</code>) or <code>constitution.md</code></span></label>
+        <label class="quiz-option"><input type="radio" name="q1" value="c"><span>Phase 2 — add TOCC as a standard in <code>APPFW_STANDARD_REFS</code></span></label>
+        <label class="quiz-option"><input type="radio" name="q1" value="d"><span>Phase 5 — define TOCC naming rules in <code>CODING_STANDARDS.md</code></span></label>
+        <div class="quiz-explanation"><strong>Why (b) is correct:</strong> TOCC is clinical domain vocabulary. It belongs in Phase 1 and should be supplied in <code>CONTEXT.md</code> (or <code>constitution.md</code>) so investigation tickets use the correct language from the start. Option (a) is incorrect because <code>/wayfinder</code> does not query the Bedrock KB. Bedrock is exclusively for implementation-time coding guidance. Option (c) <code>APPFW_STANDARD_REFS</code> is for architectural standards. Option (d) <code>CODING_STANDARDS.md</code> is for code-level conventions.</div>
+      </div>
+
+<div class="quiz-question">
+        <h3>2. Your EMR project uses a custom FHIR profile for the Patient resource. At which phase and in which file do you register this standard so the orchestrator includes it in the Dev Delivery Plan?</h3>
+        <label class="quiz-option"><input type="radio" name="q2" value="a"><span>Phase 3 — add a Markdown file to <code>skills/policies/references/</code></span></label>
+        <label class="quiz-option"><input type="radio" name="q2" value="b"><span>Phase 2 — register the profile in <code>APPFW_STANDARD_REFS</code> within <code>report-generator.py</code></span></label>
+        <label class="quiz-option"><input type="radio" name="q2" value="c"><span>Phase 5 — add a rule block to <code>CODING_STANDARDS.md</code></span></label>
+        <label class="quiz-option"><input type="radio" name="q2" value="d"><span>Phase 4 — upload the profile to the AWS Bedrock S3 data source</span></label>
+        <div class="quiz-explanation"><strong>Why (b) is correct:</strong> Phase 2 governs architectural standards. Registering your custom FHIR profile in <code>APPFW_STANDARD_REFS</code> allows the <code>/dependency-orchestrator</code> to automatically surface it as a requirement in the Dev Delivery Plan. Option (a) Phase 3 is for compliance controls. Option (c) Phase 5 is for code review conventions. Option (d) Phase 4 Bedrock is for implementation-time coding guidance.</div>
+      </div>
+
+<div class="quiz-question">
+        <h3>3. How is a custom standards repository structured using the Open Knowledge Format (OKF)?</h3>
+        <label class="quiz-option"><input type="radio" name="q3" value="a"><span>One large Markdown file listing all rules with numbered headings</span></label>
+        <label class="quiz-option"><input type="radio" name="q3" value="b"><span>Directories with <code>index.md</code> catalogs and modular concept files for selective agent loading</span></label>
+        <label class="quiz-option"><input type="radio" name="q3" value="c"><span>A JSON schema file describing each standard's fields and validation rules</span></label>
+        <label class="quiz-option"><input type="radio" name="q3" value="d"><span>A <code>pom.xml</code> or <code>package.json</code> manifest listing each standard as a dependency</span></label>
+        <div class="quiz-explanation"><strong>Why (b) is correct:</strong> OKF uses a directory structure with <code>index.md</code> concept catalogs and modular rule files so agents load only relevant sections without ingesting the entire library. Option (a) would exhaust the context window. A JSON schema (c) describes structure but not human-readable rules. A build manifest (d) is a package management concept, not an OKF construct.</div>
+      </div>
+
+<div class="quiz-question">
+        <h3>4. You want the <code>/spec-compliance</code> skill to enforce your agency's data-retention rule (DG-01) during TRD audits, but it currently ignores it. How must you inject this context?</h3>
+        <label class="quiz-option"><input type="radio" name="q4" value="a"><span>Phase 5 — Add it to <code>CODING_STANDARDS.md</code> so <code>/code-review</code> enforces it</span></label>
+        <label class="quiz-option"><input type="radio" name="q4" value="b"><span>Phase 3 — Save the Markdown policy in <code>skills/policies/references/</code> and register it</span></label>
+        <label class="quiz-option"><input type="radio" name="q4" value="c"><span>Phase 2 — Add it to the <code>arch/arch-test-plan.md</code> rule set</span></label>
+        <label class="quiz-option"><input type="radio" name="q4" value="d"><span>Phase 4 — Upload it to the Bedrock KB so <code>/query-kb</code> retrieves it</span></label>
+        <div class="quiz-explanation"><strong>Why (b) is correct:</strong> Custom policies must be provided as Markdown files in <code>skills/policies/references/</code> and explicitly registered in <code>skills/policies/SKILL.md</code> so the <code>/spec-compliance</code> agent knows to load them during its audit. Option (a) <code>CODING_STANDARDS.md</code> enforces code conventions in review, not compliance controls in audit. Option (c) <code>arch-test-plan.md</code> enforces architectural boundaries. Option (d) Bedrock KB provides coding guidance during implementation.</div>
+      </div>
+
+<div class="quiz-question">
+        <h3>5. A developer wants to quickly verify whether a single TRD section satisfies DG-02 (cross-border data transfer) without running the full compliance agent. Which skill should they use?</h3>
+        <label class="quiz-option"><input type="radio" name="q5" value="a"><span><code>/spec-compliance</code> with a <code>--section DG-02</code> flag</span></label>
+        <label class="quiz-option"><input type="radio" name="q5" value="b"><span><code>/policies</code> to load the policy reference for targeted manual review</span></label>
+        <label class="quiz-option"><input type="radio" name="q5" value="c"><span><code>/fry-me</code> to grill the TRD section against the policy control</span></label>
+        <label class="quiz-option"><input type="radio" name="q5" value="d"><span><code>/issue-verification</code> to vet the TRD for compliance verticality</span></label>
+        <div class="quiz-explanation"><strong>Why (b) is correct:</strong> <code>/policies</code> loads the specific policy Markdown reference for a focused manual check without the overhead of the full audit agent. Option (a) <code>/spec-compliance</code> has no <code>--section</code> flag, so it always audits the full TRD. Option (c) <code>/fry-me</code> is a Socratic challenger for plans and issues, not a policy lookup tool. Option (d) <code>/issue-verification</code> vets issues for verticality and demoability, not TRD compliance controls.</div>
+      </div>
+
+<div class="quiz-question">
+        <h3>6. During <code>/do-work</code>, the agent writes code against a deprecated Singpass SDK method. Which phase's context, if properly injected, would have prevented this?</h3>
+        <label class="quiz-option"><input type="radio" name="q6" value="a"><span>Phase 1 — business domain context in the spec file</span></label>
+        <label class="quiz-option"><input type="radio" name="q6" value="b"><span>Phase 3 — custom policy Markdown in the policies directory</span></label>
+        <label class="quiz-option"><input type="radio" name="q6" value="c"><span>Phase 4 — current Singpass SDK documentation uploaded to the Bedrock KB</span></label>
+        <label class="quiz-option"><input type="radio" name="q6" value="d"><span>Phase 5 — a rule in <code>CODING_STANDARDS.md</code> banning the deprecated method</span></label>
+        <div class="quiz-explanation"><strong>Why (c) is correct:</strong> <code>/do-work</code> calls <code>/query-kb</code> to retrieve coding guidance from the Bedrock KB. If this context is missing, the agent relies on its stale training data, which leads to the use of deprecated APIs. Option (a) Phase 1 affects domain terminology, not method correctness. Option (b) Phase 3 audits TRDs, not code patterns. Option (d) would catch the violation in review but not prevent it from being written in the first place.</div>
+      </div>
+
+<div class="quiz-question">
+        <h3>7. Which file maps code signals (e.g., file extensions, class annotations) to Bedrock KB query prefixes during the <code>/do-work</code> implementation loop?</h3>
+        <label class="quiz-option"><input type="radio" name="q7" value="a"><span><code>arch/arch-test-plan.md</code></span></label>
+        <label class="quiz-option"><input type="radio" name="q7" value="b"><span><code>skills/policies/SKILL.md</code></span></label>
+        <label class="quiz-option"><input type="radio" name="q7" value="c"><span><code>skills/do-work/common/kb-router.md</code></span></label>
+        <label class="quiz-option"><input type="radio" name="q7" value="d"><span><code>skills/dependency-orchestrator/report-generator.py</code></span></label>
+        <div class="quiz-explanation"><strong>Why (c) is correct:</strong> During Phase 4, <code>kb-router.md</code> is the exact file that maps code signals (like file extensions or import patterns) to Bedrock KB query prefixes, ensuring the right documentation is retrieved automatically for each implementation context. Option (a) <code>arch-test-plan.md</code> defines architectural boundary rules. Option (b) <code>skills/policies/SKILL.md</code> registers compliance policies. Option (d) <code>report-generator.py</code> maps AppStandards to stories in the orchestrator's delivery plan.</div>
+      </div>
+
+<div class="quiz-question">
+        <h3>8. The <code>/code-review</code> Standards axis fails to flag violations of your team's custom styling conventions. What is the most likely cause?</h3>
+        <label class="quiz-option"><input type="radio" name="q8" value="a"><span>The <code>arch/arch-test-plan.md</code> file has no rules defined for this feature</span></label>
+        <label class="quiz-option"><input type="radio" name="q8" value="b"><span>The <code>CODING_STANDARDS.md</code> file does not exist at the repository root</span></label>
+        <label class="quiz-option"><input type="radio" name="q8" value="c"><span>The Bedrock KB has not been synced with the latest coding guides</span></label>
+        <label class="quiz-option"><input type="radio" name="q8" value="d"><span>The <code>skills/policies/references/</code> directory is missing IM8 policy files</span></label>
+        <div class="quiz-explanation"><strong>Why (b) is correct:</strong> The Standards axis requires <code>CODING_STANDARDS.md</code> to enforce custom styling conventions. If it is missing, the agent relies purely on its built-in Fowler code smell baseline and will ignore your team's specific rules. Option (a) <code>arch-test-plan.md</code> governs boundary tests, not conventions. Option (c) Bedrock KB sync affects code written during <code>/do-work</code>, not the Standards axis of <code>/code-review</code>. Option (d) policy files feed <code>/spec-compliance</code>, not <code>/code-review</code>.</div>
+      </div>
+
+    </form>
+  </div>
+
+  <div class="callout blue" style="margin-top:32px">
+    <div class="callout-title">Unclear on something?</div>
+    <p>Run <code>/ask-workflow</code> in your Claude Code session to ask which skill or path fits your situation. It serves as an interactive guide to the workflow, routing you to the right skill or explaining the specific step you're on.</p>
+  </div>
+
+  <div class="lesson-nav">
+    <span>← <a href="01-eitri-skills.html">Lesson 1: The Eitri Skills in Action</a></span>
+  </div>
+
+</div>
+
+<script>
+  function initPerQuestionCheck(answers) {
+    for (const [name, correct] of Object.entries(answers)) {
+      const radios = Array.from(document.querySelectorAll(`input[type="radio"][name="${name}"]`));
+      if (!radios.length) continue;
+      const question = radios[0].closest('.quiz-question');
+      const explanation = question && question.querySelector('.quiz-explanation');
+
+      radios.forEach(radio => {
+        radio.addEventListener('change', function () {
+          if (question.dataset.answered) return;
+          question.dataset.answered = '1';
+
+          radios.forEach(r => {
+            r.disabled = true;
+            const label = r.closest('.quiz-option');
+            label.classList.add('answered');
+            if (r.value === correct) {
+              label.classList.add('correct');
+            } else if (r === this) {
+              label.classList.add('incorrect');
+            }
+          });
+
+          if (explanation) explanation.style.display = 'block';
+        });
+      });
+    }
+  }
+
+  function initChecklist(id) {
+    const container = document.getElementById(id) || document.getElementById('checklist');
+    if (!container) return;
+    const storageKey = 'checklist_' + (id || 'default');
+    let stored = {};
+    try { stored = JSON.parse(localStorage.getItem(storageKey) || '{}'); } catch(e) {}
+
+    container.querySelectorAll('input[type="checkbox"]').forEach((cb, i) => {
+      if (stored[i]) cb.checked = true;
+      if (cb.checked) cb.closest('.checklist-item')?.classList.add('done');
+
+      cb.addEventListener('change', function () {
+        stored[i] = this.checked;
+        try { localStorage.setItem(storageKey, JSON.stringify(stored)); } catch(e) {}
+        this.closest('.checklist-item')?.classList.toggle('done', this.checked);
+      });
+    });
+  }
+
+  function initPhaseSectionToggles() {
+    document.querySelectorAll('.phase-section').forEach(section => {
+      const header = section.querySelector('.phase-section-header');
+      const body = section.querySelector('.phase-body');
+      if (!header || !body) return;
+
+      const toggle = document.createElement('span');
+      toggle.className = 'phase-toggle';
+      toggle.textContent = '▾';
+      header.appendChild(toggle);
+
+      header.addEventListener('click', () => {
+        const collapsed = section.classList.toggle('collapsed');
+        toggle.textContent = collapsed ? '▸' : '▾';
+      });
+    });
+  }
+
+  initChecklist('checklist');
+  initPerQuestionCheck({q1:'b',q2:'b',q3:'b',q4:'b',q5:'b',q6:'c',q7:'c',q8:'b'});
+  initPhaseSectionToggles();
+
+  // Sidenav Toggles
+  document.querySelectorAll('.sidenav-toggle').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var group = document.getElementById(btn.dataset.target);
+      var isExpanded = !btn.classList.contains('collapsed');
+      if (isExpanded && btn.dataset.href) {
+        var target = document.querySelector(btn.dataset.href);
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+      var isCollapsed = btn.classList.toggle('collapsed');
+      group.classList.toggle('collapsed', isCollapsed);
+    });
+  });
+
+  // Scroll-spy
+  (function() {
+    var links = document.querySelectorAll('.page-sidenav .sidenav-link[href^="#"]');
+    var sections = Array.from(links).map(function(l) { return document.querySelector(l.getAttribute('href')); }).filter(Boolean);
+    function update() {
+      var scrollY = window.scrollY + 130;
+      var current = sections[0];
+      for (var i = 0; i < sections.length; i++) {
+        if (sections[i].getBoundingClientRect().top + window.scrollY <= scrollY) current = sections[i];
+      }
+      if (!current) return;
+      links.forEach(function(l) {
+        l.classList.toggle('active', l.getAttribute('href') === '#' + current.id);
+      });
+    }
+    window.addEventListener('scroll', update, { passive: true });
+    update();
+  })();
+</script>
+<script>
+  (function() {
+    var btn = document.getElementById('theme-toggle');
+    btn.addEventListener('click', function() {
+      var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      if (isDark) {
+        document.documentElement.removeAttribute('data-theme');
+        localStorage.setItem('eitri-theme', 'light');
+        btn.setAttribute('aria-label', 'Switch to dark mode');
+        btn.setAttribute('title', 'Switch to dark mode');
+      } else {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem('eitri-theme', 'dark');
+        btn.setAttribute('aria-label', 'Switch to light mode');
+        btn.setAttribute('title', 'Switch to light mode');
+      }
+    });
+    if (document.documentElement.getAttribute('data-theme') === 'dark') {
+      btn.setAttribute('aria-label', 'Switch to light mode');
+      btn.setAttribute('title', 'Switch to light mode');
+    }
+  })();
+</script>
+</body>
+</html>

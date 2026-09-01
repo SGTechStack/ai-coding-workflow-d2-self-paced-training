@@ -1,0 +1,1761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 0 — PO: From User Stories to Delivery Plan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script>
+    (function() {
+      var saved = localStorage.getItem('eitri-theme');
+      var preferred = saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      if (preferred === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+    })();
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --border: #e2e8f0;
+      --border-light: #f1f5f9;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --text-subtle: #94a3b8;
+
+      --blue: #2563eb;
+      --blue-light: #3b82f6;
+      --accent-blue-bg: #eff6ff;
+      --accent-blue-border: #bfdbfe;
+      --accent-blue-text: #1e40af;
+
+      --orange: #ea580c;
+      --accent-orange: #ea580c;
+      --accent-orange-bg: #fff7ed;
+      --accent-orange-border: #fed7aa;
+
+      --green: #16a34a;
+      --accent-green-bg: #f0fdf4;
+      --accent-green-border: #bbf7d0;
+      --accent-green-text: #15803d;
+
+      --purple: #7c3aed;
+      --accent-purple-bg: #f5f3ff;
+      --accent-purple-border: #ddd6fe;
+      --accent-purple-text: #5b21b6;
+
+      --teal: #0d9488;
+      --accent-teal-bg: #f0fdfa;
+      --accent-teal-border: #99f6e4;
+      --accent-teal-text: #0f766e;
+
+      --red: #dc2626;
+      --red-bg: #fef2f2;
+      --red-border: #fecaca;
+
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      --font-mono: 'SF Mono', 'Fira Code', 'Cascadia Code', Consolas, monospace;
+
+      --radius: 8px;
+      --radius-sm: 5px;
+      --radius-lg: 12px;
+      --shadow: 0 1px 3px rgba(0,0,0,.07), 0 4px 12px rgba(0,0,0,.05);
+      --shadow-sm: 0 1px 2px rgba(0,0,0,.05);
+    }
+
+    [data-theme="dark"] {
+      --bg: #0f172a;
+      --surface: #1c2b3f;
+      --border: #2a3f5a;
+      --border-light: #162234;
+      --text: #dde8f4;
+      --text-muted: #94b3cb;
+      --text-subtle: #5e7e9a;
+      --accent-blue-bg: #0d2040;
+      --accent-blue-border: #1e50a5;
+      --accent-blue-text: #7ab8f5;
+      --accent-orange-bg: #2a1005;
+      --accent-orange-border: #b04010;
+      --accent-green-bg: #08261a;
+      --accent-green-border: #145c2e;
+      --accent-purple-bg: #1e0d40;
+      --accent-purple-border: #6b28cc;
+      --accent-teal-bg: #052420;
+      --accent-teal-border: #0e5c50;
+      --shadow: 0 1px 3px rgba(0,0,0,.4), 0 4px 12px rgba(0,0,0,.3);
+      --shadow-sm: 0 1px 2px rgba(0,0,0,.25);
+    }
+    [data-theme="dark"] code { color: #f472b6; }
+    [data-theme="dark"] .callout { background: #1c1300; border-color: #3a2700; border-left-color: #b45309; }
+    [data-theme="dark"] .callout li code { color: #f472b6; background: rgba(255,255,255,.06); }
+    [data-theme="dark"] .copy-btn { background: var(--surface); }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      font-size: 15px;
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    .page-wrap {
+      max-width: 880px;
+      margin: 0 auto;
+      padding: 40px 24px 80px;
+    }
+
+    /* ── Top navigation bar ── */
+    .topnav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.97);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      box-shadow: 0 1px 8px rgba(0,0,0,.05);
+      transition: background-color 0.2s ease, border-color 0.2s ease;
+    }
+    [data-theme="dark"] .topnav { background: rgba(15,23,42,0.97); }
+    .topnav-inner {
+      max-width: 880px;
+      margin: 0 auto;
+      padding: 0 24px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .topnav-brand {
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--orange);
+      padding-right: 16px;
+      white-space: nowrap;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      letter-spacing: -0.02em;
+      text-decoration: none;
+    }
+    .topnav-brand:hover { opacity: 0.8; text-decoration: none; }
+    .topnav-divider {
+      width: 1px;
+      height: 20px;
+      background: var(--border);
+      flex-shrink: 0;
+      margin-right: 8px;
+    }
+    .topnav-links { display: flex; align-items: center; gap: 2px; }
+    .topnav-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-decoration: none;
+      border-radius: 7px;
+      transition: color 0.15s, background 0.15s;
+      white-space: nowrap;
+    }
+    .topnav-link:hover { color: var(--text); background: var(--border-light); text-decoration: none; }
+    .topnav-link.active { color: var(--orange); background: var(--accent-orange-bg); pointer-events: none; }
+    .topnav-step {
+      min-width: 22px; height: 22px; padding: 0 4px;
+      border-radius: 99px;
+      background: var(--border-light);
+      border: 1.5px solid var(--border);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.62rem;
+      font-weight: 800;
+      flex-shrink: 0;
+      color: var(--text-subtle);
+    }
+    .topnav-link.active .topnav-step { background: var(--orange); border-color: var(--orange); color: white; }
+    .theme-toggle {
+      margin-left: auto;
+      flex-shrink: 0;
+      width: 34px; height: 34px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--border-light);
+      color: var(--text-muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.15s, border-color 0.15s, color 0.15s;
+    }
+    .theme-toggle:hover { background: var(--surface); color: var(--text); border-color: var(--text-subtle); }
+    .theme-icon { display: none; pointer-events: none; }
+    html:not([data-theme="dark"]) .moon { display: block; }
+    html[data-theme="dark"] .sun { display: block; }
+
+    /* ── Breadcrumb / lesson label ── */
+    .lesson-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--orange);
+      margin-bottom: 10px;
+      display: block;
+    }
+    .lesson-hero { margin-bottom: 28px; }
+    h1 {
+      font-size: 2.1rem;
+      font-weight: 800;
+      line-height: 1.1;
+      color: var(--text);
+      margin-bottom: 14px;
+      letter-spacing: -0.03em;
+    }
+    .lead {
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: var(--text-muted);
+      margin: 8px 0 12px;
+      text-align: justify;
+    }
+
+    /* ── Typography ── */
+    h2 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--text);
+      margin: 44px 0 16px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--border);
+      letter-spacing: -0.01em;
+    }
+    h3 { font-size: 0.95rem; font-weight: 700; color: var(--text); margin: 20px 0 8px; }
+    p { margin: 8px 0; font-size: 0.9rem; color: var(--text-muted); line-height: 1.65; text-align: justify; }
+    p strong { color: var(--text); }
+    hr { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    ul { padding-left: 18px; margin: 6px 0; }
+    li { margin: 5px 0; font-size: 0.875rem; color: var(--text-muted); line-height: 1.55; text-align: justify; }
+    li strong { color: var(--text); }
+
+    /* ── Chips ── */
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 2px 8px;
+      border-radius: 99px;
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      flex-shrink: 0;
+    }
+    .chip-pm    { background: var(--accent-teal-bg);   color: var(--teal);   border: 1px solid var(--accent-teal-border); }
+    .chip-tl    { background: var(--accent-blue-bg);   color: var(--blue);   border: 1px solid var(--accent-blue-border); }
+    .chip-dev   { background: var(--accent-orange-bg); color: var(--orange); border: 1px solid var(--accent-orange-border); }
+    .chip-plus  { background: #fff3e0; color: var(--orange); border: 1px solid #fed7aa; }
+    .chip-wave  { background: var(--accent-blue-bg); color: var(--accent-blue-text); border: 1px solid var(--accent-blue-border); }
+    .chip-pass  { background: var(--accent-green-bg); color: var(--green); border: 1px solid var(--accent-green-border); }
+    .chip-green { background: var(--accent-green-bg); color: var(--green); border: 1px solid var(--accent-green-border); }
+
+    /* ── Code ── */
+    code {
+      font-family: var(--font-mono);
+      font-size: 0.82em;
+      background: var(--border-light);
+      color: #be185d;
+      padding: 1px 5px;
+      border-radius: 3px;
+    }
+    pre {
+      background: #1e1e2e;
+      color: #cdd6f4;
+      padding: 16px 18px;
+      border-radius: 0 0 var(--radius) var(--radius);
+      overflow-x: auto;
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      line-height: 1.65;
+      margin: 0;
+    }
+    pre code { background: none; color: inherit; padding: 0; border-radius: 0; }
+
+    /* ── Callouts ── */
+    .callout {
+      background: #fffbf0;
+      border: 1px solid #fde68a;
+      border-left: 4px solid #f59e0b;
+      border-radius: var(--radius);
+      padding: 14px 18px;
+      margin: 16px 0;
+    }
+    .callout.blue  { background: var(--accent-blue-bg);   border-color: var(--accent-blue-border);   border-left-color: var(--blue);   }
+    .callout.green { background: var(--accent-green-bg);  border-color: var(--accent-green-border);  border-left-color: var(--green);  }
+    .callout.teal  { background: var(--accent-teal-bg);   border-color: var(--accent-teal-border);   border-left-color: var(--teal);   }
+    .callout-title { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 6px; color: var(--text); }
+    .callout p  { margin: 0 0 4px; font-size: 0.875rem; color: var(--text-muted); text-align: left; }
+    .callout ul { font-size: 0.875rem; color: var(--text-muted); margin-top: 6px; }
+    .callout li { text-align: left; }
+    .callout li code { color: #be185d; background: rgba(0,0,0,.05); }
+    [data-theme="dark"] .callout.teal { background: var(--accent-teal-bg); border-color: var(--accent-teal-border); }
+
+    /* ── Step cards ── */
+    .step-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      margin: 20px 0;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+    .step-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 18px 22px;
+      border-bottom: 1px solid var(--border);
+      background: var(--border-light);
+    }
+    .step-num {
+      width: 38px;
+      height: 38px;
+      border-radius: 99px;
+      background: linear-gradient(135deg, var(--orange), #f97316);
+      color: white;
+      font-size: 1rem;
+      font-weight: 800;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 2px 6px rgba(234,88,12,.3);
+    }
+    .step-title  { font-size: 1rem; font-weight: 700; line-height: 1.3; margin-bottom: 4px; }
+    .step-subtitle { font-size: 0.82rem; color: var(--text-muted); line-height: 1.4; }
+    .step-body { padding: 20px 22px; }
+    .step-body p  { font-size: 0.9rem; color: var(--text-muted); line-height: 1.65; text-align: justify; }
+    .step-body p strong { color: var(--text); }
+    .step-body ul li { color: var(--text-muted); }
+
+    /* ── Role badge row ── */
+    .role-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    /* ── Output blocks ── */
+    .output-block {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin: 14px 0;
+    }
+    .output-block-label {
+      background: var(--border-light);
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--text-muted);
+      padding: 7px 12px;
+      border-bottom: 1px solid var(--border);
+    }
+    .output-block-body { padding: 2px 0; }
+    .output-row {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      padding: 9px 12px;
+      border-bottom: 1px solid var(--border-light);
+      font-size: 0.84rem;
+      flex-wrap: wrap;
+    }
+    .output-row:last-child { border-bottom: none; }
+    .output-row .label  { font-weight: 700; flex-shrink: 0; min-width: 160px; color: var(--text); }
+    .output-row .value  { flex: 1; font-weight: 500; color: var(--text); }
+    .output-row .note   { color: var(--text-muted); font-size: 0.8rem; flex: 1 0 100%; padding-left: 2px; }
+
+    /* ── EMR / command blocks ── */
+    .emr-example {
+      margin: 14px 0;
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    .emr-example-label {
+      background: #f0f4ff;
+      color: var(--accent-blue-text);
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 7px 14px;
+      border-bottom: 1px solid var(--accent-blue-border);
+      font-family: var(--font-mono);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .copy-btn {
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 2px 10px;
+      border-radius: 99px;
+      border: 1px solid var(--border);
+      background: white;
+      color: var(--text-muted);
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      font-family: var(--font-sans);
+    }
+    .copy-btn:hover { background: var(--orange); color: white; border-color: var(--orange); }
+    .copy-btn.copied { background: var(--green); color: white; border-color: var(--green); }
+    .emr-example pre { border-radius: 0; }
+
+    /* ── PM workflow flow diagram ── */
+    .pm-flow {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin: 20px 0;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+    .pm-flow-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+    }
+    .pm-flow-step:last-child { border-bottom: none; }
+    .pm-flow-num {
+      width: 32px; height: 32px;
+      border-radius: 99px;
+      background: linear-gradient(135deg, var(--orange), #f97316);
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 800;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 2px 6px rgba(234,88,12,.2);
+    }
+    .pm-flow-content { flex: 1; }
+    .pm-flow-title { font-size: 0.88rem; font-weight: 700; color: var(--text); margin-bottom: 3px; }
+    .pm-flow-desc  { font-size: 0.78rem; color: var(--text-muted); line-height: 1.5; text-align: left; }
+    .pm-flow-badges { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 6px; }
+    .pm-flow-connector {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 4px 20px 4px 36px;
+      font-size: 0.75rem;
+      color: var(--text-subtle);
+      background: var(--border-light);
+      border-bottom: 1px solid var(--border);
+    }
+    .pm-flow-connector::before { content: '↓'; margin-right: 6px; font-size: 0.8rem; color: var(--orange); }
+
+    /* ── Screenshots ── */
+    .screenshot-block {
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      margin: 16px 0;
+      box-shadow: var(--shadow-sm);
+    }
+    .screenshot-label {
+      background: var(--border-light);
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--text-muted);
+      padding: 7px 14px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .screenshot-label::before { content: '📸'; font-size: 0.85rem; }
+    .screenshot-block img {
+      display: block;
+      width: 100%;
+      height: auto;
+      background: #f8fafc;
+    }
+    .screenshot-caption {
+      padding: 8px 14px;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border);
+      background: var(--surface);
+    }
+
+    /* ── Screenshot 2-up grid ── */
+    .screenshot-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin: 16px 0;
+    }
+
+    /* ── Story example ── */
+    .story-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px 16px;
+      margin: 8px 0;
+      box-shadow: var(--shadow-sm);
+    }
+    .story-card-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-subtle);
+      margin-bottom: 6px;
+    }
+    .story-card-text {
+      font-size: 0.88rem;
+      color: var(--text);
+      font-style: italic;
+      line-height: 1.55;
+      margin-bottom: 8px;
+    }
+    .story-card-ac {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border-light);
+      padding-top: 8px;
+      margin-top: 4px;
+    }
+    .story-card-ac strong { color: var(--text); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; }
+
+    /* ── Table ── */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+      margin: 14px 0;
+      background: var(--surface);
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    th {
+      text-align: left;
+      padding: 9px 14px;
+      background: var(--border-light);
+      font-weight: 600;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--border);
+    }
+    td {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+      line-height: 1.5;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+    tr:last-child td { border-bottom: none; }
+    td code { font-size: 0.82em; }
+    td:first-child { font-weight: 600; color: var(--text); white-space: nowrap; }
+
+    /* ── Food for thought ── */
+    .fot-block {
+      background: var(--accent-purple-bg);
+      border: 1px solid var(--accent-purple-border);
+      border-radius: var(--radius);
+      padding: 14px 18px;
+      margin: 20px 0;
+    }
+    .fot-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent-purple-text);
+      margin-bottom: 10px;
+    }
+    .fot-q { list-style: none !important; display: flex; flex-direction: column; gap: 6px; padding: 0; margin: 0; }
+    .fot-q details summary {
+      cursor: pointer;
+      list-style: none;
+      display: block;
+      text-align: justify;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+    .fot-q details summary::-webkit-details-marker { display: none; }
+    .fot-q details summary::marker { display: none; content: none; }
+    .fot-q details summary::before { content: '▾'; font-size: 1rem; margin-right: 6px; display: inline-block; transition: transform 0.15s ease; color: var(--purple); font-weight: 900; vertical-align: 1px; }
+    .fot-q details[open] summary::before { transform: rotate(180deg); }
+    .fot-answer { margin-top: 6px; padding: 8px 12px; background: var(--border-light); border-left: 2px solid var(--accent-purple-border); border-radius: 0 4px 4px 0; line-height: 1.6; font-size: 0.8rem; color: var(--text-muted); text-align: justify; }
+    [data-theme="dark"] .fot-answer { background: rgba(255,255,255,.04); }
+
+    /* ── Ready checklist / objectives ── */
+    .objectives {
+      margin-top: 16px;
+      padding: 16px 20px;
+      background: var(--border-light);
+      border-radius: var(--radius);
+      border-left: 3px solid var(--orange);
+    }
+    .objectives-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--orange);
+      margin-bottom: 10px;
+    }
+    .objectives ul { padding-left: 16px; display: flex; flex-direction: column; gap: 6px; margin: 0; }
+    .objectives li { font-size: 0.875rem; color: var(--text-muted); text-align: left; }
+
+    /* ── CTA block ── */
+    .cta-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      text-align: center;
+      margin: 40px 0 0;
+      padding: 28px;
+      background: linear-gradient(135deg, #fff7ed, #fff);
+      border: 1px solid var(--accent-orange-border);
+      border-radius: var(--radius-lg);
+    }
+    .cta-label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); }
+    .cta-title { font-size: 1.1rem; font-weight: 700; color: var(--text); }
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 28px;
+      background: var(--orange);
+      color: white;
+      border-radius: 99px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      text-decoration: none;
+      margin-top: 6px;
+      box-shadow: 0 2px 8px rgba(234,88,12,.25);
+      transition: background 0.15s, box-shadow 0.15s;
+    }
+    .cta-btn:hover { background: #c2410c; box-shadow: 0 3px 12px rgba(234,88,12,.35); text-decoration: none; }
+    [data-theme="dark"] .cta-block { background: linear-gradient(135deg, #1c0903, #1e293b); }
+
+    /* ── Video placeholder ── */
+    .video-wrap { margin: 0 0 20px; }
+    .video-placeholder {
+      position: relative;
+      width: 100%;
+      padding-top: 56.25%;
+      background: #111827;
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    .video-placeholder-inner {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      background: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,.018) 10px, rgba(255,255,255,.018) 20px);
+    }
+    .video-play-btn {
+      width: 52px; height: 52px;
+      border-radius: 99px;
+      background: var(--orange);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      color: white;
+      box-shadow: 0 4px 18px rgba(234,88,12,.45);
+    }
+    .video-placeholder-label {
+      font-size: 0.68rem;
+      color: rgba(255,255,255,.38);
+      font-weight: 600;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+    }
+    .video-caption {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 8px;
+    }
+    .video-caption-title { font-size: 0.82rem; font-weight: 600; color: var(--text); }
+    .video-duration {
+      font-size: 0.7rem;
+      font-weight: 700;
+      background: var(--border-light);
+      color: var(--text-muted);
+      padding: 2px 9px;
+      border-radius: 99px;
+      border: 1px solid var(--border);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    /* ── Step details (video recap collapsible) ── */
+    .step-details { margin-top: 14px; }
+    .step-details > summary {
+      padding: 10px 0;
+      border-top: 1px solid var(--border);
+      cursor: pointer;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      list-style: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      user-select: none;
+      transition: color 0.15s;
+    }
+    .step-details > summary::-webkit-details-marker { display: none; }
+    .step-details > summary::after { content: '▸ expand'; font-size: 0.68rem; font-weight: 600; color: var(--blue-light); }
+    .step-details[open] > summary::after { content: '▾ collapse'; }
+    .step-details > summary:hover { color: var(--text); }
+    .step-details[open] > summary { padding-bottom: 14px; margin-bottom: 4px; }
+
+    /* ── Lesson nav ── */
+    .lesson-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 0 0;
+      margin-top: 24px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      border-top: 1px solid var(--border);
+    }
+    .lesson-nav a { color: var(--blue); }
+    .lesson-nav a:hover { text-decoration: underline; }
+
+    /* ── Page sidenav ── */
+    .page-sidenav {
+      position: fixed;
+      left: max(16px, calc(50% - 660px));
+      top: 76px;
+      width: 208px;
+      max-height: calc(100vh - 96px);
+      overflow-y: auto;
+      display: none;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 0;
+      box-shadow: var(--shadow-sm);
+    }
+    @media (min-width: 1400px) { .page-sidenav { display: block; } }
+    .sidenav-label {
+      font-size: 0.62rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--orange);
+      margin: 0 12px 10px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+    .sidenav-link {
+      display: block;
+      font-size: 0.74rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      text-decoration: none;
+      padding: 5px 12px;
+      line-height: 1.4;
+      border-left: 2px solid transparent;
+      transition: all 0.12s;
+    }
+    .sidenav-link:hover { color: var(--text); background: var(--border-light); text-decoration: none; }
+    .sidenav-link.active { color: var(--orange); font-weight: 600; border-left-color: var(--orange); background: var(--accent-orange-bg); }
+    .sidenav-sub { padding-left: 22px; font-size: 0.71rem; }
+    .sidenav-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      font-size: 0.74rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      background: none;
+      border: none;
+      border-left: 2px solid transparent;
+      cursor: pointer;
+      padding: 5px 12px;
+      text-align: left;
+      gap: 4px;
+      line-height: 1.4;
+      font-family: var(--font-sans);
+      transition: all 0.12s;
+    }
+    .sidenav-toggle:hover { color: var(--text); background: var(--border-light); }
+    .snav-chevron { font-size: 0.55rem; flex-shrink: 0; transition: transform 0.2s; display: inline-block; color: var(--text-subtle); }
+    .sidenav-toggle.collapsed .snav-chevron { transform: rotate(-90deg); }
+    .snav-group { overflow: hidden; max-height: 400px; transition: max-height 0.25s ease; }
+    .snav-group.collapsed { max-height: 0; }
+    [id] { scroll-margin-top: 68px; }
+    h2[id] { scroll-margin-top: 80px; }
+
+    @media (max-width: 640px) {
+      h1 { font-size: 1.8rem; }
+      .topnav-inner { padding: 0 16px; }
+      .topnav-link { padding: 0 8px; font-size: 0.72rem; gap: 4px; }
+      .screenshot-grid { grid-template-columns: 1fr; }
+      .pm-flow-step { gap: 12px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a href="eitri-overview.html" class="topnav-brand">Eitri Agentic Dev Workflow</a>
+    <div class="topnav-divider"></div>
+    <div class="topnav-links">
+      <a href="index.html" class="topnav-link"><span class="topnav-step">P</span>Prerequisites</a>
+      <a href="00-pm-ba-workflow.html" class="topnav-link active"><span class="topnav-step">L0</span>PO Workflow</a>
+      <a href="01-eitri-skills.html" class="topnav-link"><span class="topnav-step">L1</span>Eitri Skills</a>
+      <a href="02-team-context-ingestion.html" class="topnav-link"><span class="topnav-step">L2</span>Team Context</a>
+    </div>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Switch to dark mode" title="Switch to dark mode">
+      <svg class="theme-icon sun" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      <svg class="theme-icon moon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+  </div>
+</nav>
+
+<aside class="page-sidenav">
+  <div class="sidenav-label">On this page</div>
+  <a href="#pm-workflow-overview" class="sidenav-link">PO Workflow Overview</a>
+  <a href="#writing-user-stories" class="sidenav-link">Phase 1 — Eliciting User Stories</a>
+  <a href="#dependency-orchestrator" class="sidenav-link">Phase 2 — Generating &amp; Reading the PM Report</a>
+  <a href="#stories-to-issues" class="sidenav-link">Phase 3 — Creating GitHub Issues with <code>/stories-to-issues</code></a>
+  <a href="#developer-phase" class="sidenav-link">Phase 4 — Developer Implementation</a>
+  <a href="#reconcile-stories" class="sidenav-link">Phase 5 — Reconciling Completed Stories with <code>/reconcile-stories</code></a>
+  <a href="#e2e-testing" class="sidenav-link">Phase 6 — E2E Testing &amp; Acceptance</a>
+</aside>
+
+<div class="page-wrap">
+
+  <!-- Hero -->
+  <div class="lesson-hero">
+    <p class="lesson-label">Lesson 0 — PO Workflow</p>
+    <h1>From User Stories to Delivery Plan</h1>
+    <p class="lead">This lesson walks through the full Product Owner (PO) journey in the Eitri Agentic Dev Workflow, covering how to elicit fine-grained user stories with stakeholders, generate a dependency-sequenced delivery plan with the Tech Lead, sync completed work into GitHub, and validate the system end-to-end.</p>
+    <div class="objectives">
+      <div class="objectives-label">By the end of this lesson you will know:</div>
+      <ul>
+        <li>What makes a fine-grained, testable user story and how to elicit one</li>
+        <li>How to run <code>/dependency-orchestrator</code> with the Tech Lead to produce a PM delivery report</li>
+        <li>How to read the PM report: team size, timeline, critical path, and risk</li>
+        <li>How to use <code>/stories-to-issues</code> to create structured GitHub issues before Wave 1 starts</li>
+        <li>How to use <code>/reconcile-stories</code> to sync closed GitHub issues back into the delivery plan</li>
+        <li>How to validate the system against acceptance criteria during the end-to-end testing phase</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout blue">
+    <div class="callout-title">Who is this lesson for?</div>
+    <p>This lesson is written for <strong>Product Owners (POs)</strong> who collaborate with a Tech Lead to plan and track delivery. Your role is to provide business requirements, review the generated delivery plans, and validate the final system, while the Tech Lead operates the underlying agentic tools.</p>
+    <ul style="margin-top: 8px; display: flex; flex-direction: column; gap: 4px;">
+      <li><span class="chip chip-pm">PO</span> Provides inputs and reviews outputs during story elicitation (Phase 1), delivery planning (Phase 2), and progress reconciliation (Phase 5). Leads end-to-end acceptance testing (Phase 6).</li>
+      <li><span class="chip chip-tl">Tech Lead</span> Operates all the agentic tooling to generate the plans and issues: <code>/dependency-orchestrator</code> (Phase 2), <code>/stories-to-issues</code> (Phase 3), and <code>/reconcile-stories</code> (Phase 5).</li>
+      <li><span class="chip chip-dev">Developer</span> Owns the actual coding and implementation (Phase 4), which is covered separately in <a href="01-eitri-skills.html">Lesson 1</a>.</li>
+    </ul>
+  </div>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- WORKFLOW OVERVIEW                       -->
+  <!-- ═══════════════════════════════════════ -->
+
+  <h2 id="pm-workflow-overview">PO Workflow Overview</h2>
+
+  <p>The diagram below shows the seven steps of the PO journey. Each step has a clear owner and a concrete output that feeds the next. The entire workflow is anchored in the user stories you write in Step 1.</p>
+
+  <div class="pm-flow">
+
+    <div class="pm-flow-step">
+      <div class="pm-flow-num">1</div>
+      <div class="pm-flow-content">
+        <div class="pm-flow-title">Elicit Fine-Grained User Stories</div>
+        <div class="pm-flow-desc">Work with stakeholders to produce testable, vertically-sliced user stories with clear acceptance criteria. Use <code>/grill-with-docs</code> or <code>/wayfinder</code> to sharpen requirements before finalising.</div>
+        <div class="pm-flow-badges"><span class="chip chip-pm">PO</span><span class="chip chip-tl">Tech Lead</span><span class="chip chip-wave">Users</span></div>
+      </div>
+    </div>
+
+    <div class="pm-flow-connector">Output: a list of user stories with acceptance criteria</div>
+
+    <div class="pm-flow-step">
+      <div class="pm-flow-num">2</div>
+      <div class="pm-flow-content">
+        <div class="pm-flow-title">Run <code>/dependency-orchestrator</code> — Generate the PM Report</div>
+        <div class="pm-flow-desc">The Tech Lead runs the skill. The PO answers the interview questions: project name, platforms, story groupings, priorities, and constraints. The skill builds the delivery plan and produces the PM report.</div>
+        <div class="pm-flow-badges"><span class="chip chip-pm">PO</span><span class="chip chip-tl">Tech Lead</span></div>
+      </div>
+    </div>
+
+    <div class="pm-flow-connector">Output: <code>pm-report.html</code> — timeline, team size options, critical path, risk</div>
+
+    <div class="pm-flow-step">
+      <div class="pm-flow-num">3</div>
+      <div class="pm-flow-content">
+        <div class="pm-flow-title">Review the PM Report with Stakeholders</div>
+        <div class="pm-flow-desc">Interpret the delivery timeline, explore different team sizes, identify the critical path, and communicate resourcing and risk to management. Decide on team size and delivery date.</div>
+        <div class="pm-flow-badges"><span class="chip chip-pm">PO</span></div>
+      </div>
+    </div>
+
+    <div class="pm-flow-connector">Output: agreed team size, delivery date, and priority order</div>
+
+    <div class="pm-flow-step">
+      <div class="pm-flow-num">4</div>
+      <div class="pm-flow-content">
+        <div class="pm-flow-title">Create GitHub Issues — <code>/stories-to-issues</code></div>
+        <div class="pm-flow-desc">The Tech Lead runs <code>/stories-to-issues</code> before development begins. Each user story becomes a structured GitHub issue in Gantt order, containing acceptance criteria, dev tasks, team standards references, and schedule data.</div>
+        <div class="pm-flow-badges"><span class="chip chip-tl">Tech Lead</span></div>
+      </div>
+    </div>
+
+    <div class="pm-flow-connector">Output: GitHub issues in Gantt order, each containing the full implementation brief</div>
+
+    <div class="pm-flow-step">
+      <div class="pm-flow-num">5</div>
+      <div class="pm-flow-content">
+        <div class="pm-flow-title">Developers Implement Stories Wave by Wave</div>
+        <div class="pm-flow-desc">Stories are grouped into waves — batches of stories that share no blocking dependencies and can be worked on simultaneously. Developers pick up GitHub issues in wave order and implement using the Eitri Agentic Dev Workflow (covered in <a href="01-eitri-skills.html">Lesson 1</a>), closing each issue when the acceptance criteria are met. The PO's role is to monitor progress and protect the critical path.</div>
+        <div class="pm-flow-badges"><span class="chip chip-tl">Tech Lead</span><span class="chip chip-dev">Developer</span></div>
+      </div>
+    </div>
+
+    <div class="pm-flow-connector">Output: closed GitHub issues, merged code, passing tests per story</div>
+
+    <div class="pm-flow-step">
+      <div class="pm-flow-num">6</div>
+      <div class="pm-flow-content">
+        <div class="pm-flow-title">Reconcile Completed Stories — <code>/reconcile-stories</code></div>
+        <div class="pm-flow-desc">The Tech Lead runs <code>/reconcile-stories</code> to pull closed GitHub issues back into the plan. The skill recalculates how much schedule buffer each remaining story has before it would delay the end date, updates the projected finish date, and regenerates both <code>pm-report.html</code> and <code>dev-report.html</code> — each completed story is marked as done, and an overall progress indicator shows how many stories remain.</div>
+        <div class="pm-flow-badges"><span class="chip chip-pm">PO</span><span class="chip chip-tl">Tech Lead</span></div>
+      </div>
+    </div>
+
+    <div class="pm-flow-connector">Output: reconciled <code>pm-report.html</code> and <code>dev-report.html</code> with updated projections</div>
+
+    <div class="pm-flow-step">
+      <div class="pm-flow-num">7</div>
+      <div class="pm-flow-content">
+        <div class="pm-flow-title">E2E Testing &amp; Acceptance</div>
+        <div class="pm-flow-desc">Once all stories are done, the team runs end-to-end tests against the acceptance criteria from each user story. You start the app and walk through each story manually to confirm the system does what it promised. This is your acceptance gate before UAT.</div>
+        <div class="pm-flow-badges"><span class="chip chip-pm">PO</span><span class="chip chip-dev">QA / Developer</span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- PHASE 1: WRITING USER STORIES           -->
+  <!-- ═══════════════════════════════════════ -->
+
+  <h2 id="writing-user-stories">Phase 1 — Eliciting Fine-Grained User Stories</h2>
+
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-num">1</div>
+      <div>
+        <div class="step-title">Working with stakeholders to define fine-grained, testable user stories</div>
+        <div class="step-subtitle">Each story must describe one user capability with clear, verifiable acceptance criteria. The more specific the story, the more accurate the delivery plan and estimates will be.</div>
+      </div>
+    </div>
+    <div class="step-body">
+      <p>In the agentic workflow, user stories are the primary input that drives the delivery schedule. The skill works backwards from each story's end state to determine every development task needed and how they depend on each other. Vague or incomplete stories produce unreliable plans.</p>
+
+      <h3>The three properties that matter most</h3>
+
+      <div class="output-block">
+        <div class="output-block-label">Story Properties</div>
+        <div class="output-block-body">
+          <div class="output-row">
+            <span class="label">Testable</span>
+            <span class="value">Every story must have acceptance criteria that can be verified by running an automated test or by a human manually checking that the described behaviour works end-to-end.</span>
+          </div>
+          <div class="output-row">
+            <span class="label">Vertically sliced</span>
+            <span class="value">Each story must cut through all layers (data, logic, UI) and be demo-able independently. Horizontal slices ("build the database schema") cannot be tested as a standalone unit and prevent the delivery tool from ordering work accurately.</span>
+          </div>
+          <div class="output-row">
+            <span class="label">Fine-grained</span>
+            <span class="value">One story = one user capability. If you can split a story and the two halves can each be tested independently, split it. Coarse-grained stories produce vague implementation sequences and inaccurate estimates.</span>
+          </div>
+        </div>
+      </div>
+
+      <h3>Example: good vs problematic stories</h3>
+
+      <div class="story-card">
+        <div class="story-card-label">Good — vertically sliced, testable</div>
+        <div class="story-card-text">"As a nurse, I can register a new patient with their NRIC, name, and date of birth so that the patient has a record before clinical assessment begins."</div>
+        <div class="story-card-ac"><strong>Acceptance Criteria:</strong><br>
+          1. Submitting valid details creates a patient record and shows a confirmation.<br>
+          2. Duplicate NRIC is rejected with a clear error message.<br>
+          3. Missing required fields are flagged inline before submission.
+        </div>
+      </div>
+
+      <div class="story-card" style="border-color: var(--red-border); background: var(--red-bg);">
+        <div class="story-card-label" style="color: var(--red);">Problematic — horizontal slice, not independently testable</div>
+        <div class="story-card-text">"As a developer, I want to build the patient database schema so that patient data can be stored."</div>
+        <div class="story-card-ac"><strong>Why it fails:</strong> This is an implementation task, not a user capability. It cannot be demoed. The delivery tool requires every story to have a verifiable end state that a non-developer can check.</div>
+      </div>
+
+      <h3>Using <code>/grill-with-docs</code> or <code>/wayfinder</code> to sharpen stories</h3>
+      <p>Before finalising your story list, run it through one of these skills with the Tech Lead. Both will surface ambiguities that would otherwise only appear mid-implementation:</p>
+
+      <table>
+        <thead><tr><th style="width:150px">Skill</th><th>Best used when</th><th>What it produces</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><code>/grill-with-docs</code></td>
+            <td>You have a rough idea and want to think it through. The skill interviews you to extract requirements and challenges assumptions</td>
+            <td>Architecture Decision Records (ADRs) and a domain glossary alongside a refined story list</td>
+          </tr>
+          <tr>
+            <td><code>/wayfinder</code></td>
+            <td>You have a complex, multi-path problem with several unknowns that need to be resolved as decision tickets</td>
+            <td>A set of decision tickets resolved one at a time, producing a clear route through the complexity</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="fot-block">
+        <div class="fot-label">Food for thought</div>
+        <ul class="fot-q">
+          <li>
+            <details>
+              <summary>A stakeholder says "we need a reporting module." How do you turn that into fine-grained user stories?</summary>
+              <div class="fot-answer">Ask: who uses this report, what decision does it drive, and what does "done" look like for them? That conversation typically produces 3–5 separate stories: one for generating a fixed report, one for filtering, one for exporting, and so on. Each can be demoed independently. The word "module" is a feature area. Never accept a feature area as a single story.</div>
+            </details>
+          </li>
+          <li>
+            <details>
+              <summary>Why can't you put infrastructure tasks ("set up CI/CD", "create the database") as user stories in the input list?</summary>
+              <div class="fot-answer">Infrastructure tasks are automatically handled by the dependency orchestrator using foundation templates. The skill derives them from the platform you declare and attaches them as infrastructure stories internally. If you add them as feature stories too, you create duplicates in the delivery plan and distort the schedule. Your input list should contain only user-visible capabilities.</div>
+            </details>
+          </li>
+          <li>
+            <details>
+              <summary>What is the risk if a story's acceptance criteria are vague ("the form should work correctly")?</summary>
+              <div class="fot-answer">Vague acceptance criteria propagate through to the GitHub issue, the developer's implementation prompt, and the E2E test. At each step, the agent and the developer have to guess what "correctly" means. The result is either an over-engineered feature (developer hedges by building everything) or a partial implementation (developer builds only what was obvious). Fine acceptance criteria are the contract. Without them, delivery quality is non-deterministic.</div>
+            </details>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- PHASE 2: DEPENDENCY ORCHESTRATOR        -->
+  <!-- ═══════════════════════════════════════ -->
+
+  <h2 id="dependency-orchestrator">Phase 2 — Generating and Reading the PM Delivery Report</h2>
+
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-num">2</div>
+      <div>
+        <div class="step-title">Generating and reading the PM delivery report to plan team capacity and align with stakeholders</div>
+        <div class="step-subtitle">The Tech Lead runs /dependency-orchestrator while the PO provides the answers. The skill maps story dependencies and produces the PM delivery report (timelines, critical path, and risk) before any code is written.</div>
+      </div>
+    </div>
+    <div class="step-body">
+
+      <div class="video-wrap">
+        <div class="video-placeholder">
+          <div class="video-placeholder-inner">
+            <div class="video-play-btn">▶</div>
+            <div class="video-placeholder-label">Video coming soon</div>
+          </div>
+        </div>
+        <div class="video-caption">
+          <span class="video-caption-title">Phase 2 — Generating and Reading the PM Delivery Report</span>
+          <span class="video-duration">~ 5–8 min</span>
+        </div>
+      </div>
+
+      <details class="step-details"><summary>Video Recap</summary>
+
+      <div class="callout teal">
+        <div class="callout-title">Who does what in this phase</div>
+        <ul>
+          <li><strong>Tech Lead:</strong> opens a terminal in the project directory, types <code>/dependency-orchestrator</code>, and selects <strong>PM</strong> when asked for role.</li>
+          <li><strong>PO:</strong> sits alongside (or shares screen) and provides all the answers to the interview questions the skill asks. No command-line knowledge is required.</li>
+        </ul>
+      </div>
+
+      <h3>What to prepare before the session</h3>
+      <ul>
+        <li>Your finalised list of user stories (from Phase 1), each with acceptance criteria, saved as a file</li>
+        <li>A view on whether all stories are one release or should be split into sequential releases</li>
+        <li>Any known sequential constraints you are already aware of (e.g., "Reporting can only start after Patient Intake is complete")</li>
+        <li><em>Optional:</em> a grouping of stories by business value area (e.g., "Patient Intake", "Discharge Flow", "Reporting") and which areas are highest priority. If skipped, the skill will place all stories in a single default group</li>
+      </ul>
+
+      <h3>The interview questions the skill asks</h3>
+      <p>The skill conducts a structured interview before building the delivery plan. The questions are always asked in this order:</p>
+
+      <div class="output-block">
+        <div class="output-block-label">/dependency-orchestrator — PO Interview Questions</div>
+        <div class="output-block-body">
+          <div class="output-row">
+            <span class="label">1. Project name</span>
+            <span class="note">What is the project called? Used as the report title.</span>
+          </div>
+          <div class="output-row">
+            <span class="label">2. Platform(s)</span>
+            <span class="note">Which stacks apply? (Web frontend / Mobile / Backend API / combinations). This determines which foundation templates are loaded. Do not skip stacks that are genuinely in scope.</span>
+          </div>
+          <div class="output-row">
+            <span class="label">3. User stories file</span>
+            <span class="note">Provide a file path, document link, or MCP resource pointing to the stories from Phase 1. Do not paste stories inline. The skill requires a file path so it can process them without loading the entire list into its context.</span>
+          </div>
+          <div class="output-row">
+            <span class="label">4. Release planning</span>
+            <span class="note">Should all stories be treated as a single release, or broken into sequential releases (2–3 month chunks)? If sequential, the skill will ask you to group stories by release (e.g., "Release 1: stories 1–80, Release 2: stories 81–120"). Each release gets its own delivery plan. Later releases only start once earlier releases are fully complete.</span>
+          </div>
+          <div class="output-row">
+            <span class="label">5. Known constraints</span>
+            <span class="note">Any hard sequential dependencies you already know about? (e.g., "Reporting can only start after Patient Intake is complete"). These ordering rules are built into the delivery plan.</span>
+          </div>
+          <div class="output-row">
+            <span class="label">6. Optional components</span>
+            <span class="note">Do any of these apply to your project? Database migrations (Alembic, Flyway, Liquibase), CI/CD pipeline setup, App Store setup (mobile only). Answer yes / no / unsure for each.</span>
+          </div>
+          <div class="output-row">
+            <span class="label">7. Business value groups <em>(optional)</em></span>
+            <span class="note">Group the stories by feature / business area (e.g., "Patient Intake", "Checkout Flow", "Reporting"). You can specify which stories belong to each group, or skip this step. If skipped, all feature stories are placed in a single default group. Infrastructure stories are always grouped as "Platform Setup".</span>
+          </div>
+          <div class="output-row">
+            <span class="label">8. Group priorities <em>(only if Q7 answered)</em></span>
+            <span class="note">Are any groups higher priority than others? Valid values: <code>critical</code>, <code>high</code>, <code>normal</code> (default), <code>low</code>. Priority propagates to all stories in the group and affects scheduling order. Higher-priority stories are scheduled before lower-priority ones, even when they have the same schedule buffer.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="screenshot-block">
+        <div class="screenshot-label">The skill asking the PO interview questions</div>
+        <img src="images/pm-prompt-questions.png" alt="Screenshot of the /dependency-orchestrator skill interviewing the PO, showing questions about project name, platforms, user stories, and business value groups in the terminal" loading="lazy">
+        <div class="screenshot-caption">The skill interviews the PO before building the delivery plan. Stories must be provided as a file path or document link, not pasted inline, to keep the skill's context lean.</div>
+      </div>
+
+      <h3>What the skill does after the questions are answered</h3>
+      <p>The skill processes the PO's answers in several steps that run automatically. It takes roughly 3–5 minutes depending on the number of stories:</p>
+      <ul>
+        <li><strong>Backwards mapping:</strong> for each story, the skill traces the dependency chain backwards from the story's end state to the foundation layer, deriving every dev task required and its dependencies</li>
+        <li><strong>Dependency graph construction:</strong> all tasks and edges are merged into a single <code>project-dag.json</code> file, deduplicating shared foundation tasks across stories</li>
+        <li><strong>Scheduling analysis:</strong> the skill runs Critical Path Method (CPM) analysis once to identify which tasks must happen in sequence and which can run in parallel. It then separately simulates the delivery timeline for different team sizes, from 1 developer up to the point where adding more gives no further benefit, to find the optimal staffing level. The critical path itself does not change with team size. Only the overall delivery duration does</li>
+        <li><strong>Report generation:</strong> the PM report is written to <code>pm-report.html</code> and its key metrics are summarised in the conversation</li>
+      </ul>
+
+      <div class="callout">
+        <div class="callout-title">Adding stories later (add-on mode)</div>
+        <p>If stakeholders add new requirements after the initial plan is produced, re-run <code>/dependency-orchestrator</code>. The skill detects the existing plan, asks whether to merge the new stories in (add-on mode) or start fresh, and re-generates the full report with the combined picture. The critical path and delivery date are recomputed from scratch.</p>
+      </div>
+
+      <div class="fot-block">
+        <div class="fot-label">Food for thought</div>
+        <ul class="fot-q">
+          <li>
+            <details>
+              <summary>The skill asks for "business value groups". Why can't it figure out the groupings automatically from the story titles?</summary>
+              <div class="fot-answer">Business value groupings reflect stakeholder priorities and organisational ownership, not just vocabulary similarity. Two stories that both mention "patient data" may belong to different business domains: one to patient intake (owned by clinical operations) and one to reporting (owned by management). The skill will propose groupings based on domain nouns, but you must confirm them because the grouping affects which stories are prioritised in the scheduler and how risk is reported per business area.</div>
+            </details>
+          </li>
+          <li>
+            <details>
+              <summary>What does it mean to say the skill uses "backwards mapping" to derive dev tasks from a story?</summary>
+              <div class="fot-answer">Backwards mapping starts at the end state described by the story (e.g., "patient receives triage assessment") and traces the chain of structural prerequisites backwards: what must exist before the end state can be reached? That chain reveals every dev task the story requires and in what order those tasks must be completed. This is how the delivery schedule is derived from user stories rather than from a separate estimation exercise.</div>
+            </details>
+          </li>
+          <li>
+            <details>
+              <summary>Why is team size NOT asked during the PO interview, and who sets it?</summary>
+              <div class="fot-answer">The PM report is designed to be resourcing-neutral: it shows you the delivery timeline for every possible team size, so you can make the resourcing decision based on the trade-offs (cost vs speed). Team size is only fixed when the Tech Lead generates the developer report — at that point a specific team size is chosen and the Gantt chart is rendered for it. This separation means the PO can explore "what if we add two more developers?" without re-running the full analysis.</div>
+            </details>
+          </li>
+        </ul>
+      </div>
+
+      <h3 style="margin-top:28px;padding-top:20px;border-top:1px solid var(--border);">Reading the PM Report</h3>
+      <p>The PM report is written for stakeholder communication, not for developers. It deliberately omits implementation chains and wave scheduling. What it shows you is the information you need to make resourcing decisions and set delivery expectations.</p>
+
+      <h3>Key metrics and team size options</h3>
+      <p>The stats bar at the top of the report is interactive. The PO selects a team size from the dropdown and an estimate type (optimistic, likely, or pessimistic), and the estimated duration updates to reflect that choice. The remaining figures — max useful developers, total stories, and risk concentration — are fixed values derived from the delivery plan. The team size table below the stats bar shows the full duration breakdown for every staffing level, from 1 developer up to the point where adding more gives no further benefit. Use it to negotiate resourcing with management.</p>
+
+      <div class="screenshot-block">
+        <div class="screenshot-label">PM Report — stats bar and team size table</div>
+        <img src="images/pm-report-teamsize.png" alt="PM Report showing the interactive stats bar with team size selector and estimated duration, and the team size exploration table below it" loading="lazy">
+        <div class="screenshot-caption">The stats bar lets the PO adjust team size and estimate type to see how the duration changes. The team size table below shows the full breakdown across all staffing levels.</div>
+      </div>
+
+      <div class="output-block">
+        <div class="output-block-label">What each part of the report shows</div>
+        <div class="output-block-body">
+          <div class="output-row">
+            <span class="label">Team size</span>
+            <span class="note">A dropdown to select how many developers are on the team. Defaults to the recommended team size. Changing it updates the estimated duration immediately.</span>
+          </div>
+          <div class="output-row">
+            <span class="label">Estimate</span>
+            <span class="note">A slider with three confidence levels: Optimistic (no added buffer), Likely (+15% buffer), and Pessimistic (+30% buffer). Use Likely as the default when communicating to stakeholders. Switch to Pessimistic when setting a deadline commitment.</span>
+          </div>
+          <div class="output-row">
+            <span class="label">Est. duration</span>
+            <span class="note">How many working days the project will take at the selected team size and confidence level. This is the number to present to stakeholders as the delivery estimate.</span>
+          </div>
+          <div class="output-row">
+            <span class="label">Max useful developers</span>
+            <span class="note">The recommended team size — the last point where adding one more developer saves at least one working day. Adding developers beyond this number does not shorten delivery because the planned sequence of tasks leaves extra developers waiting.</span>
+          </div>
+          <div class="output-row">
+            <span class="label">Total stories</span>
+            <span class="note">The total number of stories in the plan, including both infrastructure and feature stories. Use this to confirm all user stories from Phase 1 were included, and to give stakeholders a sense of project scope.</span>
+          </div>
+          <div class="output-row">
+            <span class="label">Risk concentration</span>
+            <span class="note">Critical path effort as a percentage of total effort. High risk concentration (above ~60%) means most of the project's delay risk sits on a single chain of stories. Any slippage on that chain directly delays the delivery date with no schedule buffer to absorb it.</span>
+          </div>
+          <div class="output-row">
+            <span class="label">Team size table</span>
+            <span class="note">A table showing the estimated delivery duration for every team size, from 1 developer up to the maximum useful number. Each row also shows how much time that additional developer saves compared to the row above. Use this to present the cost-vs-speed trade-off to management when negotiating resourcing.</span>
+          </div>
+          <div class="output-row">
+            <span class="label">Potential blockers</span>
+            <span class="note">Highlights the stories most likely to cause delays: the primary bottleneck story (the one that unblocks the most downstream work), the critical path chain, the story with the longest wait relative to its own effort, and waves where parallel stories outnumber available developers. Use it to decide where to assign senior developers and where to add buffer time.</span>
+          </div>
+        </div>
+      </div>
+
+      <h3>Effort and completion charts</h3>
+      <p>The PM report includes three charts that help set stakeholder expectations about capacity and delivery shape.</p>
+
+      <div class="screenshot-block">
+        <div class="screenshot-label">PM Report — effort and completion charts</div>
+        <img src="images/pm-report-stats.png" alt="PM Report charts showing stories completed over time, effort distribution by technical category, and infrastructure versus feature effort ratio" loading="lazy">
+        <div class="screenshot-caption">Top: the S-curve of stories becoming testable over time, with per-business-value-group progress visible on hover. Bottom left: effort split by technical category (frontend, backend, infrastructure, testing, design). Bottom right: infrastructure scaffolding versus user-visible feature work as a percentage of total effort.</div>
+      </div>
+
+      <div class="output-block">
+        <div class="output-block-label">What each chart tells you</div>
+        <div class="output-block-body">
+          <div class="output-row">
+            <span class="label">Stories completed over time</span>
+            <span class="note">A cumulative count of stories becoming testable across the delivery window. An S-curve shape is normal: slow at the start while infrastructure is built, accelerating through the middle waves, then tapering as the final stories complete. A flat early period is expected: infrastructure stories are being built first, unblocking everything that follows.</span>
+          </div>
+          <div class="output-row">
+            <span class="label">Effort by technical category</span>
+            <span class="note">Total effort broken down by frontend, backend, infrastructure, testing, and design. Use this to validate that the team skill mix matches where the effort actually sits. If 60% of effort is backend but the team is frontend-heavy, that is a resourcing risk to raise early.</span>
+          </div>
+          <div class="output-row">
+            <span class="label">Infrastructure vs feature work</span>
+            <span class="note">The percentage of total effort spent on platform scaffolding (auth, CI/CD, database setup) versus user-visible features. A high infrastructure percentage early in the project is expected and normal. Use this to set stakeholder expectations: visible progress will be limited until the infrastructure wave is complete.</span>
+          </div>
+        </div>
+      </div>
+
+      <h3>Story readiness timeline</h3>
+      <p>The story readiness timeline lists each user story in the order it becomes testable, showing its earliest testable day and business value group. The dates adjust automatically when the team size is changed. Use this to plan QA windows, schedule stakeholder demos, and set interim milestones.</p>
+
+      <div class="screenshot-block">
+        <div class="screenshot-label">PM Report — story readiness timeline</div>
+        <img src="images/pm-report-stories.png" alt="PM Report story readiness timeline showing each user story listed in chronological order with its earliest testable date and business value group" loading="lazy">
+        <div class="screenshot-caption">Stories are listed in the order they become testable. Critical path stories are highlighted. Use the testable dates to schedule QA sessions and plan stakeholder demos.</div>
+      </div>
+
+      <h3>How to use the report in stakeholder conversations</h3>
+      <ul>
+        <li>Present the <strong>estimated duration and team size</strong> as a range: "With X developers we deliver in Y weeks. With X+2 we deliver in Z weeks. Here is the cost difference."</li>
+        <li>Use the <strong>risk concentration</strong> to set expectations: "Over 60% of the project's delay risk sits on the critical path stories. We need to ring-fence those stories from scope changes."</li>
+        <li>Point at the <strong>critical path stories</strong> when stakeholders ask about schedule risk. Any delay to those stories directly moves the end date.</li>
+        <li>Use the <strong>story readiness timeline</strong> to schedule QA milestones and interim demos at the points where business value groups become testable.</li>
+      </ul>
+
+      <div class="fot-block">
+        <div class="fot-label">Food for thought</div>
+        <ul class="fot-q">
+          <li>
+            <details>
+              <summary>A stakeholder says "can't we just add more developers to finish faster?" What does the PM report tell you?</summary>
+              <div class="fot-answer">The team size table shows exactly how many developers the plan can actually absorb. Beyond the max useful developers number, additional developers sit idle because some tasks must happen in sequence and cannot be split across extra people. You can show the stakeholder the table and explain: "Beyond N developers, extra people end up waiting on others to finish before they can start. Adding more people past this point extends the budget without shortening the timeline."</div>
+            </details>
+          </li>
+          <li>
+            <details>
+              <summary>What does high risk concentration (e.g., 72%) mean for how you manage the project?</summary>
+              <div class="fot-answer">It means 72% of the total effort sits on the critical path: stories with no schedule buffer. Any delay to any of those stories directly delays the project end date with no room to absorb slippage. Protect those stories from scope changes, avoid reassigning their developers, and front-load QA for those stories so defects are found early. Low-risk-concentration projects are more forgiving; high-concentration projects require tighter control of a small number of key stories.</div>
+            </details>
+          </li>
+          <li>
+            <details>
+              <summary>The estimated completion says "15 working days". What does that mean in calendar weeks, and what does the PM report not tell you?</summary>
+              <div class="fot-answer">15 working days is 3 calendar weeks assuming no public holidays or leave. The PM report assumes 100% developer availability and does not account for leave, public holidays, code review turnaround, or release/deployment overhead. Add 20–30% as a realistic buffer when communicating a delivery date to stakeholders. The report is a planning baseline, not a guaranteed commitment.</div>
+            </details>
+          </li>
+        </ul>
+      </div>
+      </details>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- PHASE 3: STORIES TO ISSUES             -->
+  <!-- ═══════════════════════════════════════ -->
+
+  <h2 id="stories-to-issues">Phase 3 — Creating GitHub Issues with <code>/stories-to-issues</code></h2>
+
+  <div class="callout teal">
+    <div class="callout-title">Before Phase 3: <span class="chip chip-tl">Tech Lead</span> generates the developer delivery plan</div>
+    <p>The PM report from Phase 2 showed delivery durations across all possible team sizes so the PO could negotiate resourcing with management. Once a specific team size is agreed, the Tech Lead re-runs <code>/dependency-orchestrator</code> in <strong>Developer</strong> role. Because the full dependency analysis was already completed in Phase 2, the skill skips all planning questions and asks only for the agreed team size. It then generates the following outputs, all locked to that number:</p>
+    <ul>
+      <li>A Gantt chart and developer allocation chart sized to the agreed team</li>
+      <li>Story cards in wave order, each showing the full implementation task chain</li>
+      <li>Team standards references per story, so developers know which guidelines apply before they start</li>
+      <li>A markdown delivery plan (<code>dev-report.md</code>) that becomes the developer source of truth alongside the GitHub issues</li>
+    </ul>
+    <p>These output files are then used in Phase 3 to populate each GitHub issue with the correct schedule data using the <code>/stories-to-issues</code> skill.</p>
+  </div>
+
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-num">3</div>
+      <div>
+        <div class="step-title">Converting each user story into a developer-ready GitHub issue before development starts</div>
+        <div class="step-subtitle">The Tech Lead creates one self-contained GitHub issue per user story, in Gantt order, from the developer delivery plan. Each issue contains acceptance criteria, dev tasks, standards references, and schedule data.</div>
+      </div>
+    </div>
+    <div class="step-body">
+
+      <div class="video-wrap">
+        <div class="video-placeholder">
+          <div class="video-placeholder-inner">
+            <div class="video-play-btn">▶</div>
+            <div class="video-placeholder-label">Video coming soon</div>
+          </div>
+        </div>
+        <div class="video-caption">
+          <span class="video-caption-title">Phase 3 — Creating GitHub Issues</span>
+          <span class="video-duration">~3 min</span>
+        </div>
+      </div>
+
+      <details class="step-details">
+        <summary>Video Recap</summary>
+
+      <div class="role-row"><span class="chip chip-tl">Tech Lead</span> runs the skill after generating the developer delivery plan, and before Wave 1 starts</div>
+
+      <p>The <code>/stories-to-issues</code> skill reads the dependency orchestrator output and creates one GitHub issue per user story in Gantt order. The earliest-starting story becomes issue #1, so the GitHub issue list naturally reflects the implementation sequence. Developers work directly from these issues throughout Phase 4.</p>
+
+      <h3>What each GitHub issue contains</h3>
+
+      <div class="output-block">
+        <div class="output-block-label">Issue structure — per story</div>
+        <div class="output-block-body">
+          <div class="output-row">
+            <span class="label">Category badge</span>
+            <span class="note">Whether this is an infrastructure story (platform scaffolding, auth) or a feature story (user-visible capability)</span>
+          </div>
+          <div class="output-row">
+            <span class="label">Critical path flag</span>
+            <span class="note">Clearly marked if this story is on the critical path, so any developer picking it up knows the stakes</span>
+          </div>
+          <div class="output-row">
+            <span class="label">Schedule table</span>
+            <span class="note">Effort estimate and schedule buffer: how much time this story can slip before it delays the project end date. Shown as "Critical" if the story is on the critical path and has no buffer.</span>
+          </div>
+          <div class="output-row">
+            <span class="label">Acceptance criteria</span>
+            <span class="note">Verbatim from the user story you wrote in Phase 1. This is the definition of done, unchanged and unparaphrased</span>
+          </div>
+          <div class="output-row">
+            <span class="label">Dev tasks</span>
+            <span class="note">Numbered implementation steps in the order they must be completed, with duration estimates and team standards references. These are derived by working backwards from the story's end state through every task it depends on</span>
+          </div>
+          <div class="output-row">
+            <span class="label">Standards references</span>
+            <span class="note">Table of team standards referenced by this story's dev tasks, with document paths, recipes, and checklist files</span>
+          </div>
+          <div class="output-row">
+            <span class="label">Dependency links</span>
+            <span class="note">Which stories must be completed before this one can start, and which stories this one unblocks</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="screenshot-block">
+        <div class="screenshot-label">A GitHub issue created by /stories-to-issues</div>
+        <img src="images/git-issue-sample.png" alt="Screenshot of a GitHub issue created by the stories-to-issues skill, showing acceptance criteria, dev tasks in implementation order, scheduling table, and team standards references" loading="lazy">
+        <div class="screenshot-caption">A developer picking up this issue has everything they need: the acceptance criteria they must satisfy, the implementation steps in order, the standards they must follow, and the stories that block and unblock them.</div>
+      </div>
+
+      <h3>How the Tech Lead runs it</h3>
+
+      <div class="emr-example">
+        <div class="emr-example-label">Terminal — project root <button class="copy-btn" data-copy="/stories-to-issues">Copy</button></div>
+        <pre><code>/stories-to-issues</code></pre>
+      </div>
+
+      <p>The skill asks for: the path to <code>processor-output.json</code> (the single output file from the dependency orchestrator), the target GitHub repo, the team size to use for scheduling data, any labels to add to all issues, and whether to do a dry run first. Always confirm the dry run output before creating real issues. Once created, issues cannot be automatically deleted.</p>
+
+      <div class="callout green">
+        <div class="callout-title">Why the acceptance criteria in the issue are verbatim</div>
+        <p>The skill copies your original acceptance criteria into the GitHub issue <em>without any summarisation or rephrasing</em>. This is deliberate: the acceptance criteria in the issue are the same contract you agreed with the stakeholder in Phase 1. Any rewording risks silently changing the definition of done. When a developer closes this issue, they are asserting they have met your original criteria.</p>
+      </div>
+
+      <div class="fot-block">
+        <div class="fot-label">Food for thought</div>
+        <ul class="fot-q">
+          <li>
+            <details>
+              <summary>Why are issues created in Gantt scheduling order rather than alphabetically or by feature group?</summary>
+              <div class="fot-answer">Creating issues in Gantt order means the issue list on GitHub naturally reflects the implementation sequence. Issue #1 is the first story a developer should pick up. It also makes it easy to verify the plan at a glance: if the issue list looks wrong (e.g., a dependent story appears before its dependency), it signals an error in the delivery plan that should be resolved before development starts.</div>
+            </details>
+          </li>
+          <li>
+            <details>
+              <summary>A developer asks "do I have to follow the dev tasks listed in the issue exactly?" How would you answer?</summary>
+              <div class="fot-answer">The dev tasks are the implementation steps derived from the delivery plan. They represent the minimum chain of work required to deliver the story. Developers can use their professional judgement on how to implement each task, but they cannot skip tasks without disrupting the plan's assumptions. If they discover a task is unnecessary or should be split, the right action is to flag it via a comment on the GitHub issue and notify the Tech Lead. The Tech Lead can then rerun <code>/dependency-orchestrator</code> in add-on mode to update the plan.</div>
+            </details>
+          </li>
+        </ul>
+      </div>
+      </details>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- PHASE 4: DEVELOPER PHASE               -->
+  <!-- ═══════════════════════════════════════ -->
+
+  <h2 id="developer-phase">Phase 4 — Developer Implementation</h2>
+
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-num">4</div>
+      <div>
+        <div class="step-title">Monitoring story progress and keeping the delivery on track</div>
+        <div class="step-subtitle">Developers work through GitHub issues wave by wave. The PO's role is to track progress against the story readiness timeline, resolve blockers on critical path stories, and keep stakeholders informed.</div>
+      </div>
+    </div>
+    <div class="step-body">
+
+      <p>With GitHub issues created in Phase 3, developers pick them up in wave order and work through each story using the developer delivery report (<code>dev-report.md</code>) as their guide. Your role as PO is to monitor progress, protect the delivery date, and keep stakeholders informed.</p>
+
+      <div class="callout blue">
+        <div class="callout-title">What "waves" mean for the PO</div>
+        <p>Waves are dependency-derived groupings — all stories in a wave are unblocked and can run simultaneously. Use the wave structure when planning stakeholder demos and QA check-ins. Every story in a wave should be testable before the next wave begins.</p>
+      </div>
+
+      <h3>The PO's role during implementation</h3>
+      <ul>
+        <li><strong>Monitor wave completion:</strong> track which GitHub issues are closed, open, or blocked, and communicate status against the story readiness timeline from the PM report</li>
+        <li><strong>Protect the critical path:</strong> any blocker on a critical path story needs immediate escalation as it directly shifts the delivery date</li>
+        <li><strong>Defer new requirements:</strong> if stakeholders request changes mid-delivery, capture them as new stories for a follow-on cycle. Injecting new stories mid-wave can disrupt the planned sequence and make existing estimates unreliable</li>
+        <li><strong>Prepare for QA:</strong> schedule QA sessions for each wave completion using the story readiness dates from the PM report</li>
+      </ul>
+
+      <div class="fot-block">
+        <div class="fot-label">Food for thought</div>
+        <ul class="fot-q">
+          <li>
+            <details>
+              <summary>A developer says "Story X is blocked because Story Y isn't done." What does this tell you about the delivery plan?</summary>
+              <div class="fot-answer">It tells you either: (a) the dependency between Y and X was correctly captured in the plan and Y is behind schedule, which is a scheduling problem, or (b) the dependency was missing from the plan entirely, which means the original plan was incorrect. In case (a), the critical path analysis tells you whether delaying Y delays the whole project. In case (b), re-run /dependency-orchestrator in add-on mode to incorporate the discovered dependency and regenerate the plan.</div>
+            </details>
+          </li>
+          <li>
+            <details>
+              <summary>A stakeholder asks to add a new story mid-way through Wave 2. What should you do?</summary>
+              <div class="fot-answer">Accept the requirement but defer it. Add it to the backlog, complete Wave 2, then re-run /dependency-orchestrator in add-on mode. The skill will merge the new story into the existing plan, identify where it fits in the delivery sequence, and update the PM report. Injecting mid-wave changes risks disrupting in-progress work and breaking developer focus. The cost of the disruption always exceeds the perceived urgency.</div>
+            </details>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- PHASE 5: RECONCILE STORIES             -->
+  <!-- ═══════════════════════════════════════ -->
+
+  <h2 id="reconcile-stories">Phase 5 — Reconciling Completed Stories with <code>/reconcile-stories</code></h2>
+
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-num">5</div>
+      <div>
+        <div class="step-title">Reconciling completed stories to keep the delivery plan current</div>
+        <div class="step-subtitle">As developers close GitHub issues, the Tech Lead runs <code>/reconcile-stories</code> to mark stories as done, update delivery projections, and regenerate the PM report with actual progress.</div>
+      </div>
+    </div>
+    <div class="step-body">
+
+      <div class="role-row"><span class="chip chip-tl">Tech Lead</span> runs the skill at the end of each wave, or whenever the PO needs an updated delivery projection</div>
+
+      <p>As developers complete stories and close their GitHub issues, the original delivery plan becomes stale. <code>/reconcile-stories</code> pulls the current state of those issues into the plan: completed stories are marked done, the schedule for remaining stories is recomputed, and updated PM and dev reports are generated with accurate projections.</p>
+
+      <h3>What changes and what does not</h3>
+
+      <div class="output-block">
+        <div class="output-block-label">Reconciliation — what changes</div>
+        <div class="output-block-body">
+          <div class="output-row">
+            <span class="label">Unchanged</span>
+            <span class="value">The story dependencies and their order. Reconciliation never changes <em>which</em> stories depend on which. Only the timing is updated.</span>
+          </div>
+          <div class="output-row">
+            <span class="label">Updated</span>
+            <span class="value">Completed stories no longer count towards remaining work. The schedule is recalculated based on actual progress and a revised projected finish date is produced.</span>
+          </div>
+        </div>
+      </div>
+
+      <h3>What the reconciled reports show</h3>
+      <ul>
+        <li><strong>Progress bar:</strong> stories done vs remaining, and whether the project is ahead or behind the original schedule</li>
+        <li><strong>Completed story markers</strong> on each finished story, showing the actual GitHub issue close date</li>
+        <li><strong>Updated Gantt chart</strong> reflecting remaining work only, with completed stories appearing faded</li>
+        <li><strong>Revised projected finish date</strong> based on remaining effort and current team velocity</li>
+      </ul>
+
+      <h3>How to run it</h3>
+
+      <div class="emr-example">
+        <div class="emr-example-label">Terminal — project root <button class="copy-btn" data-copy="/reconcile-stories">Copy</button></div>
+        <pre><code>/reconcile-stories</code></pre>
+      </div>
+
+      <p>The skill asks for: the location of the dependency orchestrator's output files, the GitHub repo, team size, labels to filter issues by (use <code>auto-generated</code> to match only issues created by <code>/stories-to-issues</code>), the project start date, and where to write the reconciled reports. Always confirm the dry-run output first. It shows how many stories mapped to issues and how many are closed.</p>
+
+      <div class="callout blue">
+        <div class="callout-title">When to run it</div>
+        <p>Run at the end of each wave to give stakeholders an updated picture before the next wave begins. Also run it any time someone asks "where are we?" The reconciled report answers with actual progress data, not the original estimate.</p>
+      </div>
+
+      <div class="callout">
+        <div class="callout-title">Issues must be created by /stories-to-issues first</div>
+        <p><code>/reconcile-stories</code> maps closed issues back to stories by parsing the story ID from the issue title (format: <code>STORY-ID: title</code>). It only works if the issues were created by <code>/stories-to-issues</code>. Manually created issues with different title formats will not be matched.</p>
+      </div>
+
+      <div class="fot-block">
+        <div class="fot-label">Food for thought</div>
+        <ul class="fot-q">
+          <li>
+            <details>
+              <summary>A developer closes a story's GitHub issue but the code is still in review. Should you count it as complete in the reconciliation?</summary>
+              <div class="fot-answer">No. A closed issue signals a completed story — closing it is an assertion that the acceptance criteria have been met, not that code has merely been submitted for review. Establish a team convention: issues are only closed after the code review is approved, the changes are merged, and automated tests pass. Closing early inflates the progress bar and distorts the remaining schedule projection.</div>
+            </details>
+          </li>
+          <li>
+            <details>
+              <summary>After reconciliation, the projected finish date has moved later than the original estimate. What should you tell stakeholders?</summary>
+              <div class="fot-answer">Be direct: the original estimate was a plan based on assumptions. The reconciled projection is based on actual progress. If stories are taking longer than estimated, the updated projection is more accurate than the original. Use the progress bar to show what proportion of work is done, and the updated Gantt to show which stories remain on the critical path. Stakeholders need the accurate picture, not the reassuring one.</div>
+            </details>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- PHASE 6: E2E TESTING & ACCEPTANCE      -->
+  <!-- ═══════════════════════════════════════ -->
+
+  <h2 id="e2e-testing">Phase 6 — E2E Testing &amp; Acceptance</h2>
+
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-num">6</div>
+      <div>
+        <div class="step-title">Verifying each story meets its original acceptance criteria through E2E tests and manual review</div>
+        <div class="step-subtitle">E2E tests verify the technical integration. Manual acceptance verifies the user experience against the original acceptance criteria. Both are required before declaring a story done.</div>
+      </div>
+    </div>
+    <div class="step-body">
+
+      <p>When all GitHub issues from Phase 3 are closed and automated tests pass, the project enters the acceptance phase. Closing a GitHub issue is the formal handoff from the dev team to you, signalling that a story's acceptance criteria are met. This is the PO's primary gate: does the application actually deliver the value described in each user story?</p>
+
+      <h3>Two layers of verification</h3>
+
+      <div class="output-block">
+        <div class="output-block-label">Acceptance — two layers</div>
+        <div class="output-block-body">
+          <div class="output-row">
+            <span class="label">E2E tests</span>
+            <span class="value">Automated tests that start the application and simulate real user flows end-to-end. They verify that the technical layers (API, database, UI) integrate correctly. A passing E2E test suite confirms the application does not crash on the happy path. It does not verify that the UX is good or that edge cases are handled correctly.</span>
+          </div>
+          <div class="output-row">
+            <span class="label">Manual acceptance</span>
+            <span class="value">The PO opens the running application and walks through each story's acceptance criteria manually. This catches mismatches between what was technically built and what was described: error messages that are technically correct but confusing, flows that work but are in the wrong order, or features that are present but not discoverable.</span>
+          </div>
+        </div>
+      </div>
+
+      <h3>How to run the acceptance walkthrough</h3>
+      <p>For each user story (working through the story readiness timeline from the PM report, earliest first):</p>
+      <ol style="padding-left: 20px; display: flex; flex-direction: column; gap: 6px; margin: 10px 0;">
+        <li style="font-size: 0.875rem; color: var(--text-muted);">Open the GitHub issue for the story. Its acceptance criteria are your checklist</li>
+        <li style="font-size: 0.875rem; color: var(--text-muted);">Start the application (the Tech Lead or a developer can help if needed)</li>
+        <li style="font-size: 0.875rem; color: var(--text-muted);">Walk through the scenario described in the story as a real user would</li>
+        <li style="font-size: 0.875rem; color: var(--text-muted);">Verify each acceptance criterion. Check the happy path, then the edge cases listed</li>
+        <li style="font-size: 0.875rem; color: var(--text-muted);">Note any discrepancies as comments on the GitHub issue. Distinguish between genuine defects (the criterion is not met) and new requirements (the criterion is met but you want something different)</li>
+      </ol>
+
+      <div class="callout">
+        <div class="callout-title">Defect vs new requirement: the critical distinction</div>
+        <p>During acceptance, it is easy to conflate two very different findings:</p>
+        <ul>
+          <li><strong>Defect:</strong> the application does not meet an acceptance criterion that was agreed in Phase 1. This is a bug. The developer must fix it before the story is closed.</li>
+          <li><strong>New requirement:</strong> the application meets all acceptance criteria, but you now want additional behaviour. This is a new story for the next cycle. Do not reopen the issue or expand its scope mid-acceptance.</li>
+        </ul>
+        <p>If you cannot distinguish them, go back to the acceptance criteria you wrote in Phase 1. If the criterion is there and not met, it is a defect. If the criterion is not there, it is a new requirement.</p>
+      </div>
+
+      <h3>When all stories pass acceptance</h3>
+      <p>Once every story's acceptance criteria are verified and all E2E tests pass, the project is ready for User Acceptance Testing (UAT) with real end users or a controlled release. At this point the delivery is complete from an engineering perspective. What follows is an operational decision about release timing, not a technical one.</p>
+
+      <div class="fot-block">
+        <div class="fot-label">Food for thought</div>
+        <ul class="fot-q">
+          <li>
+            <details>
+              <summary>A developer says "all E2E tests pass, so the stories are done." Is that sufficient? What is the PO's response?</summary>
+              <div class="fot-answer">No. E2E tests verify technical integration: that the layers connect and the application does not crash on the happy path. They do not verify that the UX matches the acceptance criteria, that error messages are correct, or that the feature is discoverable by a real user. The PO acceptance walkthrough is always required before a story is closed, because the tests verify what was coded and the PO verifies what was actually needed.</div>
+            </details>
+          </li>
+          <li>
+            <details>
+              <summary>During acceptance you find that a field label is confusing and you want it renamed. Is this a defect?</summary>
+              <div class="fot-answer">Only if the acceptance criterion specified the exact label text. If the criterion says "the form must display the patient's NRIC field with an appropriate label", and the current label says "ID Number", you can argue it does not meet "appropriate" and raise it as a defect. But if the criterion says only "the patient registration form must submit successfully", renaming the label is a new requirement. Be precise about what the acceptance criteria say — that is the contract.</div>
+            </details>
+          </li>
+          <li>
+            <details>
+              <summary>Why should the acceptance walkthrough use the story readiness timeline order rather than testing stories in any order?</summary>
+              <div class="fot-answer">The story readiness timeline reflects the dependency order of the project. Stories that other stories depend on appear first. If you accept stories in dependency order, any defect found in an early story (e.g., the patient registration story) can be fixed before you test the stories that depend on it (e.g., the triage story). Testing in a random order risks discovering a foundational defect after you've already "accepted" the stories that depend on the broken foundation.</div>
+            </details>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-block">
+    <div class="cta-label">Lesson 0 complete</div>
+    <div class="cta-title">Ready to see what Eitri adds for developers?</div>
+    <a class="cta-btn" href="01-eitri-skills.html">Continue to Lesson 1 →</a>
+  </div>
+
+  <div class="lesson-nav">
+    <a href="index.html">← Prerequisites</a>
+    <a href="01-eitri-skills.html">Lesson 1 — Eitri Skills →</a>
+  </div>
+
+</div>
+
+<script>
+  // Theme toggle
+  (function() {
+    var btn = document.getElementById('theme-toggle');
+    btn.addEventListener('click', function() {
+      var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      if (isDark) {
+        document.documentElement.removeAttribute('data-theme');
+        localStorage.setItem('eitri-theme', 'light');
+        btn.setAttribute('aria-label', 'Switch to dark mode');
+        btn.setAttribute('title', 'Switch to dark mode');
+      } else {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem('eitri-theme', 'dark');
+        btn.setAttribute('aria-label', 'Switch to light mode');
+        btn.setAttribute('title', 'Switch to light mode');
+      }
+    });
+    if (document.documentElement.getAttribute('data-theme') === 'dark') {
+      btn.setAttribute('aria-label', 'Switch to light mode');
+      btn.setAttribute('title', 'Switch to light mode');
+    }
+  })();
+
+  // Copy buttons
+  document.querySelectorAll('.copy-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var text = btn.dataset.copy ||
+        (btn.closest('.emr-example') && btn.closest('.emr-example').querySelector('code') && btn.closest('.emr-example').querySelector('code').innerText) ||
+        '';
+      navigator.clipboard.writeText(text).then(function() {
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied');
+        setTimeout(function() { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+      });
+    });
+  });
+
+  // Sidenav scroll spy
+  (function() {
+    var links = document.querySelectorAll('.page-sidenav .sidenav-link[href^="#"]');
+    var sections = Array.from(links).map(function(l) { return document.querySelector(l.getAttribute('href')); }).filter(Boolean);
+    function update() {
+      var scrollY = window.scrollY + 130;
+      var current = sections[0];
+      for (var i = 0; i < sections.length; i++) {
+        if (sections[i] && sections[i].getBoundingClientRect().top + window.scrollY <= scrollY) current = sections[i];
+      }
+      if (!current) return;
+      links.forEach(function(l) {
+        l.classList.toggle('active', l.getAttribute('href') === '#' + current.id);
+      });
+    }
+    window.addEventListener('scroll', update, { passive: true });
+    update();
+  })();
+</script>
+
+</body>
+</html>

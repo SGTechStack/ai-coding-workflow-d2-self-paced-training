@@ -1,0 +1,1576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 1 — What Was Built on Top of Matt Pocock</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script>
+    (function() {
+      var saved = localStorage.getItem('eitri-theme');
+      var preferred = saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      if (preferred === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+    })();
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --border: #e2e8f0;
+      --border-light: #f1f5f9;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --text-subtle: #94a3b8;
+
+      --blue: #2563eb;
+      --blue-light: #3b82f6;
+      --accent-blue-bg: #eff6ff;
+      --accent-blue-border: #bfdbfe;
+      --accent-blue-text: #1e40af;
+
+      --orange: #ea580c;
+      --accent-orange: #ea580c;
+      --accent-orange-bg: #fff7ed;
+      --accent-orange-border: #fed7aa;
+
+      --green: #16a34a;
+      --accent-green-bg: #f0fdf4;
+      --accent-green-border: #bbf7d0;
+      --accent-green-text: #15803d;
+
+      --red: #dc2626;
+      --red-bg: #fef2f2;
+      --red-border: #fecaca;
+
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      --font-mono: 'SF Mono', 'Fira Code', 'Cascadia Code', Consolas, monospace;
+
+      --radius: 8px;
+      --radius-sm: 5px;
+      --radius-lg: 12px;
+      --shadow: 0 1px 3px rgba(0,0,0,.07), 0 4px 12px rgba(0,0,0,.05);
+      --shadow-sm: 0 1px 2px rgba(0,0,0,.05);
+    }
+
+    [data-theme="dark"] {
+      --bg: #0f172a;
+      --surface: #1c2b3f;
+      --border: #2a3f5a;
+      --border-light: #162234;
+      --text: #dde8f4;
+      --text-muted: #94b3cb;
+      --text-subtle: #5e7e9a;
+      --accent-blue-bg: #0d2040;
+      --accent-blue-border: #1e50a5;
+      --accent-blue-text: #7ab8f5;
+      --accent-orange-bg: #2a1005;
+      --accent-orange-border: #b04010;
+      --accent-green-bg: #08261a;
+      --accent-green-border: #145c2e;
+      --accent-purple-bg: #1e0d40;
+      --accent-purple-border: #6b28cc;
+      --shadow: 0 1px 3px rgba(0,0,0,.4), 0 4px 12px rgba(0,0,0,.3);
+      --shadow-sm: 0 1px 2px rgba(0,0,0,.25);
+    }
+    [data-theme="dark"] code { color: #f472b6; }
+    [data-theme="dark"] .callout { background: #1c1300; border-color: #3a2700; border-left-color: #b45309; }
+    [data-theme="dark"] .callout li code { color: #f472b6; background: rgba(255,255,255,.06); }
+    [data-theme="dark"] .chip-mp { background: var(--surface); color: var(--text-subtle); border-color: var(--border); }
+    [data-theme="dark"] .chip-plus { background: var(--accent-orange-bg); border-color: var(--accent-orange-border); }
+    [data-theme="dark"] .emr-example-label { background: var(--accent-blue-bg); }
+    [data-theme="dark"] .copy-btn { background: var(--surface); }
+    [data-theme="dark"] .flow-skill.mp { color: var(--text-subtle); }
+    [data-theme="dark"] .flow-skill.mp code { background: var(--border-light); color: var(--text-subtle); }
+    [data-theme="dark"] .flow-skill.mp .flow-num { background: var(--border); color: var(--text-muted); }
+    [data-theme="dark"] .flow-sep { color: var(--border); }
+    [data-theme="dark"] .flow-skill.mp .flow-desc { color: var(--text-subtle); }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      font-size: 15px;
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    .page-wrap {
+      max-width: 880px;
+      margin: 0 auto;
+      padding: 40px 24px 80px;
+    }
+
+    /* ── Lesson nav breadcrumb ── */
+    .lesson-breadcrumb {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 32px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+    .lesson-breadcrumb .course-tag {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .lesson-breadcrumb .pill {
+      background: var(--accent-orange-bg);
+      color: var(--orange);
+      border: 1px solid var(--accent-orange-border);
+      border-radius: 99px;
+      padding: 2px 10px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .progress-dots { display: flex; gap: 6px; align-items: center; }
+    .dot {
+      width: 8px; height: 8px; border-radius: 99px;
+      background: var(--border);
+    }
+    .dot.active { background: var(--orange); width: 22px; border-radius: 4px; }
+
+    /* ── Lesson hero ── */
+    .lesson-hero {
+      margin-bottom: 36px;
+    }
+    .lesson-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--orange);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    h1 {
+      font-size: 2.1rem;
+      font-weight: 800;
+      line-height: 1.15;
+      color: var(--text);
+      margin-bottom: 18px;
+      letter-spacing: -0.025em;
+    }
+
+    /* ── Typography ── */
+    h2 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--text);
+      margin: 44px 0 16px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--border);
+      letter-spacing: -0.01em;
+    }
+    h3 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text);
+      margin: 20px 0 8px;
+    }
+    p { margin: 10px 0; font-size: 0.925rem; text-align: justify; }
+    .lead {
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: var(--text-muted);
+      margin: 8px 0 12px;
+      text-align: justify;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 44px 0;
+    }
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    ul { padding-left: 18px; margin: 6px 0; }
+    li { margin: 4px 0; font-size: 0.9rem; }
+
+    /* ── Tables ── */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.875rem;
+      margin: 14px 0;
+      background: var(--surface);
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    th {
+      text-align: left;
+      padding: 10px 14px;
+      background: var(--border-light);
+      font-weight: 600;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--border);
+    }
+    td {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+      line-height: 1.55;
+    }
+    tr:last-child td { border-bottom: none; }
+
+    /* ── Code ── */
+    code {
+      font-family: var(--font-mono);
+      font-size: 0.82em;
+      background: var(--border-light);
+      color: #be185d;
+      padding: 1px 5px;
+      border-radius: 3px;
+    }
+    pre {
+      background: #1e1e2e;
+      color: #cdd6f4;
+      padding: 16px 18px;
+      border-radius: 0 0 var(--radius) var(--radius);
+      overflow-x: auto;
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      line-height: 1.65;
+      margin: 0;
+    }
+    pre code {
+      background: none;
+      color: inherit;
+      padding: 0;
+      border-radius: 0;
+    }
+    .pre-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: var(--text-subtle);
+      margin: 18px 0 4px;
+    }
+
+    /* ── Chips ── */
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      padding: 1px 8px;
+      border-radius: 99px;
+      font-size: 0.67rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      vertical-align: middle;
+      white-space: nowrap;
+    }
+    .chip-plus { background: #fff3e0; color: var(--orange); border: 1px solid #fed7aa; }
+    .chip-mp   { background: #f3f4f6; color: #6b7280; border: 1px solid #d1d5db; }
+    .chip-wave { background: var(--accent-blue-bg); color: var(--accent-blue-text); border: 1px solid var(--accent-blue-border); }
+    .chip-pass { background: var(--accent-green-bg); color: var(--green); border: 1px solid var(--accent-green-border); }
+    .chip-fail { background: var(--red-bg); color: var(--red); border: 1px solid var(--red-border); }
+
+    /* ── Callouts ── */
+    .callout {
+      background: #fffbf0;
+      border: 1px solid #fde68a;
+      border-left: 4px solid #f59e0b;
+      border-radius: var(--radius);
+      padding: 14px 18px;
+      margin: 20px 0;
+    }
+    .callout.blue {
+      background: var(--accent-blue-bg);
+      border-color: var(--accent-blue-border);
+      border-left-color: var(--blue);
+    }
+    .callout.green {
+      background: var(--accent-green-bg);
+      border-color: var(--accent-green-border);
+      border-left-color: var(--green);
+    }
+    .callout-title {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      margin-bottom: 6px;
+      color: var(--text);
+    }
+    .callout p { margin: 0 0 4px; font-size: 0.875rem; color: var(--text-muted); }
+    .callout ul { font-size: 0.875rem; color: var(--text-muted); margin-top: 6px; }
+    .callout li code { color: #be185d; background: rgba(0,0,0,.05); }
+
+    /* ── Step cards ── */
+    .step-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      margin: 20px 0;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+    .step-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 18px 22px;
+      border-bottom: 1px solid var(--border);
+    }
+    .step-num {
+      width: 38px;
+      height: 38px;
+      border-radius: 99px;
+      background: linear-gradient(135deg, var(--orange), #f97316);
+      color: white;
+      font-size: 1rem;
+      font-weight: 800;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 2px 6px rgba(234,88,12,.3);
+    }
+    .step-title {
+      font-size: 1rem;
+      font-weight: 700;
+      line-height: 1.3;
+      margin-bottom: 4px;
+    }
+    .step-subtitle {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+    .step-body {
+      padding: 20px 22px;
+    }
+    .step-body p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.65; }
+    .step-body p strong { color: var(--text); }
+    .step-body ul li { color: var(--text-muted); }
+
+    /* ── Output blocks ── */
+    .output-block {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin: 14px 0;
+    }
+    .output-block-label {
+      background: var(--border-light);
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--text-muted);
+      padding: 7px 12px;
+      border-bottom: 1px solid var(--border);
+    }
+    .output-block-body { padding: 2px 0; }
+    .output-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 12px;
+      border-bottom: 1px solid var(--border-light);
+      font-size: 0.84rem;
+      flex-wrap: wrap;
+    }
+    .output-row:last-child { border-bottom: none; }
+    .output-row .label { font-weight: 600; flex-shrink: 0; min-width: 150px; color: var(--text); }
+    .output-row .value { flex: 1; font-weight: 500; }
+    .output-row .note { color: var(--text-muted); font-size: 0.8rem; flex: 1 0 100%; padding-left: 2px; }
+
+    /* ── EMR examples ── */
+    .emr-example {
+      margin: 14px 0;
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    .emr-example-label {
+      background: #f0f4ff;
+      color: var(--accent-blue-text);
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 7px 14px;
+      border-bottom: 1px solid var(--accent-blue-border);
+      font-family: var(--font-mono);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .copy-btn {
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 2px 10px;
+      border-radius: 99px;
+      border: 1px solid var(--border);
+      background: white;
+      color: var(--text-muted);
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      font-family: var(--font-sans);
+    }
+    .copy-btn:hover { background: var(--orange); color: white; border-color: var(--orange); }
+    .copy-btn.copied { background: var(--green); color: white; border-color: var(--green); }
+    .emr-example pre { border-radius: 0; }
+
+    /* ── Workflow overview (collapsible) ── */
+    .workflow-overview {
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      margin: 28px 0;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      padding: 22px 22px 10px;
+      background: var(--surface);
+    }
+
+    .flow-legend {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      padding: 10px 16px;
+      background: var(--border-light);
+      border-bottom: 1px solid var(--border);
+      font-size: 0.73rem;
+      color: var(--text-muted);
+      flex-wrap: wrap;
+    }
+    .flow-legend-item { display: flex; align-items: center; gap: 5px; }
+    .flow-phases { padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 12px; }
+
+    .flow-phase {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .flow-phase-header {
+      background: var(--border-light);
+      font-size: 0.67rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      padding: 7px 12px;
+      border-bottom: 1px solid var(--border);
+    }
+    .flow-skill {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--border-light);
+      font-size: 0.82rem;
+      line-height: 1.3;
+    }
+    .flow-skill:last-child { border-bottom: none; }
+    .flow-skill.mp { color: #9ca3af; }
+    .flow-skill.mp code { background: #f5f6f7; color: #9ca3af; }
+    .flow-num {
+      min-width: 22px; height: 22px; padding: 0 4px;
+      border-radius: 99px;
+      font-size: 0.6rem;
+      font-weight: 800;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      background: var(--orange);
+      color: white;
+    }
+    .flow-skill.mp .flow-num { background: #d1d5db; color: #6b7280; }
+    .flow-name { flex-shrink: 0; }
+    .flow-sep  { color: #d1d5db; flex-shrink: 0; }
+    .flow-desc { color: var(--text-muted); font-size: 0.75rem; }
+    .flow-skill.mp .flow-desc { color: #c5cad3; }
+    .flow-gate {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 12px;
+      background: var(--accent-blue-bg);
+      border-top: 1px solid var(--accent-blue-border);
+      border-bottom: 1px solid var(--accent-blue-border);
+      font-size: 0.74rem;
+      font-weight: 600;
+      color: var(--accent-blue-text);
+    }
+    .flow-gate::before { content: '✋'; font-size: 0.85rem; }
+
+    /* ── Sources ── */
+    .sources {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px 20px;
+    }
+    .sources strong { color: var(--text); display: block; margin-bottom: 6px; }
+    .sources ul { margin: 0; padding-left: 16px; }
+    .sources li { margin: 4px 0; }
+
+    /* ── Quiz ── */
+    .quiz {
+      background: var(--accent-green-bg);
+      border: 1px solid var(--accent-green-border);
+      border-left: 4px solid var(--green);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      margin: 40px 0;
+      box-shadow: var(--shadow);
+    }
+    .quiz-heading-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--green);
+      margin-bottom: 6px;
+    }
+    .quiz > h2 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text);
+      margin: 0 0 28px;
+      padding: 0 0 14px;
+      border-bottom: 1px solid var(--accent-green-border);
+      letter-spacing: -0.01em;
+    }
+    .quiz-question {
+      margin-bottom: 20px;
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
+    .quiz-question:first-of-type { padding-top: 0; }
+    .quiz-question:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+    .quiz-question h3 {
+      font-size: 0.925rem;
+      font-weight: 600;
+      line-height: 1.55;
+      margin: 0 0 12px;
+      color: var(--text);
+    }
+    .quiz-option {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 11px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      margin: 7px 0;
+      cursor: pointer;
+      font-size: 0.875rem;
+      line-height: 1.5;
+      color: var(--text-muted);
+      transition: border-color 0.15s, background 0.15s;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+    .quiz-option:hover { border-color: var(--blue-light); background: var(--accent-blue-bg); color: var(--text); }
+    .quiz-option input[type="radio"] { margin-top: 3px; flex-shrink: 0; accent-color: var(--blue); }
+    .quiz-option.correct {
+      border-color: var(--green);
+      background: var(--accent-green-bg);
+      color: var(--green);
+      font-weight: 600;
+    }
+    .quiz-option.incorrect {
+      border-color: var(--red);
+      background: var(--red-bg);
+      color: var(--red);
+    }
+    .quiz-option.answered { cursor: default; }
+    .quiz-option.answered:not(.correct):not(.incorrect):hover {
+      border-color: var(--border); background: transparent; color: var(--text-muted);
+    }
+    .quiz-explanation {
+      display: none;
+      background: var(--border-light);
+      border-left: 3px solid var(--blue-light);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 12px 16px;
+      margin-top: 12px;
+      font-size: 0.855rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+    .quiz-explanation strong { color: var(--text); }
+    .quiz-explanation code { font-size: 0.82em; }
+
+    /* ── Lesson navigation ── */
+    .lesson-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 0 0;
+      margin-top: 32px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      border-top: 1px solid var(--border);
+      gap: 16px;
+    }
+    .lesson-nav a { color: var(--blue); }
+    .lesson-nav a:hover { text-decoration: underline; }
+
+    /* ── Top navigation bar ── */
+    .topnav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.97);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      box-shadow: 0 1px 8px rgba(0,0,0,.05);
+      transition: background-color 0.2s ease, border-color 0.2s ease;
+    }
+    [data-theme="dark"] .topnav { background: rgba(15,23,42,0.97); }
+    .topnav-inner {
+      max-width: 880px;
+      margin: 0 auto;
+      padding: 0 24px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .topnav-brand {
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--orange);
+      padding-right: 16px;
+      white-space: nowrap;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      letter-spacing: -0.02em;
+      text-decoration: none;
+    }
+    .topnav-brand:hover { opacity: 0.8; text-decoration: none; }
+
+    .topnav-divider {
+      width: 1px;
+      height: 20px;
+      background: var(--border);
+      flex-shrink: 0;
+      margin-right: 8px;
+    }
+    .topnav-links { display: flex; align-items: center; gap: 2px; }
+    .topnav-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-decoration: none;
+      border-radius: 7px;
+      transition: color 0.15s, background 0.15s;
+      white-space: nowrap;
+    }
+    .topnav-link:hover { color: var(--text); background: var(--border-light); text-decoration: none; }
+    .topnav-link.active { color: var(--orange); background: var(--accent-orange-bg); pointer-events: none; }
+    .topnav-step {
+      min-width: 22px; height: 22px; padding: 0 4px;
+      border-radius: 99px;
+      background: var(--border-light);
+      border: 1.5px solid var(--border);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.62rem;
+      font-weight: 800;
+      flex-shrink: 0;
+      color: var(--text-subtle);
+    }
+    .topnav-link.active .topnav-step { background: var(--orange); border-color: var(--orange); color: white; }
+    .theme-toggle {
+      margin-left: auto;
+      flex-shrink: 0;
+      width: 34px; height: 34px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--border-light);
+      color: var(--text-muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.15s, border-color 0.15s, color 0.15s;
+    }
+    .theme-toggle:hover { background: var(--surface); color: var(--text); border-color: var(--text-subtle); }
+    .theme-icon { display: none; pointer-events: none; }
+    html:not([data-theme="dark"]) .moon { display: block; }
+    html[data-theme="dark"] .sun { display: block; }
+
+    /* ── Video embeds ── */
+    .video-wrap { margin: 20px 0 24px; }
+    .video-placeholder {
+      position: relative;
+      width: 100%;
+      padding-top: 56.25%;
+      background: #111827;
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    .video-placeholder-inner {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 10px,
+        rgba(255,255,255,.018) 10px,
+        rgba(255,255,255,.018) 20px
+      );
+    }
+    .video-play-btn {
+      width: 52px; height: 52px;
+      border-radius: 99px;
+      background: var(--orange);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      color: white;
+      box-shadow: 0 4px 18px rgba(234,88,12,.45);
+    }
+    .video-placeholder-label {
+      font-size: 0.68rem;
+      color: rgba(255,255,255,.38);
+      font-weight: 600;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+    }
+    .video-caption {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 8px;
+    }
+    .video-caption-title {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .video-duration {
+      font-size: 0.7rem;
+      font-weight: 700;
+      background: var(--border-light);
+      color: var(--text-muted);
+      padding: 2px 9px;
+      border-radius: 99px;
+      border: 1px solid var(--border);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    /* ── Collapsible step details ── */
+    .step-details { margin-top: 14px; }
+    .step-details > summary {
+      padding: 10px 0;
+      border-top: 1px solid var(--border);
+      cursor: pointer;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      list-style: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      user-select: none;
+      transition: color 0.15s;
+    }
+    .step-details > summary::-webkit-details-marker { display: none; }
+    .step-details > summary::after { content: '▸ expand'; font-size: 0.68rem; font-weight: 600; color: var(--blue-light); }
+    .step-details[open] > summary::after { content: '▾ collapse'; }
+    .step-details > summary:hover { color: var(--text); }
+    .step-details[open] > summary { padding-bottom: 14px; margin-bottom: 4px; }
+
+    @media (max-width: 640px) {
+      h1 { font-size: 1.6rem; }
+      .step-header { flex-wrap: wrap; }
+      .lesson-nav { flex-direction: column; align-items: flex-start; gap: 8px; }
+      .output-row .label { min-width: 100px; }
+      .topnav-inner { padding: 0 16px; }
+      .topnav-link { padding: 0 10px; font-size: 0.76rem; gap: 5px; }
+    }
+
+    /* ── Page sidenav ── */
+    .page-sidenav {
+      position: fixed;
+      left: max(16px, calc(50% - 660px));
+      top: 76px;
+      width: 208px;
+      max-height: calc(100vh - 96px);
+      overflow-y: auto;
+      display: none;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 0;
+      box-shadow: var(--shadow-sm);
+    }
+    @media (min-width: 1400px) { .page-sidenav { display: block; } }
+    .sidenav-label {
+      font-size: 0.62rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--orange);
+      margin: 0 12px 10px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+    .sidenav-link {
+      display: block;
+      font-size: 0.74rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      text-decoration: none;
+      padding: 5px 12px;
+      line-height: 1.4;
+      border-left: 2px solid transparent;
+      transition: all 0.12s;
+    }
+    .sidenav-link:hover { color: var(--text); background: var(--border-light); text-decoration: none; }
+    .sidenav-link.active { color: var(--orange); font-weight: 600; border-left-color: var(--orange); background: var(--accent-orange-bg); }
+    .sidenav-section-label {
+      display: block;
+      font-size: 0.68rem;
+      font-weight: 700;
+      color: var(--text);
+      padding: 8px 12px 2px;
+      margin-top: 4px;
+      letter-spacing: 0.02em;
+    }
+    .sidenav-sub { padding-left: 22px; font-size: 0.71rem; }
+    .sidenav-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      font-size: 0.74rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      background: none;
+      border: none;
+      border-left: 2px solid transparent;
+      cursor: pointer;
+      padding: 5px 12px;
+      text-align: left;
+      gap: 4px;
+      line-height: 1.4;
+      font-family: var(--font-sans);
+      transition: all 0.12s;
+    }
+    .sidenav-toggle:hover { color: var(--text); background: var(--border-light); }
+    .snav-chevron { font-size: 0.55rem; flex-shrink: 0; transition: transform 0.2s; display: inline-block; color: var(--text-subtle); }
+    .sidenav-toggle.collapsed .snav-chevron { transform: rotate(-90deg); }
+    .snav-group { overflow: hidden; max-height: 400px; transition: max-height 0.25s ease; }
+    .snav-group.collapsed { max-height: 0; }
+    [id] { scroll-margin-top: 68px; }
+    h2[id] { scroll-margin-top: 80px; }
+  </style>
+</head>
+<body>
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a href="eitri-overview.html" class="topnav-brand">Eitri Agentic Dev Workflow</a>
+    <div class="topnav-divider"></div>
+    <div class="topnav-links">
+      <a href="index.html" class="topnav-link"><span class="topnav-step">P</span>Prerequisites</a>
+      <a href="00-pm-ba-workflow.html" class="topnav-link"><span class="topnav-step">L0</span>PO Workflow</a>
+      <a href="01-eitri-skills.html" class="topnav-link active"><span class="topnav-step">L1</span>Eitri Skills</a>
+      <a href="02-team-context-ingestion.html" class="topnav-link"><span class="topnav-step">L2</span>Team Context</a>
+    </div>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Switch to dark mode" title="Switch to dark mode">
+      <svg class="theme-icon sun" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      <svg class="theme-icon moon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+  </div>
+</nav>
+<aside class="page-sidenav">
+  <div class="sidenav-label">On this page</div>
+  <a href="#workflow-overview" class="sidenav-link">Eitri Agentic Dev Workflow</a>
+
+  <button class="sidenav-toggle" data-target="snav-planning" data-href="#planning-sequencing">Planning &amp; Story Sequencing <span class="snav-chevron">▾</span></button>
+  <div class="snav-group" id="snav-planning">
+    <a href="#dependency-orchestrator" class="sidenav-link sidenav-sub"><code>/dependency-orchestrator</code></a>
+    <a href="#arch-tests" class="sidenav-link sidenav-sub"><code>/arch-tests-plan</code></a>
+  </div>
+
+  <button class="sidenav-toggle" data-target="snav-compliance" data-href="#compliance-quality">Compliance &amp; Issue Quality <span class="snav-chevron">▾</span></button>
+  <div class="snav-group" id="snav-compliance">
+    <a href="#spec-compliance" class="sidenav-link sidenav-sub"><code>/spec-compliance</code></a>
+    <a href="#issue-verification" class="sidenav-link sidenav-sub"><code>/issue-verification</code></a>
+  </div>
+
+  <button class="sidenav-toggle" data-target="snav-impl" data-href="#implementation-loop">Implementation Loop <span class="snav-chevron">▾</span></button>
+  <div class="snav-group" id="snav-impl">
+    <a href="#do-work" class="sidenav-link sidenav-sub"><code>/do-work</code></a>
+    <a href="#customise-do-work" class="sidenav-link sidenav-sub">Customising <code>/do-work</code></a>
+  </div>
+
+  <button class="sidenav-toggle" data-target="snav-arch" data-href="#arch-linting">Architecture Linting <span class="snav-chevron">▾</span></button>
+  <div class="snav-group" id="snav-arch">
+    <a href="#arch-tests-feature" class="sidenav-link sidenav-sub"><code>/arch-tests-gen-feature</code></a>
+  </div>
+
+  <button class="sidenav-toggle" data-target="snav-grill" data-href="#grilling-gates">Grilling Before Gates <span class="snav-chevron">▾</span></button>
+  <div class="snav-group" id="snav-grill">
+    <a href="#grill-me" class="sidenav-link sidenav-sub"><code>/grill-me</code></a>
+  </div>
+
+  <a href="#quiz" class="sidenav-link">Knowledge Check</a>
+</aside>
+<div class="page-wrap">
+
+  <!-- Hero -->
+  <div class="lesson-hero">
+    <p class="lesson-label">Lesson 1 of 2 — Eitri Agentic Dev Workflow <span class="chip chip-pass">✦ Hands on</span></p>
+    <h1>What Was Built on Top of Matt Pocock</h1>
+    <p class="lead">Matt Pocock's workflow covers the full idea-to-ship cycle but does not sequence stories in dependency order, enforce architectural boundaries in code, apply government compliance policies, or verify that tickets are well-specified before implementation begins. Eitri adds each of these checks at the step in the workflow where it belongs.</p>
+    <div style="margin-top: 16px; padding: 14px 18px; background: var(--border-light); border-radius: var(--radius); border-left: 3px solid var(--orange);">
+      <div style="font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--orange); margin-bottom: 10px;">By the end of this lesson you will know:</div>
+      <ul style="padding-left: 16px; display: flex; flex-direction: column; gap: 6px; margin: 0;">
+        <li style="font-size: 0.875rem; color: var(--text-muted);">How to sequence stories in dependency order using <code>/dependency-orchestrator</code></li>
+        <li style="font-size: 0.875rem; color: var(--text-muted);">How to enforce architectural boundaries and apply compliance policies using <code>/arch-tests-plan</code> and <code>/spec-compliance</code></li>
+        <li style="font-size: 0.875rem; color: var(--text-muted);">How to verify ticket quality using <code>/issue-verification</code> before implementation begins</li>
+        <li style="font-size: 0.875rem; color: var(--text-muted);">How to execute the self-steering developer loop using <code>/do-work</code></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout blue">
+    <div class="callout-title">Pre-requisite setup for this hands-on lesson</div>
+    <p>To internalise the workflow, you can run through each skill hands-on in your own repository. Install the <a href="https://github.com/SGTechStack/ai-coding-workflow-d2" target="_blank">Eitri skills</a> on top of your existing Matt Pocock setup before starting:</p>
+    <div class="emr-example" style="margin-top:10px">
+      <div class="emr-example-label">Terminal</div>
+      <pre><code># Install Eitri skills
+npx skills add https://github.com/SGTechStack/ai-coding-workflow-d2 --all
+
+# Clone the AppStandards repository
+git clone https://github.com/SGTechStack/App-Standards</code></pre>
+    </div>
+    <p style="margin-top:8px; font-size: 0.8rem;"><em>Note: The <a href="https://github.com/SGTechStack/App-Standards" target="_blank">AppStandards</a> repository contains the standard patterns/design decisions, implementation recipes, and grilling questions that the agent references to ensure code is generated according to organisational conventions.</em></p>
+  </div>
+  <h2 id="workflow-overview">Eitri Agentic Dev Workflow</h2>
+
+  <div class="step-card">
+    <div class="step-header">
+      <div>
+        <div class="step-title">The 5-phase workflow</div>
+        <div class="step-subtitle">End-to-end view of all 5 phases, workflow skills, and HITL gates</div>
+      </div>
+    </div>
+    <div class="step-body">
+      <div class="video-wrap">
+        <video controls style="width: 100%; border-radius: var(--radius); border: 1px solid var(--border); display: block; background: #111827;">
+          <source src="videos/5-phase-workflow.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <div class="video-caption">
+          <span class="video-caption-title">Overview: The Eitri Agentic Dev Workflow</span>
+          <span class="video-duration">~ 4–5 min</span>
+        </div>
+      </div>
+
+      <details class="step-details">
+        <summary>Video Recap</summary>
+
+        <a href="images/eitri-workflow.html" target="_blank" style="display:block;margin-bottom:20px;" title="Open full workflow diagram">
+          <img src="images/eitri-workflow-preview.png" alt="Eitri enhanced workflow diagram showing all 5 phases with skills, HITL gates, and the do-work self-steering loop" style="width:100%;border-radius:10px;border:1px solid #E2E8F0;box-shadow:0 4px 16px rgba(0,0,0,0.08);transition:box-shadow 0.2s;" onmouseover="this.style.boxShadow='0 8px 24px rgba(0,0,0,0.15)'" onmouseout="this.style.boxShadow='0 4px 16px rgba(0,0,0,0.08)'">
+          <p style="text-align:center;font-size:12px;color:#64748B;margin:6px 0 0;">Click to open the full interactive diagram</p>
+        </a>
+
+<p style="margin-bottom: 20px; font-size: 0.95rem;">Eitri is a suite of custom AI skills built on top of Matt Pocock's foundational five-phase workflow (Architecture, Specification, Decomposition, Implementation, and Closeout). While the baseline workflow is strong, applying it to a government enterprise environment exposes <strong>four critical gaps</strong> that Eitri fills:</p>
+
+        <h3 style="margin:24px 0 14px;font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-muted);">How Eitri fills the gaps</h3>
+        <div style="display:flex;flex-direction:column;gap:14px;margin-bottom:8px;">
+
+          <div>
+            <div style="margin-bottom:4px;"><strong>Gap 1: No build sequencing</strong> ➔ <code>/dependency-orchestrator</code> <span class="chip chip-plus">[+]</span></div>
+            <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">Without sequencing, teams guess what to build first. In Phase 1 (Architecture), Eitri maps out dependencies across your stories to generate a PM delivery report (estimates &amp; critical path) and a developer wave plan before any code is written.</p>
+          </div>
+
+          <div>
+            <div style="margin-bottom:4px;"><strong>Gap 2: Architectural drift</strong> ➔ <code>/arch-tests-plan</code> &amp; <code>/arch-tests-gen</code> <span class="chip chip-plus">[+]</span></div>
+            <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">Nothing stops code from drifting between layers. Eitri converts your architectural boundaries into automated, build-failing tests. If a developer violates a rule, the build fails immediately rather than waiting for a code review.</p>
+          </div>
+
+          <div>
+            <div style="margin-bottom:4px;"><strong>Gap 3: Missing compliance checks</strong> ➔ <code>/spec-compliance</code> <span class="chip chip-plus">[+]</span></div>
+            <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">Catching a security violation during the specification phase is a simple document edit; catching it later causes massive rework. In Phase 2, Eitri automatically audits the TRD against policies like IM8 and ARC before the <strong>TRD Sign-off</strong> gate.</p>
+          </div>
+
+          <div>
+            <div style="margin-bottom:4px;"><strong>Gap 4: Vague ticket instructions</strong> ➔ <code>/issue-verification</code> <span class="chip chip-plus">[+]</span></div>
+            <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">An agent stalls on vague tickets. In Phase 3, Eitri verifies that every ticket covers all layers, is demoable, and has unambiguous criteria before publishing them to the tracker and advancing to the <strong>Ticket Sign-off</strong> gate.</p>
+          </div>
+          
+          <div style="margin-top: 8px;">
+            <div style="margin-bottom:4px;"><strong>Bonus: The Self-Steering Loop</strong> ➔ <code>/do-work</code> <span class="chip chip-plus">[+]</span></div>
+            <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">The baseline implement skill runs in a single pass. In Phase 4, Eitri wraps implementation in a self-steering engine: build (TDD) ➔ AI code review ➔ automated quality gates. If any check fails, the engine instantly triggers a fix-and-retry loop until every gate is green.</p>
+          </div>
+
+          <div style="margin-top: 8px;">
+            <div style="margin-bottom:4px;"><strong>Phase 5 Closeout</strong> ➔ <code>/arch-tests-gen-feature</code> <span class="chip chip-plus">[+]</span></div>
+            <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">Takes the placeholder architecture rules generated by the arch-tests-plan skill in Phase 1 and fills them in with the real package names from the newly built feature, converting theoretical boundaries into automated tests.</p>
+          </div>
+
+        </div>
+
+      </details>
+    </div>
+  </div>
+
+  <div style="margin: 44px 0 24px; padding-top: 24px; border-top: 1px dashed var(--border);">
+    <p class="lead" style="margin: 0; color: var(--text);">The sections below walk through each Eitri skill in workflow order — what gap it fills, what it produces, and how it connects to the next step. Each section maps to a phase in the diagram above.</p>
+  </div>
+
+  <div class="callout blue" style="margin-bottom:24px">
+    <div class="callout-title">The three reference stories</div>
+    <p>Every example in this lesson traces back to one of these three user stories. Keep them in mind as you read.</p>
+    <table style="margin-top:12px;border:none">
+      <thead><tr><th style="width:130px">Story</th><th>User story</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>Registration</strong></td>
+          <td>As a nurse, I want to register a new patient so they have a record in the system before clinical assessment begins.</td>
+        </tr>
+        <tr>
+          <td><strong>Triage</strong></td>
+          <td>As a nurse, I want to record vital signs and assign a TOCC risk flag so the Emergency Department can prioritise treatment.</td>
+        </tr>
+        <tr>
+          <td><strong>Consultation</strong></td>
+          <td>As an attending physician, I want to document a consultation, prescribe medication, and generate a referral letter so the patient's care pathway is tracked and the encounter is ready for handoff or discharge.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2 id="planning-sequencing">Planning &amp; Story Sequencing</h2>
+
+  <div class="step-card" id="dependency-orchestrator">
+    <div class="step-header">
+      <div class="step-num">2</div>
+      <div>
+        <div class="step-title"><code>/dependency-orchestrator</code> <span class="chip chip-plus">[+]</span></div>
+        <div class="step-subtitle">Story sequencing — builds a delivery wave plan before any code is written</div>
+      </div>
+    </div>
+    <div class="step-body">
+      <div class="video-wrap">
+        <video controls style="width: 100%; border-radius: var(--radius); border: 1px solid var(--border); display: block; background: #111827;">
+          <source src="videos/dependency-orchestrator.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <div class="video-caption">
+          <span class="video-caption-title">/dependency-orchestrator — Story Sequencing &amp; Wave Planning</span>
+        </div>
+      </div>
+      <details class="step-details"><summary>Video Recap</summary>
+      <p style="margin-bottom: 0px; font-size: 0.95rem;"><em>Video coming soon.</em> Eitri maps out dependencies across your stories to generate a PM delivery report (estimates &amp; critical path) and a developer wave plan before any code is written.</p>
+      </details>
+    </div>
+  </div>
+
+  <div class="step-card" id="arch-tests">
+    <div class="step-header">
+      <div class="step-num">4</div>
+      <div>
+        <div class="step-title"><code>/arch-tests-plan</code> + <code>/arch-tests-gen</code> <span class="chip chip-plus">[+]</span></div>
+        <div class="step-subtitle">Architecture boundary enforcement — turns ADRs into build-failing tests</div>
+      </div>
+    </div>
+    <div class="step-body">
+      <div class="video-wrap">
+        <video controls style="width: 100%; border-radius: var(--radius); border: 1px solid var(--border); display: block; background: #111827;">
+          <source src="videos/arch-tests-plan.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <div class="video-caption">
+          <span class="video-caption-title">/arch-tests-plan &amp; /arch-tests-gen — Architecture Boundary Tests</span>
+        </div>
+      </div>
+      <details class="step-details"><summary>Video Recap</summary>
+      <p style="margin-bottom: 0px; font-size: 0.95rem;"><em>Video coming soon.</em> Eitri converts your architectural boundaries into automated, build-failing tests. If a developer violates a rule, the build fails immediately rather than waiting for a code review.</p>
+      </details>
+    </div>
+  </div>
+
+
+  <h2 id="compliance-quality">Compliance &amp; Issue Quality</h2>
+
+  <div class="step-card" id="spec-compliance">
+    <div class="step-header">
+      <div class="step-num">7</div>
+      <div>
+        <div class="step-title"><code>/spec-compliance</code> <span class="chip chip-plus">[+]</span></div>
+        <div class="step-subtitle">Compliance audit gate — catch policy flaws before they become code</div>
+      </div>
+    </div>
+    <div class="step-body">
+      <div class="video-wrap">
+        <div class="video-placeholder">
+          <div class="video-placeholder-inner">
+            <div class="video-play-btn">▶</div>
+            <div class="video-placeholder-label">Video coming soon</div>
+          </div>
+        </div>
+        <div class="video-caption">
+          <span class="video-caption-title">/spec-compliance — Catching Policy Flaws Before They Become Code</span>
+          <span class="video-duration">~ 3–6 min</span>
+        </div>
+      </div>
+      <details class="step-details"><summary>Video Recap</summary>
+      <p style="margin-bottom: 0px; font-size: 0.95rem;"><em>Video coming soon.</em> Eitri automatically audits the TRD against policies like IM8 and ARC before the TRD Sign-off gate. Catching a security violation here is a simple document edit; catching it later causes massive rework.</p>
+      </details>
+    </div>
+  </div>
+
+  <div class="step-card" id="issue-verification">
+    <div class="step-header">
+      <div class="step-num">9</div>
+      <div>
+        <div class="step-title"><code>/issue-verification</code> <span class="chip chip-plus">[+]</span></div>
+        <div class="step-subtitle">Issue quality gate — no agent picks up a vague ticket</div>
+      </div>
+    </div>
+    <div class="step-body">
+      <div class="video-wrap">
+        <div class="video-placeholder">
+          <div class="video-placeholder-inner">
+            <div class="video-play-btn">▶</div>
+            <div class="video-placeholder-label">Video coming soon</div>
+          </div>
+        </div>
+        <div class="video-caption">
+          <span class="video-caption-title">/issue-verification — The Issue Quality Gate</span>
+          <span class="video-duration">~ 3–6 min</span>
+        </div>
+      </div>
+      <details class="step-details"><summary>Video Recap</summary>
+      <p style="margin-bottom: 0px; font-size: 0.95rem;"><em>Video coming soon.</em> Eitri verifies that every ticket covers all layers, is demoable, and has unambiguous criteria before publishing them to the tracker and advancing to the Ticket Sign-off gate.</p>
+      </details>
+    </div>
+  </div>
+
+
+  <h2 id="implementation-loop">Implementation Loop</h2>
+
+  <div class="step-card" id="do-work">
+    <div class="step-header">
+      <div class="step-num">11</div>
+      <div>
+        <div class="step-title"><code>/do-work</code> <span class="chip chip-plus">[+]</span></div>
+        <div class="step-subtitle">Self-steering feedback loop — Implement → Review → Validate → Mutation → Commit</div>
+      </div>
+    </div>
+    <div class="step-body">
+      <div class="video-wrap">
+        <video controls style="width: 100%; border-radius: var(--radius); border: 1px solid var(--border); display: block; background: #111827;">
+          <source src="videos/do-work.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <div class="video-caption">
+          <span class="video-caption-title">/do-work — The Self-Steering Implementation Loop</span>
+          <span class="video-duration">~ 3–4 min</span>
+        </div>
+      </div>
+      <details class="step-details"><summary>Video Recap</summary>
+      <p style="margin-bottom: 20px; font-size: 0.95rem;">Implementation alone lacks compliance, security scanning, and framework-specific standards. The <code>/do-work</code> skill wraps implementation in a self-correcting loop to guarantee every commit is secure, standardized, and fully compliant.</p>
+
+      <div style="display:flex;flex-direction:column;gap:14px;margin-bottom:8px;">
+
+        <div>
+          <div style="margin-bottom:4px;"><strong>The Five-Phase Loop</strong></div>
+          <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">The skill maps out a five-step execution plan: <strong>Implement → Review → Validate → Mutation Gate → Commit</strong>.</p>
+        </div>
+
+        <div>
+          <div style="margin-bottom:4px;"><strong>Automated Validation</strong> ➔ <code>code-reviewer</code></div>
+          <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">Once the initial review clears, the Validate step launches the full <code>code-reviewer</code> skill suite in parallel. This covers builds, maintainability (e.g. duplicated logic), static analysis (e.g. React array keys), org compliance (IM8 logging gaps), and framework conventions (JUnit vs native asserts), generating a consolidated HTML report.</p>
+        </div>
+
+        <div>
+          <div style="margin-bottom:4px;"><strong>Self-Correction Mechanism</strong></div>
+          <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">The agent does not stop if blockers are found. The workflow loops those blockers directly back to the Implement phase, automatically applying corrections. It only halts for human guidance if it fails to fix the same issue twice.</p>
+        </div>
+
+        <div>
+          <div style="margin-bottom:4px;"><strong>Mutation Gate</strong></div>
+          <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">Before committing, the workflow advances to the Mutation Gate, seeding small defects into the code to prove the tests actually catch them.</p>
+        </div>
+
+        <div>
+          <div style="margin-bottom:4px;"><strong>Faster Feedback for Manual Fixes</strong></div>
+          <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">If you want to iterate quickly on a failure without running the full suite, you can run individual checks directly on your current diff (e.g., <code>/code-reviewer im8</code>, <code>/code-reviewer semgrep</code>).</p>
+        </div>
+
+      </div>
+      </details>
+    </div>
+  </div>
+
+  <div class="step-card" id="customise-do-work" style="border-color:var(--accent-orange-border);background:var(--accent-orange-bg)">
+    <div class="step-header" style="background:var(--accent-orange-bg);border-color:var(--accent-orange-border)">
+      <div class="step-num">↳</div>
+      <div>
+        <div class="step-title">Customising /do-work for your stack</div>
+        <div class="step-subtitle">Calibrate the agent to your team's standards before your first sprint</div>
+      </div>
+    </div>
+    <div class="step-body">
+      <div class="video-wrap">
+        <video controls style="width: 100%; border-radius: var(--radius-lg); margin-bottom: 8px;">
+          <source src="videos/customise-do-work.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <div class="video-caption">
+          <span class="video-caption-title">Customising /do-work for Your Stack</span>
+          <span class="video-duration">~ 3–4 min</span>
+        </div>
+      </div>
+      <details class="step-details"><summary>Video Recap</summary>
+      <p style="margin-bottom: 20px; font-size: 0.95rem;">The loop ships with defaults. Before you start, calibrate the workflow to match your project's stack, compliance needs, and quality bar.</p>
+
+      <div style="display:flex;flex-direction:column;gap:14px;margin-bottom:8px;">
+
+        <div>
+          <div style="margin-bottom:4px;"><strong>1. Tailor the Quality Gates</strong> ➔ <code>code-reviewer</code></div>
+          <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">By default, <code>skills/code-reviewer/SKILL.md</code> runs every registered check. Trim this table to match your exact architecture. If you're building a purely Java backend, remove the <code>react</code> check. If it's a throwaway prototype, remove the strict <code>im8</code> compliance gate.</p>
+        </div>
+
+        <div>
+          <div style="margin-bottom:4px;"><strong>2. Enforce Build Thresholds</strong> ➔ <code>build-check</code></div>
+          <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">Inside <code>skills/build-check/SKILL.md</code>, set strict quality gates such as mandating 80% instruction coverage for Java or 80% test coverage for TypeScript. The <code>build</code> check will block commits until these standards are met.</p>
+        </div>
+
+        <div>
+          <div style="margin-bottom:4px;"><strong>3. Define Coding Conventions</strong> ➔ <code>CODING_STANDARDS.md</code></div>
+          <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">The <code>code-review</code> check (powered by Matt Pocock's review skill) relies on <code>CODING_STANDARDS.md</code> at your repository root. Document your naming conventions and anti-patterns here. The agent reads this file during every run to enforce your custom rules automatically.</p>
+        </div>
+
+        <div>
+          <div style="margin-bottom:4px;"><strong>4. Configure the KB Router</strong> ➔ <code>kb-router.md</code></div>
+          <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">The KB router maps code signals to Bedrock knowledge base prefixes so <code>/do-work</code> retrieves the right docs automatically. Add entries for any internal SDK or framework not already covered (e.g., mapping <em>Singpass</em> imports to your <em>SingpassSDK</em> knowledge base).</p>
+        </div>
+        
+        <div>
+          <div style="margin-bottom:4px;"><strong>5. Optional: Husky Hooks</strong></div>
+          <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">If running the full reviewer suite slows down your local iteration loop, you can remove it from the <code>do-work</code> skill entirely and wire up your essential checks as Husky pre-commit hooks instead.</p>
+        </div>
+
+      </div>
+      </details>
+    </div>
+  </div>
+
+
+  <h2 id="arch-linting">Architecture Linting per Feature</h2>
+
+  <div class="step-card" id="arch-tests-feature">
+    <div class="step-header">
+      <div class="step-num">13</div>
+      <div>
+        <div class="step-title"><code>/arch-tests-gen-feature</code> <span class="chip chip-plus">[+]</span></div>
+        <div class="step-subtitle">Feature boundary tests — replace placeholders with real package names</div>
+      </div>
+    </div>
+    <div class="step-body">
+      <div class="video-wrap">
+        <video controls style="width: 100%; border-radius: var(--radius); border: 1px solid var(--border); display: block; background: #111827;">
+          <source src="videos/arch-tests-gen-feature.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <div class="video-caption">
+          <span class="video-caption-title">/arch-tests-gen-feature — Feature Boundary Linting</span>
+        </div>
+      </div>
+      <details class="step-details"><summary>Video Recap</summary>
+      <p style="margin-bottom: 0px; font-size: 0.95rem;"><em>Video coming soon.</em> This skill automatically replaces architecture test placeholders with the actual package names used by the generated feature, enforcing boundaries during the <code>do-work</code> loop.</p>
+      </details>
+    </div>
+  </div>
+
+
+  <h2 id="grilling-gates">Grilling Before Gates</h2>
+
+  <div class="step-card" id="grill-me">
+    <div class="step-header">
+      <div class="step-num" style="font-size:1.2rem">✋</div>
+      <div>
+        <div class="step-title"><code>/grill-me</code> <span class="chip chip-plus">[+]</span></div>
+        <div class="step-subtitle">Alignment check — surfaces hidden assumptions before each HITL gate</div>
+      </div>
+    </div>
+    <div class="step-body">
+      <p style="margin-bottom: 20px; font-size: 0.95rem;">Throughout all planning and sequencing steps, you can optionally run Matt Pocock's <strong><code>/grill-me</code></strong> command after any artefact-generating skill. This interactive session acts as a Human-in-the-Loop (HITL) checkpoint to proactively challenge assumptions and ensure perfect alignment with your intent before advancing to the next phase.</p>
+
+      <div style="display:flex;flex-direction:column;gap:14px;margin-bottom:8px;">
+
+        <div>
+          <div style="margin-bottom:4px;"><strong>HITL Gate 1: TRD Sign-off</strong></div>
+          <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">Run <code>/grill-me</code> after specification generation to stress-test your Technical Requirements Document (TRD). Once you are satisfied, signing off marks the TRD as approved and clears it for decomposition into tickets.</p>
+        </div>
+
+        <div>
+          <div style="margin-bottom:4px;"><strong>HITL Gate 2: Ticket Sign-off</strong></div>
+          <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">Run <code>/grill-me</code> after ticket verification to confirm the full issue set covers all edge cases and dependencies. Once approved, the tickets transition to execution-ready and implementation can begin.</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Quiz -->
+  <div class="quiz" id="quiz">
+    <div class="quiz-heading-label">Knowledge check</div>
+    <h2>Check Your Understanding — 11 Questions</h2>
+    <form id="quiz-form">
+      <div class="quiz-question">
+        <h3>1. What three specific components are provided by the AppStandards repository to enforce organisational conventions?</h3>
+        <label class="quiz-option"><input type="radio" name="q1" value="a"> CI/CD pipelines, Dockerfiles, and Kubernetes manifests</label>
+        <label class="quiz-option"><input type="radio" name="q1" value="b"> Standard patterns/design decisions, implementation recipes, and grilling questions</label>
+        <label class="quiz-option"><input type="radio" name="q1" value="c"> Compliance frameworks, penetration testing tools, and vulnerability scanners</label>
+        <label class="quiz-option"><input type="radio" name="q1" value="d"> Unit tests, integration tests, and end-to-end browser tests</label>
+        <div class="quiz-explanation"><strong>Why (b) is correct:</strong> The AppStandards repository provides design decisions/patterns, implementation recipes, and grilling questions for the agent to reference. It is a documentation and recipe library, not a repository for CI/CD infrastructure (a), security testing tools (c), or application tests (d).</div>
+      </div>
+
+      <div class="quiz-question">
+        <h3>2. What critical planning artefact does <code>/dependency-orchestrator</code> produce before any code is written?</h3>
+        <label class="quiz-option"><input type="radio" name="q2" value="a"> A DAG-based wave plan that sequences user stories in dependency order for PM and dev teams</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="b"> A compliance audit report of the TRD against IM8 and ARC governance control frameworks</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="c"> A set of runnable ArchUnit boundary tests derived from the project's wayfinder ADRs</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="d"> A set of vertical tracer-bullet issues decomposed from the compliance-approved TRD directly</label>
+        <div class="quiz-explanation"><strong>Why (a) is correct:</strong> <code>/dependency-orchestrator</code> builds a DAG-based wave plan — the story-sequencing layer Matt Pocock's harness has no equivalent of. Option (b) describes <code>/spec-compliance</code>, (c) describes <code>/arch-tests-gen</code>, and (d) describes <code>/to-tickets</code>.</div>
+      </div>
+
+      <div class="quiz-question">
+        <h3>3. How does <code>/arch-tests-gen</code> prevent architectural drift from slipping through code review?</h3>
+        <label class="quiz-option"><input type="radio" name="q3" value="a"> By relying on the <code>/code-reviewer</code> agent to spot layer violations during the PR review phase</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="b"> By compiling ADRs into build-failing ArchUnit and dependency-cruiser tests</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="c"> By scanning the codebase with Semgrep to detect when developers bypass the service layer</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="d"> By generating an HTML report of all dependency graphs for the lead architect to manually approve</label>
+        <div class="quiz-explanation"><strong>Why (b) is correct:</strong> <code>/arch-tests-gen</code> translates documented ADRs into executable boundary tests (ArchUnit/dependency-cruiser) that fail the build if violated, catching drift automatically. It does not rely on the AI reviewer catching it (a), Semgrep rules (c), or manual visual approvals of dependency graphs (d).</div>
+      </div>
+
+      <div class="quiz-question">
+        <h3>4. Why does <code>/spec-compliance</code> run at Step 7 — before <code>/to-tickets</code> at Step 8?</h3>
+        <label class="quiz-option"><input type="radio" name="q4" value="a"> Because the ArchUnit tests generated in Step 4 require the compliance audit to complete first</label>
+        <label class="quiz-option"><input type="radio" name="q4" value="b"> Because <code>/to-tickets</code> cannot access the issue tracker until a compliance-approved label is set</label>
+        <label class="quiz-option"><input type="radio" name="q4" value="c"> Because fixing a compliance flaw in the document costs one edit now, whereas finding it post-implementation requires a full rework sprint</label>
+        <label class="quiz-option"><input type="radio" name="q4" value="d"> Because the mutation gate in <code>/do-work</code> depends on the compliance report being present at the start</label>
+        <div class="quiz-explanation"><strong>Why (c) is correct:</strong> A TRD flaw caught at Step 7 costs one edit; caught post-implementation it costs a rework sprint. Options (a), (b), and (d) describe dependencies between steps that don't exist — ArchUnit tests don't require the compliance report, and <code>/to-tickets</code> doesn't check labels before running.</div>
+      </div>
+
+      <div class="quiz-question">
+        <h3>5. Which three axes does <code>/issue-verification</code> use to vet issues, and which internal skill does it rely on?</h3>
+        <label class="quiz-option"><input type="radio" name="q5" value="a"> Correctness, completeness, and testability — using <code>/spec-compliance</code> as the internal reviewer</label>
+        <label class="quiz-option"><input type="radio" name="q5" value="b"> Verticality, coverage, and compliance — using <code>/mutation-testing</code> as the internal quality gate</label>
+        <label class="quiz-option"><input type="radio" name="q5" value="c"> Demoability, scope alignment, and code quality — using <code>/code-reviewer</code> as the internal audit</label>
+        <label class="quiz-option"><input type="radio" name="q5" value="d"> Verticality, demoability, and well-specifiedness — using <code>/fry-me</code> as the internal challenger</label>
+        <div class="quiz-explanation"><strong>Why (d) is correct:</strong> The three axes are verticality, demoability, and well-specifiedness. The internal skill is <code>/fry-me</code>. Options (a), (b), and (c) each substitute incorrect axis names or the wrong internal skill.</div>
+      </div>
+
+      <div class="quiz-question">
+        <h3>6. What is the primary purpose of the <code>/grill-me</code> skill before entering a HITL gate?</h3>
+        <label class="quiz-option"><input type="radio" name="q6" value="a"> To automatically fix compliance violations in the codebase before handing off to a human reviewer</label>
+        <label class="quiz-option"><input type="radio" name="q6" value="b"> To generate an HTML report of all architectural flaws for the reviewer</label>
+        <label class="quiz-option"><input type="radio" name="q6" value="c"> To play devil's advocate and force you to defend or refine your design decisions before review</label>
+        <label class="quiz-option"><input type="radio" name="q6" value="d"> To bypass the HITL gate if the developer provides sufficient justification</label>
+        <div class="quiz-explanation"><strong>Why (c) is correct:</strong> <code>/grill-me</code> acts as a Socratic challenger to surface hidden assumptions and align decisions before you hit a formal HITL gate. It does not automatically fix code (a), generate HTML reports (b), or bypass human review (d).</div>
+      </div>
+
+      <div class="quiz-question">
+        <h3>7. What is the specific exit condition for the <code>/do-work</code> self-steering loop?</h3>
+        <label class="quiz-option"><input type="radio" name="q7" value="a"> All unit tests pass and the build succeeds without any compilation errors at runtime</label>
+        <label class="quiz-option"><input type="radio" name="q7" value="b"> Must-fix count is zero and all compile, test, coverage, and compliance gates are green</label>
+        <label class="quiz-option"><input type="radio" name="q7" value="c"> The mutation kill rate exceeds 80% on the full codebase and all coverage thresholds are met</label>
+        <label class="quiz-option"><input type="radio" name="q7" value="d"> A human approves the implementation at HITL Gate 2 after reviewing the consolidated report</label>
+        <div class="quiz-explanation"><strong>Why (b) is correct:</strong> The convergence condition is Must-fix = 0 <em>and</em> all compile, test, coverage, and compliance gates green — not any single gate alone. Unit tests passing (a) is just one gate. Mutation threshold (c) is one gate. HITL Gate 2 (d) is a planning-phase gate that runs before <code>/do-work</code> begins, not as its exit condition.</div>
+      </div>
+
+      <div class="quiz-question">
+        <h3>8. Why is the <code>/mutation-testing</code> gate specifically scoped to changed files rather than the entire codebase?</h3>
+        <label class="quiz-option"><input type="radio" name="q8" value="a"> To exclude mutation survivors in unchanged files from the 70% kill rate threshold calculation</label>
+        <label class="quiz-option"><input type="radio" name="q8" value="b"> To recalculate coverage metrics only for the files modified in the current feature slice</label>
+        <label class="quiz-option"><input type="radio" name="q8" value="c"> To keep the feedback loop fast enough to run on every iteration without slowing down delivery</label>
+        <label class="quiz-option"><input type="radio" name="q8" value="d"> To ensure mutation testing completes before the compile-and-test gate runs inside the do-work loop</label>
+        <div class="quiz-explanation"><strong>Why (c) is correct:</strong> Scoping to changed files keeps the gate fast per feature slice — fast enough to run on every loop iteration without slowing delivery. Option (a) describes a side-effect, not the design intent. Options (b) and (d) describe mechanisms that don't match how the mutation and coverage gates work inside the loop.</div>
+      </div>
+
+      <div class="quiz-question">
+        <h3>9. You need to check only IM8 security controls on a changeset, without running all other reviewers. Which invocation is correct?</h3>
+        <label class="quiz-option"><input type="radio" name="q9" value="a"> <code>/code-reviewer im8</code> — runs only the IM8 Application Technical Controls review on the diff</label>
+        <label class="quiz-option"><input type="radio" name="q9" value="b"> <code>/code-reviewer standards</code> — checks the changeset against the repo's CODING_STANDARDS.md</label>
+        <label class="quiz-option"><input type="radio" name="q9" value="c"> <code>/code-reviewer semgrep</code> — scans the changeset for injection flaws and hardcoded secrets</label>
+        <label class="quiz-option"><input type="radio" name="q9" value="d"> <code>/code-reviewer springboot</code> — runs all eight Spring Boot specialist reviewers on the diff</label>
+        <div class="quiz-explanation"><strong>Why (a) is correct:</strong> <code>/code-reviewer im8</code> targets the IM8 Application Technical Controls reviewer specifically. <code>standards</code> (b) checks repo-convention compliance via CODING_STANDARDS.md. <code>semgrep</code> (c) scans for injection and secrets patterns. <code>springboot</code> (d) runs all eight Spring Boot specialist reviewers — more than you asked for.</div>
+      </div>
+
+      <div class="quiz-question">
+        <h3>10. When customising the <code>/do-work</code> skill for your stack, what is the purpose of the <code>skills/do-work/common/kb-router.md</code> file?</h3>
+        <label class="quiz-option"><input type="radio" name="q10" value="a"> To map code signals (like imports) to Bedrock knowledge base prefixes so the agent retrieves the right docs automatically</label>
+        <label class="quiz-option"><input type="radio" name="q10" value="b"> To define the network routing rules and API gateways for the application's internal microservices</label>
+        <label class="quiz-option"><input type="radio" name="q10" value="c"> To specify which developers on the team are routed specific pull requests for manual review</label>
+        <label class="quiz-option"><input type="radio" name="q10" value="d"> To configure the HTTP endpoints the <code>/issue-verification</code> skill uses to demo the application</label>
+        <div class="quiz-explanation"><strong>Why (a) is correct:</strong> The KB router maps codebase signals (like a specific SDK import) to a Bedrock knowledge base prefix, allowing <code>/do-work</code> to proactively retrieve the right documentation. It is not used for network routing (b), PR assignments (c), or endpoint configuration (d).</div>
+      </div>
+
+      <div class="quiz-question">
+        <h3>11. <code>/arch-tests-gen</code> (Step 4) uses <code>&lt;feature&gt;</code> placeholders in boundary tests. What does <code>/arch-tests-gen-feature</code> (Step 13) specifically add?</h3>
+        <label class="quiz-option"><input type="radio" name="q11" value="a"> It extends the rule plan with new architectural constraints discovered during feature implementation</label>
+        <label class="quiz-option"><input type="radio" name="q11" value="b"> It instantiates the placeholders with real package and folder names for the slice just built</label>
+        <label class="quiz-option"><input type="radio" name="q11" value="c"> It regenerates the full dependency-cruiser configuration to cover all features built so far</label>
+        <label class="quiz-option"><input type="radio" name="q11" value="d"> It recompiles all ArchUnit tests to enforce the updated ADRs from the current wayfinder session</label>
+        <div class="quiz-explanation"><strong>Why (b) is correct:</strong> <code>/arch-tests-gen-feature</code> replaces <code>&lt;feature&gt;</code> placeholders with real package and folder names for the slice just built. Option (a) describes extending the rule plan — that's <code>/arch-tests-plan</code>. Option (c) describes regenerating the full dependency-cruiser config. Option (d) describes recompiling from updated ADRs — that's <code>/arch-tests-gen</code>.</div>
+      </div>
+
+    </form>
+  </div>
+
+  <div class="callout blue" style="margin-top:32px">
+    <div class="callout-title">Unclear on something?</div>
+    <p>Run <code>/ask-workflow</code> in your Claude Code session to ask which skill or path fits your situation. It serves as an interactive guide to the workflow, routing you to the right skill or explaining the specific step you're on.</p>
+  </div>
+
+  <div class="lesson-nav">
+    <span>← <a href="index.html">Prerequisites</a></span>
+    <span><a href="02-team-context-ingestion.html">Lesson 2: Injecting Your Team's Context →</a></span>
+  </div>
+
+</div>
+
+<script>
+  function initPerQuestionCheck(answers) {
+    for (const [name, correct] of Object.entries(answers)) {
+      const radios = Array.from(document.querySelectorAll(`input[type="radio"][name="${name}"]`));
+      if (!radios.length) continue;
+      const question = radios[0].closest('.quiz-question');
+      const explanation = question && question.querySelector('.quiz-explanation');
+
+      radios.forEach(radio => {
+        radio.addEventListener('change', function () {
+          if (question.dataset.answered) return;
+          question.dataset.answered = '1';
+
+          radios.forEach(r => {
+            r.disabled = true;
+            const label = r.closest('.quiz-option');
+            label.classList.add('answered');
+            if (r.value === correct) {
+              label.classList.add('correct');
+            } else if (r === this) {
+              label.classList.add('incorrect');
+            }
+          });
+
+          if (explanation) explanation.style.display = 'block';
+        });
+      });
+    }
+  }
+
+  initPerQuestionCheck({q1:'b',q2:'a',q3:'b',q4:'c',q5:'d',q6:'c',q7:'b',q8:'c',q9:'a',q10:'a',q11:'b'});
+
+  document.querySelectorAll('.emr-example').forEach(block => {
+    const label = block.querySelector('.emr-example-label');
+    const code = block.querySelector('code');
+    if (!label || !code) return;
+    const btn = document.createElement('button');
+    btn.className = 'copy-btn';
+    btn.textContent = 'Copy';
+    btn.addEventListener('click', () => {
+      navigator.clipboard.writeText(code.innerText).then(() => {
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied');
+        setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+      });
+    });
+    label.appendChild(btn);
+  });
+
+  // Collapsible sidenav groups
+  document.querySelectorAll('.sidenav-toggle').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var group = document.getElementById(btn.dataset.target);
+      var isExpanded = !btn.classList.contains('collapsed');
+      if (isExpanded && btn.dataset.href) {
+        var target = document.querySelector(btn.dataset.href);
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+      var isCollapsed = btn.classList.toggle('collapsed');
+      group.classList.toggle('collapsed', isCollapsed);
+    });
+  });
+
+  // Scroll-spy
+  (function() {
+    var links = document.querySelectorAll('.page-sidenav .sidenav-link[href^="#"]');
+    var sections = Array.from(links).map(function(l) { return document.querySelector(l.getAttribute('href')); }).filter(Boolean);
+    function update() {
+      var scrollY = window.scrollY + 130;
+      var current = sections[0];
+      for (var i = 0; i < sections.length; i++) {
+        if (sections[i].getBoundingClientRect().top + window.scrollY <= scrollY) current = sections[i];
+      }
+      if (!current) return;
+      links.forEach(function(l) {
+        l.classList.toggle('active', l.getAttribute('href') === '#' + current.id);
+      });
+    }
+    window.addEventListener('scroll', update, { passive: true });
+    update();
+  })();
+</script>
+<script>
+  (function() {
+    var btn = document.getElementById('theme-toggle');
+    btn.addEventListener('click', function() {
+      var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      if (isDark) {
+        document.documentElement.removeAttribute('data-theme');
+        localStorage.setItem('eitri-theme', 'light');
+        btn.setAttribute('aria-label', 'Switch to dark mode');
+        btn.setAttribute('title', 'Switch to dark mode');
+      } else {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem('eitri-theme', 'dark');
+        btn.setAttribute('aria-label', 'Switch to light mode');
+        btn.setAttribute('title', 'Switch to light mode');
+      }
+    });
+    if (document.documentElement.getAttribute('data-theme') === 'dark') {
+      btn.setAttribute('aria-label', 'Switch to light mode');
+      btn.setAttribute('title', 'Switch to light mode');
+    }
+  })();
+</script>
+</body>
+</html>

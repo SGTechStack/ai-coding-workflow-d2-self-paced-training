@@ -1247,12 +1247,10 @@ As a front-desk staff member, I want to register a new patient...</code></pre>
     <div class="step-body">
 
   <div class="video-wrap">
-    <div class="video-placeholder">
-      <div class="video-placeholder-inner">
-        <div class="video-play-btn">▶</div>
-        <div class="video-placeholder-label">Video coming soon</div>
-      </div>
-    </div>
+    <video controls preload="metadata" style="width: 100%; border-radius: 8px; border: 1px solid var(--border); box-shadow: 0 4px 12px rgba(0,0,0,0.05); margin-bottom: 8px;">
+      <source src="videos/policies.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
     <div class="video-caption">
       <span class="video-caption-title">Phase 3 — Injecting Security &amp; Governance Policies</span>
       <span class="video-duration">~ 3–6 min</span>
@@ -1262,7 +1260,7 @@ As a front-desk staff member, I want to register a new patient...</code></pre>
   <details class="step-details">
   <summary>Video Recap</summary>
 
-  <p><code>/spec-compliance</code> audits TRDs against the Markdown policy files in <code>skills/policies/references/</code>. Two are pre-loaded: IM8 (36 controls) and ARC (88 controls). Adding your agency's custom policies makes the gate enforce them automatically.</p>
+  <p><code>/spec-compliance</code> does not hardcode IM8 and ARC. It dynamically loads the <code>/policies</code> skill and reads whatever Markdown files sit in <code>skills/policies/references/</code>, treating each as a strict set of controls to audit against. That folder is the compliance agent's entire universe of rules, and it is not fixed — adding an agency's own rules requires no plugin and no config schema.</p>
 
   <div class="output-block">
     <div class="output-block-label">Directory — skills/policies/references/</div>
@@ -1296,11 +1294,11 @@ Any modification to an ICD-10 code must generate an immutable audit log entry
 with before/after values, actor ID, and timestamp.</code></pre>
   </div>
 
-  <p><strong>2.</strong> Register it in <code>skills/policies/SKILL.md</code> so the compliance agent loads it during audits.</p>
+  <p><strong>2.</strong> Register it in <code>skills/policies/SKILL.md</code>. Writing the file is not enough on its own — the compliance agent only loads what's registered here. The next run picks it up automatically, alongside IM8 and ARC, and every control resolves to the same five verdicts: PASS, FAIL, AUTO-FIX, DEFERRED, or N/A.</p>
 
   <div class="callout green">
     <div class="callout-title">Use /policies for targeted manual checks</div>
-    <p>If you only need to check a single control (rather than running the full compliance agent), use <code>/policies</code>. It loads the policy Markdown references without spinning up the full audit. Useful when authoring a new policy or verifying a single TRD section.</p>
+    <p>If you only need to check a single control (rather than running the full compliance agent), use <code>/policies</code>. It reads from the exact same policy files without spinning up the full audit. Useful when authoring a new policy or verifying a single TRD section.</p>
   </div>
 
   </details>

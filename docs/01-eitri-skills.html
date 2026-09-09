@@ -1136,19 +1136,46 @@ git clone https://github.com/SGTechStack/App-Standards</code></pre>
     </div>
     <div class="step-body">
       <div class="video-wrap">
-        <div class="video-placeholder">
-          <div class="video-placeholder-inner">
-            <div class="video-play-btn">▶</div>
-            <div class="video-placeholder-label">Video coming soon</div>
-          </div>
-        </div>
+        <video controls style="width: 100%; border-radius: var(--radius); border: 1px solid var(--border); display: block; background: #111827;">
+          <source src="videos/spec-compliance.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
         <div class="video-caption">
           <span class="video-caption-title">/spec-compliance — Catching Policy Flaws Before They Become Code</span>
           <span class="video-duration">~ 3–6 min</span>
         </div>
       </div>
       <details class="step-details"><summary>Video Recap</summary>
-      <p style="margin-bottom: 0px; font-size: 0.95rem;"><em>Video coming soon.</em> Eitri automatically audits the TRD against policies like IM8 and ARC before the TRD Sign-off gate. Catching a security violation here is a simple document edit; catching it later causes massive rework.</p>
+      <p style="margin-bottom: 20px; font-size: 0.95rem;"><code>/to-spec</code> produces the TRD, but gives no assurance the design complies with IM8 security controls and ARC agentic-AI governance rules. <code>/spec-compliance</code> closes that gap before a single ticket gets created, auditing the TRD while it's still cheap to edit.</p>
+
+      <div style="display:flex;flex-direction:column;gap:14px;margin-bottom:8px;">
+
+        <div>
+          <div style="margin-bottom:4px;"><strong>124 Controls, Two Frameworks</strong></div>
+          <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">IM8 is Singapore Government's technical security policy (36 controls) — input validation, transport encryption, session and access control, audit logging. ARC is its companion for agentic AI (88 controls) — systems where an agent takes independent action, not just offers a suggestion.</p>
+        </div>
+
+        <div>
+          <div style="margin-bottom:4px;"><strong>Five Verdicts</strong></div>
+          <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">Each control resolves to <strong>PASS</strong> (explicitly met), <strong>FAIL</strong> (contradicts policy), <strong>AUTO-FIX</strong> (vague wording tightened in place), <strong>DEFERRED</strong> (applies, but can't be verified from the TRD alone), or <strong>N/A</strong> (out of scope for this feature).</p>
+        </div>
+
+        <div>
+          <div style="margin-bottom:4px;"><strong>Auto-Fix, No Manual Edit</strong></div>
+          <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">On the INFRA-FE-01 spec, the dev proxy defaulted to plain <code>http://localhost:8080</code> against a backend actually served over HTTPS. A re-run of <code>/spec-compliance</code> corrected the default and scoped the dev-only certificate trust itself — nobody opened the spec to type the fix.</p>
+        </div>
+
+        <div>
+          <div style="margin-bottom:4px;"><strong>Deferred ≠ Failure</strong></div>
+          <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">Content-Security-Policy and HSTS resolved to DEFERRED, not PASS — as a frontend-only story, those response headers belong to the backend/gateway layer. The fix wasn't to make this layer set them; it was to write down, explicitly, that something else owns them.</p>
+        </div>
+
+        <div>
+          <div style="margin-bottom:4px;"><strong>Targeted Checks</strong> ➔ <code>/policies</code></div>
+          <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">To spot-check a single control — say, dp-3, Data in Transit Encryption — without spinning up the full compliance agent, <code>/policies</code> loads just that policy reference for a targeted, manual check.</p>
+        </div>
+
+      </div>
       </details>
     </div>
   </div>
@@ -1163,19 +1190,51 @@ git clone https://github.com/SGTechStack/App-Standards</code></pre>
     </div>
     <div class="step-body">
       <div class="video-wrap">
-        <div class="video-placeholder">
-          <div class="video-placeholder-inner">
-            <div class="video-play-btn">▶</div>
-            <div class="video-placeholder-label">Video coming soon</div>
-          </div>
-        </div>
+        <video controls style="width: 100%; border-radius: var(--radius); border: 1px solid var(--border); display: block; background: #111827;">
+          <source src="videos/issue-verification.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
         <div class="video-caption">
           <span class="video-caption-title">/issue-verification — The Issue Quality Gate</span>
           <span class="video-duration">~ 3–6 min</span>
         </div>
       </div>
       <details class="step-details"><summary>Video Recap</summary>
-      <p style="margin-bottom: 0px; font-size: 0.95rem;"><em>Video coming soon.</em> Eitri verifies that every ticket covers all layers, is demoable, and has unambiguous criteria before publishing them to the tracker and advancing to the Ticket Sign-off gate.</p>
+      <p style="margin-bottom: 20px; font-size: 0.95rem;"><code>/to-tickets</code> decomposes a verified TRD into tracer-bullet tickets, but doesn't confirm each one is well specified. When an agent picks up an under-specified ticket, it drifts — not from its own failure, but because "done" was never stated in a testable way. <code>/issue-verification</code> is the gate between decomposition and execution.</p>
+
+      <div style="display:flex;flex-direction:column;gap:14px;margin-bottom:8px;">
+
+        <div>
+          <div style="margin-bottom:4px;"><strong>Eight Checks, One Pass</strong></div>
+          <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">Three checks run first, in detail: <strong>verticality</strong> (does it cut through every layer it touches?), <strong>demoability</strong> (can a human confirm completion in isolation?), and <strong>acceptance-criteria quality</strong> (could a test be written from each criterion today?). The remaining five follow only when closer review is warranted.</p>
+        </div>
+
+        <div>
+          <div style="margin-bottom:4px;"><strong>The Remaining Five Checks</strong></div>
+          <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;"><strong>Granularity</strong> (is the slice sized to be implementable in one sitting, not sprawling or artificially split), <strong>scope honesty</strong> (does the stated scope match everything the ticket actually touches, with no hidden dependencies smuggled in), <strong>prefactor placement</strong> (is refactoring work called out and placed in its own ticket rather than bundled into unrelated feature work), <strong>staleness</strong> (do the ticket's assumptions and references still hold given how the codebase and upstream tickets have since evolved), and <strong>vocabulary/ADR conformance</strong> (does the ticket use the project's established terms and follow existing Architecture Decision Records rather than introducing its own).</p>
+        </div>
+
+        <div>
+          <div style="margin-bottom:4px;"><strong>Dependency-Ordered Review</strong> ➔ <code>/fry-me</code></div>
+          <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">The skill builds a dependency graph for the whole batch, sorts it topologically, and reviews upstream to downstream — a downstream ticket's demoability can't be assessed until its blockers are resolved. Each individual review is conducted by <code>/fry-me</code>, this repo's Socratic "grill me" pattern, asking one question at a time until the answer holds up.</p>
+        </div>
+
+        <div>
+          <div style="margin-bottom:4px;"><strong>GRILLED, or NEEDS RESLICE</strong></div>
+          <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">A ticket is either GRILLED, or it NEEDS RESLICE — split, merged, or rewritten immediately. A revision carries a blast radius: reshaping one ticket resets every downstream ticket that named it as a blocker, which is then automatically re-evaluated.</p>
+        </div>
+
+        <div>
+          <div style="margin-bottom:4px;"><strong>Fixpoint, Then Publish</strong></div>
+          <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">The process loops until every ticket ends up GRILLED at the same time — revisions stop propagating and the batch settles. Only then is the full batch published together, in dependency order.</p>
+        </div>
+
+        <div>
+          <div style="margin-bottom:4px;"><strong>Worked Example</strong></div>
+          <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">Ticket 02 of INFRA-FE-01 (dependency-cruiser rules, ESLint hygiene, a blocking <code>npm run ci</code> gate) initially reads as horizontal — no schema, no endpoint, no rendered pixel. Closer review through <code>/fry-me</code> establishes the enforcement layer itself is the vertical slice: a deliberate cross-feature import fails <code>npm run arch</code>, removing it passes — testable and demoable, so the ticket clears.</p>
+        </div>
+
+      </div>
       </details>
     </div>
   </div>

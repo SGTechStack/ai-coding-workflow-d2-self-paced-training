@@ -1442,6 +1442,11 @@ git clone https://github.com/SGTechStack/App-Standards</code></pre>
         </div>
 
         <div>
+          <div style="margin-bottom:4px;"><strong>Optional Stability Check</strong></div>
+          <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">Run <code>/e2e stability</code> after a completed campaign. It repeats the frozen scenarios at least three times, flags any per-test status flip, and records the result in Allure, including its Flaky mark.</p>
+        </div>
+
+        <div>
           <div style="margin-bottom:4px;"><strong>Reading a FAIL or a SKIP</strong></div>
           <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">A <strong>FAIL</strong> means the product does not match its acceptance criterion: the description explains why and names the likely file, a screenshot shows where, and the video and trace are there to dig deeper. A <strong>SKIP</strong> always comes with a real reason, such as an error traced to its root cause. Once a story is done, you accept and the loop runs again on the next one.</p>
         </div>

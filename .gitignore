@@ -1,7 +1,14 @@
 .claude
 .agent
 .agents
+.kiro
 agent
 skills-lock.json
 .DS_Store
 */node_modules
+
+# video-generator: video-generation
+video-generation/.runtime/
+video-generation/assets/
+video-generation/output/
+video-generation/*.log

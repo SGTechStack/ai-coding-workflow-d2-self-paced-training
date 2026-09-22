@@ -1,0 +1,2893 @@
+{
+  "$generated": "GENERATED FILE — do not edit. Source: storyline.yml. Regenerate with: node scripts/compile.mjs",
+  "$source": {
+    "file": "storyline.yml",
+    "checksum": "9fb51537df8345b640917f483b44c029298e5a804602382702e4ccd9d8c6dee5"
+  },
+  "meta": {
+    "title": "LLM and Agent Foundations",
+    "fps": 30,
+    "captureAspect": "landscape",
+    "outputs": [
+      {
+        "aspect": "landscape"
+      }
+    ],
+    "voice": {
+      "provider": "kokoro",
+      "gender": "female"
+    },
+    "subtitles": {
+      "enabled": true
+    },
+    "background": "#F1F5F9",
+    "baseUrl": "http://127.0.0.1:4173",
+    "deck": {
+      "archetype": "scr",
+      "engine": "html",
+      "theme": "light",
+      "formats": [
+        "png",
+        "pdf",
+        "html"
+      ]
+    }
+  },
+  "scenes": [
+    {
+      "id": "s01-cold-open-confident",
+      "title": "It was confident. It was also wrong.",
+      "narration": "You gave an agent a clear instruction. It produced something confident, complete, and wrong. Not broken code that failed loudly. Working code that solved the wrong problem.",
+      "role": "situation",
+      "visualEngine": "html_slides",
+      "captureMode": "stills",
+      "slide": {
+        "layout": "statement",
+        "theme": "light",
+        "title": "It was confident. It was also wrong.",
+        "pill": null,
+        "body": null,
+        "cards": [],
+        "stat": null,
+        "image": null,
+        "htmlPath": null,
+        "portraitHtmlPath": null,
+        "notes": "You gave an agent a clear instruction. It produced something confident, complete, and wrong. Not broken code that failed loudly. Working code that solved the wrong problem."
+      },
+      "vertical": {
+        "strategy": "native"
+      },
+      "resolvedAudio": {
+        "filePath": "assets/audio/s01-cold-open-confident.wav",
+        "durationMs": 11250,
+        "subtitleSource": "synthesised",
+        "providerSrt": null,
+        "hasNativeSrt": false,
+        "hash": "928dd4ed37c6"
+      },
+      "resolvedTiming": {
+        "mode": "audio-dictates",
+        "sceneMs": 11650,
+        "ratePct": 0,
+        "padVisualMs": 11650,
+        "padAudioMs": 0,
+        "warnings": []
+      },
+      "ratePct": 0
+    },
+    {
+      "id": "s02-three-failures",
+      "title": "Three ways AI coding fails",
+      "narration": "AI coding fails in three ways, and none of them are about the model being weak. The requirement was ambiguous and the agent guessed. The code drifted from the intent while everyone watched. Or the handoff to the next step carried something unusable. Every rule you are about to learn exists to prevent one of these.",
+      "role": "complication",
+      "visualEngine": "html_slides",
+      "captureMode": "stills",
+      "slide": {
+        "layout": "tiled",
+        "theme": "light",
+        "title": "Three ways AI coding fails",
+        "pill": null,
+        "body": null,
+        "cards": [
+          {
+            "icon": "circle-help",
+            "title": "Ambiguity",
+            "text": "The requirement had two readings and nobody chose one."
+          },
+          {
+            "icon": "git-branch",
+            "title": "Intent drift",
+            "text": "The code stopped matching what was asked for."
+          },
+          {
+            "icon": "package",
+            "title": "Handoff quality",
+            "text": "The next step inherited something it could not use."
+          }
+        ],
+        "stat": null,
+        "image": null,
+        "htmlPath": null,
+        "portraitHtmlPath": null,
+        "notes": "AI coding fails in three ways, and none of them are about the model being weak. The requirement was ambiguous and the agent guessed. The code drifted from the intent while everyone watched. Or the handoff to the next step carried something unusable. Every rule you are about to learn exists to prevent one of these."
+      },
+      "vertical": {
+        "strategy": "native"
+      },
+      "resolvedAudio": {
+        "filePath": "assets/audio/s02-three-failures.wav",
+        "durationMs": 19550,
+        "subtitleSource": "synthesised",
+        "providerSrt": null,
+        "hasNativeSrt": false,
+        "hash": "18cd6fe4d9ca"
+      },
+      "resolvedTiming": {
+        "mode": "audio-dictates",
+        "sceneMs": 19950,
+        "ratePct": 0,
+        "padVisualMs": 19950,
+        "padAudioMs": 0,
+        "warnings": []
+      },
+      "ratePct": 0
+    },
+    {
+      "id": "s03-hero",
+      "title": "LLM and Agent Foundations",
+      "narration": "This is Track B of the prerequisites: the large language model and agent concepts underneath the workflow. Four topics. The goal is not to use the workflow. It is to understand why each part of it is shaped the way it is.",
+      "role": null,
+      "visualEngine": "html_slides",
+      "captureMode": "stills",
+      "slide": {
+        "layout": "hero",
+        "theme": "light",
+        "title": "LLM and Agent Foundations",
+        "pill": "Prerequisites",
+        "body": null,
+        "cards": [],
+        "stat": null,
+        "image": null,
+        "htmlPath": null,
+        "portraitHtmlPath": null,
+        "notes": "This is Track B of the prerequisites: the large language model and agent concepts underneath the workflow. Four topics. The goal is not to use the workflow. It is to understand why each part of it is shaped the way it is."
+      },
+      "vertical": {
+        "strategy": "native"
+      },
+      "resolvedAudio": {
+        "filePath": "assets/audio/s03-hero.wav",
+        "durationMs": 14625,
+        "subtitleSource": "synthesised",
+        "providerSrt": null,
+        "hasNativeSrt": false,
+        "hash": "aa2f5ebf8fbc"
+      },
+      "resolvedTiming": {
+        "mode": "audio-dictates",
+        "sceneMs": 15025,
+        "ratePct": 0,
+        "padVisualMs": 15025,
+        "padAudioMs": 0,
+        "warnings": []
+      },
+      "ratePct": 0
+    },
+    {
+      "id": "s04-page-establishing",
+      "title": "s04-page-establishing",
+      "narration": "The prerequisites page has two tracks. Track A is the workflow itself, covered elsewhere. We are working through Track B, the four topics below it. Everything discussed here is on this page, so you can follow along and come back to it.",
+      "role": null,
+      "visualEngine": "playwright_web",
+      "captureMode": "screencast",
+      "actionSpec": {
+        "url": "/index.html",
+        "setupScript": "setup/pin-light-theme.mjs",
+        "steps": [
+          {
+            "action": "waitForText",
+            "value": "Foundations of Agentic Engineering"
+          }
+        ]
+      },
+      "assert": {
+        "visible": [
+          "Foundations of Agentic Engineering",
+          "LLM & Agent Foundations"
+        ],
+        "notVisible": [
+          "Something went wrong"
+        ]
+      },
+      "viewport": {
+        "width": 1440,
+        "height": 810
+      },
+      "resolvedAudio": {
+        "filePath": "assets/audio/s04-page-establishing.wav",
+        "durationMs": 14750,
+        "subtitleSource": "synthesised",
+        "providerSrt": null,
+        "hasNativeSrt": false,
+        "hash": "a5f81bf21229"
+      },
+      "resolvedTiming": {
+        "mode": "audio-dictates",
+        "sceneMs": 15150,
+        "ratePct": 0,
+        "padVisualMs": 15150,
+        "padAudioMs": 0,
+        "warnings": []
+      },
+      "ratePct": 0
+    },
+    {
+      "id": "s05-context-windows-anchor",
+      "title": "Topic 1",
+      "narration": "The context window is everything the model can see in one call: your prompt, the instructions, the code, the conversation so far. The page makes two claims about it. Models perform reliably up to roughly forty percent of their context limit — the Smart Zone. Past that they enter the Dumb Zone, where reasoning quality degrades. And within any window, content buried in the middle is recalled less accurately than content at the start or end. That is the Lost in the Middle effect.",
+      "role": null,
+      "chapter": {
+        "title": "Topic 1",
+        "description": "How LLMs Actually Work"
+      },
+      "visualEngine": "playwright_web",
+      "captureMode": "screencast",
+      "actionSpec": {
+        "url": "/index.html#phase-llms",
+        "setupScript": "setup/pin-light-theme.mjs",
+        "steps": [
+          {
+            "action": "scroll",
+            "delta": 0,
+            "delayMs": 500
+          },
+          {
+            "action": "highlight",
+            "text": "Context Windows, Smart Zone",
+            "delayMs": 2500
+          }
+        ]
+      },
+      "assert": {
+        "visible": [
+          "How LLMs Actually Work",
+          "Smart Zone"
+        ]
+      },
+      "viewport": {
+        "width": 1440,
+        "height": 810
+      },
+      "resolvedAudio": {
+        "filePath": "assets/audio/s05-context-windows-anchor.wav",
+        "durationMs": 28775,
+        "subtitleSource": "synthesised",
+        "providerSrt": null,
+        "hasNativeSrt": false,
+        "hash": "bf17db70d3a7"
+      },
+      "resolvedTiming": {
+        "mode": "audio-dictates",
+        "sceneMs": 29175,
+        "ratePct": 0,
+        "padVisualMs": 29175,
+        "padAudioMs": 0,
+        "warnings": []
+      },
+      "ratePct": 0
+    },
+    {
+      "id": "s06-window-budget-slide",
+      "title": "The window is a budget",
+      "narration": "Two different problems share one picture. The zones are about volume: how much you have put in. Lost in the middle is about position: where you put it. A window can be comfortably inside the Smart Zone and still lose a fact you buried halfway down.",
+      "role": null,
+      "visualEngine": "html_slides",
+      "captureMode": "stills",
+      "slide": {
+        "layout": "stat-deepdive",
+        "theme": "light",
+        "title": "The window is a budget",
+        "pill": null,
+        "body": null,
+        "cards": [
+          {
+            "icon": "gauge",
+            "title": "Smart Zone",
+            "text": "Reasoning stays reliable here."
+          },
+          {
+            "icon": "trending-down",
+            "title": "Dumb Zone",
+            "text": "Past the boundary, reasoning quality degrades."
+          },
+          {
+            "icon": "search",
+            "title": "Lost in the middle",
+            "text": "Content buried mid-window is recalled least accurately."
+          }
+        ],
+        "stat": {
+          "value": "40",
+          "unit": "%",
+          "label": "of the limit before reasoning degrades"
+        },
+        "image": null,
+        "htmlPath": null,
+        "portraitHtmlPath": null,
+        "notes": "Two different problems share one picture. The zones are about volume: how much you have put in. Lost in the middle is about position: where you put it. A window can be comfortably inside the Smart Zone and still lose a fact you buried halfway down."
+      },
+      "vertical": {
+        "strategy": "native"
+      },
+      "resolvedAudio": {
+        "filePath": "assets/audio/s06-window-budget-slide.wav",
+        "durationMs": 15675,
+        "subtitleSource": "synthesised",
+        "providerSrt": null,
+        "hasNativeSrt": false,
+        "hash": "7c97a5c4782b"
+      },
+      "resolvedTiming": {
+        "mode": "audio-dictates",
+        "sceneMs": 16075,
+        "ratePct": 0,
+        "padVisualMs": 16075,
+        "padAudioMs": 0,
+        "warnings": []
+      },
+      "ratePct": 0
+    },
+    {
+      "id": "s07-context-windows-practice",
+      "title": "s07-context-windows-practice",
+      "narration": "You have felt this. An hour into a session the agent starts ignoring instructions it followed perfectly at the start. Nothing broke; the window filled. So two habits follow. Put critical instructions at the top, where attention is strongest. And when quality starts slipping, do not argue with the agent — start a fresh session and carry only what matters.",
+      "role": null,
+      "visualEngine": "playwright_web",
+      "captureMode": "screencast",
+      "actionSpec": {
+        "url": "/index.html#phase-llms",
+        "setupScript": "setup/pin-light-theme.mjs",
+        "roiSelector": ".concept:has-text(\"Smart Zone\")",
+        "steps": [
+          {
+            "action": "scroll",
+            "delta": 0,
+            "delayMs": 500
+          },
+          {
+            "action": "highlight",
+            "text": "Lost in the Middle",
+            "delayMs": 2000
+          }
+        ]
+      },
+      "assert": {
+        "visible": [
+          "Dumb Zone",
+          "Lost in the Middle"
+        ]
+      },
+      "roiSelector": ".concept:has-text(\"Smart Zone\")",
+      "viewport": {
+        "width": 1440,
+        "height": 810
+      },
+      "resolvedAudio": {
+        "filePath": "assets/audio/s07-context-windows-practice.wav",
+        "durationMs": 21525,
+        "subtitleSource": "synthesised",
+        "providerSrt": null,
+        "hasNativeSrt": false,
+        "hash": "1bc64a2226a4"
+      },
+      "resolvedTiming": {
+        "mode": "audio-dictates",
+        "sceneMs": 21925,
+        "ratePct": 0,
+        "padVisualMs": 21925,
+        "padAudioMs": 0,
+        "warnings": []
+      },
+      "ratePct": 0
+    },
+    {
+      "id": "s08-memory-anchor",
+      "title": "s08-memory-anchor",
+      "narration": "Large language models have no persistent state between calls. There are three stores. In-context is the current prompt and conversation — ephemeral, lost between calls. External is durable: files, version control, issue trackers, artifacts that survive sessions. Parametric is the trained weights, fixed and unchangeable. The workflow relies on external memory as its durable backbone.",
+      "role": null,
+      "visualEngine": "playwright_web",
+      "captureMode": "screencast",
+      "actionSpec": {
+        "url": "/index.html#phase-llms",
+        "setupScript": "setup/pin-light-theme.mjs",
+        "steps": [
+          {
+            "action": "scroll",
+            "delta": 150,
+            "delayMs": 500
+          },
+          {
+            "action": "highlight",
+            "text": "LLM Memory Architecture",
+            "delayMs": 2500
+          }
+        ]
+      },
+      "assert": {
+        "visible": [
+          "LLM Memory Architecture",
+          "parametric"
+        ]
+      },
+      "viewport": {
+        "width": 1440,
+        "height": 810
+      },
+      "resolvedAudio": {
+        "filePath": "assets/audio/s08-memory-anchor.wav",
+        "durationMs": 24750,
+        "subtitleSource": "synthesised",
+        "providerSrt": null,
+        "hasNativeSrt": false,
+        "hash": "996caf38089a"
+      },
+      "resolvedTiming": {
+        "mode": "audio-dictates",
+        "sceneMs": 25150,
+        "ratePct": 0,
+        "padVisualMs": 25150,
+        "padAudioMs": 0,
+        "warnings": []
+      },
+      "ratePct": 0
+    },
+    {
+      "id": "s09-memory-stores-slide",
+      "title": "Three stores, three lifetimes",
+      "narration": "Rank these by lifetime and the design falls out on its own. Weights you cannot change. Conversation you cannot keep. Which leaves exactly one place to put a decision you need honoured next week: the repository.",
+      "role": null,
+      "visualEngine": "html_slides",
+      "captureMode": "stills",
+      "slide": {
+        "layout": "bento-a",
+        "theme": "light",
+        "title": "Three stores, three lifetimes",
+        "pill": null,
+        "body": null,
+        "cards": [
+          {
+            "icon": "git-branch",
+            "title": "External",
+            "text": "Files, version control and issue trackers. Survives every session."
+          },
+          {
+            "icon": "message-square",
+            "title": "In-context",
+            "text": "The current prompt and conversation. Gone after the call."
+          },
+          {
+            "icon": "cpu",
+            "title": "Parametric",
+            "text": "Trained weights. Fixed and unchangeable."
+          }
+        ],
+        "stat": null,
+        "image": null,
+        "htmlPath": null,
+        "portraitHtmlPath": null,
+        "notes": "Rank these by lifetime and the design falls out on its own. Weights you cannot change. Conversation you cannot keep. Which leaves exactly one place to put a decision you need honoured next week: the repository."
+      },
+      "vertical": {
+        "strategy": "native"
+      },
+      "resolvedAudio": {
+        "filePath": "assets/audio/s09-memory-stores-slide.wav",
+        "durationMs": 13725,
+        "subtitleSource": "synthesised",
+        "providerSrt": null,
+        "hasNativeSrt": false,
+        "hash": "9bb815c0aaf9"
+      },
+      "resolvedTiming": {
+        "mode": "audio-dictates",
+        "sceneMs": 14125,
+        "ratePct": 0,
+        "padVisualMs": 14125,
+        "padAudioMs": 0,
+        "warnings": []
+      },
+      "ratePct": 0
+    },
+    {
+      "id": "s10-memory-practice",
+      "title": "s10-memory-practice",
+      "narration": "This is why a decision explained in chat is a decision you will explain again. Tomorrow's session starts blank, and the reasoning is gone. The practice: anything a future session must respect gets written to a file and committed. If it only exists in a conversation, treat it as already lost.",
+      "role": null,
+      "visualEngine": "playwright_web",
+      "captureMode": "screencast",
+      "actionSpec": {
+        "url": "/index.html#phase-llms",
+        "setupScript": "setup/pin-light-theme.mjs",
+        "roiSelector": ".concept:has-text(\"LLM Memory Architecture\")",
+        "steps": [
+          {
+            "action": "scroll",
+            "delta": 150,
+            "delayMs": 500
+          },
+          {
+            "action": "highlight",
+            "text": "external",
+            "delayMs": 2000
+          }
+        ]
+      },
+      "assert": {
+        "visible": [
+          "in-context",
+          "external"
+        ]
+      },
+      "roiSelector": ".concept:has-text(\"LLM Memory Architecture\")",
+      "viewport": {
+        "width": 1440,
+        "height": 810
+      },
+      "resolvedAudio": {
+        "filePath": "assets/audio/s10-memory-practice.wav",
+        "durationMs": 18900,
+        "subtitleSource": "synthesised",
+        "providerSrt": null,
+        "hasNativeSrt": false,
+        "hash": "241bb182b4fd"
+      },
+      "resolvedTiming": {
+        "mode": "audio-dictates",
+        "sceneMs": 19300,
+        "ratePct": 0,
+        "padVisualMs": 19300,
+        "padAudioMs": 0,
+        "warnings": []
+      },
+      "ratePct": 0
+    },
+    {
+      "id": "s11-hallucination-anchor",
+      "title": "s11-hallucination-anchor",
+      "narration": "Two distinct problems. Hallucination: models predict the most likely next token rather than verify facts, so they generate plausible, incorrect information with full confidence. The page is precise about this — it is a generation problem, not a placement problem. No amount of Smart Zone positioning prevents it. Non-determinism: identical inputs produce different outputs across runs.",
+      "role": null,
+      "visualEngine": "playwright_web",
+      "captureMode": "screencast",
+      "actionSpec": {
+        "url": "/index.html#phase-llms",
+        "setupScript": "setup/pin-light-theme.mjs",
+        "steps": [
+          {
+            "action": "scroll",
+            "delta": 280,
+            "delayMs": 500
+          },
+          {
+            "action": "highlight",
+            "text": "Hallucination and Non-determinism",
+            "delayMs": 2500
+          }
+        ]
+      },
+      "assert": {
+        "visible": [
+          "Hallucination",
+          "Non-determinism"
+        ]
+      },
+      "viewport": {
+        "width": 1440,
+        "height": 810
+      },
+      "resolvedAudio": {
+        "filePath": "assets/audio/s11-hallucination-anchor.wav",
+        "durationMs": 24975,
+        "subtitleSource": "synthesised",
+        "providerSrt": null,
+        "hasNativeSrt": false,
+        "hash": "be08406ccc1e"
+      },
+      "resolvedTiming": {
+        "mode": "audio-dictates",
+        "sceneMs": 25375,
+        "ratePct": 0,
+        "padVisualMs": 25375,
+        "padAudioMs": 0,
+        "warnings": []
+      },
+      "ratePct": 0
+    },
+    {
+      "id": "s12-hallucination-practice",
+      "title": "s12-hallucination-practice",
+      "narration": "Note the misconception this kills. Better placement fixes attention, not truthfulness. A perfectly positioned reference document does not stop a confident invention. The safeguards are human review and automated tests. And because the same prompt can give you a different answer next run, \"it looks right\" is not evidence. Machine-verifiable tests are the only reliable convergence signal.",
+      "role": null,
+      "visualEngine": "playwright_web",
+      "captureMode": "screencast",
+      "actionSpec": {
+        "url": "/index.html#phase-llms",
+        "setupScript": "setup/pin-light-theme.mjs",
+        "roiSelector": ".concept:has-text(\"Hallucination\")",
+        "steps": [
+          {
+            "action": "scroll",
+            "delta": 280,
+            "delayMs": 500
+          },
+          {
+            "action": "highlight",
+            "text": "Machine-verifiable tests",
+            "delayMs": 2000
+          }
+        ]
+      },
+      "assert": {
+        "visible": [
+          "human review",
+          "convergence signal"
+        ]
+      },
+      "roiSelector": ".concept:has-text(\"Hallucination\")",
+      "viewport": {
+        "width": 1440,
+        "height": 810
+      },
+      "resolvedAudio": {
+        "filePath": "assets/audio/s12-hallucination-practice.wav",
+        "durationMs": 24875,
+        "subtitleSource": "synthesised",
+        "providerSrt": null,
+        "hasNativeSrt": false,
+        "hash": "58828c5b3711"
+      },
+      "resolvedTiming": {
+        "mode": "audio-dictates",
+        "sceneMs": 25275,
+        "ratePct": 0,
+        "padVisualMs": 25275,
+        "padAudioMs": 0,
+        "warnings": []
+      },
+      "ratePct": 0
+    },
+    {
+      "id": "s13-prompt-engineering-anchor",
+      "title": "Topic 2",
+      "narration": "Prompt engineering is writing clear instructions for a single call. Four techniques. Role framing sets the agent's expertise and perspective. Positive framing describes the target behaviour rather than what to avoid — because the model predicts tokens toward whatever pattern you surface. Chain-of-thought elicitation asks it to reason step by step. And explicit completion criteria define what done means.",
+      "role": null,
+      "chapter": {
+        "title": "Topic 2",
+        "description": "Agentic Engineering"
+      },
+      "visualEngine": "playwright_web",
+      "captureMode": "screencast",
+      "actionSpec": {
+        "url": "/index.html#phase-engineering",
+        "setupScript": "setup/pin-light-theme.mjs",
+        "steps": [
+          {
+            "action": "scroll",
+            "delta": 0,
+            "delayMs": 500
+          },
+          {
+            "action": "highlight",
+            "text": "Prompt Engineering",
+            "delayMs": 2500
+          }
+        ]
+      },
+      "assert": {
+        "visible": [
+          "Agentic Engineering",
+          "Prompt Engineering",
+          "role framing"
+        ]
+      },
+      "viewport": {
+        "width": 1440,
+        "height": 810
+      },
+      "resolvedAudio": {
+        "filePath": "assets/audio/s13-prompt-engineering-anchor.wav",
+        "durationMs": 25850,
+        "subtitleSource": "synthesised",
+        "providerSrt": null,
+        "hasNativeSrt": false,
+        "hash": "eb8893548a7d"
+      },
+      "resolvedTiming": {
+        "mode": "audio-dictates",
+        "sceneMs": 26250,
+        "ratePct": 0,
+        "padVisualMs": 26250,
+        "padAudioMs": 0,
+        "warnings": []
+      },
+      "ratePct": 0
+    },
+    {
+      "id": "s14-prompt-engineering-practice",
+      "title": "s14-prompt-engineering-practice",
+      "narration": "Positive framing is the one that feels wrong and matters most. \"Never use `any`\" puts `any` in front of the model. \"Always write typed interfaces\" gives it a target. Write what you want, not what you fear. And state completion criteria explicitly, because an agent with no definition of done will invent one.",
+      "role": null,
+      "visualEngine": "playwright_web",
+      "captureMode": "screencast",
+      "actionSpec": {
+        "url": "/index.html#phase-engineering",
+        "setupScript": "setup/pin-light-theme.mjs",
+        "roiSelector": ".concept:has-text(\"Prompt Engineering\")",
+        "steps": [
+          {
+            "action": "scroll",
+            "delta": 0,
+            "delayMs": 500
+          },
+          {
+            "action": "highlight",
+            "text": "positive framing",
+            "delayMs": 2000
+          }
+        ]
+      },
+      "assert": {
+        "visible": [
+          "chain-of-thought",
+          "completion criteria"
+        ]
+      },
+      "roiSelector": ".concept:has-text(\"Prompt Engineering\")",
+      "viewport": {
+        "width": 1440,
+        "height": 810
+      },
+      "resolvedAudio": {
+        "filePath": "assets/audio/s14-prompt-engineering-practice.wav",
+        "durationMs": 19400,
+        "subtitleSource": "synthesised",
+        "providerSrt": null,
+        "hasNativeSrt": false,
+        "hash": "0c8fe2794a9d"
+      },
+      "resolvedTiming": {
+        "mode": "audio-dictates",
+        "sceneMs": 19800,
+        "ratePct": 0,
+        "padVisualMs": 19800,
+        "padAudioMs": 0,
+        "warnings": []
+      },
+      "ratePct": 0
+    },
+    {
+      "id": "s15-context-engineering-anchor",
+      "title": "s15-context-engineering-anchor",
+      "narration": "Prompt engineering is about how you phrase instructions. Context engineering is about what information is in the window at every step. The failure mode has a name: context rot, the silent degradation of recall as the window fills — before it is full. The design principle is one line. Pre-load only what is always needed, and retrieve everything else just-in-time.",
+      "role": null,
+      "visualEngine": "playwright_web",
+      "captureMode": "screencast",
+      "actionSpec": {
+        "url": "/index.html#phase-engineering",
+        "setupScript": "setup/pin-light-theme.mjs",
+        "steps": [
+          {
+            "action": "scroll",
+            "delta": 150,
+            "delayMs": 500
+          },
+          {
+            "action": "highlight",
+            "text": "Context Engineering",
+            "delayMs": 2500
+          }
+        ]
+      },
+      "assert": {
+        "visible": [
+          "Context Engineering",
+          "Context rot"
+        ]
+      },
+      "viewport": {
+        "width": 1440,
+        "height": 810
+      },
+      "resolvedAudio": {
+        "filePath": "assets/audio/s15-context-engineering-anchor.wav",
+        "durationMs": 23425,
+        "subtitleSource": "synthesised",
+        "providerSrt": null,
+        "hasNativeSrt": false,
+        "hash": "2d9d1a2e235d"
+      },
+      "resolvedTiming": {
+        "mode": "audio-dictates",
+        "sceneMs": 23825,
+        "ratePct": 0,
+        "padVisualMs": 23825,
+        "padAudioMs": 0,
+        "warnings": []
+      },
+      "ratePct": 0
+    },
+    {
+      "id": "s16-context-engineering-practice",
+      "title": "s16-context-engineering-practice",
+      "narration": "The tempting move is to load every framework guide and coding standard up front so the agent always has them. That spends the capacity the task needs, and degrades recall across everything else in the window. Silently — there is no warning. Load what is always needed. Fetch the rest when it is needed.",
+      "role": null,
+      "visualEngine": "playwright_web",
+      "captureMode": "screencast",
+      "actionSpec": {
+        "url": "/index.html#phase-engineering",
+        "setupScript": "setup/pin-light-theme.mjs",
+        "roiSelector": ".concept:has-text(\"Context rot\")",
+        "steps": [
+          {
+            "action": "scroll",
+            "delta": 150,
+            "delayMs": 500
+          },
+          {
+            "action": "highlight",
+            "text": "just-in-time",
+            "delayMs": 2000
+          }
+        ]
+      },
+      "assert": {
+        "visible": [
+          "pre-load",
+          "just-in-time"
+        ]
+      },
+      "roiSelector": ".concept:has-text(\"Context rot\")",
+      "viewport": {
+        "width": 1440,
+        "height": 810
+      },
+      "resolvedAudio": {
+        "filePath": "assets/audio/s16-context-engineering-practice.wav",
+        "durationMs": 19400,
+        "subtitleSource": "synthesised",
+        "providerSrt": null,
+        "hasNativeSrt": false,
+        "hash": "c0522f493c40"
+      },
+      "resolvedTiming": {
+        "mode": "audio-dictates",
+        "sceneMs": 19800,
+        "ratePct": 0,
+        "padVisualMs": 19800,
+        "padAudioMs": 0,
+        "warnings": []
+      },
+      "ratePct": 0
+    },
+    {
+      "id": "s17-rag-anchor",
+      "title": "s17-rag-anchor",
+      "narration": "Retrieval-augmented generation, RAG, is the mechanism behind just-in-time retrieval. Source documents are chunked, indexed, and searched on each request — semantic, keyword, or hybrid. The most relevant chunks get injected into the window at the moment they are needed, instead of everything being pre-loaded.",
+      "role": null,
+      "visualEngine": "playwright_web",
+      "captureMode": "screencast",
+      "actionSpec": {
+        "url": "/index.html#phase-engineering",
+        "setupScript": "setup/pin-light-theme.mjs",
+        "steps": [
+          {
+            "action": "scroll",
+            "delta": 260,
+            "delayMs": 500
+          },
+          {
+            "action": "highlight",
+            "text": "Retrieval-Augmented Generation",
+            "delayMs": 2500
+          }
+        ]
+      },
+      "assert": {
+        "visible": [
+          "Retrieval-Augmented Generation",
+          "chunked"
+        ]
+      },
+      "viewport": {
+        "width": 1440,
+        "height": 810
+      },
+      "resolvedAudio": {
+        "filePath": "assets/audio/s17-rag-anchor.wav",
+        "durationMs": 20025,
+        "subtitleSource": "synthesised",
+        "providerSrt": null,
+        "hasNativeSrt": false,
+        "hash": "6f7a41700e5c"
+      },
+      "resolvedTiming": {
+        "mode": "audio-dictates",
+        "sceneMs": 20425,
+        "ratePct": 0,
+        "padVisualMs": 20425,
+        "padAudioMs": 0,
+        "warnings": []
+      },
+      "ratePct": 0
+    },
+    {
+      "id": "s18-rag-practice",
+      "title": "s18-rag-practice",
+      "narration": "This is the difference between a reference library and a stack of books on your desk. You are not reading less; you are holding less at once. In practice: when a knowledge base exists, query it. Pasting the document in defeats the point.",
+      "role": null,
+      "visualEngine": "playwright_web",
+      "captureMode": "screencast",
+      "actionSpec": {
+        "url": "/index.html#phase-engineering",
+        "setupScript": "setup/pin-light-theme.mjs",
+        "roiSelector": ".concept:has-text(\"Retrieval-Augmented Generation\")",
+        "steps": [
+          {
+            "action": "scroll",
+            "delta": 260,
+            "delayMs": 500
+          },
+          {
+            "action": "highlight",
+            "text": "just-in-time",
+            "delayMs": 2000
+          }
+        ]
+      },
+      "assert": {
+        "visible": [
+          "semantic",
+          "hybrid"
+        ]
+      },
+      "roiSelector": ".concept:has-text(\"Retrieval-Augmented Generation\")",
+      "viewport": {
+        "width": 1440,
+        "height": 810
+      },
+      "resolvedAudio": {
+        "filePath": "assets/audio/s18-rag-practice.wav",
+        "durationMs": 14275,
+        "subtitleSource": "synthesised",
+        "providerSrt": null,
+        "hasNativeSrt": false,
+        "hash": "37eece408b2a"
+      },
+      "resolvedTiming": {
+        "mode": "audio-dictates",
+        "sceneMs": 14675,
+        "ratePct": 0,
+        "padVisualMs": 14675,
+        "padAudioMs": 0,
+        "warnings": []
+      },
+      "ratePct": 0
+    },
+    {
+      "id": "s19-okf-anchor",
+      "title": "s19-okf-anchor",
+      "narration": "Open Knowledge Format is a structured knowledge representation that makes retrieval more precise than raw document chunks. Andrej Karpathy argued that conventional RAG retrieves noisy, unstructured text fragments. Hybrid search helps you find the right chunk, but the chunk itself may still carry irrelevant surrounding text. OKF addresses that at the representation level, organising knowledge as typed entities and relationships.",
+      "role": null,
+      "visualEngine": "playwright_web",
+      "captureMode": "screencast",
+      "actionSpec": {
+        "url": "/index.html#phase-engineering",
+        "setupScript": "setup/pin-light-theme.mjs",
+        "steps": [
+          {
+            "action": "scroll",
+            "delta": 390,
+            "delayMs": 500
+          },
+          {
+            "action": "highlight",
+            "text": "Open Knowledge Format",
+            "delayMs": 2500
+          }
+        ]
+      },
+      "assert": {
+        "visible": [
+          "Open Knowledge Format",
+          "typed entities"
+        ]
+      },
+      "viewport": {
+        "width": 1440,
+        "height": 810
+      },
+      "resolvedAudio": {
+        "filePath": "assets/audio/s19-okf-anchor.wav",
+        "durationMs": 27275,
+        "subtitleSource": "synthesised",
+        "providerSrt": null,
+        "hasNativeSrt": false,
+        "hash": "0d3936e79a7e"
+      },
+      "resolvedTiming": {
+        "mode": "audio-dictates",
+        "sceneMs": 27675,
+        "ratePct": 0,
+        "padVisualMs": 27675,
+        "padAudioMs": 0,
+        "warnings": []
+      },
+      "ratePct": 0
+    },
+    {
+      "id": "s20-okf-practice",
+      "title": "s20-okf-practice",
+      "narration": "The shift is in the unit of retrieval. With chunks you get a paragraph and hope the fact is in it. With structured knowledge you get the fact. Same search, less noise arriving with the answer.",
+      "role": null,
+      "visualEngine": "playwright_web",
+      "captureMode": "screencast",
+      "actionSpec": {
+        "url": "/index.html#phase-engineering",
+        "setupScript": "setup/pin-light-theme.mjs",
+        "roiSelector": ".concept:has-text(\"Open Knowledge Format\")",
+        "steps": [
+          {
+            "action": "scroll",
+            "delta": 390,
+            "delayMs": 500
+          },
+          {
+            "action": "highlight",
+            "text": "specific fact",
+            "delayMs": 2000
+          }
+        ]
+      },
+      "assert": {
+        "visible": [
+          "typed entities",
+          "specific fact"
+        ]
+      },
+      "roiSelector": ".concept:has-text(\"Open Knowledge Format\")",
+      "viewport": {
+        "width": 1440,
+        "height": 810
+      },
+      "resolvedAudio": {
+        "filePath": "assets/audio/s20-okf-practice.wav",
+        "durationMs": 11925,
+        "subtitleSource": "synthesised",
+        "providerSrt": null,
+        "hasNativeSrt": false,
+        "hash": "be3eab4a7813"
+      },
+      "resolvedTiming": {
+        "mode": "audio-dictates",
+        "sceneMs": 12325,
+        "ratePct": 0,
+        "padVisualMs": 12325,
+        "padAudioMs": 0,
+        "warnings": []
+      },
+      "ratePct": 0
+    },
+    {
+      "id": "s21-mcp-anchor",
+      "title": "s21-mcp-anchor",
+      "narration": "Model Context Protocol, MCP, is an open protocol for connecting models to external tools, data sources and services. Where RAG retrieves from a pre-indexed snapshot, MCP lets the agent query a tool's current state — reading file systems, calling APIs, querying databases — without custom integration per tool.",
+      "role": null,
+      "visualEngine": "playwright_web",
+      "captureMode": "screencast",
+      "actionSpec": {
+        "url": "/index.html#phase-engineering",
+        "setupScript": "setup/pin-light-theme.mjs",
+        "steps": [
+          {
+            "action": "scroll",
+            "delta": 540,
+            "delayMs": 500
+          },
+          {
+            "action": "highlight",
+            "text": "Model Context Protocol",
+            "delayMs": 2500
+          }
+        ]
+      },
+      "assert": {
+        "visible": [
+          "Model Context Protocol",
+          "external tools"
+        ]
+      },
+      "viewport": {
+        "width": 1440,
+        "height": 810
+      },
+      "resolvedAudio": {
+        "filePath": "assets/audio/s21-mcp-anchor.wav",
+        "durationMs": 22800,
+        "subtitleSource": "synthesised",
+        "providerSrt": null,
+        "hasNativeSrt": false,
+        "hash": "b3546aac0f48"
+      },
+      "resolvedTiming": {
+        "mode": "audio-dictates",
+        "sceneMs": 23200,
+        "ratePct": 0,
+        "padVisualMs": 23200,
+        "padAudioMs": 0,
+        "warnings": []
+      },
+      "ratePct": 0
+    },
+    {
+      "id": "s22-rag-vs-mcp-slide",
+      "title": "Retrieve, or act",
+      "narration": "The dividing line is not freshness. RAG retrieves when you ask, so it can query a live database just as easily as a document store. What separates them is what the information is for. RAG retrieves, then generates: the fetch exists to ground the answer. MCP is a protocol for reaching other systems at all, and reading is only one of the things it does. It can also transact — call an endpoint, file a ticket, change state somewhere else. Retrieval grounds an answer; a transaction has a consequence. They are not competitors. They cover different areas of what an agent needs.",
+      "role": null,
+      "visualEngine": "html_slides",
+      "captureMode": "stills",
+      "slide": {
+        "layout": "comparison",
+        "theme": "light",
+        "title": "Retrieve, or act",
+        "pill": null,
+        "body": null,
+        "cards": [
+          {
+            "icon": "database",
+            "title": "RAG",
+            "text": "Retrieval before generation. Fetches information to ground the answer."
+          },
+          {
+            "icon": "plug",
+            "title": "MCP",
+            "text": "A protocol for reaching tools. It reads systems and can act on them."
+          }
+        ],
+        "stat": null,
+        "image": null,
+        "htmlPath": null,
+        "portraitHtmlPath": null,
+        "notes": "The dividing line is not freshness. RAG retrieves when you ask, so it can query a live database just as easily as a document store. What separates them is what the information is for. RAG retrieves, then generates: the fetch exists to ground the answer. MCP is a protocol for reaching other systems at all, and reading is only one of the things it does. It can also transact — call an endpoint, file a ticket, change state somewhere else. Retrieval grounds an answer; a transaction has a consequence. They are not competitors. They cover different areas of what an agent needs."
+      },
+      "vertical": {
+        "strategy": "native"
+      },
+      "resolvedAudio": {
+        "filePath": "assets/audio/s22-rag-vs-mcp-slide.wav",
+        "durationMs": 38350,
+        "subtitleSource": "synthesised",
+        "providerSrt": null,
+        "hasNativeSrt": false,
+        "hash": "96d855b86045"
+      },
+      "resolvedTiming": {
+        "mode": "audio-dictates",
+        "sceneMs": 38750,
+        "ratePct": 0,
+        "padVisualMs": 38750,
+        "padAudioMs": 0,
+        "warnings": []
+      },
+      "ratePct": 0
+    },
+    {
+      "id": "s23-mcp-practice",
+      "title": "s23-mcp-practice",
+      "narration": "So ask two questions of whatever the agent needs. Does it need to know something? That is retrieval, and RAG covers it whether the source is a document store or a live database. Does it need to change something outside itself? That is a transaction, and no amount of retrieval will do it. Knowing which of the two you need is the whole decision.",
+      "role": null,
+      "visualEngine": "playwright_web",
+      "captureMode": "screencast",
+      "actionSpec": {
+        "url": "/index.html#phase-engineering",
+        "setupScript": "setup/pin-light-theme.mjs",
+        "roiSelector": ".concept:has-text(\"Model Context Protocol\")",
+        "steps": [
+          {
+            "action": "scroll",
+            "delta": 540,
+            "delayMs": 500
+          },
+          {
+            "action": "highlight",
+            "text": "current state",
+            "delayMs": 2000
+          }
+        ]
+      },
+      "assert": {
+        "visible": [
+          "querying databases",
+          "current state"
+        ]
+      },
+      "roiSelector": ".concept:has-text(\"Model Context Protocol\")",
+      "viewport": {
+        "width": 1440,
+        "height": 810
+      },
+      "resolvedAudio": {
+        "filePath": "assets/audio/s23-mcp-practice.wav",
+        "durationMs": 21450,
+        "subtitleSource": "synthesised",
+        "providerSrt": null,
+        "hasNativeSrt": false,
+        "hash": "1e62a6361c85"
+      },
+      "resolvedTiming": {
+        "mode": "audio-dictates",
+        "sceneMs": 21850,
+        "ratePct": 0,
+        "padVisualMs": 21850,
+        "padAudioMs": 0,
+        "warnings": []
+      },
+      "ratePct": 0
+    },
+    {
+      "id": "s24-react-anchor",
+      "title": "s24-react-anchor",
+      "narration": "This is the pattern that turns a single-shot model into a multi-step agent. Three phases. Reason: decide what to do next. Act: call a tool, write code, run a command. Observe: read the result and feed it into the next reasoning step. That observe-then-reason cycle is what lets an agent self-correct from real outcomes instead of guessing in one pass. And every loop needs a convergence condition telling it when to stop.",
+      "role": null,
+      "visualEngine": "playwright_web",
+      "captureMode": "screencast",
+      "actionSpec": {
+        "url": "/index.html#phase-engineering",
+        "setupScript": "setup/pin-light-theme.mjs",
+        "steps": [
+          {
+            "action": "scroll",
+            "delta": 650,
+            "delayMs": 500
+          },
+          {
+            "action": "highlight",
+            "text": "The ReAct Pattern",
+            "delayMs": 2500
+          }
+        ]
+      },
+      "assert": {
+        "visible": [
+          "ReAct Pattern",
+          "convergence condition"
+        ]
+      },
+      "viewport": {
+        "width": 1440,
+        "height": 810
+      },
+      "resolvedAudio": {
+        "filePath": "assets/audio/s24-react-anchor.wav",
+        "durationMs": 26475,
+        "subtitleSource": "synthesised",
+        "providerSrt": null,
+        "hasNativeSrt": false,
+        "hash": "8426446661c6"
+      },
+      "resolvedTiming": {
+        "mode": "audio-dictates",
+        "sceneMs": 26875,
+        "ratePct": 0,
+        "padVisualMs": 26875,
+        "padAudioMs": 0,
+        "warnings": []
+      },
+      "ratePct": 0
+    },
+    {
+      "id": "s25-react-loop-slide",
+      "title": "Reason, act, observe, exit",
+      "narration": "Watch what each lap costs. Every observation is added to the window, so a loop without an exit does two things at once: it never stops, and it degrades as it goes. By lap fifteen the agent is reasoning over mostly its own history.",
+      "role": null,
+      "visualEngine": "html_slides",
+      "captureMode": "stills",
+      "slide": {
+        "layout": "lifecycle",
+        "theme": "light",
+        "title": "Reason, act, observe, exit",
+        "pill": null,
+        "body": null,
+        "cards": [
+          {
+            "icon": "brain",
+            "title": "Reason",
+            "detail": "Phase 1",
+            "text": "Decide what to do next."
+          },
+          {
+            "icon": "play",
+            "title": "Act",
+            "detail": "Phase 2",
+            "text": "Call a tool, write code, run a command."
+          },
+          {
+            "icon": "eye",
+            "title": "Observe",
+            "detail": "Phase 3",
+            "text": "Read the result and feed it back."
+          },
+          {
+            "icon": "check",
+            "title": "Exit",
+            "detail": "Convergence",
+            "text": "Without this the loop has no signal to stop."
+          }
+        ],
+        "stat": null,
+        "image": null,
+        "htmlPath": null,
+        "portraitHtmlPath": null,
+        "notes": "Watch what each lap costs. Every observation is added to the window, so a loop without an exit does two things at once: it never stops, and it degrades as it goes. By lap fifteen the agent is reasoning over mostly its own history."
+      },
+      "vertical": {
+        "strategy": "native"
+      },
+      "resolvedAudio": {
+        "filePath": "assets/audio/s25-react-loop-slide.wav",
+        "durationMs": 15700,
+        "subtitleSource": "synthesised",
+        "providerSrt": null,
+        "hasNativeSrt": false,
+        "hash": "6c1ad44a531d"
+      },
+      "resolvedTiming": {
+        "mode": "audio-dictates",
+        "sceneMs": 16100,
+        "ratePct": 0,
+        "padVisualMs": 16100,
+        "padAudioMs": 0,
+        "warnings": []
+      },
+      "ratePct": 0
+    },
+    {
+      "id": "s26-react-practice",
+      "title": "s26-react-practice",
+      "narration": "You have seen the failure: an agent trying the same fix four times with slightly different wording. So define the exit before you start the loop. All tests pass. Zero must-fix findings. Something a machine can check — not your judgment of whether it looks finished.",
+      "role": null,
+      "visualEngine": "playwright_web",
+      "captureMode": "screencast",
+      "actionSpec": {
+        "url": "/index.html#phase-engineering",
+        "setupScript": "setup/pin-light-theme.mjs",
+        "roiSelector": ".concept:has-text(\"ReAct Pattern\")",
+        "steps": [
+          {
+            "action": "scroll",
+            "delta": 650,
+            "delayMs": 500
+          },
+          {
+            "action": "highlight",
+            "text": "all tests pass",
+            "delayMs": 2000
+          }
+        ]
+      },
+      "assert": {
+        "visible": [
+          "Reason",
+          "Observe",
+          "convergence"
+        ]
+      },
+      "roiSelector": ".concept:has-text(\"ReAct Pattern\")",
+      "viewport": {
+        "width": 1440,
+        "height": 810
+      },
+      "resolvedAudio": {
+        "filePath": "assets/audio/s26-react-practice.wav",
+        "durationMs": 16375,
+        "subtitleSource": "synthesised",
+        "providerSrt": null,
+        "hasNativeSrt": false,
+        "hash": "57380ad83470"
+      },
+      "resolvedTiming": {
+        "mode": "audio-dictates",
+        "sceneMs": 16775,
+        "ratePct": 0,
+        "padVisualMs": 16775,
+        "padAudioMs": 0,
+        "warnings": []
+      },
+      "ratePct": 0
+    },
+    {
+      "id": "s27-planning-anchor",
+      "title": "s27-planning-anchor",
+      "narration": "Complete all research, questioning and planning before writing any code. When the two are interleaved, the page names three failure modes. Context overflow: researching mid-task eats the tokens that should be writing code. Plan narration: the agent gets confused and describes what it would do instead of doing it. And late requirement changes: ambiguities surface mid-implementation and derail the session.",
+      "role": null,
+      "visualEngine": "playwright_web",
+      "captureMode": "screencast",
+      "actionSpec": {
+        "url": "/index.html#phase-engineering",
+        "setupScript": "setup/pin-light-theme.mjs",
+        "steps": [
+          {
+            "action": "scroll",
+            "delta": 825,
+            "delayMs": 500
+          },
+          {
+            "action": "highlight",
+            "text": "Planning-Execution Separation",
+            "delayMs": 2500
+          }
+        ]
+      },
+      "assert": {
+        "visible": [
+          "Planning-Execution Separation",
+          "Context overflow",
+          "Plan narration"
+        ]
+      },
+      "viewport": {
+        "width": 1440,
+        "height": 810
+      },
+      "resolvedAudio": {
+        "filePath": "assets/audio/s27-planning-anchor.wav",
+        "durationMs": 25100,
+        "subtitleSource": "synthesised",
+        "providerSrt": null,
+        "hasNativeSrt": false,
+        "hash": "ee3c5a4582b1"
+      },
+      "resolvedTiming": {
+        "mode": "audio-dictates",
+        "sceneMs": 25500,
+        "ratePct": 0,
+        "padVisualMs": 25500,
+        "padAudioMs": 0,
+        "warnings": []
+      },
+      "ratePct": 0
+    },
+    {
+      "id": "s28-qrspi-slide",
+      "title": "QRSPI",
+      "narration": "In this workflow the practice has a name: QRSPI. The order is not the interesting part — the boundary is. Four steps finish completely, and only then does code get written. Everything ambiguous is resolved while resolving it is still cheap.",
+      "role": null,
+      "visualEngine": "html_slides",
+      "captureMode": "stills",
+      "slide": {
+        "layout": "process-flow",
+        "theme": "light",
+        "title": "QRSPI",
+        "pill": null,
+        "body": null,
+        "cards": [
+          {
+            "icon": "circle-help",
+            "title": "Questions"
+          },
+          {
+            "icon": "search",
+            "title": "Research"
+          },
+          {
+            "icon": "layers",
+            "title": "Structure"
+          },
+          {
+            "icon": "list-checks",
+            "title": "Plan"
+          },
+          {
+            "icon": "code",
+            "title": "Implement",
+            "text": "The first four finish before this one starts."
+          }
+        ],
+        "stat": null,
+        "image": null,
+        "htmlPath": null,
+        "portraitHtmlPath": null,
+        "notes": "In this workflow the practice has a name: QRSPI. The order is not the interesting part — the boundary is. Four steps finish completely, and only then does code get written. Everything ambiguous is resolved while resolving it is still cheap."
+      },
+      "vertical": {
+        "strategy": "native"
+      },
+      "resolvedAudio": {
+        "filePath": "assets/audio/s28-qrspi-slide.wav",
+        "durationMs": 15900,
+        "subtitleSource": "synthesised",
+        "providerSrt": null,
+        "hasNativeSrt": false,
+        "hash": "d08fd3537b9c"
+      },
+      "resolvedTiming": {
+        "mode": "audio-dictates",
+        "sceneMs": 16300,
+        "ratePct": 0,
+        "padVisualMs": 16300,
+        "padAudioMs": 0,
+        "warnings": []
+      },
+      "ratePct": 0
+    },
+    {
+      "id": "s29-planning-practice",
+      "title": "s29-planning-practice",
+      "narration": "Plan narration is worth recognising, because it looks like progress. The agent produces a beautiful description of the change and no change. That is a context problem, not a comprehension problem. The practice: when you notice yourself researching during implementation, stop. You are in the wrong phase.",
+      "role": null,
+      "visualEngine": "playwright_web",
+      "captureMode": "screencast",
+      "actionSpec": {
+        "url": "/index.html#phase-engineering",
+        "setupScript": "setup/pin-light-theme.mjs",
+        "roiSelector": ".concept:has-text(\"Planning-Execution Separation\")",
+        "steps": [
+          {
+            "action": "scroll",
+            "delta": 825,
+            "delayMs": 500
+          },
+          {
+            "action": "highlight",
+            "text": "QRSPI",
+            "delayMs": 2000
+          }
+        ]
+      },
+      "assert": {
+        "visible": [
+          "QRSPI",
+          "Late requirement changes"
+        ]
+      },
+      "roiSelector": ".concept:has-text(\"Planning-Execution Separation\")",
+      "viewport": {
+        "width": 1440,
+        "height": 810
+      },
+      "resolvedAudio": {
+        "filePath": "assets/audio/s29-planning-practice.wav",
+        "durationMs": 19400,
+        "subtitleSource": "synthesised",
+        "providerSrt": null,
+        "hasNativeSrt": false,
+        "hash": "1c1770bcaef2"
+      },
+      "resolvedTiming": {
+        "mode": "audio-dictates",
+        "sceneMs": 19800,
+        "ratePct": 0,
+        "padVisualMs": 19800,
+        "padAudioMs": 0,
+        "warnings": []
+      },
+      "ratePct": 0
+    },
+    {
+      "id": "s30-skills-anchor",
+      "title": "s30-skills-anchor",
+      "narration": "Agent skills are reusable capabilities packaged as `SKILL.md` files — instructions, scripts and resources, each invoked as a slash command. Progressive disclosure keeps the cost down: only each skill's name and one-line description load at startup. Full instructions load when the skill is actually invoked.",
+      "role": null,
+      "visualEngine": "playwright_web",
+      "captureMode": "screencast",
+      "actionSpec": {
+        "url": "/index.html#phase-engineering",
+        "setupScript": "setup/pin-light-theme.mjs",
+        "steps": [
+          {
+            "action": "scroll",
+            "delta": 1090,
+            "delayMs": 500
+          },
+          {
+            "action": "highlight",
+            "selector": ".concept-name:text-is(\"Agent Skills\")",
+            "delayMs": 2500
+          }
+        ]
+      },
+      "assert": {
+        "visible": [
+          "Agent Skills",
+          "SKILL.md",
+          "Progressive disclosure"
+        ]
+      },
+      "viewport": {
+        "width": 1440,
+        "height": 810
+      },
+      "resolvedAudio": {
+        "filePath": "assets/audio/s30-skills-anchor.wav",
+        "durationMs": 20600,
+        "subtitleSource": "synthesised",
+        "providerSrt": null,
+        "hasNativeSrt": false,
+        "hash": "fbf9e89fe2c6"
+      },
+      "resolvedTiming": {
+        "mode": "audio-dictates",
+        "sceneMs": 21000,
+        "ratePct": 0,
+        "padVisualMs": 21000,
+        "padAudioMs": 0,
+        "warnings": []
+      },
+      "ratePct": 0
+    },
+    {
+      "id": "s31-skills-practice",
+      "title": "s31-skills-practice",
+      "narration": "This is the answer to an obvious objection. If every capability lived in the system prompt, thirty skills would leave no room for work. Descriptions at startup, instructions on demand — so adding skills does not tax every session. It is also how the Eitri skills extend this workflow without modifying its core.",
+      "role": null,
+      "visualEngine": "playwright_web",
+      "captureMode": "screencast",
+      "actionSpec": {
+        "url": "/index.html#phase-engineering",
+        "setupScript": "setup/pin-light-theme.mjs",
+        "roiSelector": ".concept:has-text(\"Agent Skills\")",
+        "steps": [
+          {
+            "action": "scroll",
+            "delta": 1090,
+            "delayMs": 500
+          },
+          {
+            "action": "highlight",
+            "text": "progressive disclosure",
+            "delayMs": 2000
+          }
+        ]
+      },
+      "assert": {
+        "visible": [
+          "slash command",
+          "context footprint"
+        ]
+      },
+      "roiSelector": ".concept:has-text(\"Agent Skills\")",
+      "viewport": {
+        "width": 1440,
+        "height": 810
+      },
+      "resolvedAudio": {
+        "filePath": "assets/audio/s31-skills-practice.wav",
+        "durationMs": 20425,
+        "subtitleSource": "synthesised",
+        "providerSrt": null,
+        "hasNativeSrt": false,
+        "hash": "a7a8c35c25a9"
+      },
+      "resolvedTiming": {
+        "mode": "audio-dictates",
+        "sceneMs": 20825,
+        "ratePct": 0,
+        "padVisualMs": 20825,
+        "padAudioMs": 0,
+        "warnings": []
+      },
+      "ratePct": 0
+    },
+    {
+      "id": "s32-hitl-anchor",
+      "title": "Topic 3",
+      "narration": "Agents do not pause when a requirement is ambiguous. They guess, confidently. So human review goes at defined checkpoints where decisions need judgment — scope changes, compliance sign-off. Let the system self-correct only where the outcome is machine-verifiable: syntax errors, test failures. And the page is blunt about the rest: a gate that can be bypassed, even accidentally, is not a gate.",
+      "role": null,
+      "chapter": {
+        "title": "Topic 3",
+        "description": "Agentic Development Principles"
+      },
+      "visualEngine": "playwright_web",
+      "captureMode": "screencast",
+      "actionSpec": {
+        "url": "/index.html#phase-principles",
+        "setupScript": "setup/pin-light-theme.mjs",
+        "steps": [
+          {
+            "action": "scroll",
+            "delta": 32,
+            "delayMs": 500
+          },
+          {
+            "action": "highlight",
+            "text": "Human-in-the-Loop",
+            "delayMs": 2500
+          }
+        ]
+      },
+      "assert": {
+        "visible": [
+          "Agentic Development Principles",
+          "Human-in-the-Loop"
+        ]
+      },
+      "viewport": {
+        "width": 1440,
+        "height": 810
+      },
+      "resolvedAudio": {
+        "filePath": "assets/audio/s32-hitl-anchor.wav",
+        "durationMs": 24550,
+        "subtitleSource": "synthesised",
+        "providerSrt": null,
+        "hasNativeSrt": false,
+        "hash": "923b6e6524c0"
+      },
+      "resolvedTiming": {
+        "mode": "audio-dictates",
+        "sceneMs": 24950,
+        "ratePct": 0,
+        "padVisualMs": 24950,
+        "padAudioMs": 0,
+        "warnings": []
+      },
+      "ratePct": 0
+    },
+    {
+      "id": "s33-hitl-practice",
+      "title": "s33-hitl-practice",
+      "narration": "The test is simple. Can a machine decide this correctly? Then automate it and stay out of the way. Does it need judgment, or carry consequences a test cannot see? Then it is a gate, and a gate you can skip when you are in a hurry is decoration.",
+      "role": null,
+      "visualEngine": "playwright_web",
+      "captureMode": "screencast",
+      "actionSpec": {
+        "url": "/index.html#phase-principles",
+        "setupScript": "setup/pin-light-theme.mjs",
+        "roiSelector": ".concept:has-text(\"Human-in-the-Loop\")",
+        "steps": [
+          {
+            "action": "scroll",
+            "delta": 100,
+            "delayMs": 500
+          },
+          {
+            "action": "highlight",
+            "text": "not a gate",
+            "delayMs": 2000
+          }
+        ]
+      },
+      "assert": {
+        "visible": [
+          "machine-verifiable",
+          "not a gate"
+        ]
+      },
+      "roiSelector": ".concept:has-text(\"Human-in-the-Loop\")",
+      "viewport": {
+        "width": 1440,
+        "height": 810
+      },
+      "resolvedAudio": {
+        "filePath": "assets/audio/s33-hitl-practice.wav",
+        "durationMs": 15650,
+        "subtitleSource": "synthesised",
+        "providerSrt": null,
+        "hasNativeSrt": false,
+        "hash": "9fa58396d3aa"
+      },
+      "resolvedTiming": {
+        "mode": "audio-dictates",
+        "sceneMs": 16050,
+        "ratePct": 0,
+        "padVisualMs": 16050,
+        "padAudioMs": 0,
+        "warnings": []
+      },
+      "ratePct": 0
+    },
+    {
+      "id": "s34-spec-first-anchor",
+      "title": "s34-spec-first-anchor",
+      "narration": "A complete, unambiguous specification must exist before implementation begins, so the agent reads and implements rather than deriving requirements mid-loop. The page lists several approaches that differ in how the specification is expressed: behaviour-driven development uses human-readable scenarios, spec-driven development uses a formal document, structured-prompt-driven development uses structured prompts, and tools like Spec Kit and GSD supply templates and frameworks.",
+      "role": null,
+      "visualEngine": "playwright_web",
+      "captureMode": "screencast",
+      "actionSpec": {
+        "url": "/index.html#phase-principles",
+        "setupScript": "setup/pin-light-theme.mjs",
+        "steps": [
+          {
+            "action": "scroll",
+            "delta": 162,
+            "delayMs": 500
+          },
+          {
+            "action": "highlight",
+            "text": "Specification-First Development",
+            "delayMs": 2500
+          }
+        ]
+      },
+      "assert": {
+        "visible": [
+          "Specification-First Development",
+          "Behaviour Driven Development"
+        ]
+      },
+      "viewport": {
+        "width": 1440,
+        "height": 810
+      },
+      "resolvedAudio": {
+        "filePath": "assets/audio/s34-spec-first-anchor.wav",
+        "durationMs": 31300,
+        "subtitleSource": "synthesised",
+        "providerSrt": null,
+        "hasNativeSrt": false,
+        "hash": "ece87501c568"
+      },
+      "resolvedTiming": {
+        "mode": "audio-dictates",
+        "sceneMs": 31700,
+        "ratePct": 0,
+        "padVisualMs": 31700,
+        "padAudioMs": 0,
+        "warnings": []
+      },
+      "ratePct": 0
+    },
+    {
+      "id": "s35-spec-first-practice",
+      "title": "s35-spec-first-practice",
+      "narration": "The page explains why this workflow was chosen over the heavier options. Spec Kit and GSD mandate directory structures, multi-file templates and dedicated command-line tools. This one is a folder of composable conversational skills. You invoke only what you need, the agent interviews you to extract requirements, and it generates a single plan document. Spec-first discipline, near-zero overhead, no lock-in.",
+      "role": null,
+      "visualEngine": "playwright_web",
+      "captureMode": "screencast",
+      "actionSpec": {
+        "url": "/index.html#phase-principles",
+        "setupScript": "setup/pin-light-theme.mjs",
+        "roiSelector": ".concept:has-text(\"Specification-First Development\")",
+        "steps": [
+          {
+            "action": "scroll",
+            "delta": 420,
+            "delayMs": 500
+          },
+          {
+            "action": "highlight",
+            "text": "lightweight and flexible",
+            "delayMs": 2000
+          }
+        ]
+      },
+      "assert": {
+        "visible": [
+          "Spec Kit",
+          "plan.md"
+        ]
+      },
+      "roiSelector": ".concept:has-text(\"Specification-First Development\")",
+      "viewport": {
+        "width": 1440,
+        "height": 810
+      },
+      "resolvedAudio": {
+        "filePath": "assets/audio/s35-spec-first-practice.wav",
+        "durationMs": 26025,
+        "subtitleSource": "synthesised",
+        "providerSrt": null,
+        "hasNativeSrt": false,
+        "hash": "c4a96ec45a6f"
+      },
+      "resolvedTiming": {
+        "mode": "audio-dictates",
+        "sceneMs": 26425,
+        "ratePct": 0,
+        "padVisualMs": 26425,
+        "padAudioMs": 0,
+        "warnings": []
+      },
+      "ratePct": 0
+    },
+    {
+      "id": "s36-tdd-anchor",
+      "title": "s36-tdd-anchor",
+      "narration": "TDD follows red, green, refactor. Write a failing test. Write the minimum code to pass it. Refactor without breaking it. In agentic work it does one more job: it supplies the machine-verifiable convergence signal. The loop exits when tests pass, not when output looks plausible.",
+      "role": null,
+      "visualEngine": "playwright_web",
+      "captureMode": "screencast",
+      "actionSpec": {
+        "url": "/index.html#phase-principles",
+        "setupScript": "setup/pin-light-theme.mjs",
+        "steps": [
+          {
+            "action": "scroll",
+            "delta": 637,
+            "delayMs": 500
+          },
+          {
+            "action": "highlight",
+            "text": "Test-Driven Development",
+            "delayMs": 2500
+          }
+        ]
+      },
+      "assert": {
+        "visible": [
+          "Test-Driven Development",
+          "Red-Green-Refactor"
+        ]
+      },
+      "viewport": {
+        "width": 1440,
+        "height": 810
+      },
+      "resolvedAudio": {
+        "filePath": "assets/audio/s36-tdd-anchor.wav",
+        "durationMs": 19475,
+        "subtitleSource": "synthesised",
+        "providerSrt": null,
+        "hasNativeSrt": false,
+        "hash": "b35814501ba4"
+      },
+      "resolvedTiming": {
+        "mode": "audio-dictates",
+        "sceneMs": 19875,
+        "ratePct": 0,
+        "padVisualMs": 19875,
+        "padAudioMs": 0,
+        "warnings": []
+      },
+      "ratePct": 0
+    },
+    {
+      "id": "s37-tdd-practice",
+      "title": "s37-tdd-practice",
+      "narration": "This connects back to Topic 1. Because the same prompt can produce different output next run, your own inspection is not a stable standard. Without tests there is no objective way to know the agent is done. With them, done is a fact.",
+      "role": null,
+      "visualEngine": "playwright_web",
+      "captureMode": "screencast",
+      "actionSpec": {
+        "url": "/index.html#phase-principles",
+        "setupScript": "setup/pin-light-theme.mjs",
+        "roiSelector": ".concept:has-text(\"Test-Driven Development\")",
+        "steps": [
+          {
+            "action": "scroll",
+            "delta": 637,
+            "delayMs": 500
+          },
+          {
+            "action": "highlight",
+            "text": "non-determinism",
+            "delayMs": 2000
+          }
+        ]
+      },
+      "assert": {
+        "visible": [
+          "machine-verifiable",
+          "tests pass"
+        ]
+      },
+      "roiSelector": ".concept:has-text(\"Test-Driven Development\")",
+      "viewport": {
+        "width": 1440,
+        "height": 810
+      },
+      "resolvedAudio": {
+        "filePath": "assets/audio/s37-tdd-practice.wav",
+        "durationMs": 15800,
+        "subtitleSource": "synthesised",
+        "providerSrt": null,
+        "hasNativeSrt": false,
+        "hash": "9971cf8322cc"
+      },
+      "resolvedTiming": {
+        "mode": "audio-dictates",
+        "sceneMs": 16200,
+        "ratePct": 0,
+        "padVisualMs": 16200,
+        "padAudioMs": 0,
+        "warnings": []
+      },
+      "ratePct": 0
+    },
+    {
+      "id": "s38-adr-anchor",
+      "title": "s38-adr-anchor",
+      "narration": "An ADR is a short document capturing a technical choice: context, decision, consequences. Because agents have no persistent memory between sessions, ADRs in version control act as their durable external memory. Without them, a future session has no way to know a past architectural choice was deliberate.",
+      "role": null,
+      "visualEngine": "playwright_web",
+      "captureMode": "screencast",
+      "actionSpec": {
+        "url": "/index.html#phase-principles",
+        "setupScript": "setup/pin-light-theme.mjs",
+        "steps": [
+          {
+            "action": "scroll",
+            "delta": 767,
+            "delayMs": 500
+          },
+          {
+            "action": "highlight",
+            "text": "Architecture Decision Records",
+            "delayMs": 2500
+          }
+        ]
+      },
+      "assert": {
+        "visible": [
+          "Architecture Decision Records",
+          "consequences"
+        ]
+      },
+      "viewport": {
+        "width": 1440,
+        "height": 810
+      },
+      "resolvedAudio": {
+        "filePath": "assets/audio/s38-adr-anchor.wav",
+        "durationMs": 21100,
+        "subtitleSource": "synthesised",
+        "providerSrt": null,
+        "hasNativeSrt": false,
+        "hash": "ab092e25de09"
+      },
+      "resolvedTiming": {
+        "mode": "audio-dictates",
+        "sceneMs": 21500,
+        "ratePct": 0,
+        "padVisualMs": 21500,
+        "padAudioMs": 0,
+        "warnings": []
+      },
+      "ratePct": 0
+    },
+    {
+      "id": "s39-adr-practice",
+      "title": "s39-adr-practice",
+      "narration": "Which produces a specific, maddening failure: a later session finds your deliberate choice, reads it as a mistake, and helpfully reverses it. The fix is to leave the reasoning where the next session will walk into it. In the repository, not in a chat log.",
+      "role": null,
+      "visualEngine": "playwright_web",
+      "captureMode": "screencast",
+      "actionSpec": {
+        "url": "/index.html#phase-principles",
+        "setupScript": "setup/pin-light-theme.mjs",
+        "roiSelector": ".concept:has-text(\"Architecture Decision Records\")",
+        "steps": [
+          {
+            "action": "scroll",
+            "delta": 767,
+            "delayMs": 500
+          },
+          {
+            "action": "highlight",
+            "text": "reversing deliberate decisions",
+            "delayMs": 2000
+          }
+        ]
+      },
+      "assert": {
+        "visible": [
+          "version control",
+          "deliberate"
+        ]
+      },
+      "roiSelector": ".concept:has-text(\"Architecture Decision Records\")",
+      "viewport": {
+        "width": 1440,
+        "height": 810
+      },
+      "resolvedAudio": {
+        "filePath": "assets/audio/s39-adr-practice.wav",
+        "durationMs": 16525,
+        "subtitleSource": "synthesised",
+        "providerSrt": null,
+        "hasNativeSrt": false,
+        "hash": "1cc510c3b952"
+      },
+      "resolvedTiming": {
+        "mode": "audio-dictates",
+        "sceneMs": 16925,
+        "ratePct": 0,
+        "padVisualMs": 16925,
+        "padAudioMs": 0,
+        "warnings": []
+      },
+      "ratePct": 0
+    },
+    {
+      "id": "s40-tracer-bullet-anchor",
+      "title": "s40-tracer-bullet-anchor",
+      "narration": "A strategy for slicing work into tickets. Instead of building horizontal layers — the whole database schema first — work is sliced vertically: a thin, production-quality feature cutting through data, logic, interface and tests. It matters for agents because a horizontal slice cannot be demoed or tested end to end in isolation.",
+      "role": null,
+      "visualEngine": "playwright_web",
+      "captureMode": "screencast",
+      "actionSpec": {
+        "url": "/index.html#phase-principles",
+        "setupScript": "setup/pin-light-theme.mjs",
+        "steps": [
+          {
+            "action": "scroll",
+            "delta": 898,
+            "delayMs": 500
+          },
+          {
+            "action": "highlight",
+            "text": "Tracer Bullet Development",
+            "delayMs": 2500
+          }
+        ]
+      },
+      "assert": {
+        "visible": [
+          "Tracer Bullet Development",
+          "vertically"
+        ]
+      },
+      "viewport": {
+        "width": 1440,
+        "height": 810
+      },
+      "resolvedAudio": {
+        "filePath": "assets/audio/s40-tracer-bullet-anchor.wav",
+        "durationMs": 22475,
+        "subtitleSource": "synthesised",
+        "providerSrt": null,
+        "hasNativeSrt": false,
+        "hash": "6cd093cdb612"
+      },
+      "resolvedTiming": {
+        "mode": "audio-dictates",
+        "sceneMs": 22875,
+        "ratePct": 0,
+        "padVisualMs": 22875,
+        "padAudioMs": 0,
+        "warnings": []
+      },
+      "ratePct": 0
+    },
+    {
+      "id": "s41-tracer-bullet-practice",
+      "title": "s41-tracer-bullet-practice",
+      "narration": "Follow that through. If a slice cannot be fully tested, the agent cannot verify its own output, and the self-correction loop stalls. So a good ticket is not the smallest amount of work — it is the smallest amount of work that can prove itself.",
+      "role": null,
+      "visualEngine": "playwright_web",
+      "captureMode": "screencast",
+      "actionSpec": {
+        "url": "/index.html#phase-principles",
+        "setupScript": "setup/pin-light-theme.mjs",
+        "roiSelector": ".concept:has-text(\"Tracer Bullet\")",
+        "steps": [
+          {
+            "action": "scroll",
+            "delta": 898,
+            "delayMs": 500
+          },
+          {
+            "action": "highlight",
+            "text": "self-correction loop stalls",
+            "delayMs": 2000
+          }
+        ]
+      },
+      "assert": {
+        "visible": [
+          "production-quality",
+          "self-correction"
+        ]
+      },
+      "roiSelector": ".concept:has-text(\"Tracer Bullet\")",
+      "viewport": {
+        "width": 1440,
+        "height": 810
+      },
+      "resolvedAudio": {
+        "filePath": "assets/audio/s41-tracer-bullet-practice.wav",
+        "durationMs": 15200,
+        "subtitleSource": "synthesised",
+        "providerSrt": null,
+        "hasNativeSrt": false,
+        "hash": "fdd0e2a82663"
+      },
+      "resolvedTiming": {
+        "mode": "audio-dictates",
+        "sceneMs": 15600,
+        "ratePct": 0,
+        "padVisualMs": 15600,
+        "padAudioMs": 0,
+        "warnings": []
+      },
+      "ratePct": 0
+    },
+    {
+      "id": "s42-living-docs-anchor",
+      "title": "s42-living-docs-anchor",
+      "narration": "In traditional development, stale documentation is an annoyance. In agentic development it is a fatal bug. Agents treat your repository's documentation as their system prompt, and they will faithfully generate code that complies with whatever standards they read.",
+      "role": null,
+      "visualEngine": "playwright_web",
+      "captureMode": "screencast",
+      "actionSpec": {
+        "url": "/index.html#phase-principles",
+        "setupScript": "setup/pin-light-theme.mjs",
+        "steps": [
+          {
+            "action": "scroll",
+            "delta": 1028,
+            "delayMs": 500
+          },
+          {
+            "action": "highlight",
+            "text": "Living Documentation",
+            "delayMs": 2500
+          }
+        ]
+      },
+      "assert": {
+        "visible": [
+          "Living Documentation",
+          "system prompt"
+        ]
+      },
+      "viewport": {
+        "width": 1440,
+        "height": 810
+      },
+      "resolvedAudio": {
+        "filePath": "assets/audio/s42-living-docs-anchor.wav",
+        "durationMs": 17675,
+        "subtitleSource": "synthesised",
+        "providerSrt": null,
+        "hasNativeSrt": false,
+        "hash": "4200910d3bca"
+      },
+      "resolvedTiming": {
+        "mode": "audio-dictates",
+        "sceneMs": 18075,
+        "ratePct": 0,
+        "padVisualMs": 18075,
+        "padAudioMs": 0,
+        "warnings": []
+      },
+      "ratePct": 0
+    },
+    {
+      "id": "s43-living-docs-practice",
+      "title": "s43-living-docs-practice",
+      "narration": "So a coding standard you abandoned two years ago is not a historical note. It is an instruction, and it will be followed perfectly. Documentation in this model is closer to configuration than to prose: if it is wrong, the output is wrong, confidently.",
+      "role": null,
+      "visualEngine": "playwright_web",
+      "captureMode": "screencast",
+      "actionSpec": {
+        "url": "/index.html#phase-principles",
+        "setupScript": "setup/pin-light-theme.mjs",
+        "roiSelector": ".concept:has-text(\"Living Documentation\")",
+        "steps": [
+          {
+            "action": "scroll",
+            "delta": 1028,
+            "delayMs": 500
+          },
+          {
+            "action": "highlight",
+            "text": "confidently produce wrong outputs",
+            "delayMs": 2000
+          }
+        ]
+      },
+      "assert": {
+        "visible": [
+          "coding standards",
+          "wrong outputs"
+        ]
+      },
+      "roiSelector": ".concept:has-text(\"Living Documentation\")",
+      "viewport": {
+        "width": 1440,
+        "height": 810
+      },
+      "resolvedAudio": {
+        "filePath": "assets/audio/s43-living-docs-practice.wav",
+        "durationMs": 16575,
+        "subtitleSource": "synthesised",
+        "providerSrt": null,
+        "hasNativeSrt": false,
+        "hash": "1dd2f528fab4"
+      },
+      "resolvedTiming": {
+        "mode": "audio-dictates",
+        "sceneMs": 16975,
+        "ratePct": 0,
+        "padVisualMs": 16975,
+        "padAudioMs": 0,
+        "warnings": []
+      },
+      "ratePct": 0
+    },
+    {
+      "id": "s44-orchestrator-anchor",
+      "title": "Topic 4",
+      "narration": "The orchestrator coordinates. It sequences work and routes blockers, and it never reads files or makes implementation decisions. An orchestrator that does implementation work fills its context with detail and loses coordination accuracy.",
+      "role": null,
+      "chapter": {
+        "title": "Topic 4",
+        "description": "Multi-Agent Patterns"
+      },
+      "visualEngine": "playwright_web",
+      "captureMode": "screencast",
+      "actionSpec": {
+        "url": "/index.html#phase-multiagent",
+        "setupScript": "setup/pin-light-theme.mjs",
+        "steps": [
+          {
+            "action": "scroll",
+            "delta": 32,
+            "delayMs": 500
+          },
+          {
+            "action": "highlight",
+            "text": "Orchestrator-Worker Architecture",
+            "delayMs": 2500
+          }
+        ]
+      },
+      "assert": {
+        "visible": [
+          "Multi-Agent Patterns",
+          "Orchestrator-Worker"
+        ]
+      },
+      "viewport": {
+        "width": 1440,
+        "height": 810
+      },
+      "resolvedAudio": {
+        "filePath": "assets/audio/s44-orchestrator-anchor.wav",
+        "durationMs": 16225.000000000002,
+        "subtitleSource": "synthesised",
+        "providerSrt": null,
+        "hasNativeSrt": false,
+        "hash": "c3be1b023ebb"
+      },
+      "resolvedTiming": {
+        "mode": "audio-dictates",
+        "sceneMs": 16625,
+        "ratePct": 0,
+        "padVisualMs": 16625,
+        "padAudioMs": 0,
+        "warnings": []
+      },
+      "ratePct": 0
+    },
+    {
+      "id": "s45-who-knows-what-slide",
+      "title": "Who knows what",
+      "narration": "Every rule in this topic is the same rule applied four times: control what each agent knows. The orchestrator holds the plan and not the code. The subagent holds one task and not the plan. The reviewer holds the specification and the output and nothing about how the output came to exist.",
+      "role": null,
+      "visualEngine": "html_slides",
+      "captureMode": "stills",
+      "slide": {
+        "layout": "spotlight",
+        "theme": "light",
+        "title": "Who knows what",
+        "pill": null,
+        "body": null,
+        "cards": [
+          {
+            "icon": "network",
+            "title": "Orchestrator",
+            "text": "Sequences work and routes blockers. Never reads files."
+          },
+          {
+            "icon": "box",
+            "title": "Subagent",
+            "text": "Clean context, restricted tools, one bounded task."
+          },
+          {
+            "icon": "user-check",
+            "title": "Reviewer",
+            "text": "Sees the output and the specification, nothing else."
+          },
+          {
+            "icon": "zap",
+            "title": "In parallel",
+            "text": "Independent tasks run at once, on models suited to each."
+          }
+        ],
+        "stat": null,
+        "image": null,
+        "htmlPath": null,
+        "portraitHtmlPath": null,
+        "notes": "Every rule in this topic is the same rule applied four times: control what each agent knows. The orchestrator holds the plan and not the code. The subagent holds one task and not the plan. The reviewer holds the specification and the output and nothing about how the output came to exist."
+      },
+      "vertical": {
+        "strategy": "native"
+      },
+      "resolvedAudio": {
+        "filePath": "assets/audio/s45-who-knows-what-slide.wav",
+        "durationMs": 18825,
+        "subtitleSource": "synthesised",
+        "providerSrt": null,
+        "hasNativeSrt": false,
+        "hash": "6845c817c262"
+      },
+      "resolvedTiming": {
+        "mode": "audio-dictates",
+        "sceneMs": 19225,
+        "ratePct": 0,
+        "padVisualMs": 19225,
+        "padAudioMs": 0,
+        "warnings": []
+      },
+      "ratePct": 0
+    },
+    {
+      "id": "s46-orchestrator-practice",
+      "title": "s46-orchestrator-practice",
+      "narration": "This is the same context budget from Topic 1, spent on the wrong thing. An orchestrator that starts reading source files trades the overview for detail, and the overview was its entire job. Coordination and implementation are different roles, and one agent cannot hold both well.",
+      "role": null,
+      "visualEngine": "playwright_web",
+      "captureMode": "screencast",
+      "actionSpec": {
+        "url": "/index.html#phase-multiagent",
+        "setupScript": "setup/pin-light-theme.mjs",
+        "roiSelector": ".concept:has-text(\"Orchestrator-Worker\")",
+        "steps": [
+          {
+            "action": "scroll",
+            "delta": 100,
+            "delayMs": 500
+          },
+          {
+            "action": "highlight",
+            "text": "coordination accuracy",
+            "delayMs": 2000
+          }
+        ]
+      },
+      "assert": {
+        "visible": [
+          "coordinates",
+          "implementation decisions"
+        ]
+      },
+      "roiSelector": ".concept:has-text(\"Orchestrator-Worker\")",
+      "viewport": {
+        "width": 1440,
+        "height": 810
+      },
+      "resolvedAudio": {
+        "filePath": "assets/audio/s46-orchestrator-practice.wav",
+        "durationMs": 18750,
+        "subtitleSource": "synthesised",
+        "providerSrt": null,
+        "hasNativeSrt": false,
+        "hash": "552cabbeb49b"
+      },
+      "resolvedTiming": {
+        "mode": "audio-dictates",
+        "sceneMs": 19150,
+        "ratePct": 0,
+        "padVisualMs": 19150,
+        "padAudioMs": 0,
+        "warnings": []
+      },
+      "ratePct": 0
+    },
+    {
+      "id": "s47-subagents-anchor",
+      "title": "s47-subagents-anchor",
+      "narration": "Each subagent starts with a clean context window, a restricted tool set, and a single bounded task. Isolation ensures a subagent reading files for one ticket cannot pollute the context of another.",
+      "role": null,
+      "visualEngine": "playwright_web",
+      "captureMode": "screencast",
+      "actionSpec": {
+        "url": "/index.html#phase-multiagent",
+        "setupScript": "setup/pin-light-theme.mjs",
+        "steps": [
+          {
+            "action": "scroll",
+            "delta": 121,
+            "delayMs": 500
+          },
+          {
+            "action": "highlight",
+            "text": "Subagents and Context Isolation",
+            "delayMs": 2500
+          }
+        ]
+      },
+      "assert": {
+        "visible": [
+          "Subagents and Context Isolation",
+          "clean context window"
+        ]
+      },
+      "viewport": {
+        "width": 1440,
+        "height": 810
+      },
+      "resolvedAudio": {
+        "filePath": "assets/audio/s47-subagents-anchor.wav",
+        "durationMs": 13825,
+        "subtitleSource": "synthesised",
+        "providerSrt": null,
+        "hasNativeSrt": false,
+        "hash": "d685604daebc"
+      },
+      "resolvedTiming": {
+        "mode": "audio-dictates",
+        "sceneMs": 14225,
+        "ratePct": 0,
+        "padVisualMs": 14225,
+        "padAudioMs": 0,
+        "warnings": []
+      },
+      "ratePct": 0
+    },
+    {
+      "id": "s48-subagents-practice",
+      "title": "s48-subagents-practice",
+      "narration": "Isolation is a feature, not a limitation. An agent that inherits everything receives coordination history, other tickets' details and unrelated decisions — and then reasons over all of it. Fresh context, one task, only the tools that task needs.",
+      "role": null,
+      "visualEngine": "playwright_web",
+      "captureMode": "screencast",
+      "actionSpec": {
+        "url": "/index.html#phase-multiagent",
+        "setupScript": "setup/pin-light-theme.mjs",
+        "roiSelector": ".concept:has-text(\"Subagents and Context Isolation\")",
+        "steps": [
+          {
+            "action": "scroll",
+            "delta": 121,
+            "delayMs": 500
+          },
+          {
+            "action": "highlight",
+            "text": "pollute",
+            "delayMs": 2000
+          }
+        ]
+      },
+      "assert": {
+        "visible": [
+          "restricted tool set",
+          "bounded task"
+        ]
+      },
+      "roiSelector": ".concept:has-text(\"Subagents and Context Isolation\")",
+      "viewport": {
+        "width": 1440,
+        "height": 810
+      },
+      "resolvedAudio": {
+        "filePath": "assets/audio/s48-subagents-practice.wav",
+        "durationMs": 17650,
+        "subtitleSource": "synthesised",
+        "providerSrt": null,
+        "hasNativeSrt": false,
+        "hash": "2799a3b5b7f1"
+      },
+      "resolvedTiming": {
+        "mode": "audio-dictates",
+        "sceneMs": 18050,
+        "ratePct": 0,
+        "padVisualMs": 18050,
+        "padAudioMs": 0,
+        "warnings": []
+      },
+      "ratePct": 0
+    },
+    {
+      "id": "s49-review-anchor",
+      "title": "s49-review-anchor",
+      "narration": "When one agent reviews another's work, the reviewer gets only the final output and the original specification. If it inherits the implementing agent's conversation history, it becomes biased by the implementer's logic and ends up reviewing the reasoning rather than checking whether the code meets the spec.",
+      "role": null,
+      "visualEngine": "playwright_web",
+      "captureMode": "screencast",
+      "actionSpec": {
+        "url": "/index.html#phase-multiagent",
+        "setupScript": "setup/pin-light-theme.mjs",
+        "steps": [
+          {
+            "action": "scroll",
+            "delta": 210,
+            "delayMs": 500
+          },
+          {
+            "action": "highlight",
+            "text": "Independent Review",
+            "delayMs": 2500
+          }
+        ]
+      },
+      "assert": {
+        "visible": [
+          "Independent Review",
+          "original specification"
+        ]
+      },
+      "viewport": {
+        "width": 1440,
+        "height": 810
+      },
+      "resolvedAudio": {
+        "filePath": "assets/audio/s49-review-anchor.wav",
+        "durationMs": 18625,
+        "subtitleSource": "synthesised",
+        "providerSrt": null,
+        "hasNativeSrt": false,
+        "hash": "d7fafaa15994"
+      },
+      "resolvedTiming": {
+        "mode": "audio-dictates",
+        "sceneMs": 19025,
+        "ratePct": 0,
+        "padVisualMs": 19025,
+        "padAudioMs": 0,
+        "warnings": []
+      },
+      "ratePct": 0
+    },
+    {
+      "id": "s50-review-practice",
+      "title": "s50-review-practice",
+      "narration": "This has a human parallel. Sit through someone explaining why they built it that way and you will find yourself agreeing with the reasoning instead of reading the code. The explanation is persuasive; the specification is the standard. A reviewer with a clean context cannot be talked round.",
+      "role": null,
+      "visualEngine": "playwright_web",
+      "captureMode": "screencast",
+      "actionSpec": {
+        "url": "/index.html#phase-multiagent",
+        "setupScript": "setup/pin-light-theme.mjs",
+        "roiSelector": ".concept:has-text(\"Independent Review\")",
+        "steps": [
+          {
+            "action": "scroll",
+            "delta": 210,
+            "delayMs": 500
+          },
+          {
+            "action": "highlight",
+            "text": "biased by the implementer",
+            "delayMs": 2000
+          }
+        ]
+      },
+      "assert": {
+        "visible": [
+          "final output",
+          "meets the spec"
+        ]
+      },
+      "roiSelector": ".concept:has-text(\"Independent Review\")",
+      "viewport": {
+        "width": 1440,
+        "height": 810
+      },
+      "resolvedAudio": {
+        "filePath": "assets/audio/s50-review-practice.wav",
+        "durationMs": 18200,
+        "subtitleSource": "synthesised",
+        "providerSrt": null,
+        "hasNativeSrt": false,
+        "hash": "e1e157f2691a"
+      },
+      "resolvedTiming": {
+        "mode": "audio-dictates",
+        "sceneMs": 18600,
+        "ratePct": 0,
+        "padVisualMs": 18600,
+        "padAudioMs": 0,
+        "warnings": []
+      },
+      "ratePct": 0
+    },
+    {
+      "id": "s51-parallel-anchor",
+      "title": "s51-parallel-anchor",
+      "narration": "Unlike a human team, an orchestrator can spawn multiple subagents for independent tasks simultaneously — five compliance checks at once, for example. Subagents can also be specialised, using different system prompts or cheaper models suited to their bounded task.",
+      "role": null,
+      "visualEngine": "playwright_web",
+      "captureMode": "screencast",
+      "actionSpec": {
+        "url": "/index.html#phase-multiagent",
+        "setupScript": "setup/pin-light-theme.mjs",
+        "steps": [
+          {
+            "action": "scroll",
+            "delta": 319,
+            "delayMs": 500
+          },
+          {
+            "action": "highlight",
+            "text": "Parallel Execution",
+            "delayMs": 2500
+          }
+        ]
+      },
+      "assert": {
+        "visible": [
+          "Parallel Execution",
+          "simultaneously"
+        ]
+      },
+      "viewport": {
+        "width": 1440,
+        "height": 810
+      },
+      "resolvedAudio": {
+        "filePath": "assets/audio/s51-parallel-anchor.wav",
+        "durationMs": 18025,
+        "subtitleSource": "synthesised",
+        "providerSrt": null,
+        "hasNativeSrt": false,
+        "hash": "25aa1d49e6de"
+      },
+      "resolvedTiming": {
+        "mode": "audio-dictates",
+        "sceneMs": 18425,
+        "ratePct": 0,
+        "padVisualMs": 18425,
+        "padAudioMs": 0,
+        "warnings": []
+      },
+      "ratePct": 0
+    },
+    {
+      "id": "s52-parallel-practice",
+      "title": "s52-parallel-practice",
+      "narration": "Two levers, and they compound. Parallelism cuts wall-clock time on anything genuinely independent. Specialisation routes simple bounded work to cheap fast models and saves the expensive reasoning for work that needs it. The judgment required is knowing which tasks are actually independent.",
+      "role": null,
+      "visualEngine": "playwright_web",
+      "captureMode": "screencast",
+      "actionSpec": {
+        "url": "/index.html#phase-multiagent",
+        "setupScript": "setup/pin-light-theme.mjs",
+        "roiSelector": ".concept:has-text(\"Parallel Execution\")",
+        "steps": [
+          {
+            "action": "scroll",
+            "delta": 900,
+            "delayMs": 500
+          },
+          {
+            "action": "highlight",
+            "text": "optimizes both speed and cost",
+            "delayMs": 2000
+          }
+        ]
+      },
+      "assert": {
+        "visible": [
+          "specialized",
+          "cheaper models"
+        ]
+      },
+      "roiSelector": ".concept:has-text(\"Parallel Execution\")",
+      "viewport": {
+        "width": 1440,
+        "height": 810
+      },
+      "resolvedAudio": {
+        "filePath": "assets/audio/s52-parallel-practice.wav",
+        "durationMs": 19150,
+        "subtitleSource": "synthesised",
+        "providerSrt": null,
+        "hasNativeSrt": false,
+        "hash": "f594d20cf6bb"
+      },
+      "resolvedTiming": {
+        "mode": "audio-dictates",
+        "sceneMs": 19550,
+        "ratePct": 0,
+        "padVisualMs": 19550,
+        "padAudioMs": 0,
+        "warnings": []
+      },
+      "ratePct": 0
+    },
+    {
+      "id": "s53-topic-recap",
+      "title": "What the four topics establish",
+      "narration": "Four topics, one argument. Topic 1 gave you the limits: a context window that degrades before it fills, three memory stores with three lifetimes, and two failure modes — confident invention and run-to-run variation. Topic 2 was engineering around those limits: what enters the window, when it is retrieved, how loops terminate, and why planning finishes before implementation starts. Topic 3 was the discipline that makes it verifiable: specifications before code, tests as the exit signal, records as external memory, vertical slices that can prove themselves, and documentation treated as configuration. Topic 4 was the division of labour: who knows what, and why a reviewer must not know how the code was written.",
+      "role": "resolution",
+      "visualEngine": "html_slides",
+      "captureMode": "stills",
+      "slide": {
+        "layout": "tiled",
+        "theme": "light",
+        "title": "What the four topics establish",
+        "pill": null,
+        "body": null,
+        "cards": [
+          {
+            "icon": "gauge",
+            "title": "Limits",
+            "text": "The window, the memory model, and the two failure modes."
+          },
+          {
+            "icon": "wrench",
+            "title": "Engineering",
+            "text": "What goes into the window, and when."
+          },
+          {
+            "icon": "shield-check",
+            "title": "Discipline",
+            "text": "Specification, tests, records, and gates."
+          },
+          {
+            "icon": "network",
+            "title": "Division",
+            "text": "How work and context split across agents."
+          }
+        ],
+        "stat": null,
+        "image": null,
+        "htmlPath": null,
+        "portraitHtmlPath": null,
+        "notes": "Four topics, one argument. Topic 1 gave you the limits: a context window that degrades before it fills, three memory stores with three lifetimes, and two failure modes — confident invention and run-to-run variation. Topic 2 was engineering around those limits: what enters the window, when it is retrieved, how loops terminate, and why planning finishes before implementation starts. Topic 3 was the discipline that makes it verifiable: specifications before code, tests as the exit signal, records as external memory, vertical slices that can prove themselves, and documentation treated as configuration. Topic 4 was the division of labour: who knows what, and why a reviewer must not know how the code was written."
+      },
+      "vertical": {
+        "strategy": "native"
+      },
+      "resolvedAudio": {
+        "filePath": "assets/audio/s53-topic-recap.wav",
+        "durationMs": 46550,
+        "subtitleSource": "synthesised",
+        "providerSrt": null,
+        "hasNativeSrt": false,
+        "hash": "245779e318d8"
+      },
+      "resolvedTiming": {
+        "mode": "audio-dictates",
+        "sceneMs": 46950,
+        "ratePct": 0,
+        "padVisualMs": 46950,
+        "padAudioMs": 0,
+        "warnings": []
+      },
+      "ratePct": 0
+    },
+    {
+      "id": "s54-closing-claim",
+      "title": "Structure does the work, not the model.",
+      "narration": "If one thing carries over, make it this. Nothing here depends on a better model. Every practice is a response to a measurable limit, every loop closes on a signal a machine can check, and every gate is placed where judgment is genuinely required. The structure does the work.",
+      "role": "resolution",
+      "visualEngine": "html_slides",
+      "captureMode": "stills",
+      "slide": {
+        "layout": "statement",
+        "theme": "light",
+        "title": "Structure does the work, not the model.",
+        "pill": null,
+        "body": null,
+        "cards": [],
+        "stat": null,
+        "image": null,
+        "htmlPath": null,
+        "portraitHtmlPath": null,
+        "notes": "If one thing carries over, make it this. Nothing here depends on a better model. Every practice is a response to a measurable limit, every loop closes on a signal a machine can check, and every gate is placed where judgment is genuinely required. The structure does the work."
+      },
+      "vertical": {
+        "strategy": "native"
+      },
+      "resolvedAudio": {
+        "filePath": "assets/audio/s54-closing-claim.wav",
+        "durationMs": 17850,
+        "subtitleSource": "synthesised",
+        "providerSrt": null,
+        "hasNativeSrt": false,
+        "hash": "099129d41fb5"
+      },
+      "resolvedTiming": {
+        "mode": "audio-dictates",
+        "sceneMs": 18250,
+        "ratePct": 0,
+        "padVisualMs": 18250,
+        "padAudioMs": 0,
+        "warnings": []
+      },
+      "ratePct": 0
+    }
+  ]
+}

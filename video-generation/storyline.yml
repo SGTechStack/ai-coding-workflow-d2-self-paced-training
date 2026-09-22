@@ -1,0 +1,929 @@
+deck:
+  title: LLM and Agent Foundations
+  archetype: scr
+  engine: html
+  theme: light
+  aspect: landscape
+  outputs: [{ aspect: landscape }]
+  formats: [png, pdf, html]
+  voice: { provider: kokoro, gender: female }
+  baseUrl: http://127.0.0.1:4173
+entries:
+  # ── Cold open ──────────────────────────────────────────────────────────
+  # S01 · statement · situation — plan §5 (Cold open) + §6 narration
+  - id: s01-cold-open-confident
+    type: slide
+    role: situation
+    layout: statement
+    title: It was confident. It was also wrong.
+    narration: >-
+      You gave an agent a clear instruction. It produced something confident,
+      complete, and wrong. Not broken code that failed loudly. Working code that
+      solved the wrong problem.
+
+  # S02 · tiled · complication — 3 cards, no stat (rule 5 N/A here).
+  # SCR role reassigned during assembly: the archetype invariant caps `situation`
+  # at 2 and requires >=1 complication and >=2 resolution beats. S02 is the
+  # problem deepening (the three failure modes), so it is the complication beat.
+  - id: s02-three-failures
+    type: slide
+    role: complication
+    layout: tiled
+    title: Three ways AI coding fails
+    cards:
+      - { icon: circle-help, title: Ambiguity, text: The requirement had two readings and nobody chose one. }
+      - { icon: git-branch, title: Intent drift, text: The code stopped matching what was asked for. }
+      - { icon: package, title: Handoff quality, text: The next step inherited something it could not use. }
+    narration: >-
+      AI coding fails in three ways, and none of them are about the model being
+      weak. The requirement was ambiguous and the agent guessed. The code
+      drifted from the intent while everyone watched. Or the handoff to the next
+      step carried something unusable. Every rule you are about to learn exists
+      to prevent one of these.
+
+  # S03 · hero · 0 cards, pill: Prerequisites — section opener, carries no SCR
+  # role (role removed during assembly so the S->C->R skeleton stays valid:
+  # 1 situation, 1 complication, 2 resolution).
+  - id: s03-hero
+    type: slide
+    layout: hero
+    pill: Prerequisites
+    title: LLM and Agent Foundations
+    narration: >-
+      This is Track B of the prerequisites: the large language model and agent
+      concepts underneath the workflow. Four topics. The goal is not to use the
+      workflow. It is to understand why each part of it is shaped the way it is.
+
+  # S04 · capture · establishing scene — plan §6
+  - id: s04-page-establishing
+    type: capture
+    url: /index.html
+    viewport: { width: 1440, height: 810 }
+    setupScript: setup/pin-light-theme.mjs
+    steps:
+      - { action: waitForText, value: Foundations of Agentic Engineering }
+    assert:
+      visible: ["Foundations of Agentic Engineering", "LLM & Agent Foundations"]
+      notVisible: ["Something went wrong"]
+    narration: >-
+      The prerequisites page has two tracks. Track A is the workflow itself,
+      covered elsewhere. We are working through Track B, the four topics below
+      it. Everything discussed here is on this page, so you can follow along and
+      come back to it.
+
+  # ══ Topic 1 · How LLMs Actually Work — scenes S05–S12 ══
+  # Three concepts (Context Windows, Memory Architecture, Hallucination),
+  # two diagram slides interleaved (D1 stat-deepdive, D2 bento-a).
+
+  # 1.1 Context Windows, Smart Zone / Dumb Zone, Lost in the Middle
+
+  # S05 · capture · anchor + mechanism — carries chapter card (plan §7).
+  - id: s05-context-windows-anchor
+    type: capture
+    overlay: chapter
+    title: Topic 1
+    chapterDescription: How LLMs Actually Work
+    url: /index.html#phase-llms
+    viewport: { width: 1440, height: 810 }
+    setupScript: setup/pin-light-theme.mjs
+    steps:
+      - { action: scroll, delta: 0, delayMs: 500 }
+      - { action: highlight, text: "Context Windows, Smart Zone", delayMs: 2500 }
+    assert:
+      visible: ["How LLMs Actually Work", "Smart Zone"]
+    narration: >-
+      The context window is everything the model can see in one call: your prompt, the instructions, the code, the conversation so far. The page makes two claims about it. Models perform reliably up to roughly forty percent of their context limit — the Smart Zone. Past that they enter the Dumb Zone, where reasoning quality degrades. And within any window, content buried in the middle is recalled less accurately than content at the start or end. That is the Lost in the Middle effect.
+
+  # S06 · slide · D1 stat-deepdive
+  - id: s06-window-budget-slide
+    type: slide
+    layout: stat-deepdive
+    title: The window is a budget
+    stat: { value: '40', unit: '%', label: 'of the limit before reasoning degrades' }
+    cards:
+      - { icon: gauge, title: Smart Zone, text: Reasoning stays reliable here. }
+      - { icon: trending-down, title: Dumb Zone, text: "Past the boundary, reasoning quality degrades." }
+      - { icon: search, title: Lost in the middle, text: Content buried mid-window is recalled least accurately. }
+    narration: >-
+      Two different problems share one picture. The zones are about volume: how much you have put in. Lost in the middle is about position: where you put it. A window can be comfortably inside the Smart Zone and still lose a fact you buried halfway down.
+
+  # S07 · capture · failure + practice
+  - id: s07-context-windows-practice
+    type: capture
+    url: /index.html#phase-llms
+    viewport: { width: 1440, height: 810 }
+    setupScript: setup/pin-light-theme.mjs
+    roiSelector: '.concept:has-text("Smart Zone")'
+    steps:
+      - { action: scroll, delta: 0, delayMs: 500 }
+      - { action: highlight, text: "Lost in the Middle", delayMs: 2000 }
+    assert:
+      visible: ["Dumb Zone", "Lost in the Middle"]
+    narration: >-
+      You have felt this. An hour into a session the agent starts ignoring instructions it followed perfectly at the start. Nothing broke; the window filled. So two habits follow. Put critical instructions at the top, where attention is strongest. And when quality starts slipping, do not argue with the agent — start a fresh session and carry only what matters.
+
+  # 1.2 LLM Memory Architecture
+
+  # S08 · capture · anchor + mechanism
+  - id: s08-memory-anchor
+    type: capture
+    url: /index.html#phase-llms
+    viewport: { width: 1440, height: 810 }
+    setupScript: setup/pin-light-theme.mjs
+    steps:
+      - { action: scroll, delta: 150, delayMs: 500 }
+      - { action: highlight, text: "LLM Memory Architecture", delayMs: 2500 }
+    assert:
+      visible: ["LLM Memory Architecture", "parametric"]
+    narration: >-
+      Large language models have no persistent state between calls. There are three stores. In-context is the current prompt and conversation — ephemeral, lost between calls. External is durable: files, version control, issue trackers, artifacts that survive sessions. Parametric is the trained weights, fixed and unchangeable. The workflow relies on external memory as its durable backbone.
+
+  # S09 · slide · D2 bento-a — External FIRST (dominant slot is positional, rule 8).
+  - id: s09-memory-stores-slide
+    type: slide
+    layout: bento-a
+    title: Three stores, three lifetimes
+    cards:
+      - { icon: git-branch, title: External, text: "Files, version control and issue trackers. Survives every session." }
+      - { icon: message-square, title: In-context, text: The current prompt and conversation. Gone after the call. }
+      - { icon: cpu, title: Parametric, text: Trained weights. Fixed and unchangeable. }
+    narration: >-
+      Rank these by lifetime and the design falls out on its own. Weights you cannot change. Conversation you cannot keep. Which leaves exactly one place to put a decision you need honoured next week: the repository.
+
+  # S10 · capture · failure + practice
+  - id: s10-memory-practice
+    type: capture
+    url: /index.html#phase-llms
+    viewport: { width: 1440, height: 810 }
+    setupScript: setup/pin-light-theme.mjs
+    roiSelector: '.concept:has-text("LLM Memory Architecture")'
+    steps:
+      - { action: scroll, delta: 150, delayMs: 500 }
+      - { action: highlight, text: "external", delayMs: 2000 }
+    assert:
+      visible: ["in-context", "external"]
+    narration: >-
+      This is why a decision explained in chat is a decision you will explain again. Tomorrow's session starts blank, and the reasoning is gone. The practice: anything a future session must respect gets written to a file and committed. If it only exists in a conversation, treat it as already lost.
+
+  # 1.3 Hallucination and Non-determinism
+
+  # S11 · capture · anchor + mechanism
+  - id: s11-hallucination-anchor
+    type: capture
+    url: /index.html#phase-llms
+    viewport: { width: 1440, height: 810 }
+    setupScript: setup/pin-light-theme.mjs
+    steps:
+      - { action: scroll, delta: 280, delayMs: 500 }
+      - { action: highlight, text: "Hallucination and Non-determinism", delayMs: 2500 }
+    assert:
+      visible: ["Hallucination", "Non-determinism"]
+    narration: >-
+      Two distinct problems. Hallucination: models predict the most likely next token rather than verify facts, so they generate plausible, incorrect information with full confidence. The page is precise about this — it is a generation problem, not a placement problem. No amount of Smart Zone positioning prevents it. Non-determinism: identical inputs produce different outputs across runs.
+
+  # S12 · capture · failure + practice + misconception
+  - id: s12-hallucination-practice
+    type: capture
+    url: /index.html#phase-llms
+    viewport: { width: 1440, height: 810 }
+    setupScript: setup/pin-light-theme.mjs
+    roiSelector: '.concept:has-text("Hallucination")'
+    steps:
+      - { action: scroll, delta: 280, delayMs: 500 }
+      - { action: highlight, text: "Machine-verifiable tests", delayMs: 2000 }
+    assert:
+      visible: ["human review", "convergence signal"]
+    narration: >-
+      Note the misconception this kills. Better placement fixes attention, not truthfulness. A perfectly positioned reference document does not stop a confident invention. The safeguards are human review and automated tests. And because the same prompt can give you a different answer next run, "it looks right" is not evidence. Machine-verifiable tests are the only reliable convergence signal.
+
+  # ══ Topic 2 · Agentic Engineering — scenes S13–S31 ══
+  # 19 entries in page order: 16 captures + 3 diagram slides interleaved.
+
+  # --- 2.1 Prompt Engineering ---
+  # S13 · anchor + mechanism — carries the Topic 2 chapter card.
+  - id: s13-prompt-engineering-anchor
+    type: capture
+    url: /index.html#phase-engineering
+    overlay: chapter
+    title: Topic 2
+    chapterDescription: Agentic Engineering
+    viewport: { width: 1440, height: 810 }
+    setupScript: setup/pin-light-theme.mjs
+    steps:
+      - { action: scroll, delta: 0, delayMs: 500 }
+      - { action: highlight, text: "Prompt Engineering", delayMs: 2500 }
+    assert:
+      visible: ["Agentic Engineering", "Prompt Engineering", "role framing"]
+    narration: >-
+      Prompt engineering is writing clear instructions for a single call. Four
+      techniques. Role framing sets the agent's expertise and perspective.
+      Positive framing describes the target behaviour rather than what to avoid —
+      because the model predicts tokens toward whatever pattern you surface.
+      Chain-of-thought elicitation asks it to reason step by step. And explicit
+      completion criteria define what done means.
+
+  # S14 · failure + practice
+  - id: s14-prompt-engineering-practice
+    type: capture
+    url: /index.html#phase-engineering
+    viewport: { width: 1440, height: 810 }
+    setupScript: setup/pin-light-theme.mjs
+    roiSelector: '.concept:has-text("Prompt Engineering")'
+    steps:
+      - { action: scroll, delta: 0, delayMs: 500 }
+      - { action: highlight, text: "positive framing", delayMs: 2000 }
+    assert:
+      visible: ["chain-of-thought", "completion criteria"]
+    narration: >-
+      Positive framing is the one that feels wrong and matters most. "Never use
+      `any`" puts `any` in front of the model. "Always write typed interfaces"
+      gives it a target. Write what you want, not what you fear. And state
+      completion criteria explicitly, because an agent with no definition of done
+      will invent one.
+
+  # --- 2.2 Context Engineering ---
+  # S15 · anchor + mechanism
+  - id: s15-context-engineering-anchor
+    type: capture
+    url: /index.html#phase-engineering
+    viewport: { width: 1440, height: 810 }
+    setupScript: setup/pin-light-theme.mjs
+    steps:
+      - { action: scroll, delta: 150, delayMs: 500 }
+      - { action: highlight, text: "Context Engineering", delayMs: 2500 }
+    assert:
+      visible: ["Context Engineering", "Context rot"]
+    narration: >-
+      Prompt engineering is about how you phrase instructions. Context engineering
+      is about what information is in the window at every step. The failure mode
+      has a name: context rot, the silent degradation of recall as the window
+      fills — before it is full. The design principle is one line. Pre-load only
+      what is always needed, and retrieve everything else just-in-time.
+
+  # S16 · failure + practice
+  - id: s16-context-engineering-practice
+    type: capture
+    url: /index.html#phase-engineering
+    viewport: { width: 1440, height: 810 }
+    setupScript: setup/pin-light-theme.mjs
+    roiSelector: '.concept:has-text("Context rot")'
+    steps:
+      - { action: scroll, delta: 150, delayMs: 500 }
+      - { action: highlight, text: "just-in-time", delayMs: 2000 }
+    assert:
+      visible: ["pre-load", "just-in-time"]
+    narration: >-
+      The tempting move is to load every framework guide and coding standard up
+      front so the agent always has them. That spends the capacity the task needs,
+      and degrades recall across everything else in the window. Silently — there
+      is no warning. Load what is always needed. Fetch the rest when it is needed.
+
+  # --- 2.3 Retrieval-Augmented Generation ---
+  # S17 · anchor + mechanism
+  - id: s17-rag-anchor
+    type: capture
+    url: /index.html#phase-engineering
+    viewport: { width: 1440, height: 810 }
+    setupScript: setup/pin-light-theme.mjs
+    steps:
+      - { action: scroll, delta: 260, delayMs: 500 }
+      - { action: highlight, text: "Retrieval-Augmented Generation", delayMs: 2500 }
+    assert:
+      visible: ["Retrieval-Augmented Generation", "chunked"]
+    narration: >-
+      Retrieval-augmented generation, RAG, is the mechanism behind just-in-time
+      retrieval. Source documents are chunked, indexed, and searched on each
+      request — semantic, keyword, or hybrid. The most relevant chunks get
+      injected into the window at the moment they are needed, instead of
+      everything being pre-loaded.
+
+  # S18 · failure + practice
+  - id: s18-rag-practice
+    type: capture
+    url: /index.html#phase-engineering
+    viewport: { width: 1440, height: 810 }
+    setupScript: setup/pin-light-theme.mjs
+    roiSelector: '.concept:has-text("Retrieval-Augmented Generation")'
+    steps:
+      - { action: scroll, delta: 260, delayMs: 500 }
+      - { action: highlight, text: "just-in-time", delayMs: 2000 }
+    assert:
+      visible: ["semantic", "hybrid"]
+    narration: >-
+      This is the difference between a reference library and a stack of books on
+      your desk. You are not reading less; you are holding less at once. In
+      practice: when a knowledge base exists, query it. Pasting the document in
+      defeats the point.
+
+  # --- 2.4 Open Knowledge Format ---
+  # S19 · anchor + mechanism
+  - id: s19-okf-anchor
+    type: capture
+    url: /index.html#phase-engineering
+    viewport: { width: 1440, height: 810 }
+    setupScript: setup/pin-light-theme.mjs
+    steps:
+      - { action: scroll, delta: 390, delayMs: 500 }
+      - { action: highlight, text: "Open Knowledge Format", delayMs: 2500 }
+    assert:
+      visible: ["Open Knowledge Format", "typed entities"]
+    narration: >-
+      Open Knowledge Format is a structured knowledge representation that makes
+      retrieval more precise than raw document chunks. Andrej Karpathy argued that
+      conventional RAG retrieves noisy, unstructured text fragments. Hybrid search
+      helps you find the right chunk, but the chunk itself may still carry
+      irrelevant surrounding text. OKF addresses that at the representation level,
+      organising knowledge as typed entities and relationships.
+
+  # S20 · failure + practice
+  - id: s20-okf-practice
+    type: capture
+    url: /index.html#phase-engineering
+    viewport: { width: 1440, height: 810 }
+    setupScript: setup/pin-light-theme.mjs
+    roiSelector: '.concept:has-text("Open Knowledge Format")'
+    steps:
+      - { action: scroll, delta: 390, delayMs: 500 }
+      - { action: highlight, text: "specific fact", delayMs: 2000 }
+    assert:
+      visible: ["typed entities", "specific fact"]
+    narration: >-
+      The shift is in the unit of retrieval. With chunks you get a paragraph and
+      hope the fact is in it. With structured knowledge you get the fact. Same
+      search, less noise arriving with the answer.
+
+  # --- 2.5 Model Context Protocol ---
+  # S21 · anchor + mechanism
+  - id: s21-mcp-anchor
+    type: capture
+    url: /index.html#phase-engineering
+    viewport: { width: 1440, height: 810 }
+    setupScript: setup/pin-light-theme.mjs
+    steps:
+      - { action: scroll, delta: 540, delayMs: 500 }
+      - { action: highlight, text: "Model Context Protocol", delayMs: 2500 }
+    assert:
+      visible: ["Model Context Protocol", "external tools"]
+    narration: >-
+      Model Context Protocol, MCP, is an open protocol for connecting models to
+      external tools, data sources and services. Where RAG retrieves from a
+      pre-indexed snapshot, MCP lets the agent query a tool's current state —
+      reading file systems, calling APIs, querying databases — without custom
+      integration per tool.
+
+  # S22 · slide · D4 comparison (exactly 2 cards)
+  - id: s22-rag-vs-mcp-slide
+    type: slide
+    layout: comparison
+    title: Retrieve, or act
+    cards:
+      - { icon: database, title: RAG, text: Retrieval before generation. Fetches information to ground the answer. }
+      - { icon: plug, title: MCP, text: A protocol for reaching tools. It reads systems and can act on them. }
+    narration: >-
+      The dividing line is not freshness. RAG retrieves when you ask, so it can
+      query a live database just as easily as a document store. What separates
+      them is what the information is for. RAG retrieves, then generates: the
+      fetch exists to ground the answer. MCP is a protocol for reaching other
+      systems at all, and reading is only one of the things it does. It can also
+      transact — call an endpoint, file a ticket, change state somewhere else.
+      Retrieval grounds an answer; a transaction has a consequence. They are not
+      competitors. They cover different areas of what an agent needs.
+
+  # S23 · failure + practice
+  - id: s23-mcp-practice
+    type: capture
+    url: /index.html#phase-engineering
+    viewport: { width: 1440, height: 810 }
+    setupScript: setup/pin-light-theme.mjs
+    roiSelector: '.concept:has-text("Model Context Protocol")'
+    steps:
+      - { action: scroll, delta: 540, delayMs: 500 }
+      - { action: highlight, text: "current state", delayMs: 2000 }
+    assert:
+      visible: ["querying databases", "current state"]
+    narration: >-
+      So ask two questions of whatever the agent needs. Does it need to know
+      something? That is retrieval, and RAG covers it whether the source is a
+      document store or a live database. Does it need to change something outside
+      itself? That is a transaction, and no amount of retrieval will do it.
+      Knowing which of the two you need is the whole decision.
+
+  # --- 2.6 The ReAct Pattern and Agentic Loop Design ---
+  # S24 · anchor + mechanism
+  - id: s24-react-anchor
+    type: capture
+    url: /index.html#phase-engineering
+    viewport: { width: 1440, height: 810 }
+    setupScript: setup/pin-light-theme.mjs
+    steps:
+      - { action: scroll, delta: 650, delayMs: 500 }
+      - { action: highlight, text: "The ReAct Pattern", delayMs: 2500 }
+    assert:
+      visible: ["ReAct Pattern", "convergence condition"]
+    narration: >-
+      This is the pattern that turns a single-shot model into a multi-step agent.
+      Three phases. Reason: decide what to do next. Act: call a tool, write code,
+      run a command. Observe: read the result and feed it into the next reasoning
+      step. That observe-then-reason cycle is what lets an agent self-correct from
+      real outcomes instead of guessing in one pass. And every loop needs a
+      convergence condition telling it when to stop.
+
+  # S25 · slide · D3 lifecycle (4 cards, each with a detail:)
+  - id: s25-react-loop-slide
+    type: slide
+    layout: lifecycle
+    title: Reason, act, observe, exit
+    cards:
+      - { icon: brain, title: Reason, detail: Phase 1, text: Decide what to do next. }
+      - { icon: play, title: Act, detail: Phase 2, text: "Call a tool, write code, run a command." }
+      - { icon: eye, title: Observe, detail: Phase 3, text: Read the result and feed it back. }
+      - { icon: check, title: Exit, detail: Convergence, text: Without this the loop has no signal to stop. }
+    narration: >-
+      Watch what each lap costs. Every observation is added to the window, so a
+      loop without an exit does two things at once: it never stops, and it
+      degrades as it goes. By lap fifteen the agent is reasoning over mostly its
+      own history.
+
+  # S26 · failure + practice
+  - id: s26-react-practice
+    type: capture
+    url: /index.html#phase-engineering
+    viewport: { width: 1440, height: 810 }
+    setupScript: setup/pin-light-theme.mjs
+    roiSelector: '.concept:has-text("ReAct Pattern")'
+    steps:
+      - { action: scroll, delta: 650, delayMs: 500 }
+      - { action: highlight, text: "all tests pass", delayMs: 2000 }
+    assert:
+      visible: ["Reason", "Observe", "convergence"]
+    narration: >-
+      You have seen the failure: an agent trying the same fix four times with
+      slightly different wording. So define the exit before you start the loop.
+      All tests pass. Zero must-fix findings. Something a machine can check — not
+      your judgment of whether it looks finished.
+
+  # --- 2.7 Planning-Execution Separation ---
+  # S27 · anchor + mechanism
+  - id: s27-planning-anchor
+    type: capture
+    url: /index.html#phase-engineering
+    viewport: { width: 1440, height: 810 }
+    setupScript: setup/pin-light-theme.mjs
+    steps:
+      - { action: scroll, delta: 825, delayMs: 500 }
+      - { action: highlight, text: "Planning-Execution Separation", delayMs: 2500 }
+    assert:
+      visible: ["Planning-Execution Separation", "Context overflow", "Plan narration"]
+    narration: >-
+      Complete all research, questioning and planning before writing any code.
+      When the two are interleaved, the page names three failure modes. Context
+      overflow: researching mid-task eats the tokens that should be writing code.
+      Plan narration: the agent gets confused and describes what it would do
+      instead of doing it. And late requirement changes: ambiguities surface
+      mid-implementation and derail the session.
+
+  # S28 · slide · D5 process-flow (5 cards)
+  - id: s28-qrspi-slide
+    type: slide
+    layout: process-flow
+    title: QRSPI
+    cards:
+      - { icon: circle-help, title: Questions }
+      - { icon: search, title: Research }
+      - { icon: layers, title: Structure }
+      - { icon: list-checks, title: Plan }
+      - { icon: code, title: Implement, text: The first four finish before this one starts. }
+    narration: >-
+      In this workflow the practice has a name: QRSPI. The order is not the
+      interesting part — the boundary is. Four steps finish completely, and only
+      then does code get written. Everything ambiguous is resolved while resolving
+      it is still cheap.
+
+  # S29 · failure + practice
+  - id: s29-planning-practice
+    type: capture
+    url: /index.html#phase-engineering
+    viewport: { width: 1440, height: 810 }
+    setupScript: setup/pin-light-theme.mjs
+    roiSelector: '.concept:has-text("Planning-Execution Separation")'
+    steps:
+      - { action: scroll, delta: 825, delayMs: 500 }
+      - { action: highlight, text: "QRSPI", delayMs: 2000 }
+    assert:
+      visible: ["QRSPI", "Late requirement changes"]
+    narration: >-
+      Plan narration is worth recognising, because it looks like progress. The
+      agent produces a beautiful description of the change and no change. That is a
+      context problem, not a comprehension problem. The practice: when you notice
+      yourself researching during implementation, stop. You are in the wrong phase.
+
+  # --- 2.8 Agent Skills ---
+  # S30 · anchor + mechanism
+  - id: s30-skills-anchor
+    type: capture
+    url: /index.html#phase-engineering
+    viewport: { width: 1440, height: 810 }
+    setupScript: setup/pin-light-theme.mjs
+    steps:
+      - { action: scroll, delta: 1090, delayMs: 500 }
+      - { action: highlight, selector: '.concept-name:text-is("Agent Skills")', delayMs: 2500 }
+    assert:
+      visible: ["Agent Skills", "SKILL.md", "Progressive disclosure"]
+    narration: >-
+      Agent skills are reusable capabilities packaged as `SKILL.md` files —
+      instructions, scripts and resources, each invoked as a slash command.
+      Progressive disclosure keeps the cost down: only each skill's name and
+      one-line description load at startup. Full instructions load when the skill
+      is actually invoked.
+
+  # S31 · failure + practice
+  - id: s31-skills-practice
+    type: capture
+    url: /index.html#phase-engineering
+    viewport: { width: 1440, height: 810 }
+    setupScript: setup/pin-light-theme.mjs
+    roiSelector: '.concept:has-text("Agent Skills")'
+    steps:
+      - { action: scroll, delta: 1090, delayMs: 500 }
+      - { action: highlight, text: "progressive disclosure", delayMs: 2000 }
+    assert:
+      visible: ["slash command", "context footprint"]
+    narration: >-
+      This is the answer to an obvious objection. If every capability lived in the
+      system prompt, thirty skills would leave no room for work. Descriptions at
+      startup, instructions on demand — so adding skills does not tax every
+      session. It is also how the Eitri skills extend this workflow without
+      modifying its core.
+
+  # ══ Topic 3 · Agentic Development Principles — scenes S32–S43 ══
+  # Twelve capture entries, no diagram slides. S32 carries the Topic 3 chapter card.
+
+  # 3.1 Human-in-the-Loop Design
+  - id: s32-hitl-anchor
+    type: capture
+    overlay: chapter
+    title: Topic 3
+    chapterDescription: Agentic Development Principles
+    url: /index.html#phase-principles
+    viewport: { width: 1440, height: 810 }
+    setupScript: setup/pin-light-theme.mjs
+    narration: >-
+      Agents do not pause when a requirement is ambiguous. They guess, confidently. So human review goes at defined checkpoints where decisions need judgment — scope changes, compliance sign-off. Let the system self-correct only where the outcome is machine-verifiable: syntax errors, test failures. And the page is blunt about the rest: a gate that can be bypassed, even accidentally, is not a gate.
+    steps:
+      - { action: scroll, delta: 32, delayMs: 500 }
+      - { action: highlight, text: "Human-in-the-Loop", delayMs: 2500 }
+    assert:
+      visible: ["Agentic Development Principles", "Human-in-the-Loop"]
+
+  - id: s33-hitl-practice
+    type: capture
+    url: /index.html#phase-principles
+    viewport: { width: 1440, height: 810 }
+    setupScript: setup/pin-light-theme.mjs
+    roiSelector: '.concept:has-text("Human-in-the-Loop")'
+    narration: >-
+      The test is simple. Can a machine decide this correctly? Then automate it and stay out of the way. Does it need judgment, or carry consequences a test cannot see? Then it is a gate, and a gate you can skip when you are in a hurry is decoration.
+    steps:
+      - { action: scroll, delta: 100, delayMs: 500 }
+      - { action: highlight, text: "not a gate", delayMs: 2000 }
+    assert:
+      visible: ["machine-verifiable", "not a gate"]
+
+  # 3.2 Specification-First Development
+  - id: s34-spec-first-anchor
+    type: capture
+    url: /index.html#phase-principles
+    viewport: { width: 1440, height: 810 }
+    setupScript: setup/pin-light-theme.mjs
+    narration: >-
+      A complete, unambiguous specification must exist before implementation begins, so the agent reads and implements rather than deriving requirements mid-loop. The page lists several approaches that differ in how the specification is expressed: behaviour-driven development uses human-readable scenarios, spec-driven development uses a formal document, structured-prompt-driven development uses structured prompts, and tools like Spec Kit and GSD supply templates and frameworks.
+    steps:
+      - { action: scroll, delta: 162, delayMs: 500 }
+      - { action: highlight, text: "Specification-First Development", delayMs: 2500 }
+    assert:
+      visible: ["Specification-First Development", "Behaviour Driven Development"]
+
+  - id: s35-spec-first-practice
+    type: capture
+    url: /index.html#phase-principles
+    viewport: { width: 1440, height: 810 }
+    setupScript: setup/pin-light-theme.mjs
+    roiSelector: '.concept:has-text("Specification-First Development")'
+    narration: >-
+      The page explains why this workflow was chosen over the heavier options. Spec Kit and GSD mandate directory structures, multi-file templates and dedicated command-line tools. This one is a folder of composable conversational skills. You invoke only what you need, the agent interviews you to extract requirements, and it generates a single plan document. Spec-first discipline, near-zero overhead, no lock-in.
+    steps:
+      - { action: scroll, delta: 420, delayMs: 500 }
+      - { action: highlight, text: "lightweight and flexible", delayMs: 2000 }
+    assert:
+      visible: ["Spec Kit", "plan.md"]
+
+  # 3.3 Test-Driven Development
+  - id: s36-tdd-anchor
+    type: capture
+    url: /index.html#phase-principles
+    viewport: { width: 1440, height: 810 }
+    setupScript: setup/pin-light-theme.mjs
+    narration: >-
+      TDD follows red, green, refactor. Write a failing test. Write the minimum code to pass it. Refactor without breaking it. In agentic work it does one more job: it supplies the machine-verifiable convergence signal. The loop exits when tests pass, not when output looks plausible.
+    steps:
+      - { action: scroll, delta: 637, delayMs: 500 }
+      - { action: highlight, text: "Test-Driven Development", delayMs: 2500 }
+    assert:
+      visible: ["Test-Driven Development", "Red-Green-Refactor"]
+
+  - id: s37-tdd-practice
+    type: capture
+    url: /index.html#phase-principles
+    viewport: { width: 1440, height: 810 }
+    setupScript: setup/pin-light-theme.mjs
+    roiSelector: '.concept:has-text("Test-Driven Development")'
+    narration: >-
+      This connects back to Topic 1. Because the same prompt can produce different output next run, your own inspection is not a stable standard. Without tests there is no objective way to know the agent is done. With them, done is a fact.
+    steps:
+      - { action: scroll, delta: 637, delayMs: 500 }
+      - { action: highlight, text: "non-determinism", delayMs: 2000 }
+    assert:
+      visible: ["machine-verifiable", "tests pass"]
+
+  # 3.4 Architecture Decision Records
+  - id: s38-adr-anchor
+    type: capture
+    url: /index.html#phase-principles
+    viewport: { width: 1440, height: 810 }
+    setupScript: setup/pin-light-theme.mjs
+    narration: >-
+      An ADR is a short document capturing a technical choice: context, decision, consequences. Because agents have no persistent memory between sessions, ADRs in version control act as their durable external memory. Without them, a future session has no way to know a past architectural choice was deliberate.
+    steps:
+      - { action: scroll, delta: 767, delayMs: 500 }
+      - { action: highlight, text: "Architecture Decision Records", delayMs: 2500 }
+    assert:
+      visible: ["Architecture Decision Records", "consequences"]
+
+  - id: s39-adr-practice
+    type: capture
+    url: /index.html#phase-principles
+    viewport: { width: 1440, height: 810 }
+    setupScript: setup/pin-light-theme.mjs
+    roiSelector: '.concept:has-text("Architecture Decision Records")'
+    narration: >-
+      Which produces a specific, maddening failure: a later session finds your deliberate choice, reads it as a mistake, and helpfully reverses it. The fix is to leave the reasoning where the next session will walk into it. In the repository, not in a chat log.
+    steps:
+      - { action: scroll, delta: 767, delayMs: 500 }
+      - { action: highlight, text: "reversing deliberate decisions", delayMs: 2000 }
+    assert:
+      visible: ["version control", "deliberate"]
+
+  # 3.5 Tracer Bullet Development
+  - id: s40-tracer-bullet-anchor
+    type: capture
+    url: /index.html#phase-principles
+    viewport: { width: 1440, height: 810 }
+    setupScript: setup/pin-light-theme.mjs
+    narration: >-
+      A strategy for slicing work into tickets. Instead of building horizontal layers — the whole database schema first — work is sliced vertically: a thin, production-quality feature cutting through data, logic, interface and tests. It matters for agents because a horizontal slice cannot be demoed or tested end to end in isolation.
+    steps:
+      - { action: scroll, delta: 898, delayMs: 500 }
+      - { action: highlight, text: "Tracer Bullet Development", delayMs: 2500 }
+    assert:
+      visible: ["Tracer Bullet Development", "vertically"]
+
+  - id: s41-tracer-bullet-practice
+    type: capture
+    url: /index.html#phase-principles
+    viewport: { width: 1440, height: 810 }
+    setupScript: setup/pin-light-theme.mjs
+    roiSelector: '.concept:has-text("Tracer Bullet")'
+    narration: >-
+      Follow that through. If a slice cannot be fully tested, the agent cannot verify its own output, and the self-correction loop stalls. So a good ticket is not the smallest amount of work — it is the smallest amount of work that can prove itself.
+    steps:
+      - { action: scroll, delta: 898, delayMs: 500 }
+      - { action: highlight, text: "self-correction loop stalls", delayMs: 2000 }
+    assert:
+      visible: ["production-quality", "self-correction"]
+
+  # 3.6 Living Documentation
+  - id: s42-living-docs-anchor
+    type: capture
+    url: /index.html#phase-principles
+    viewport: { width: 1440, height: 810 }
+    setupScript: setup/pin-light-theme.mjs
+    narration: >-
+      In traditional development, stale documentation is an annoyance. In agentic development it is a fatal bug. Agents treat your repository's documentation as their system prompt, and they will faithfully generate code that complies with whatever standards they read.
+    steps:
+      - { action: scroll, delta: 1028, delayMs: 500 }
+      - { action: highlight, text: "Living Documentation", delayMs: 2500 }
+    assert:
+      visible: ["Living Documentation", "system prompt"]
+
+  - id: s43-living-docs-practice
+    type: capture
+    url: /index.html#phase-principles
+    viewport: { width: 1440, height: 810 }
+    setupScript: setup/pin-light-theme.mjs
+    roiSelector: '.concept:has-text("Living Documentation")'
+    narration: >-
+      So a coding standard you abandoned two years ago is not a historical note. It is an instruction, and it will be followed perfectly. Documentation in this model is closer to configuration than to prose: if it is wrong, the output is wrong, confidently.
+    steps:
+      - { action: scroll, delta: 1028, delayMs: 500 }
+      - { action: highlight, text: "confidently produce wrong outputs", delayMs: 2000 }
+    assert:
+      visible: ["coding standards", "wrong outputs"]
+
+  # ══ Topic 4 · Multi-Agent Patterns — scenes S44–S52 ══
+  # 9 entries: 8 captures + 1 diagram slide (D6 spotlight). S44 carries the chapter card.
+
+  # --- S44 · capture · anchor + mechanism · Topic 4 chapter card rides here ---
+  # Chapter authored as flat title + chapterDescription (deck.mjs:578 reads these).
+  - id: s44-orchestrator-anchor
+    type: capture
+    url: /index.html#phase-multiagent
+    viewport: { width: 1440, height: 810 }
+    setupScript: setup/pin-light-theme.mjs
+    overlay: chapter
+    title: Topic 4
+    chapterDescription: Multi-Agent Patterns
+    steps:
+      - { action: scroll, delta: 32, delayMs: 500 }
+      - { action: highlight, text: "Orchestrator-Worker Architecture", delayMs: 2500 }
+    assert:
+      visible: ["Multi-Agent Patterns", "Orchestrator-Worker"]
+    narration: >-
+      The orchestrator coordinates. It sequences work and routes blockers, and it never
+      reads files or makes implementation decisions. An orchestrator that does
+      implementation work fills its context with detail and loses coordination accuracy.
+
+  # --- S45 · slide · D6 spotlight · Orchestrator is card 1 (dominant slot is positional) ---
+  - id: s45-who-knows-what-slide
+    type: slide
+    layout: spotlight
+    title: Who knows what
+    cards:
+      - { icon: network, title: Orchestrator, text: Sequences work and routes blockers. Never reads files. }
+      - { icon: box, title: Subagent, text: "Clean context, restricted tools, one bounded task." }
+      - { icon: user-check, title: Reviewer, text: "Sees the output and the specification, nothing else." }
+      - { icon: zap, title: In parallel, text: "Independent tasks run at once, on models suited to each." }
+    narration: >-
+      Every rule in this topic is the same rule applied four times: control what each agent
+      knows. The orchestrator holds the plan and not the code. The subagent holds one task
+      and not the plan. The reviewer holds the specification and the output and nothing
+      about how the output came to exist.
+
+  # --- S46 · capture · failure + practice (Orchestrator-Worker) ---
+  - id: s46-orchestrator-practice
+    type: capture
+    url: /index.html#phase-multiagent
+    viewport: { width: 1440, height: 810 }
+    setupScript: setup/pin-light-theme.mjs
+    roiSelector: '.concept:has-text("Orchestrator-Worker")'
+    steps:
+      - { action: scroll, delta: 100, delayMs: 500 }
+      - { action: highlight, text: "coordination accuracy", delayMs: 2000 }
+    assert:
+      visible: ["coordinates", "implementation decisions"]
+    narration: >-
+      This is the same context budget from Topic 1, spent on the wrong thing. An
+      orchestrator that starts reading source files trades the overview for detail, and the
+      overview was its entire job. Coordination and implementation are different roles, and
+      one agent cannot hold both well.
+
+  # --- S47 · capture · anchor + mechanism (Subagents) ---
+  - id: s47-subagents-anchor
+    type: capture
+    url: /index.html#phase-multiagent
+    viewport: { width: 1440, height: 810 }
+    setupScript: setup/pin-light-theme.mjs
+    steps:
+      - { action: scroll, delta: 121, delayMs: 500 }
+      - { action: highlight, text: "Subagents and Context Isolation", delayMs: 2500 }
+    assert:
+      visible: ["Subagents and Context Isolation", "clean context window"]
+    narration: >-
+      Each subagent starts with a clean context window, a restricted tool set, and a single
+      bounded task. Isolation ensures a subagent reading files for one ticket cannot pollute
+      the context of another.
+
+  # --- S48 · capture · failure + practice (Subagents) ---
+  - id: s48-subagents-practice
+    type: capture
+    url: /index.html#phase-multiagent
+    viewport: { width: 1440, height: 810 }
+    setupScript: setup/pin-light-theme.mjs
+    roiSelector: '.concept:has-text("Subagents and Context Isolation")'
+    steps:
+      - { action: scroll, delta: 121, delayMs: 500 }
+      - { action: highlight, text: "pollute", delayMs: 2000 }
+    assert:
+      visible: ["restricted tool set", "bounded task"]
+    narration: >-
+      Isolation is a feature, not a limitation. An agent that inherits everything receives
+      coordination history, other tickets' details and unrelated decisions — and then
+      reasons over all of it. Fresh context, one task, only the tools that task needs.
+
+  # --- S49 · capture · anchor + mechanism (Independent Review) ---
+  - id: s49-review-anchor
+    type: capture
+    url: /index.html#phase-multiagent
+    viewport: { width: 1440, height: 810 }
+    setupScript: setup/pin-light-theme.mjs
+    steps:
+      - { action: scroll, delta: 210, delayMs: 500 }
+      - { action: highlight, text: "Independent Review", delayMs: 2500 }
+    assert:
+      visible: ["Independent Review", "original specification"]
+    narration: >-
+      When one agent reviews another's work, the reviewer gets only the final output and the
+      original specification. If it inherits the implementing agent's conversation history,
+      it becomes biased by the implementer's logic and ends up reviewing the reasoning
+      rather than checking whether the code meets the spec.
+
+  # --- S50 · capture · failure + practice (Independent Review) ---
+  - id: s50-review-practice
+    type: capture
+    url: /index.html#phase-multiagent
+    viewport: { width: 1440, height: 810 }
+    setupScript: setup/pin-light-theme.mjs
+    roiSelector: '.concept:has-text("Independent Review")'
+    steps:
+      - { action: scroll, delta: 210, delayMs: 500 }
+      - { action: highlight, text: "biased by the implementer", delayMs: 2000 }
+    assert:
+      visible: ["final output", "meets the spec"]
+    narration: >-
+      This has a human parallel. Sit through someone explaining why they built it that way
+      and you will find yourself agreeing with the reasoning instead of reading the code. The
+      explanation is persuasive; the specification is the standard. A reviewer with a clean
+      context cannot be talked round.
+
+  # --- S51 · capture · anchor + mechanism (Parallel Execution) ---
+  - id: s51-parallel-anchor
+    type: capture
+    url: /index.html#phase-multiagent
+    viewport: { width: 1440, height: 810 }
+    setupScript: setup/pin-light-theme.mjs
+    steps:
+      - { action: scroll, delta: 319, delayMs: 500 }
+      - { action: highlight, text: "Parallel Execution", delayMs: 2500 }
+    assert:
+      visible: ["Parallel Execution", "simultaneously"]
+    narration: >-
+      Unlike a human team, an orchestrator can spawn multiple subagents for independent tasks
+      simultaneously — five compliance checks at once, for example. Subagents can also be
+      specialised, using different system prompts or cheaper models suited to their bounded
+      task.
+
+  # --- S52 · capture · failure + practice (Parallel Execution) · US spelling retained (rule 4) ---
+  - id: s52-parallel-practice
+    type: capture
+    url: /index.html#phase-multiagent
+    viewport: { width: 1440, height: 810 }
+    setupScript: setup/pin-light-theme.mjs
+    roiSelector: '.concept:has-text("Parallel Execution")'
+    steps:
+      - { action: scroll, delta: 900, delayMs: 500 }
+      - { action: highlight, text: "optimizes both speed and cost", delayMs: 2000 }
+    assert:
+      visible: ["specialized", "cheaper models"]
+    narration: >-
+      Two levers, and they compound. Parallelism cuts wall-clock time on anything genuinely
+      independent. Specialisation routes simple bounded work to cheap fast models and saves
+      the expensive reasoning for work that needs it. The judgment required is knowing which
+      tasks are actually independent.
+
+  # ══ Closing — scenes S53–S54 ══
+  # S53 · tiled · 4 cards, even weight (rule 9) — plan §5 + §6.
+  # SCR resolution beat (closing seam): the four topics resolved into one argument.
+  - id: s53-topic-recap
+    type: slide
+    role: resolution
+    layout: tiled
+    title: What the four topics establish
+    cards:
+      - { icon: gauge, title: Limits, text: "The window, the memory model, and the two failure modes." }
+      - { icon: wrench, title: Engineering, text: "What goes into the window, and when." }
+      - { icon: shield-check, title: Discipline, text: "Specification, tests, records, and gates." }
+      - { icon: network, title: Division, text: How work and context split across agents. }
+    narration: >-
+      Four topics, one argument. Topic 1 gave you the limits: a context window
+      that degrades before it fills, three memory stores with three lifetimes,
+      and two failure modes — confident invention and run-to-run variation.
+      Topic 2 was engineering around those limits: what enters the window, when
+      it is retrieved, how loops terminate, and why planning finishes before
+      implementation starts. Topic 3 was the discipline that makes it
+      verifiable: specifications before code, tests as the exit signal, records
+      as external memory, vertical slices that can prove themselves, and
+      documentation treated as configuration. Topic 4 was the division of
+      labour: who knows what, and why a reviewer must not know how the code was
+      written.
+
+  # S54 · statement · 0 cards — plan §5 + §6.
+  # SCR resolution beat (closing seam): the single closing claim.
+  - id: s54-closing-claim
+    type: slide
+    role: resolution
+    layout: statement
+    title: Structure does the work, not the model.
+    narration: >-
+      If one thing carries over, make it this. Nothing here depends on a better
+      model. Every practice is a response to a measurable limit, every loop
+      closes on a signal a machine can check, and every gate is placed where
+      judgment is genuinely required. The structure does the work.

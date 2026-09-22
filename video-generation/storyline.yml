@@ -62,8 +62,12 @@ entries:
     setupScript: setup/pin-light-theme.mjs
     steps:
       - { action: waitForText, value: Foundations of Agentic Engineering }
+      - { action: wait, delayMs: 4200 }
+      - { action: scroll, delta: 1600, delayMs: 1100 }
+      - { action: scroll, delta: 1600, delayMs: 800 }
+      - { action: highlight, text: "understand, extend, and refine the workflow", delayMs: 5200 }
     assert:
-      visible: ["Foundations of Agentic Engineering", "LLM & Agent Foundations"]
+      visible: ["Foundations of Agentic Engineering", "basis for the customisations taught in Lessons 1 and 2"]
       notVisible: ["Something went wrong"]
     narration: >-
       The prerequisites page has two tracks. Track A is the workflow itself,

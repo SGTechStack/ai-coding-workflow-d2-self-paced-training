@@ -677,7 +677,10 @@ keeps Remotion's licence condition off the path entirely.
 7. Narration-redundancy warnings reviewed. Warnings are acceptable on D1 (a stat slide should say
    its number); investigate any others.
 8. Light theme in every frame. Any dark frame means `setupScript` did not run.
-9. Runtime 20–25 minutes. Materially longer means narration drifted from this plan.
+9. Runtime ≈18m 45s (1125.6s), being the length of the approved narration plus a 400ms tail hold
+   per scene. The earlier "20–25 minutes" figure was a hand estimate made before synthesis; Kokoro
+   delivers the verbatim script faster than assumed. Materially *longer* would mean narration
+   drifted from this plan. Do not pad content to reach a number.
 
 ### Embed snippet
 

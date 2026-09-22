@@ -2,7 +2,7 @@
   "$generated": "GENERATED FILE — do not edit. Source: storyline.yml. Regenerate with: node scripts/compile.mjs",
   "$source": {
     "file": "storyline.yml",
-    "checksum": "9fb51537df8345b640917f483b44c029298e5a804602382702e4ccd9d8c6dee5"
+    "checksum": "97170a6256838e1334a3ef963b2fced4bcddf06be1d81117e0f162c278a24807"
   },
   "meta": {
     "title": "LLM and Agent Foundations",
@@ -56,6 +56,12 @@
       },
       "vertical": {
         "strategy": "native"
+      },
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s01-cold-open-confident.mp4",
+        "durationMs": 10800,
+        "roi": null,
+        "hash": "943637ebad50"
       },
       "resolvedAudio": {
         "filePath": "assets/audio/s01-cold-open-confident.wav",
@@ -114,6 +120,12 @@
       "vertical": {
         "strategy": "native"
       },
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s02-three-failures.mp4",
+        "durationMs": 22400,
+        "roi": null,
+        "hash": "3a011a4e105d"
+      },
       "resolvedAudio": {
         "filePath": "assets/audio/s02-three-failures.wav",
         "durationMs": 19550,
@@ -155,6 +167,12 @@
       "vertical": {
         "strategy": "native"
       },
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s03-hero.mp4",
+        "durationMs": 16800,
+        "roi": null,
+        "hash": "f8a037fdc46b"
+      },
       "resolvedAudio": {
         "filePath": "assets/audio/s03-hero.wav",
         "durationMs": 14625,
@@ -187,13 +205,32 @@
           {
             "action": "waitForText",
             "value": "Foundations of Agentic Engineering"
+          },
+          {
+            "action": "wait",
+            "delayMs": 4200
+          },
+          {
+            "action": "scroll",
+            "delta": 1600,
+            "delayMs": 1100
+          },
+          {
+            "action": "scroll",
+            "delta": 1600,
+            "delayMs": 800
+          },
+          {
+            "action": "highlight",
+            "text": "understand, extend, and refine the workflow",
+            "delayMs": 5200
           }
         ]
       },
       "assert": {
         "visible": [
           "Foundations of Agentic Engineering",
-          "LLM & Agent Foundations"
+          "basis for the customisations taught in Lessons 1 and 2"
         ],
         "notVisible": [
           "Something went wrong"
@@ -203,23 +240,42 @@
         "width": 1440,
         "height": 810
       },
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s04-page-establishing.mp4",
+        "durationMs": 12583.76220703125,
+        "roi": {
+          "x": 354,
+          "y": 233.59375,
+          "width": 782,
+          "height": 43.3125
+        },
+        "hash": "28168de8bd8a"
+      },
+      "roi": {
+        "x": 354,
+        "y": 233.59375,
+        "width": 782,
+        "height": 43.3125
+      },
       "resolvedAudio": {
-        "filePath": "assets/audio/s04-page-establishing.wav",
-        "durationMs": 14750,
+        "filePath": "assets/audio/s04-page-establishing.r.wav",
+        "durationMs": 12950,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
         "hash": "a5f81bf21229"
       },
       "resolvedTiming": {
-        "mode": "audio-dictates",
-        "sceneMs": 15150,
-        "ratePct": 0,
-        "padVisualMs": 15150,
+        "mode": "reject",
+        "sceneMs": 12692,
+        "ratePct": 20,
+        "padVisualMs": 108,
         "padAudioMs": 0,
-        "warnings": []
+        "warnings": [
+          "narration is 21% longer than the visual (limit 20%). Split the scene or rewrite the narration."
+        ]
       },
-      "ratePct": 0
+      "ratePct": 20
     },
     {
       "id": "s05-context-windows-anchor",
@@ -258,23 +314,42 @@
         "width": 1440,
         "height": 810
       },
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s05-context-windows-anchor.mp4",
+        "durationMs": 5965.2890625,
+        "roi": {
+          "x": 323,
+          "y": 141.328125,
+          "width": 794,
+          "height": 23.09375
+        },
+        "hash": "4b15f378ad50"
+      },
+      "roi": {
+        "x": 323,
+        "y": 141.328125,
+        "width": 794,
+        "height": 23.09375
+      },
       "resolvedAudio": {
-        "filePath": "assets/audio/s05-context-windows-anchor.wav",
-        "durationMs": 28775,
+        "filePath": "assets/audio/s05-context-windows-anchor.r.wav",
+        "durationMs": 25200,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
         "hash": "bf17db70d3a7"
       },
       "resolvedTiming": {
-        "mode": "audio-dictates",
-        "sceneMs": 29175,
-        "ratePct": 0,
-        "padVisualMs": 29175,
+        "mode": "reject",
+        "sceneMs": 24379,
+        "ratePct": 20,
+        "padVisualMs": 18414,
         "padAudioMs": 0,
-        "warnings": []
+        "warnings": [
+          "narration is 417% longer than the visual (limit 20%). Split the scene or rewrite the narration."
+        ]
       },
-      "ratePct": 0
+      "ratePct": 20
     },
     {
       "id": "s06-window-budget-slide",
@@ -318,6 +393,12 @@
       },
       "vertical": {
         "strategy": "native"
+      },
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s06-window-budget-slide.mp4",
+        "durationMs": 18400,
+        "roi": null,
+        "hash": "72793248bae0"
       },
       "resolvedAudio": {
         "filePath": "assets/audio/s06-window-budget-slide.wav",
@@ -372,23 +453,42 @@
         "width": 1440,
         "height": 810
       },
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s07-context-windows-practice.mp4",
+        "durationMs": 3157.052001953125,
+        "roi": {
+          "x": 323,
+          "y": 141.328125,
+          "width": 794,
+          "height": 23.09375
+        },
+        "hash": "2dc33834a067"
+      },
+      "roi": {
+        "x": 323,
+        "y": 141.328125,
+        "width": 794,
+        "height": 23.09375
+      },
       "resolvedAudio": {
-        "filePath": "assets/audio/s07-context-windows-practice.wav",
-        "durationMs": 21525,
+        "filePath": "assets/audio/s07-context-windows-practice.r.wav",
+        "durationMs": 18850,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
         "hash": "1bc64a2226a4"
       },
       "resolvedTiming": {
-        "mode": "audio-dictates",
-        "sceneMs": 21925,
-        "ratePct": 0,
-        "padVisualMs": 21925,
+        "mode": "reject",
+        "sceneMs": 18338,
+        "ratePct": 20,
+        "padVisualMs": 15180,
         "padAudioMs": 0,
-        "warnings": []
+        "warnings": [
+          "narration is 681% longer than the visual (limit 20%). Split the scene or rewrite the narration."
+        ]
       },
-      "ratePct": 0
+      "ratePct": 20
     },
     {
       "id": "s08-memory-anchor",
@@ -423,23 +523,42 @@
         "width": 1440,
         "height": 810
       },
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s08-memory-anchor.mp4",
+        "durationMs": 3648.4169921875,
+        "roi": {
+          "x": 323,
+          "y": 121.734375,
+          "width": 794,
+          "height": 23.09375
+        },
+        "hash": "f823639979d3"
+      },
+      "roi": {
+        "x": 323,
+        "y": 121.734375,
+        "width": 794,
+        "height": 23.09375
+      },
       "resolvedAudio": {
-        "filePath": "assets/audio/s08-memory-anchor.wav",
-        "durationMs": 24750,
+        "filePath": "assets/audio/s08-memory-anchor.r.wav",
+        "durationMs": 22075,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
         "hash": "996caf38089a"
       },
       "resolvedTiming": {
-        "mode": "audio-dictates",
-        "sceneMs": 25150,
-        "ratePct": 0,
-        "padVisualMs": 25150,
+        "mode": "reject",
+        "sceneMs": 21025,
+        "ratePct": 20,
+        "padVisualMs": 17377,
         "padAudioMs": 0,
-        "warnings": []
+        "warnings": [
+          "narration is 662% longer than the visual (limit 20%). Split the scene or rewrite the narration."
+        ]
       },
-      "ratePct": 0
+      "ratePct": 20
     },
     {
       "id": "s09-memory-stores-slide",
@@ -479,6 +598,12 @@
       },
       "vertical": {
         "strategy": "native"
+      },
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s09-memory-stores-slide.mp4",
+        "durationMs": 14400,
+        "roi": null,
+        "hash": "ccdecdc76248"
       },
       "resolvedAudio": {
         "filePath": "assets/audio/s09-memory-stores-slide.wav",
@@ -533,23 +658,42 @@
         "width": 1440,
         "height": 810
       },
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s10-memory-practice.mp4",
+        "durationMs": 3136.72314453125,
+        "roi": {
+          "x": 549.28125,
+          "y": 170.65625,
+          "width": 51.25,
+          "height": 16
+        },
+        "hash": "b54da3bdcc9d"
+      },
+      "roi": {
+        "x": 549.28125,
+        "y": 170.65625,
+        "width": 51.25,
+        "height": 16
+      },
       "resolvedAudio": {
-        "filePath": "assets/audio/s10-memory-practice.wav",
-        "durationMs": 18900,
+        "filePath": "assets/audio/s10-memory-practice.r.wav",
+        "durationMs": 16900,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
         "hash": "241bb182b4fd"
       },
       "resolvedTiming": {
-        "mode": "audio-dictates",
-        "sceneMs": 19300,
-        "ratePct": 0,
-        "padVisualMs": 19300,
+        "mode": "reject",
+        "sceneMs": 16150,
+        "ratePct": 20,
+        "padVisualMs": 13013,
         "padAudioMs": 0,
-        "warnings": []
+        "warnings": [
+          "narration is 591% longer than the visual (limit 20%). Split the scene or rewrite the narration."
+        ]
       },
-      "ratePct": 0
+      "ratePct": 20
     },
     {
       "id": "s11-hallucination-anchor",
@@ -584,23 +728,42 @@
         "width": 1440,
         "height": 810
       },
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s11-hallucination-anchor.mp4",
+        "durationMs": 3648.065185546875,
+        "roi": {
+          "x": 323,
+          "y": 122.140625,
+          "width": 794,
+          "height": 23.09375
+        },
+        "hash": "f12cf6526c38"
+      },
+      "roi": {
+        "x": 323,
+        "y": 122.140625,
+        "width": 794,
+        "height": 23.09375
+      },
       "resolvedAudio": {
-        "filePath": "assets/audio/s11-hallucination-anchor.wav",
-        "durationMs": 24975,
+        "filePath": "assets/audio/s11-hallucination-anchor.r.wav",
+        "durationMs": 22325,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
         "hash": "be08406ccc1e"
       },
       "resolvedTiming": {
-        "mode": "audio-dictates",
-        "sceneMs": 25375,
-        "ratePct": 0,
-        "padVisualMs": 25375,
+        "mode": "reject",
+        "sceneMs": 21213,
+        "ratePct": 20,
+        "padVisualMs": 17564,
         "padAudioMs": 0,
-        "warnings": []
+        "warnings": [
+          "narration is 669% longer than the visual (limit 20%). Split the scene or rewrite the narration."
+        ]
       },
-      "ratePct": 0
+      "ratePct": 20
     },
     {
       "id": "s12-hallucination-practice",
@@ -637,23 +800,42 @@
         "width": 1440,
         "height": 810
       },
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s12-hallucination-practice.mp4",
+        "durationMs": 3139.722900390625,
+        "roi": {
+          "x": 323,
+          "y": 148.234375,
+          "width": 794,
+          "height": 104.140625
+        },
+        "hash": "8f4d1e195ea3"
+      },
+      "roi": {
+        "x": 323,
+        "y": 148.234375,
+        "width": 794,
+        "height": 104.140625
+      },
       "resolvedAudio": {
-        "filePath": "assets/audio/s12-hallucination-practice.wav",
-        "durationMs": 24875,
+        "filePath": "assets/audio/s12-hallucination-practice.r.wav",
+        "durationMs": 21800,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
         "hash": "58828c5b3711"
       },
       "resolvedTiming": {
-        "mode": "audio-dictates",
-        "sceneMs": 25275,
-        "ratePct": 0,
-        "padVisualMs": 25275,
+        "mode": "reject",
+        "sceneMs": 21129,
+        "ratePct": 20,
+        "padVisualMs": 17989,
         "padAudioMs": 0,
-        "warnings": []
+        "warnings": [
+          "narration is 808% longer than the visual (limit 20%). Split the scene or rewrite the narration."
+        ]
       },
-      "ratePct": 0
+      "ratePct": 20
     },
     {
       "id": "s13-prompt-engineering-anchor",
@@ -693,23 +875,42 @@
         "width": 1440,
         "height": 810
       },
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s13-prompt-engineering-anchor.mp4",
+        "durationMs": 5961.89404296875,
+        "roi": {
+          "x": 323,
+          "y": 142.046875,
+          "width": 794,
+          "height": 23.09375
+        },
+        "hash": "32e0ca3ee830"
+      },
+      "roi": {
+        "x": 323,
+        "y": 142.046875,
+        "width": 794,
+        "height": 23.09375
+      },
       "resolvedAudio": {
-        "filePath": "assets/audio/s13-prompt-engineering-anchor.wav",
-        "durationMs": 25850,
+        "filePath": "assets/audio/s13-prompt-engineering-anchor.r.wav",
+        "durationMs": 22800,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
         "hash": "eb8893548a7d"
       },
       "resolvedTiming": {
-        "mode": "audio-dictates",
-        "sceneMs": 26250,
-        "ratePct": 0,
-        "padVisualMs": 26250,
+        "mode": "reject",
+        "sceneMs": 21942,
+        "ratePct": 20,
+        "padVisualMs": 15980,
         "padAudioMs": 0,
-        "warnings": []
+        "warnings": [
+          "narration is 365% longer than the visual (limit 20%). Split the scene or rewrite the narration."
+        ]
       },
-      "ratePct": 0
+      "ratePct": 20
     },
     {
       "id": "s14-prompt-engineering-practice",
@@ -746,23 +947,42 @@
         "width": 1440,
         "height": 810
       },
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s14-prompt-engineering-practice.mp4",
+        "durationMs": 3156.0908203125,
+        "roi": {
+          "x": 440,
+          "y": 190.96875,
+          "width": 107.859375,
+          "height": 16
+        },
+        "hash": "a430e5fdc42b"
+      },
+      "roi": {
+        "x": 440,
+        "y": 190.96875,
+        "width": 107.859375,
+        "height": 16
+      },
       "resolvedAudio": {
-        "filePath": "assets/audio/s14-prompt-engineering-practice.wav",
-        "durationMs": 19400,
+        "filePath": "assets/audio/s14-prompt-engineering-practice.r.wav",
+        "durationMs": 17225,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
         "hash": "0c8fe2794a9d"
       },
       "resolvedTiming": {
-        "mode": "audio-dictates",
-        "sceneMs": 19800,
-        "ratePct": 0,
-        "padVisualMs": 19800,
+        "mode": "reject",
+        "sceneMs": 16567,
+        "ratePct": 20,
+        "padVisualMs": 13411,
         "padAudioMs": 0,
-        "warnings": []
+        "warnings": [
+          "narration is 604% longer than the visual (limit 20%). Split the scene or rewrite the narration."
+        ]
       },
-      "ratePct": 0
+      "ratePct": 20
     },
     {
       "id": "s15-context-engineering-anchor",
@@ -797,23 +1017,42 @@
         "width": 1440,
         "height": 810
       },
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s15-context-engineering-anchor.mp4",
+        "durationMs": 3655.900146484375,
+        "roi": {
+          "x": 323,
+          "y": 122.453125,
+          "width": 794,
+          "height": 23.09375
+        },
+        "hash": "bdf0fb1332bf"
+      },
+      "roi": {
+        "x": 323,
+        "y": 122.453125,
+        "width": 794,
+        "height": 23.09375
+      },
       "resolvedAudio": {
-        "filePath": "assets/audio/s15-context-engineering-anchor.wav",
-        "durationMs": 23425,
+        "filePath": "assets/audio/s15-context-engineering-anchor.r.wav",
+        "durationMs": 20675,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
         "hash": "2d9d1a2e235d"
       },
       "resolvedTiming": {
-        "mode": "audio-dictates",
-        "sceneMs": 23825,
-        "ratePct": 0,
-        "padVisualMs": 23825,
+        "mode": "reject",
+        "sceneMs": 19921,
+        "ratePct": 20,
+        "padVisualMs": 16265,
         "padAudioMs": 0,
-        "warnings": []
+        "warnings": [
+          "narration is 619% longer than the visual (limit 20%). Split the scene or rewrite the narration."
+        ]
       },
-      "ratePct": 0
+      "ratePct": 20
     },
     {
       "id": "s16-context-engineering-practice",
@@ -850,23 +1089,42 @@
         "width": 1440,
         "height": 810
       },
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s16-context-engineering-practice.mp4",
+        "durationMs": 3158.390869140625,
+        "roi": {
+          "x": 323,
+          "y": 148.546875,
+          "width": 794,
+          "height": 62.484375
+        },
+        "hash": "dabdd6255880"
+      },
+      "roi": {
+        "x": 323,
+        "y": 148.546875,
+        "width": 794,
+        "height": 62.484375
+      },
       "resolvedAudio": {
-        "filePath": "assets/audio/s16-context-engineering-practice.wav",
-        "durationMs": 19400,
+        "filePath": "assets/audio/s16-context-engineering-practice.r.wav",
+        "durationMs": 17025,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
         "hash": "c0522f493c40"
       },
       "resolvedTiming": {
-        "mode": "audio-dictates",
-        "sceneMs": 19800,
-        "ratePct": 0,
-        "padVisualMs": 19800,
+        "mode": "reject",
+        "sceneMs": 16567,
+        "ratePct": 20,
+        "padVisualMs": 13408,
         "padAudioMs": 0,
-        "warnings": []
+        "warnings": [
+          "narration is 603% longer than the visual (limit 20%). Split the scene or rewrite the narration."
+        ]
       },
-      "ratePct": 0
+      "ratePct": 20
     },
     {
       "id": "s17-rag-anchor",
@@ -901,23 +1159,42 @@
         "width": 1440,
         "height": 810
       },
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s17-rag-anchor.mp4",
+        "durationMs": 3642.465087890625,
+        "roi": {
+          "x": 323,
+          "y": 122.03125,
+          "width": 794,
+          "height": 23.09375
+        },
+        "hash": "3e3b08ef31d4"
+      },
+      "roi": {
+        "x": 323,
+        "y": 122.03125,
+        "width": 794,
+        "height": 23.09375
+      },
       "resolvedAudio": {
-        "filePath": "assets/audio/s17-rag-anchor.wav",
-        "durationMs": 20025,
+        "filePath": "assets/audio/s17-rag-anchor.r.wav",
+        "durationMs": 17775,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
         "hash": "6f7a41700e5c"
       },
       "resolvedTiming": {
-        "mode": "audio-dictates",
-        "sceneMs": 20425,
-        "ratePct": 0,
-        "padVisualMs": 20425,
+        "mode": "reject",
+        "sceneMs": 17088,
+        "ratePct": 20,
+        "padVisualMs": 13445,
         "padAudioMs": 0,
-        "warnings": []
+        "warnings": [
+          "narration is 518% longer than the visual (limit 20%). Split the scene or rewrite the narration."
+        ]
       },
-      "ratePct": 0
+      "ratePct": 20
     },
     {
       "id": "s18-rag-practice",
@@ -954,23 +1231,42 @@
         "width": 1440,
         "height": 810
       },
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s18-rag-practice.mp4",
+        "durationMs": 3152.69287109375,
+        "roi": {
+          "x": 323,
+          "y": 38.546875,
+          "width": 794,
+          "height": 62.484375
+        },
+        "hash": "53a6e9a91d81"
+      },
+      "roi": {
+        "x": 323,
+        "y": 38.546875,
+        "width": 794,
+        "height": 62.484375
+      },
       "resolvedAudio": {
-        "filePath": "assets/audio/s18-rag-practice.wav",
-        "durationMs": 14275,
+        "filePath": "assets/audio/s18-rag-practice.r.wav",
+        "durationMs": 12825,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
         "hash": "37eece408b2a"
       },
       "resolvedTiming": {
-        "mode": "audio-dictates",
-        "sceneMs": 14675,
-        "ratePct": 0,
-        "padVisualMs": 14675,
+        "mode": "reject",
+        "sceneMs": 12296,
+        "ratePct": 20,
+        "padVisualMs": 9143,
         "padAudioMs": 0,
-        "warnings": []
+        "warnings": [
+          "narration is 419% longer than the visual (limit 20%). Split the scene or rewrite the narration."
+        ]
       },
-      "ratePct": 0
+      "ratePct": 20
     },
     {
       "id": "s19-okf-anchor",
@@ -1005,23 +1301,42 @@
         "width": 1440,
         "height": 810
       },
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s19-okf-anchor.mp4",
+        "durationMs": 3650.89111328125,
+        "roi": {
+          "x": 323,
+          "y": 122.4375,
+          "width": 794,
+          "height": 23.09375
+        },
+        "hash": "74feb5b38c9e"
+      },
+      "roi": {
+        "x": 323,
+        "y": 122.4375,
+        "width": 794,
+        "height": 23.09375
+      },
       "resolvedAudio": {
-        "filePath": "assets/audio/s19-okf-anchor.wav",
-        "durationMs": 27275,
+        "filePath": "assets/audio/s19-okf-anchor.r.wav",
+        "durationMs": 24275,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
         "hash": "0d3936e79a7e"
       },
       "resolvedTiming": {
-        "mode": "audio-dictates",
-        "sceneMs": 27675,
-        "ratePct": 0,
-        "padVisualMs": 27675,
+        "mode": "reject",
+        "sceneMs": 23129,
+        "ratePct": 20,
+        "padVisualMs": 19478,
         "padAudioMs": 0,
-        "warnings": []
+        "warnings": [
+          "narration is 739% longer than the visual (limit 20%). Split the scene or rewrite the narration."
+        ]
       },
-      "ratePct": 0
+      "ratePct": 20
     },
     {
       "id": "s20-okf-practice",
@@ -1058,23 +1373,42 @@
         "width": 1440,
         "height": 810
       },
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s20-okf-practice.mp4",
+        "durationMs": 3148.40087890625,
+        "roi": {
+          "x": 323,
+          "y": 148.53125,
+          "width": 794,
+          "height": 104.140625
+        },
+        "hash": "dfd880bc5325"
+      },
+      "roi": {
+        "x": 323,
+        "y": 148.53125,
+        "width": 794,
+        "height": 104.140625
+      },
       "resolvedAudio": {
-        "filePath": "assets/audio/s20-okf-practice.wav",
-        "durationMs": 11925,
+        "filePath": "assets/audio/s20-okf-practice.r.wav",
+        "durationMs": 10500,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
         "hash": "be3eab4a7813"
       },
       "resolvedTiming": {
-        "mode": "audio-dictates",
-        "sceneMs": 12325,
-        "ratePct": 0,
-        "padVisualMs": 12325,
+        "mode": "reject",
+        "sceneMs": 10338,
+        "ratePct": 20,
+        "padVisualMs": 7189,
         "padAudioMs": 0,
-        "warnings": []
+        "warnings": [
+          "narration is 334% longer than the visual (limit 20%). Split the scene or rewrite the narration."
+        ]
       },
-      "ratePct": 0
+      "ratePct": 20
     },
     {
       "id": "s21-mcp-anchor",
@@ -1109,23 +1443,42 @@
         "width": 1440,
         "height": 810
       },
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s21-mcp-anchor.mp4",
+        "durationMs": 3651.304931640625,
+        "roi": {
+          "x": 323,
+          "y": 123.671875,
+          "width": 794,
+          "height": 23.09375
+        },
+        "hash": "e851c3bae61a"
+      },
+      "roi": {
+        "x": 323,
+        "y": 123.671875,
+        "width": 794,
+        "height": 23.09375
+      },
       "resolvedAudio": {
-        "filePath": "assets/audio/s21-mcp-anchor.wav",
-        "durationMs": 22800,
+        "filePath": "assets/audio/s21-mcp-anchor.r.wav",
+        "durationMs": 20325,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
         "hash": "b3546aac0f48"
       },
       "resolvedTiming": {
-        "mode": "audio-dictates",
-        "sceneMs": 23200,
-        "ratePct": 0,
-        "padVisualMs": 23200,
+        "mode": "reject",
+        "sceneMs": 19400,
+        "ratePct": 20,
+        "padVisualMs": 15749,
         "padAudioMs": 0,
-        "warnings": []
+        "warnings": [
+          "narration is 601% longer than the visual (limit 20%). Split the scene or rewrite the narration."
+        ]
       },
-      "ratePct": 0
+      "ratePct": 20
     },
     {
       "id": "s22-rag-vs-mcp-slide",
@@ -1160,6 +1513,12 @@
       },
       "vertical": {
         "strategy": "native"
+      },
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s22-rag-vs-mcp-slide.mp4",
+        "durationMs": 40800,
+        "roi": null,
+        "hash": "98c43b089520"
       },
       "resolvedAudio": {
         "filePath": "assets/audio/s22-rag-vs-mcp-slide.wav",
@@ -1214,23 +1573,42 @@
         "width": 1440,
         "height": 810
       },
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s23-mcp-practice.mp4",
+        "durationMs": 3159.93115234375,
+        "roi": {
+          "x": 323,
+          "y": 149.765625,
+          "width": 794,
+          "height": 62.484375
+        },
+        "hash": "cac97948522e"
+      },
+      "roi": {
+        "x": 323,
+        "y": 149.765625,
+        "width": 794,
+        "height": 62.484375
+      },
       "resolvedAudio": {
-        "filePath": "assets/audio/s23-mcp-practice.wav",
-        "durationMs": 21450,
+        "filePath": "assets/audio/s23-mcp-practice.r.wav",
+        "durationMs": 18725,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
         "hash": "1e62a6361c85"
       },
       "resolvedTiming": {
-        "mode": "audio-dictates",
-        "sceneMs": 21850,
-        "ratePct": 0,
-        "padVisualMs": 21850,
+        "mode": "reject",
+        "sceneMs": 18275,
+        "ratePct": 20,
+        "padVisualMs": 15115,
         "padAudioMs": 0,
-        "warnings": []
+        "warnings": [
+          "narration is 677% longer than the visual (limit 20%). Split the scene or rewrite the narration."
+        ]
       },
-      "ratePct": 0
+      "ratePct": 20
     },
     {
       "id": "s24-react-anchor",
@@ -1265,23 +1643,42 @@
         "width": 1440,
         "height": 810
       },
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s24-react-anchor.mp4",
+        "durationMs": 3663.046142578125,
+        "roi": {
+          "x": 323,
+          "y": 123.25,
+          "width": 794,
+          "height": 23.09375
+        },
+        "hash": "256c43e738c1"
+      },
+      "roi": {
+        "x": 323,
+        "y": 123.25,
+        "width": 794,
+        "height": 23.09375
+      },
       "resolvedAudio": {
-        "filePath": "assets/audio/s24-react-anchor.wav",
-        "durationMs": 26475,
+        "filePath": "assets/audio/s24-react-anchor.r.wav",
+        "durationMs": 23625,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
         "hash": "8426446661c6"
       },
       "resolvedTiming": {
-        "mode": "audio-dictates",
-        "sceneMs": 26875,
-        "ratePct": 0,
-        "padVisualMs": 26875,
+        "mode": "reject",
+        "sceneMs": 22463,
+        "ratePct": 20,
+        "padVisualMs": 18799,
         "padAudioMs": 0,
-        "warnings": []
+        "warnings": [
+          "narration is 711% longer than the visual (limit 20%). Split the scene or rewrite the narration."
+        ]
       },
-      "ratePct": 0
+      "ratePct": 20
     },
     {
       "id": "s25-react-loop-slide",
@@ -1330,6 +1727,12 @@
       },
       "vertical": {
         "strategy": "native"
+      },
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s25-react-loop-slide.mp4",
+        "durationMs": 17600,
+        "roi": null,
+        "hash": "7a845b123d4b"
       },
       "resolvedAudio": {
         "filePath": "assets/audio/s25-react-loop-slide.wav",
@@ -1385,23 +1788,42 @@
         "width": 1440,
         "height": 810
       },
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s26-react-practice.mp4",
+        "durationMs": 3143.819091796875,
+        "roi": {
+          "x": 323,
+          "y": 149.34375,
+          "width": 794,
+          "height": 124.96875
+        },
+        "hash": "ba8d428f501b"
+      },
+      "roi": {
+        "x": 323,
+        "y": 149.34375,
+        "width": 794,
+        "height": 124.96875
+      },
       "resolvedAudio": {
-        "filePath": "assets/audio/s26-react-practice.wav",
-        "durationMs": 16375,
+        "filePath": "assets/audio/s26-react-practice.r.wav",
+        "durationMs": 14800,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
         "hash": "57380ad83470"
       },
       "resolvedTiming": {
-        "mode": "audio-dictates",
-        "sceneMs": 16775,
-        "ratePct": 0,
-        "padVisualMs": 16775,
+        "mode": "reject",
+        "sceneMs": 14046,
+        "ratePct": 20,
+        "padVisualMs": 10902,
         "padAudioMs": 0,
-        "warnings": []
+        "warnings": [
+          "narration is 497% longer than the visual (limit 20%). Split the scene or rewrite the narration."
+        ]
       },
-      "ratePct": 0
+      "ratePct": 20
     },
     {
       "id": "s27-planning-anchor",
@@ -1437,23 +1859,42 @@
         "width": 1440,
         "height": 810
       },
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s27-planning-anchor.mp4",
+        "durationMs": 3635.732177734375,
+        "roi": {
+          "x": 323,
+          "y": 120.3125,
+          "width": 794,
+          "height": 23.09375
+        },
+        "hash": "9dcef0960873"
+      },
+      "roi": {
+        "x": 323,
+        "y": 120.3125,
+        "width": 794,
+        "height": 23.09375
+      },
       "resolvedAudio": {
-        "filePath": "assets/audio/s27-planning-anchor.wav",
-        "durationMs": 25100,
+        "filePath": "assets/audio/s27-planning-anchor.r.wav",
+        "durationMs": 22200,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
         "hash": "ee3c5a4582b1"
       },
       "resolvedTiming": {
-        "mode": "audio-dictates",
-        "sceneMs": 25500,
-        "ratePct": 0,
-        "padVisualMs": 25500,
+        "mode": "reject",
+        "sceneMs": 21317,
+        "ratePct": 20,
+        "padVisualMs": 17681,
         "padAudioMs": 0,
-        "warnings": []
+        "warnings": [
+          "narration is 676% longer than the visual (limit 20%). Split the scene or rewrite the narration."
+        ]
       },
-      "ratePct": 0
+      "ratePct": 20
     },
     {
       "id": "s28-qrspi-slide",
@@ -1499,6 +1940,12 @@
       },
       "vertical": {
         "strategy": "native"
+      },
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s28-qrspi-slide.mp4",
+        "durationMs": 16400,
+        "roi": null,
+        "hash": "04c0722c9ed4"
       },
       "resolvedAudio": {
         "filePath": "assets/audio/s28-qrspi-slide.wav",
@@ -1553,23 +2000,42 @@
         "width": 1440,
         "height": 810
       },
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s29-planning-practice.mp4",
+        "durationMs": 3140.807861328125,
+        "roi": {
+          "x": 509.25,
+          "y": 325.34375,
+          "width": 40.5625,
+          "height": 16
+        },
+        "hash": "59424ac4a1e3"
+      },
+      "roi": {
+        "x": 509.25,
+        "y": 325.34375,
+        "width": 40.5625,
+        "height": 16
+      },
       "resolvedAudio": {
-        "filePath": "assets/audio/s29-planning-practice.wav",
-        "durationMs": 19400,
+        "filePath": "assets/audio/s29-planning-practice.r.wav",
+        "durationMs": 17250,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
         "hash": "1c1770bcaef2"
       },
       "resolvedTiming": {
-        "mode": "audio-dictates",
-        "sceneMs": 19800,
-        "ratePct": 0,
-        "padVisualMs": 19800,
+        "mode": "reject",
+        "sceneMs": 16567,
+        "ratePct": 20,
+        "padVisualMs": 13426,
         "padAudioMs": 0,
-        "warnings": []
+        "warnings": [
+          "narration is 608% longer than the visual (limit 20%). Split the scene or rewrite the narration."
+        ]
       },
-      "ratePct": 0
+      "ratePct": 20
     },
     {
       "id": "s30-skills-anchor",
@@ -1605,23 +2071,42 @@
         "width": 1440,
         "height": 810
       },
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s30-skills-anchor.mp4",
+        "durationMs": 3648.401123046875,
+        "roi": {
+          "x": 323,
+          "y": 121,
+          "width": 794,
+          "height": 23.09375
+        },
+        "hash": "98931613d189"
+      },
+      "roi": {
+        "x": 323,
+        "y": 121,
+        "width": 794,
+        "height": 23.09375
+      },
       "resolvedAudio": {
-        "filePath": "assets/audio/s30-skills-anchor.wav",
-        "durationMs": 20600,
+        "filePath": "assets/audio/s30-skills-anchor.r.wav",
+        "durationMs": 18000,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
         "hash": "fbf9e89fe2c6"
       },
       "resolvedTiming": {
-        "mode": "audio-dictates",
-        "sceneMs": 21000,
-        "ratePct": 0,
-        "padVisualMs": 21000,
+        "mode": "reject",
+        "sceneMs": 17567,
+        "ratePct": 20,
+        "padVisualMs": 13918,
         "padAudioMs": 0,
-        "warnings": []
+        "warnings": [
+          "narration is 534% longer than the visual (limit 20%). Split the scene or rewrite the narration."
+        ]
       },
-      "ratePct": 0
+      "ratePct": 20
     },
     {
       "id": "s31-skills-practice",
@@ -1658,23 +2143,42 @@
         "width": 1440,
         "height": 810
       },
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s31-skills-practice.mp4",
+        "durationMs": 3137.798828125,
+        "roi": {
+          "x": 323,
+          "y": 147.09375,
+          "width": 794,
+          "height": 83.3125
+        },
+        "hash": "e6cb217fc15d"
+      },
+      "roi": {
+        "x": 323,
+        "y": 147.09375,
+        "width": 794,
+        "height": 83.3125
+      },
       "resolvedAudio": {
-        "filePath": "assets/audio/s31-skills-practice.wav",
-        "durationMs": 20425,
+        "filePath": "assets/audio/s31-skills-practice.r.wav",
+        "durationMs": 17975,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
         "hash": "a7a8c35c25a9"
       },
       "resolvedTiming": {
-        "mode": "audio-dictates",
-        "sceneMs": 20825,
-        "ratePct": 0,
-        "padVisualMs": 20825,
+        "mode": "reject",
+        "sceneMs": 17421,
+        "ratePct": 20,
+        "padVisualMs": 14283,
         "padAudioMs": 0,
-        "warnings": []
+        "warnings": [
+          "narration is 646% longer than the visual (limit 20%). Split the scene or rewrite the narration."
+        ]
       },
-      "ratePct": 0
+      "ratePct": 20
     },
     {
       "id": "s32-hitl-anchor",
@@ -1713,23 +2217,42 @@
         "width": 1440,
         "height": 810
       },
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s32-hitl-anchor.mp4",
+        "durationMs": 3444.0888671875,
+        "roi": {
+          "x": 346.609375,
+          "y": -5038.5625,
+          "width": 770.390625,
+          "height": 46.1875
+        },
+        "hash": "da21b9b125ca"
+      },
+      "roi": {
+        "x": 346.609375,
+        "y": -5038.5625,
+        "width": 770.390625,
+        "height": 46.1875
+      },
       "resolvedAudio": {
-        "filePath": "assets/audio/s32-hitl-anchor.wav",
-        "durationMs": 24550,
+        "filePath": "assets/audio/s32-hitl-anchor.r.wav",
+        "durationMs": 21875,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
         "hash": "923b6e6524c0"
       },
       "resolvedTiming": {
-        "mode": "audio-dictates",
-        "sceneMs": 24950,
-        "ratePct": 0,
-        "padVisualMs": 24950,
+        "mode": "reject",
+        "sceneMs": 20858,
+        "ratePct": 20,
+        "padVisualMs": 17414,
         "padAudioMs": 0,
-        "warnings": []
+        "warnings": [
+          "narration is 706% longer than the visual (limit 20%). Split the scene or rewrite the narration."
+        ]
       },
-      "ratePct": 0
+      "ratePct": 20
     },
     {
       "id": "s33-hitl-practice",
@@ -1766,23 +2289,42 @@
         "width": 1440,
         "height": 810
       },
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s33-hitl-practice.mp4",
+        "durationMs": 3142.299072265625,
+        "roi": {
+          "x": 323,
+          "y": 67.703125,
+          "width": 794,
+          "height": 83.3125
+        },
+        "hash": "d2922313a1ea"
+      },
+      "roi": {
+        "x": 323,
+        "y": 67.703125,
+        "width": 794,
+        "height": 83.3125
+      },
       "resolvedAudio": {
-        "filePath": "assets/audio/s33-hitl-practice.wav",
-        "durationMs": 15650,
+        "filePath": "assets/audio/s33-hitl-practice.r.wav",
+        "durationMs": 13850,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
         "hash": "9fa58396d3aa"
       },
       "resolvedTiming": {
-        "mode": "audio-dictates",
-        "sceneMs": 16050,
-        "ratePct": 0,
-        "padVisualMs": 16050,
+        "mode": "reject",
+        "sceneMs": 13442,
+        "ratePct": 20,
+        "padVisualMs": 10299,
         "padAudioMs": 0,
-        "warnings": []
+        "warnings": [
+          "narration is 471% longer than the visual (limit 20%). Split the scene or rewrite the narration."
+        ]
       },
-      "ratePct": 0
+      "ratePct": 20
     },
     {
       "id": "s34-spec-first-anchor",
@@ -1817,23 +2359,42 @@
         "width": 1440,
         "height": 810
       },
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s34-spec-first-anchor.mp4",
+        "durationMs": 3654.169677734375,
+        "roi": {
+          "x": 323,
+          "y": 110.015625,
+          "width": 794,
+          "height": 23.09375
+        },
+        "hash": "13c15cf895a3"
+      },
+      "roi": {
+        "x": 323,
+        "y": 110.015625,
+        "width": 794,
+        "height": 23.09375
+      },
       "resolvedAudio": {
-        "filePath": "assets/audio/s34-spec-first-anchor.wav",
-        "durationMs": 31300,
+        "filePath": "assets/audio/s34-spec-first-anchor.r.wav",
+        "durationMs": 28075,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
         "hash": "ece87501c568"
       },
       "resolvedTiming": {
-        "mode": "audio-dictates",
-        "sceneMs": 31700,
-        "ratePct": 0,
-        "padVisualMs": 31700,
+        "mode": "reject",
+        "sceneMs": 26483,
+        "ratePct": 20,
+        "padVisualMs": 22829,
         "padAudioMs": 0,
-        "warnings": []
+        "warnings": [
+          "narration is 862% longer than the visual (limit 20%). Split the scene or rewrite the narration."
+        ]
       },
-      "ratePct": 0
+      "ratePct": 20
     },
     {
       "id": "s35-spec-first-practice",
@@ -1870,23 +2431,42 @@
         "width": 1440,
         "height": 810
       },
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s35-spec-first-practice.mp4",
+        "durationMs": 3141.64794921875,
+        "roi": {
+          "x": 323,
+          "y": 189.359375,
+          "width": 794,
+          "height": 108.28125
+        },
+        "hash": "713b447206bf"
+      },
+      "roi": {
+        "x": 323,
+        "y": 189.359375,
+        "width": 794,
+        "height": 108.28125
+      },
       "resolvedAudio": {
-        "filePath": "assets/audio/s35-spec-first-practice.wav",
-        "durationMs": 26025,
+        "filePath": "assets/audio/s35-spec-first-practice.r.wav",
+        "durationMs": 23325,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
         "hash": "c4a96ec45a6f"
       },
       "resolvedTiming": {
-        "mode": "audio-dictates",
-        "sceneMs": 26425,
-        "ratePct": 0,
-        "padVisualMs": 26425,
+        "mode": "reject",
+        "sceneMs": 22088,
+        "ratePct": 20,
+        "padVisualMs": 18946,
         "padAudioMs": 0,
-        "warnings": []
+        "warnings": [
+          "narration is 849% longer than the visual (limit 20%). Split the scene or rewrite the narration."
+        ]
       },
-      "ratePct": 0
+      "ratePct": 20
     },
     {
       "id": "s36-tdd-anchor",
@@ -1921,23 +2501,42 @@
         "width": 1440,
         "height": 810
       },
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s36-tdd-anchor.mp4",
+        "durationMs": 1136.89892578125,
+        "roi": {
+          "x": 346.609375,
+          "y": -5643.5625,
+          "width": 770.390625,
+          "height": 46.1875
+        },
+        "hash": "e78093fdfa36"
+      },
+      "roi": {
+        "x": 346.609375,
+        "y": -5643.5625,
+        "width": 770.390625,
+        "height": 46.1875
+      },
       "resolvedAudio": {
-        "filePath": "assets/audio/s36-tdd-anchor.wav",
-        "durationMs": 19475,
+        "filePath": "assets/audio/s36-tdd-anchor.r.wav",
+        "durationMs": 17275,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
         "hash": "b35814501ba4"
       },
       "resolvedTiming": {
-        "mode": "audio-dictates",
-        "sceneMs": 19875,
-        "ratePct": 0,
-        "padVisualMs": 19875,
+        "mode": "reject",
+        "sceneMs": 16629,
+        "ratePct": 20,
+        "padVisualMs": 15492,
         "padAudioMs": 0,
-        "warnings": []
+        "warnings": [
+          "narration is 2543% longer than the visual (limit 20%). Split the scene or rewrite the narration."
+        ]
       },
-      "ratePct": 0
+      "ratePct": 20
     },
     {
       "id": "s37-tdd-practice",
@@ -1974,23 +2573,42 @@
         "width": 1440,
         "height": 810
       },
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s37-tdd-practice.mp4",
+        "durationMs": 1130.443115234375,
+        "roi": {
+          "x": 323,
+          "y": -3114.859375,
+          "width": 794,
+          "height": 23.09375
+        },
+        "hash": "0ebcf6ba98a6"
+      },
+      "roi": {
+        "x": 323,
+        "y": -3114.859375,
+        "width": 794,
+        "height": 23.09375
+      },
       "resolvedAudio": {
-        "filePath": "assets/audio/s37-tdd-practice.wav",
-        "durationMs": 15800,
+        "filePath": "assets/audio/s37-tdd-practice.r.wav",
+        "durationMs": 14075,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
         "hash": "9971cf8322cc"
       },
       "resolvedTiming": {
-        "mode": "audio-dictates",
-        "sceneMs": 16200,
-        "ratePct": 0,
-        "padVisualMs": 16200,
+        "mode": "reject",
+        "sceneMs": 13567,
+        "ratePct": 20,
+        "padVisualMs": 12436,
         "padAudioMs": 0,
-        "warnings": []
+        "warnings": [
+          "narration is 2063% longer than the visual (limit 20%). Split the scene or rewrite the narration."
+        ]
       },
-      "ratePct": 0
+      "ratePct": 20
     },
     {
       "id": "s38-adr-anchor",
@@ -2025,23 +2643,42 @@
         "width": 1440,
         "height": 810
       },
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s38-adr-anchor.mp4",
+        "durationMs": 1131.365966796875,
+        "roi": {
+          "x": 455.328125,
+          "y": -4754,
+          "width": 113.34375,
+          "height": 209.796875
+        },
+        "hash": "f3ebc30f091d"
+      },
+      "roi": {
+        "x": 455.328125,
+        "y": -4754,
+        "width": 113.34375,
+        "height": 209.796875
+      },
       "resolvedAudio": {
-        "filePath": "assets/audio/s38-adr-anchor.wav",
-        "durationMs": 21100,
+        "filePath": "assets/audio/s38-adr-anchor.r.wav",
+        "durationMs": 19000,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
         "hash": "ab092e25de09"
       },
       "resolvedTiming": {
-        "mode": "audio-dictates",
-        "sceneMs": 21500,
-        "ratePct": 0,
-        "padVisualMs": 21500,
+        "mode": "reject",
+        "sceneMs": 17983,
+        "ratePct": 20,
+        "padVisualMs": 16852,
         "padAudioMs": 0,
-        "warnings": []
+        "warnings": [
+          "narration is 2785% longer than the visual (limit 20%). Split the scene or rewrite the narration."
+        ]
       },
-      "ratePct": 0
+      "ratePct": 20
     },
     {
       "id": "s39-adr-practice",
@@ -2078,23 +2715,42 @@
         "width": 1440,
         "height": 810
       },
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s39-adr-practice.mp4",
+        "durationMs": 1121.701171875,
+        "roi": {
+          "x": 342,
+          "y": 936.578125,
+          "width": 0,
+          "height": 0
+        },
+        "hash": "8a13abc56652"
+      },
+      "roi": {
+        "x": 342,
+        "y": 936.578125,
+        "width": 0,
+        "height": 0
+      },
       "resolvedAudio": {
-        "filePath": "assets/audio/s39-adr-practice.wav",
-        "durationMs": 16525,
+        "filePath": "assets/audio/s39-adr-practice.r.wav",
+        "durationMs": 14400,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
         "hash": "1cc510c3b952"
       },
       "resolvedTiming": {
-        "mode": "audio-dictates",
-        "sceneMs": 16925,
-        "ratePct": 0,
-        "padVisualMs": 16925,
+        "mode": "reject",
+        "sceneMs": 14171,
+        "ratePct": 20,
+        "padVisualMs": 13049,
         "padAudioMs": 0,
-        "warnings": []
+        "warnings": [
+          "narration is 2190% longer than the visual (limit 20%). Split the scene or rewrite the narration."
+        ]
       },
-      "ratePct": 0
+      "ratePct": 20
     },
     {
       "id": "s40-tracer-bullet-anchor",
@@ -2129,23 +2785,42 @@
         "width": 1440,
         "height": 810
       },
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s40-tracer-bullet-anchor.mp4",
+        "durationMs": 3637.055908203125,
+        "roi": {
+          "x": 323,
+          "y": 109.453125,
+          "width": 794,
+          "height": 23.09375
+        },
+        "hash": "1aafc19579aa"
+      },
+      "roi": {
+        "x": 323,
+        "y": 109.453125,
+        "width": 794,
+        "height": 23.09375
+      },
       "resolvedAudio": {
-        "filePath": "assets/audio/s40-tracer-bullet-anchor.wav",
-        "durationMs": 22475,
+        "filePath": "assets/audio/s40-tracer-bullet-anchor.r.wav",
+        "durationMs": 19875,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
         "hash": "6cd093cdb612"
       },
       "resolvedTiming": {
-        "mode": "audio-dictates",
-        "sceneMs": 22875,
-        "ratePct": 0,
-        "padVisualMs": 22875,
+        "mode": "reject",
+        "sceneMs": 19129,
+        "ratePct": 20,
+        "padVisualMs": 15492,
         "padAudioMs": 0,
-        "warnings": []
+        "warnings": [
+          "narration is 594% longer than the visual (limit 20%). Split the scene or rewrite the narration."
+        ]
       },
-      "ratePct": 0
+      "ratePct": 20
     },
     {
       "id": "s41-tracer-bullet-practice",
@@ -2182,23 +2857,42 @@
         "width": 1440,
         "height": 810
       },
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s41-tracer-bullet-practice.mp4",
+        "durationMs": 3143.222900390625,
+        "roi": {
+          "x": 323,
+          "y": 135.546875,
+          "width": 794,
+          "height": 83.3125
+        },
+        "hash": "d95ecef8913f"
+      },
+      "roi": {
+        "x": 323,
+        "y": 135.546875,
+        "width": 794,
+        "height": 83.3125
+      },
       "resolvedAudio": {
-        "filePath": "assets/audio/s41-tracer-bullet-practice.wav",
-        "durationMs": 15200,
+        "filePath": "assets/audio/s41-tracer-bullet-practice.r.wav",
+        "durationMs": 13250,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
         "hash": "fdd0e2a82663"
       },
       "resolvedTiming": {
-        "mode": "audio-dictates",
-        "sceneMs": 15600,
-        "ratePct": 0,
-        "padVisualMs": 15600,
+        "mode": "reject",
+        "sceneMs": 13067,
+        "ratePct": 20,
+        "padVisualMs": 9923,
         "padAudioMs": 0,
-        "warnings": []
+        "warnings": [
+          "narration is 454% longer than the visual (limit 20%). Split the scene or rewrite the narration."
+        ]
       },
-      "ratePct": 0
+      "ratePct": 20
     },
     {
       "id": "s42-living-docs-anchor",
@@ -2233,23 +2927,42 @@
         "width": 1440,
         "height": 810
       },
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s42-living-docs-anchor.mp4",
+        "durationMs": 3647.2412109375,
+        "roi": {
+          "x": 323,
+          "y": 109.859375,
+          "width": 794,
+          "height": 23.09375
+        },
+        "hash": "31c978d8fb10"
+      },
+      "roi": {
+        "x": 323,
+        "y": 109.859375,
+        "width": 794,
+        "height": 23.09375
+      },
       "resolvedAudio": {
-        "filePath": "assets/audio/s42-living-docs-anchor.wav",
-        "durationMs": 17675,
+        "filePath": "assets/audio/s42-living-docs-anchor.r.wav",
+        "durationMs": 15650,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
         "hash": "4200910d3bca"
       },
       "resolvedTiming": {
-        "mode": "audio-dictates",
-        "sceneMs": 18075,
-        "ratePct": 0,
-        "padVisualMs": 18075,
+        "mode": "reject",
+        "sceneMs": 15129,
+        "ratePct": 20,
+        "padVisualMs": 11482,
         "padAudioMs": 0,
-        "warnings": []
+        "warnings": [
+          "narration is 444% longer than the visual (limit 20%). Split the scene or rewrite the narration."
+        ]
       },
-      "ratePct": 0
+      "ratePct": 20
     },
     {
       "id": "s43-living-docs-practice",
@@ -2286,23 +2999,42 @@
         "width": 1440,
         "height": 810
       },
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s43-living-docs-practice.mp4",
+        "durationMs": 3140.716064453125,
+        "roi": {
+          "x": 323,
+          "y": 135.953125,
+          "width": 794,
+          "height": 83.3125
+        },
+        "hash": "75d713823c4c"
+      },
+      "roi": {
+        "x": 323,
+        "y": 135.953125,
+        "width": 794,
+        "height": 83.3125
+      },
       "resolvedAudio": {
-        "filePath": "assets/audio/s43-living-docs-practice.wav",
-        "durationMs": 16575,
+        "filePath": "assets/audio/s43-living-docs-practice.r.wav",
+        "durationMs": 14650,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
         "hash": "1dd2f528fab4"
       },
       "resolvedTiming": {
-        "mode": "audio-dictates",
-        "sceneMs": 16975,
-        "ratePct": 0,
-        "padVisualMs": 16975,
+        "mode": "reject",
+        "sceneMs": 14213,
+        "ratePct": 20,
+        "padVisualMs": 11072,
         "padAudioMs": 0,
-        "warnings": []
+        "warnings": [
+          "narration is 505% longer than the visual (limit 20%). Split the scene or rewrite the narration."
+        ]
       },
-      "ratePct": 0
+      "ratePct": 20
     },
     {
       "id": "s44-orchestrator-anchor",
@@ -2341,23 +3073,42 @@
         "width": 1440,
         "height": 810
       },
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s44-orchestrator-anchor.mp4",
+        "durationMs": 5951.390869140625,
+        "roi": {
+          "x": 323,
+          "y": 109.65625,
+          "width": 794,
+          "height": 23.09375
+        },
+        "hash": "738c6fcc87b4"
+      },
+      "roi": {
+        "x": 323,
+        "y": 109.65625,
+        "width": 794,
+        "height": 23.09375
+      },
       "resolvedAudio": {
-        "filePath": "assets/audio/s44-orchestrator-anchor.wav",
-        "durationMs": 16225.000000000002,
+        "filePath": "assets/audio/s44-orchestrator-anchor.r.wav",
+        "durationMs": 14450,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
         "hash": "c3be1b023ebb"
       },
       "resolvedTiming": {
-        "mode": "audio-dictates",
-        "sceneMs": 16625,
-        "ratePct": 0,
-        "padVisualMs": 16625,
+        "mode": "reject",
+        "sceneMs": 13921,
+        "ratePct": 20,
+        "padVisualMs": 7969,
         "padAudioMs": 0,
-        "warnings": []
+        "warnings": [
+          "narration is 192% longer than the visual (limit 20%). Split the scene or rewrite the narration."
+        ]
       },
-      "ratePct": 0
+      "ratePct": 20
     },
     {
       "id": "s45-who-knows-what-slide",
@@ -2402,6 +3153,12 @@
       },
       "vertical": {
         "strategy": "native"
+      },
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s45-who-knows-what-slide.mp4",
+        "durationMs": 20800,
+        "roi": null,
+        "hash": "d8ed4c299761"
       },
       "resolvedAudio": {
         "filePath": "assets/audio/s45-who-knows-what-slide.wav",
@@ -2456,23 +3213,42 @@
         "width": 1440,
         "height": 810
       },
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s46-orchestrator-practice.mp4",
+        "durationMs": 3133.8759765625,
+        "roi": {
+          "x": 323,
+          "y": 67.75,
+          "width": 794,
+          "height": 41.65625
+        },
+        "hash": "59a95c17659f"
+      },
+      "roi": {
+        "x": 323,
+        "y": 67.75,
+        "width": 794,
+        "height": 41.65625
+      },
       "resolvedAudio": {
-        "filePath": "assets/audio/s46-orchestrator-practice.wav",
-        "durationMs": 18750,
+        "filePath": "assets/audio/s46-orchestrator-practice.r.wav",
+        "durationMs": 16475,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
         "hash": "552cabbeb49b"
       },
       "resolvedTiming": {
-        "mode": "audio-dictates",
-        "sceneMs": 19150,
-        "ratePct": 0,
-        "padVisualMs": 19150,
+        "mode": "reject",
+        "sceneMs": 16025,
+        "ratePct": 20,
+        "padVisualMs": 12891,
         "padAudioMs": 0,
-        "warnings": []
+        "warnings": [
+          "narration is 586% longer than the visual (limit 20%). Split the scene or rewrite the narration."
+        ]
       },
-      "ratePct": 0
+      "ratePct": 20
     },
     {
       "id": "s47-subagents-anchor",
@@ -2507,23 +3283,42 @@
         "width": 1440,
         "height": 810
       },
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s47-subagents-anchor.mp4",
+        "durationMs": 3641.078857421875,
+        "roi": {
+          "x": 323,
+          "y": 109.40625,
+          "width": 794,
+          "height": 23.09375
+        },
+        "hash": "9456cab63a1f"
+      },
+      "roi": {
+        "x": 323,
+        "y": 109.40625,
+        "width": 794,
+        "height": 23.09375
+      },
       "resolvedAudio": {
-        "filePath": "assets/audio/s47-subagents-anchor.wav",
-        "durationMs": 13825,
+        "filePath": "assets/audio/s47-subagents-anchor.r.wav",
+        "durationMs": 12225,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
         "hash": "d685604daebc"
       },
       "resolvedTiming": {
-        "mode": "audio-dictates",
-        "sceneMs": 14225,
-        "ratePct": 0,
-        "padVisualMs": 14225,
+        "mode": "reject",
+        "sceneMs": 11921,
+        "ratePct": 20,
+        "padVisualMs": 8280,
         "padAudioMs": 0,
-        "warnings": []
+        "warnings": [
+          "narration is 327% longer than the visual (limit 20%). Split the scene or rewrite the narration."
+        ]
       },
-      "ratePct": 0
+      "ratePct": 20
     },
     {
       "id": "s48-subagents-practice",
@@ -2560,23 +3355,42 @@
         "width": 1440,
         "height": 810
       },
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s48-subagents-practice.mp4",
+        "durationMs": 3141.578125,
+        "roi": {
+          "x": 323,
+          "y": 135.5,
+          "width": 794,
+          "height": 41.65625
+        },
+        "hash": "44a116fd7245"
+      },
+      "roi": {
+        "x": 323,
+        "y": 135.5,
+        "width": 794,
+        "height": 41.65625
+      },
       "resolvedAudio": {
-        "filePath": "assets/audio/s48-subagents-practice.wav",
-        "durationMs": 17650,
+        "filePath": "assets/audio/s48-subagents-practice.r.wav",
+        "durationMs": 15175,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
         "hash": "2799a3b5b7f1"
       },
       "resolvedTiming": {
-        "mode": "audio-dictates",
-        "sceneMs": 18050,
-        "ratePct": 0,
-        "padVisualMs": 18050,
+        "mode": "reject",
+        "sceneMs": 15108,
+        "ratePct": 20,
+        "padVisualMs": 11967,
         "padAudioMs": 0,
-        "warnings": []
+        "warnings": [
+          "narration is 544% longer than the visual (limit 20%). Split the scene or rewrite the narration."
+        ]
       },
-      "ratePct": 0
+      "ratePct": 20
     },
     {
       "id": "s49-review-anchor",
@@ -2611,23 +3425,42 @@
         "width": 1440,
         "height": 810
       },
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s49-review-anchor.mp4",
+        "durationMs": 3645.0390625,
+        "roi": {
+          "x": 323,
+          "y": 109.15625,
+          "width": 794,
+          "height": 23.09375
+        },
+        "hash": "e924f6c4dc3e"
+      },
+      "roi": {
+        "x": 323,
+        "y": 109.15625,
+        "width": 794,
+        "height": 23.09375
+      },
       "resolvedAudio": {
-        "filePath": "assets/audio/s49-review-anchor.wav",
-        "durationMs": 18625,
+        "filePath": "assets/audio/s49-review-anchor.r.wav",
+        "durationMs": 16850,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
         "hash": "d7fafaa15994"
       },
       "resolvedTiming": {
-        "mode": "audio-dictates",
-        "sceneMs": 19025,
-        "ratePct": 0,
-        "padVisualMs": 19025,
+        "mode": "reject",
+        "sceneMs": 15921,
+        "ratePct": 20,
+        "padVisualMs": 12276,
         "padAudioMs": 0,
-        "warnings": []
+        "warnings": [
+          "narration is 474% longer than the visual (limit 20%). Split the scene or rewrite the narration."
+        ]
       },
-      "ratePct": 0
+      "ratePct": 20
     },
     {
       "id": "s50-review-practice",
@@ -2664,23 +3497,42 @@
         "width": 1440,
         "height": 810
       },
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s50-review-practice.mp4",
+        "durationMs": 3136.673095703125,
+        "roi": {
+          "x": 323,
+          "y": 135.25,
+          "width": 794,
+          "height": 62.484375
+        },
+        "hash": "2e77ae0a27c3"
+      },
+      "roi": {
+        "x": 323,
+        "y": 135.25,
+        "width": 794,
+        "height": 62.484375
+      },
       "resolvedAudio": {
-        "filePath": "assets/audio/s50-review-practice.wav",
-        "durationMs": 18200,
+        "filePath": "assets/audio/s50-review-practice.r.wav",
+        "durationMs": 16100.000000000002,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
         "hash": "e1e157f2691a"
       },
       "resolvedTiming": {
-        "mode": "audio-dictates",
-        "sceneMs": 18600,
-        "ratePct": 0,
-        "padVisualMs": 18600,
+        "mode": "reject",
+        "sceneMs": 15567,
+        "ratePct": 20,
+        "padVisualMs": 12430,
         "padAudioMs": 0,
-        "warnings": []
+        "warnings": [
+          "narration is 565% longer than the visual (limit 20%). Split the scene or rewrite the narration."
+        ]
       },
-      "ratePct": 0
+      "ratePct": 20
     },
     {
       "id": "s51-parallel-anchor",
@@ -2715,23 +3567,42 @@
         "width": 1440,
         "height": 810
       },
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s51-parallel-anchor.mp4",
+        "durationMs": 3644.0078125,
+        "roi": {
+          "x": 323,
+          "y": 109.734375,
+          "width": 794,
+          "height": 23.09375
+        },
+        "hash": "c03793dfb54e"
+      },
+      "roi": {
+        "x": 323,
+        "y": 109.734375,
+        "width": 794,
+        "height": 23.09375
+      },
       "resolvedAudio": {
-        "filePath": "assets/audio/s51-parallel-anchor.wav",
-        "durationMs": 18025,
+        "filePath": "assets/audio/s51-parallel-anchor.r.wav",
+        "durationMs": 16100.000000000002,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
         "hash": "25aa1d49e6de"
       },
       "resolvedTiming": {
-        "mode": "audio-dictates",
-        "sceneMs": 18425,
-        "ratePct": 0,
-        "padVisualMs": 18425,
+        "mode": "reject",
+        "sceneMs": 15421,
+        "ratePct": 20,
+        "padVisualMs": 11777,
         "padAudioMs": 0,
-        "warnings": []
+        "warnings": [
+          "narration is 456% longer than the visual (limit 20%). Split the scene or rewrite the narration."
+        ]
       },
-      "ratePct": 0
+      "ratePct": 20
     },
     {
       "id": "s52-parallel-practice",
@@ -2768,23 +3639,42 @@
         "width": 1440,
         "height": 810
       },
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s52-parallel-practice.mp4",
+        "durationMs": 3137.76904296875,
+        "roi": {
+          "x": 323,
+          "y": 65.828125,
+          "width": 794,
+          "height": 62.484375
+        },
+        "hash": "5cf897fad2ff"
+      },
+      "roi": {
+        "x": 323,
+        "y": 65.828125,
+        "width": 794,
+        "height": 62.484375
+      },
       "resolvedAudio": {
-        "filePath": "assets/audio/s52-parallel-practice.wav",
-        "durationMs": 19150,
+        "filePath": "assets/audio/s52-parallel-practice.r.wav",
+        "durationMs": 16775,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
         "hash": "f594d20cf6bb"
       },
       "resolvedTiming": {
-        "mode": "audio-dictates",
-        "sceneMs": 19550,
-        "ratePct": 0,
-        "padVisualMs": 19550,
+        "mode": "reject",
+        "sceneMs": 16358,
+        "ratePct": 20,
+        "padVisualMs": 13221,
         "padAudioMs": 0,
-        "warnings": []
+        "warnings": [
+          "narration is 599% longer than the visual (limit 20%). Split the scene or rewrite the narration."
+        ]
       },
-      "ratePct": 0
+      "ratePct": 20
     },
     {
       "id": "s53-topic-recap",
@@ -2830,6 +3720,12 @@
       "vertical": {
         "strategy": "native"
       },
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s53-topic-recap.mp4",
+        "durationMs": 45200,
+        "roi": null,
+        "hash": "9592bbd164bd"
+      },
       "resolvedAudio": {
         "filePath": "assets/audio/s53-topic-recap.wav",
         "durationMs": 46550,
@@ -2870,6 +3766,12 @@
       },
       "vertical": {
         "strategy": "native"
+      },
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s54-closing-claim.mp4",
+        "durationMs": 19600,
+        "roi": null,
+        "hash": "d3e5ee2b7919"
       },
       "resolvedAudio": {
         "filePath": "assets/audio/s54-closing-claim.wav",

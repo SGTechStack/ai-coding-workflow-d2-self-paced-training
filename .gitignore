@@ -7,8 +7,10 @@ skills-lock.json
 .DS_Store
 */node_modules
 
-# video-generator: video-generation
-video-generation/.runtime/
-video-generation/assets/
-video-generation/output/
-video-generation/*.log
+# presentation-producer: presentations
+presentations/.runtime/
+presentations/*/assets/
+presentations/*/output/
+presentations/*/ledger.json
+presentations/*/deck*.md
+presentations/*/*.log

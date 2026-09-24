@@ -28,34 +28,57 @@ video:
   #   2. The per-action cost is NOT the declared delay. Measured by instrumenting
   #      page.screencast with the same options capture.mjs uses:
   #        scroll     = delayMs + 620ms   (mouse.wheel dispatch and settle)
-  #        highlight  = delayMs x 2       (showOverlay BLOCKS for `duration`,
-  #                                        then runSteps waits delayMs AGAIN)
+  #        highlight  = delayMs x 2       (showOverlay BLOCKS for `duration`, so
+  #                                        the overlay is visible for the FIRST
+  #                                        delayMs and there is then a FORCED
+  #                                        blank gap of the same length, because
+  #                                        runSteps waits delayMs again)
   #        wait       = delayMs
   #        chapter card adds ~2301ms
-  #      Because a clip ends at its last repaint, a TRAILING scroll contributes
-  #      only ~620ms and a trailing highlight only delayMs. For the shape used
-  #      below — one init scroll, H highlights, then S trailing 45px pans:
-  #        duration = (init + 620) + 2*D*H + (S-1)*(D + 620) + 620     [S >= 1]
-  #        duration = (init + 620) + 2*D*(H-1) + D                     [S == 0]
-  #      Predicted vs measured: s08 28236/28238ms, s11 34732/34810ms.
+  #      Because a clip ends at its last repaint, a TRAILING highlight costs only
+  #      delayMs — its auto-hide IS that repaint. Verified against real captures:
+  #      scroll(600)+highlight(20000) predicted 21220ms, measured 21271ms;
+  #      scroll(600)+highlight(4000)+highlight(6000) predicted 15220ms, measured
+  #      15266ms.
   #   3. planTiming() only returns `speech-fit` — the one mode where the scene
   #      duration EQUALS the visual, so the verify gate's scene-drift check reads
   #      zero — when the narration is within 7% of the visual. Beyond that it
   #      pads with a frozen frame and the pad IS the drift, so the gate fails.
   #
-  # So D and S are solved per scene for  visual = narration + 400ms tail, which
-  # lands delta under 1%, needs no audible speech re-rating, and leaves drift at
-  # zero. D is bounded to [1700, 4200] so no static gap reaches freezedetect's
-  # 6s threshold. Change a narration and that scene's delays must be re-solved,
-  # or its scene-drift FAIL returns.
+  # So every capture below is  ONE seating scroll + a run of `highlight` beats,
+  # ending on a highlight so the clip closes exactly on narration + 400ms:
+  #        duration = (init + 620) + 2*sum(D[0..n-2]) + D[n-1]
   #
-  # `highlight` draws a position:fixed overlay at the element's viewport box and
-  # does NOT scroll it into view, so every target must already be on screen;
-  # the trailing pans are therefore placed AFTER all highlights, never between.
-  # Targets are also scoped (`.concept-name:text-is(...)`) rather than loose
-  # `text:`, because resolveTarget uses getByText(...).first() and an earlier
-  # DOM match silently wins — four scenes were highlighting a box thousands of
-  # pixels off-screen while their `visible` asserts still passed.
+  # THE SCENE SCROLLS EXACTLY ONCE, AND NEVER AGAIN. An earlier version padded
+  # each clip to length with a run of 45px pans after the last highlight. That
+  # satisfied the drift gate while scrolling the subject clean out of the frame —
+  # s32 lost the HITL block off the top edge 4s into a 27.5s scene and spent the
+  # remaining 23s creeping over Spec-First, TDD and ADR content while the voice
+  # was still on HITL. Deck-wide an overlay was on screen only 20.4% of the time
+  # and 7,470px of pan went nowhere. Neither gate could see it: checkSceneSync
+  # only compares durations, and the pans actively SUPPRESSED freezedetect.
+  # Never pad a capture with motion — hold a highlight instead.
+  #
+  # Beats alternate between the concept's heading and its description so the
+  # frame keeps changing without the page moving, and each beat is capped at 5s
+  # so no static stretch reaches freezedetect's 6s window. Where the narration
+  # names a <strong> sub-label, that beat is pinned to the term's own SRT cue
+  # start, so the emphasis lands on the word as it is spoken (15 such beats,
+  # all verified to overlap their cue).
+  #
+  # Change a narration and that scene's beats must be re-solved, or its
+  # scene-drift FAIL returns.
+  #
+  # Two selector traps, both hit in earlier versions:
+  #   * `highlight` draws a position:fixed overlay at the element's viewport box
+  #     and does NOT scroll it into view, so every target must already be in
+  #     frame. Targets are scoped to the concept rather than a loose `text:`,
+  #     because resolveTarget uses getByText(...).first() and an earlier DOM
+  #     match silently wins — four scenes were painting their overlay thousands
+  #     of pixels off-screen while their `visible` asserts still passed.
+  #   * sub-labels use `strong:has-text(...)`, NOT `:text-is(...)`. Playwright's
+  #     text engines match only IMMEDIATE text, and several of these terms wrap
+  #     their text in an <a>, so `:text-is` silently matches nothing.
   voice: { provider: kokoro, gender: female }
   baseUrl: http://127.0.0.1:4173
 
@@ -116,10 +139,9 @@ entries:
     setupScript: setup/capture-determinism.mjs
     steps:
       - { action: waitForText, value: 'Foundations of Agentic Engineering' }
-      - { action: wait, delayMs: 2960 }
-      - { action: scroll, delta: 1600, delayMs: 1100 }
-      - { action: scroll, delta: 1600, delayMs: 800 }
-      - { action: highlight, text: 'understand, extend, and refine the workflow', delayMs: 3475 }
+      - { action: wait, delayMs: 2000 }
+      - { action: scroll, delta: 2916, delayMs: 600 }
+      - { action: highlight, text: 'Four topics that give you the foundation', delayMs: 5838 }
     assert:
       visible: ["Foundations of Agentic Engineering", "basis for the customisations taught in Lessons 1 and 2"]
       notVisible: ["Something went wrong"]
@@ -146,12 +168,11 @@ entries:
     url: /index.html#phase-llms
     setupScript: setup/capture-determinism.mjs
     steps:
-      - { action: scroll, delta: 0, delayMs: 600 }
-      - { action: highlight, text: 'Context Windows, Smart Zone', delayMs: 3129 }
-      - { action: highlight, selector: '.concept:has(.concept-name:text-is("Context Windows, Smart Zone / Dumb Zone, and Lost in the Middle")) strong >> nth=0', delayMs: 3129 }
-      - { action: highlight, selector: '.concept:has(.concept-name:text-is("Context Windows, Smart Zone / Dumb Zone, and Lost in the Middle")) strong >> nth=1', delayMs: 3129 }
-      - { action: highlight, selector: '.concept:has(.concept-name:text-is("Context Windows, Smart Zone / Dumb Zone, and Lost in the Middle")) strong >> nth=2', delayMs: 3129 }
-      - { action: scroll, delta: 45, delayMs: 3131 }
+      - { action: scroll, delta: -344, delayMs: 600 }
+      - { action: highlight, selector: '.concept-name:text-is("Context Windows, Smart Zone / Dumb Zone, and Lost in the Middle")', delayMs: 3009 }
+      - { action: highlight, selector: '.concept:has(.concept-name:text-is("Context Windows, Smart Zone / Dumb Zone, and Lost in the Middle")) .concept-desc', delayMs: 3009 }
+      - { action: highlight, selector: '.concept:has(.concept-name:text-is("Context Windows, Smart Zone / Dumb Zone, and Lost in the Middle")) strong:has-text("Dumb Zone")', delayMs: 5000 }
+      - { action: highlight, selector: '.concept-name:text-is("Context Windows, Smart Zone / Dumb Zone, and Lost in the Middle")', delayMs: 3437 }
     assert:
       visible: ["How LLMs Actually Work", "Smart Zone"]
     narration: >-
@@ -180,13 +201,10 @@ entries:
     setupScript: setup/capture-determinism.mjs
     roiSelector: '.concept:has-text("Smart Zone")'
     steps:
-      - { action: scroll, delta: 0, delayMs: 600 }
-      - { action: highlight, text: 'Lost in the Middle', delayMs: 2934 }
-      - { action: scroll, delta: 45, delayMs: 2934 }
-      - { action: scroll, delta: 45, delayMs: 2934 }
-      - { action: scroll, delta: 45, delayMs: 2934 }
-      - { action: scroll, delta: 45, delayMs: 2934 }
-      - { action: scroll, delta: 45, delayMs: 2935 }
+      - { action: scroll, delta: -344, delayMs: 600 }
+      - { action: highlight, selector: '.concept-name:text-is("Context Windows, Smart Zone / Dumb Zone, and Lost in the Middle")', delayMs: 4128 }
+      - { action: highlight, selector: '.concept:has(.concept-name:text-is("Context Windows, Smart Zone / Dumb Zone, and Lost in the Middle")) .concept-desc', delayMs: 4128 }
+      - { action: highlight, selector: '.concept-name:text-is("Context Windows, Smart Zone / Dumb Zone, and Lost in the Middle")', delayMs: 4126 }
     assert:
       visible: ["Dumb Zone", "Lost in the Middle"]
     narration: >-
@@ -200,14 +218,10 @@ entries:
     url: /index.html#phase-llms
     setupScript: setup/capture-determinism.mjs
     steps:
-      - { action: scroll, delta: 150, delayMs: 600 }
-      - { action: highlight, text: 'LLM Memory Architecture', delayMs: 2887 }
-      - { action: scroll, delta: 45, delayMs: 2887 }
-      - { action: scroll, delta: 45, delayMs: 2887 }
-      - { action: scroll, delta: 45, delayMs: 2887 }
-      - { action: scroll, delta: 45, delayMs: 2887 }
-      - { action: scroll, delta: 45, delayMs: 2887 }
-      - { action: scroll, delta: 45, delayMs: 2888 }
+      - { action: scroll, delta: -213, delayMs: 600 }
+      - { action: highlight, selector: '.concept-name:text-is("LLM Memory Architecture")', delayMs: 4773 }
+      - { action: highlight, selector: '.concept:has(.concept-name:text-is("LLM Memory Architecture")) .concept-desc', delayMs: 4773 }
+      - { action: highlight, selector: '.concept-name:text-is("LLM Memory Architecture")', delayMs: 4771 }
     assert:
       visible: ["LLM Memory Architecture", "parametric"]
     narration: >-
@@ -235,12 +249,10 @@ entries:
     setupScript: setup/capture-determinism.mjs
     roiSelector: '.concept:has-text("LLM Memory Architecture")'
     steps:
-      - { action: scroll, delta: 150, delayMs: 600 }
-      - { action: highlight, text: 'external', delayMs: 3120 }
-      - { action: scroll, delta: 45, delayMs: 3120 }
-      - { action: scroll, delta: 45, delayMs: 3120 }
-      - { action: scroll, delta: 45, delayMs: 3120 }
-      - { action: scroll, delta: 45, delayMs: 3120 }
+      - { action: scroll, delta: -213, delayMs: 600 }
+      - { action: highlight, selector: '.concept-name:text-is("LLM Memory Architecture")', delayMs: 3603 }
+      - { action: highlight, selector: '.concept:has(.concept-name:text-is("LLM Memory Architecture")) .concept-desc', delayMs: 3603 }
+      - { action: highlight, selector: '.concept-name:text-is("LLM Memory Architecture")', delayMs: 3601 }
     assert:
       visible: ["in-context", "external"]
     narration: >-
@@ -254,13 +266,10 @@ entries:
     url: /index.html#phase-llms
     setupScript: setup/capture-determinism.mjs
     steps:
-      - { action: scroll, delta: 280, delayMs: 600 }
-      - { action: highlight, text: 'Hallucination and Non-determinism', delayMs: 2787 }
-      - { action: highlight, selector: '.concept:has(.concept-name:text-is("Hallucination and Non-determinism")) strong >> nth=0', delayMs: 2787 }
-      - { action: highlight, selector: '.concept:has(.concept-name:text-is("Hallucination and Non-determinism")) strong >> nth=1', delayMs: 2787 }
-      - { action: scroll, delta: 45, delayMs: 2787 }
-      - { action: scroll, delta: 45, delayMs: 2787 }
-      - { action: scroll, delta: 45, delayMs: 2786 }
+      - { action: scroll, delta: -72, delayMs: 600 }
+      - { action: highlight, selector: '.concept:has(.concept-name:text-is("Hallucination and Non-determinism")) strong:has-text("Hallucination")', delayMs: 5000 }
+      - { action: highlight, selector: '.concept-name:text-is("Hallucination and Non-determinism")', delayMs: 4569 }
+      - { action: highlight, selector: '.concept:has(.concept-name:text-is("Hallucination and Non-determinism")) strong:has-text("Non-determinism")', delayMs: 4950 }
     assert:
       visible: ["Hallucination", "Non-determinism"]
     narration: >-
@@ -273,14 +282,10 @@ entries:
     setupScript: setup/capture-determinism.mjs
     roiSelector: '.concept:has-text("Hallucination")'
     steps:
-      - { action: scroll, delta: 280, delayMs: 600 }
-      - { action: highlight, text: 'Machine-verifiable tests', delayMs: 2905 }
-      - { action: scroll, delta: 45, delayMs: 2905 }
-      - { action: scroll, delta: 45, delayMs: 2905 }
-      - { action: scroll, delta: 45, delayMs: 2905 }
-      - { action: scroll, delta: 45, delayMs: 2905 }
-      - { action: scroll, delta: 45, delayMs: 2905 }
-      - { action: scroll, delta: 45, delayMs: 2905 }
+      - { action: scroll, delta: -72, delayMs: 600 }
+      - { action: highlight, selector: '.concept-name:text-is("Hallucination and Non-determinism")', delayMs: 4798 }
+      - { action: highlight, selector: '.concept:has(.concept-name:text-is("Hallucination and Non-determinism")) .concept-desc', delayMs: 4798 }
+      - { action: highlight, selector: '.concept-name:text-is("Hallucination and Non-determinism")', delayMs: 4796 }
     assert:
       visible: ["human review", "convergence signal"]
     narration: >-
@@ -299,13 +304,12 @@ entries:
     chapterDescription: Agentic Engineering
     setupScript: setup/capture-determinism.mjs
     steps:
-      - { action: scroll, delta: 0, delayMs: 600 }
-      - { action: highlight, text: 'Prompt Engineering', delayMs: 2863 }
-      - { action: highlight, selector: '.concept:has(.concept-name:text-is("Prompt Engineering")) strong >> nth=0', delayMs: 2863 }
-      - { action: highlight, selector: '.concept:has(.concept-name:text-is("Prompt Engineering")) strong >> nth=1', delayMs: 2863 }
-      - { action: highlight, selector: '.concept:has(.concept-name:text-is("Prompt Engineering")) strong >> nth=2', delayMs: 2863 }
-      - { action: scroll, delta: 45, delayMs: 2863 }
-      - { action: scroll, delta: 45, delayMs: 2860 }
+      - { action: scroll, delta: -343, delayMs: 600 }
+      - { action: highlight, selector: '.concept-name:text-is("Prompt Engineering")', delayMs: 3034 }
+      - { action: highlight, selector: '.concept:has(.concept-name:text-is("Prompt Engineering")) strong:has-text("role framing")', delayMs: 1836 }
+      - { action: highlight, selector: '.concept:has(.concept-name:text-is("Prompt Engineering")) strong:has-text("positive framing")', delayMs: 4787 }
+      - { action: highlight, selector: '.concept:has(.concept-name:text-is("Prompt Engineering")) strong:has-text("chain-of-thought elicitation")', delayMs: 1967 }
+      - { action: highlight, selector: '.concept:has(.concept-name:text-is("Prompt Engineering")) strong:has-text("explicit completion criteria")', delayMs: 3575 }
     assert:
       visible: ["Agentic Engineering", "Prompt Engineering", "role framing"]
     # Opens with a spoken seam into Topic 2. The `overlay: chapter` card carries
@@ -326,12 +330,10 @@ entries:
     setupScript: setup/capture-determinism.mjs
     roiSelector: '.concept:has-text("Prompt Engineering")'
     steps:
-      - { action: scroll, delta: 0, delayMs: 600 }
-      - { action: highlight, text: 'positive framing', delayMs: 3220 }
-      - { action: scroll, delta: 45, delayMs: 3220 }
-      - { action: scroll, delta: 45, delayMs: 3220 }
-      - { action: scroll, delta: 45, delayMs: 3220 }
-      - { action: scroll, delta: 45, delayMs: 3220 }
+      - { action: scroll, delta: -343, delayMs: 600 }
+      - { action: highlight, selector: '.concept-name:text-is("Prompt Engineering")', delayMs: 2975 }
+      - { action: highlight, selector: '.concept:has(.concept-name:text-is("Prompt Engineering")) .concept-desc', delayMs: 2975 }
+      - { action: highlight, selector: '.concept:has(.concept-name:text-is("Prompt Engineering")) strong:has-text("explicit completion criteria")', delayMs: 6613 }
     assert:
       visible: ["chain-of-thought", "completion criteria"]
     narration: >-
@@ -348,13 +350,11 @@ entries:
     url: /index.html#phase-engineering
     setupScript: setup/capture-determinism.mjs
     steps:
-      - { action: scroll, delta: 150, delayMs: 600 }
-      - { action: highlight, text: 'Context Engineering', delayMs: 2875 }
-      - { action: highlight, selector: '.concept:has(.concept-name:text-is("Context Engineering")) strong >> nth=0', delayMs: 2875 }
-      - { action: scroll, delta: 45, delayMs: 2875 }
-      - { action: scroll, delta: 45, delayMs: 2875 }
-      - { action: scroll, delta: 45, delayMs: 2875 }
-      - { action: scroll, delta: 45, delayMs: 2875 }
+      - { action: scroll, delta: -223, delayMs: 600 }
+      - { action: highlight, selector: '.concept-name:text-is("Context Engineering")', delayMs: 3762 }
+      - { action: highlight, selector: '.concept:has(.concept-name:text-is("Context Engineering")) strong:has-text("Context rot")', delayMs: 5000 }
+      - { action: highlight, selector: '.concept:has(.concept-name:text-is("Context Engineering")) .concept-desc', delayMs: 1671 }
+      - { action: highlight, selector: '.concept-name:text-is("Context Engineering")', delayMs: 1672 }
     assert:
       visible: ["Context Engineering", "Context rot"]
     narration: >-
@@ -371,12 +371,10 @@ entries:
     setupScript: setup/capture-determinism.mjs
     roiSelector: '.concept:has-text("Context rot")'
     steps:
-      - { action: scroll, delta: 150, delayMs: 600 }
-      - { action: highlight, text: 'just-in-time', delayMs: 3220 }
-      - { action: scroll, delta: 45, delayMs: 3220 }
-      - { action: scroll, delta: 45, delayMs: 3220 }
-      - { action: scroll, delta: 45, delayMs: 3220 }
-      - { action: scroll, delta: 45, delayMs: 3220 }
+      - { action: scroll, delta: -223, delayMs: 600 }
+      - { action: highlight, selector: '.concept-name:text-is("Context Engineering")', delayMs: 3703 }
+      - { action: highlight, selector: '.concept:has(.concept-name:text-is("Context Engineering")) .concept-desc', delayMs: 3703 }
+      - { action: highlight, selector: '.concept-name:text-is("Context Engineering")', delayMs: 3701 }
     assert:
       visible: ["pre-load", "just-in-time"]
     narration: >-
@@ -392,13 +390,10 @@ entries:
     url: /index.html#phase-engineering
     setupScript: setup/capture-determinism.mjs
     steps:
-      - { action: scroll, delta: 260, delayMs: 600 }
-      - { action: highlight, text: 'Retrieval-Augmented Generation', delayMs: 2684 }
-      - { action: scroll, delta: 45, delayMs: 2684 }
-      - { action: scroll, delta: 45, delayMs: 2684 }
-      - { action: scroll, delta: 45, delayMs: 2684 }
-      - { action: scroll, delta: 45, delayMs: 2684 }
-      - { action: scroll, delta: 45, delayMs: 2685 }
+      - { action: scroll, delta: -103, delayMs: 600 }
+      - { action: highlight, selector: '.concept-name:text-is("Retrieval-Augmented Generation (RAG)")', delayMs: 3828 }
+      - { action: highlight, selector: '.concept:has(.concept-name:text-is("Retrieval-Augmented Generation (RAG)")) .concept-desc', delayMs: 3828 }
+      - { action: highlight, selector: '.concept-name:text-is("Retrieval-Augmented Generation (RAG)")', delayMs: 3826 }
     assert:
       visible: ["Retrieval-Augmented Generation", "chunked"]
     narration: >-
@@ -415,11 +410,9 @@ entries:
     setupScript: setup/capture-determinism.mjs
     roiSelector: '.concept:has-text("Retrieval-Augmented Generation")'
     steps:
-      - { action: scroll, delta: 260, delayMs: 600 }
-      - { action: highlight, text: 'just-in-time', delayMs: 2899 }
-      - { action: scroll, delta: 45, delayMs: 2899 }
-      - { action: scroll, delta: 45, delayMs: 2899 }
-      - { action: scroll, delta: 45, delayMs: 2898 }
+      - { action: scroll, delta: -103, delayMs: 600 }
+      - { action: highlight, selector: '.concept-name:text-is("Retrieval-Augmented Generation (RAG)")', delayMs: 4463 }
+      - { action: highlight, selector: '.concept:has(.concept-name:text-is("Retrieval-Augmented Generation (RAG)")) .concept-desc', delayMs: 4462 }
     assert:
       visible: ["semantic", "hybrid"]
     narration: >-
@@ -435,15 +428,11 @@ entries:
     url: /index.html#phase-engineering
     setupScript: setup/capture-determinism.mjs
     steps:
-      - { action: scroll, delta: 390, delayMs: 600 }
-      - { action: highlight, text: 'Open Knowledge Format', delayMs: 2764 }
-      - { action: scroll, delta: 45, delayMs: 2764 }
-      - { action: scroll, delta: 45, delayMs: 2764 }
-      - { action: scroll, delta: 45, delayMs: 2764 }
-      - { action: scroll, delta: 45, delayMs: 2764 }
-      - { action: scroll, delta: 45, delayMs: 2764 }
-      - { action: scroll, delta: 45, delayMs: 2764 }
-      - { action: scroll, delta: 45, delayMs: 2767 }
+      - { action: scroll, delta: 38, delayMs: 600 }
+      - { action: highlight, selector: '.concept-name:text-is("Open Knowledge Format (OKF)")', delayMs: 3770 }
+      - { action: highlight, selector: '.concept:has(.concept-name:text-is("Open Knowledge Format (OKF)")) .concept-desc', delayMs: 3770 }
+      - { action: highlight, selector: '.concept-name:text-is("Open Knowledge Format (OKF)")', delayMs: 3770 }
+      - { action: highlight, selector: '.concept:has(.concept-name:text-is("Open Knowledge Format (OKF)")) .concept-desc', delayMs: 3768 }
     assert:
       visible: ["Open Knowledge Format", "typed entities"]
     narration: >-
@@ -461,10 +450,9 @@ entries:
     setupScript: setup/capture-determinism.mjs
     roiSelector: '.concept:has-text("Open Knowledge Format")'
     steps:
-      - { action: scroll, delta: 390, delayMs: 600 }
-      - { action: highlight, text: 'specific fact', delayMs: 3288 }
-      - { action: scroll, delta: 45, delayMs: 3288 }
-      - { action: scroll, delta: 45, delayMs: 3289 }
+      - { action: scroll, delta: 38, delayMs: 600 }
+      - { action: highlight, selector: '.concept-name:text-is("Open Knowledge Format (OKF)")', delayMs: 3679 }
+      - { action: highlight, selector: '.concept:has(.concept-name:text-is("Open Knowledge Format (OKF)")) .concept-desc', delayMs: 3680 }
     assert:
       visible: ["typed entities", "specific fact"]
     narration: >-
@@ -479,13 +467,10 @@ entries:
     url: /index.html#phase-engineering
     setupScript: setup/capture-determinism.mjs
     steps:
-      - { action: scroll, delta: 540, delayMs: 600 }
-      - { action: highlight, text: 'Model Context Protocol', delayMs: 3147 }
-      - { action: scroll, delta: 45, delayMs: 3147 }
-      - { action: scroll, delta: 45, delayMs: 3147 }
-      - { action: scroll, delta: 45, delayMs: 3147 }
-      - { action: scroll, delta: 45, delayMs: 3147 }
-      - { action: scroll, delta: 45, delayMs: 3145 }
+      - { action: scroll, delta: 169, delayMs: 600 }
+      - { action: highlight, selector: '.concept-name:text-is("Model Context Protocol (MCP)")', delayMs: 4383 }
+      - { action: highlight, selector: '.concept:has(.concept-name:text-is("Model Context Protocol (MCP)")) .concept-desc', delayMs: 4383 }
+      - { action: highlight, selector: '.concept-name:text-is("Model Context Protocol (MCP)")', delayMs: 4381 }
     assert:
       visible: ["Model Context Protocol", "external tools"]
     narration: >-
@@ -521,13 +506,10 @@ entries:
     setupScript: setup/capture-determinism.mjs
     roiSelector: '.concept:has-text("Model Context Protocol")'
     steps:
-      - { action: scroll, delta: 540, delayMs: 600 }
-      - { action: highlight, text: 'current state', delayMs: 2922 }
-      - { action: scroll, delta: 45, delayMs: 2922 }
-      - { action: scroll, delta: 45, delayMs: 2922 }
-      - { action: scroll, delta: 45, delayMs: 2922 }
-      - { action: scroll, delta: 45, delayMs: 2922 }
-      - { action: scroll, delta: 45, delayMs: 2920 }
+      - { action: scroll, delta: 169, delayMs: 600 }
+      - { action: highlight, selector: '.concept-name:text-is("Model Context Protocol (MCP)")', delayMs: 4113 }
+      - { action: highlight, selector: '.concept:has(.concept-name:text-is("Model Context Protocol (MCP)")) .concept-desc', delayMs: 4113 }
+      - { action: highlight, selector: '.concept-name:text-is("Model Context Protocol (MCP)")', delayMs: 4111 }
     assert:
       visible: ["querying databases", "current state"]
     narration: >-
@@ -544,12 +526,12 @@ entries:
     url: /index.html#phase-engineering
     setupScript: setup/capture-determinism.mjs
     steps:
-      - { action: scroll, delta: 650, delayMs: 600 }
-      - { action: highlight, text: 'The ReAct Pattern', delayMs: 3129 }
-      - { action: highlight, selector: '.concept:has(.concept-name:text-is("The ReAct Pattern and Agentic Loop Design")) strong >> nth=0', delayMs: 3129 }
-      - { action: highlight, selector: '.concept:has(.concept-name:text-is("The ReAct Pattern and Agentic Loop Design")) strong >> nth=1', delayMs: 3129 }
-      - { action: highlight, selector: '.concept:has(.concept-name:text-is("The ReAct Pattern and Agentic Loop Design")) strong >> nth=2', delayMs: 3129 }
-      - { action: scroll, delta: 45, delayMs: 3132 }
+      - { action: scroll, delta: 309, delayMs: 600 }
+      - { action: highlight, selector: '.concept-name:text-is("The ReAct Pattern and Agentic Loop Design")', delayMs: 2232 }
+      - { action: highlight, selector: '.concept:has(.concept-name:text-is("The ReAct Pattern and Agentic Loop Design")) strong:has-text("Act")', delayMs: 2456 }
+      - { action: highlight, selector: '.concept:has(.concept-name:text-is("The ReAct Pattern and Agentic Loop Design")) strong:has-text("Observe")', delayMs: 5000 }
+      - { action: highlight, selector: '.concept:has(.concept-name:text-is("The ReAct Pattern and Agentic Loop Design")) .concept-desc', delayMs: 913 }
+      - { action: highlight, selector: '.concept:has(.concept-name:text-is("The ReAct Pattern and Agentic Loop Design")) strong:has-text("convergence condition")', delayMs: 4386 }
     assert:
       visible: ["ReAct Pattern", "convergence condition"]
     narration: >-
@@ -594,12 +576,10 @@ entries:
     setupScript: setup/capture-determinism.mjs
     roiSelector: '.concept:has-text("ReAct Pattern")'
     steps:
-      - { action: scroll, delta: 650, delayMs: 600 }
-      - { action: highlight, text: 'all tests pass', delayMs: 2615 }
-      - { action: scroll, delta: 45, delayMs: 2615 }
-      - { action: scroll, delta: 45, delayMs: 2615 }
-      - { action: scroll, delta: 45, delayMs: 2615 }
-      - { action: scroll, delta: 45, delayMs: 2615 }
+      - { action: scroll, delta: 309, delayMs: 600 }
+      - { action: highlight, selector: '.concept-name:text-is("The ReAct Pattern and Agentic Loop Design")', delayMs: 3098 }
+      - { action: highlight, selector: '.concept:has(.concept-name:text-is("The ReAct Pattern and Agentic Loop Design")) .concept-desc', delayMs: 3098 }
+      - { action: highlight, selector: '.concept-name:text-is("The ReAct Pattern and Agentic Loop Design")', delayMs: 3096 }
     assert:
       visible: ["Reason", "Observe", "convergence"]
     narration: >-
@@ -615,12 +595,11 @@ entries:
     url: /index.html#phase-engineering
     setupScript: setup/capture-determinism.mjs
     steps:
-      - { action: scroll, delta: 825, delayMs: 600 }
-      - { action: highlight, text: 'Planning-Execution Separation', delayMs: 2958 }
-      - { action: highlight, selector: '.concept:has(.concept-name:text-is("Planning-Execution Separation")) strong >> nth=0', delayMs: 2958 }
-      - { action: highlight, selector: '.concept:has(.concept-name:text-is("Planning-Execution Separation")) strong >> nth=1', delayMs: 2958 }
-      - { action: highlight, selector: '.concept:has(.concept-name:text-is("Planning-Execution Separation")) strong >> nth=2', delayMs: 2958 }
-      - { action: scroll, delta: 45, delayMs: 2954 }
+      - { action: scroll, delta: 528, delayMs: 600 }
+      - { action: highlight, selector: '.concept-name:text-is("Planning-Execution Separation")', delayMs: 3708 }
+      - { action: highlight, selector: '.concept:has(.concept-name:text-is("Planning-Execution Separation")) strong:has-text("Context overflow:")', delayMs: 2636 }
+      - { action: highlight, selector: '.concept:has(.concept-name:text-is("Planning-Execution Separation")) strong:has-text("Plan narration:")', delayMs: 2890 }
+      - { action: highlight, selector: '.concept:has(.concept-name:text-is("Planning-Execution Separation")) strong:has-text("Late requirement changes:")', delayMs: 5745 }
     assert:
       visible: ["Planning-Execution Separation", "Context overflow", "Plan narration"]
     narration: >-
@@ -672,12 +651,10 @@ entries:
     setupScript: setup/capture-determinism.mjs
     roiSelector: '.concept:has-text("Planning-Execution Separation")'
     steps:
-      - { action: scroll, delta: 825, delayMs: 600 }
-      - { action: highlight, text: 'QRSPI', delayMs: 3220 }
-      - { action: scroll, delta: 45, delayMs: 3220 }
-      - { action: scroll, delta: 45, delayMs: 3220 }
-      - { action: scroll, delta: 45, delayMs: 3220 }
-      - { action: scroll, delta: 45, delayMs: 3220 }
+      - { action: scroll, delta: 528, delayMs: 600 }
+      - { action: highlight, selector: '.concept-name:text-is("Planning-Execution Separation")', delayMs: 3703 }
+      - { action: highlight, selector: '.concept:has(.concept-name:text-is("Planning-Execution Separation")) .concept-desc', delayMs: 3703 }
+      - { action: highlight, selector: '.concept-name:text-is("Planning-Execution Separation")', delayMs: 3701 }
     assert:
       visible: ["QRSPI", "Late requirement changes"]
     narration: >-
@@ -693,13 +670,10 @@ entries:
     url: /index.html#phase-engineering
     setupScript: setup/capture-determinism.mjs
     steps:
-      - { action: scroll, delta: 1090, delayMs: 600 }
-      - { action: highlight, selector: '.concept-name:text-is("Agent Skills")', delayMs: 2780 }
-      - { action: scroll, delta: 45, delayMs: 2780 }
-      - { action: scroll, delta: 45, delayMs: 2780 }
-      - { action: scroll, delta: 45, delayMs: 2780 }
-      - { action: scroll, delta: 45, delayMs: 2780 }
-      - { action: scroll, delta: 45, delayMs: 2780 }
+      - { action: scroll, delta: 726, delayMs: 600 }
+      - { action: highlight, selector: '.concept-name:text-is("Agent Skills")', delayMs: 3943 }
+      - { action: highlight, selector: '.concept:has(.concept-name:text-is("Agent Skills")) .concept-desc', delayMs: 3943 }
+      - { action: highlight, selector: '.concept-name:text-is("Agent Skills")', delayMs: 3941 }
     assert:
       visible: ["Agent Skills", "SKILL.md", "Progressive disclosure"]
     narration: >-
@@ -716,13 +690,10 @@ entries:
     setupScript: setup/capture-determinism.mjs
     roiSelector: '.concept:has-text("Agent Skills")'
     steps:
-      - { action: scroll, delta: 1090, delayMs: 600 }
-      - { action: highlight, text: 'progressive disclosure', delayMs: 2751 }
-      - { action: scroll, delta: 45, delayMs: 2751 }
-      - { action: scroll, delta: 45, delayMs: 2751 }
-      - { action: scroll, delta: 45, delayMs: 2751 }
-      - { action: scroll, delta: 45, delayMs: 2751 }
-      - { action: scroll, delta: 45, delayMs: 2750 }
+      - { action: scroll, delta: 726, delayMs: 600 }
+      - { action: highlight, selector: '.concept-name:text-is("Agent Skills")', delayMs: 3908 }
+      - { action: highlight, selector: '.concept:has(.concept-name:text-is("Agent Skills")) .concept-desc', delayMs: 3908 }
+      - { action: highlight, selector: '.concept-name:text-is("Agent Skills")', delayMs: 3906 }
     assert:
       visible: ["slash command", "context footprint"]
     narration: >-
@@ -747,14 +718,10 @@ entries:
     narration: >-
       That is the engineering. Now the discipline that keeps it honest. Agents do not pause when a requirement is ambiguous. They guess, confidently. So human review goes at defined checkpoints where decisions need judgment — scope changes, compliance sign-off. Let the system self-correct only where the outcome is machine-verifiable: syntax errors, test failures. And the page is blunt about the rest: a gate that can be bypassed, even accidentally, is not a gate.
     steps:
-      - { action: scroll, delta: 32, delayMs: 600 }
-      - { action: highlight, selector: '.concept-name:text-is("Human-in-the-Loop (HITL) Design")', delayMs: 2894 }
-      - { action: scroll, delta: 45, delayMs: 2894 }
-      - { action: scroll, delta: 45, delayMs: 2894 }
-      - { action: scroll, delta: 45, delayMs: 2894 }
-      - { action: scroll, delta: 45, delayMs: 2894 }
-      - { action: scroll, delta: 45, delayMs: 2894 }
-      - { action: scroll, delta: 45, delayMs: 2895 }
+      - { action: scroll, delta: -343, delayMs: 600 }
+      - { action: highlight, selector: '.concept-name:text-is("Human-in-the-Loop (HITL) Design")', delayMs: 4760 }
+      - { action: highlight, selector: '.concept:has(.concept-name:text-is("Human-in-the-Loop (HITL) Design")) .concept-desc', delayMs: 4760 }
+      - { action: highlight, selector: '.concept-name:text-is("Human-in-the-Loop (HITL) Design")', delayMs: 4758 }
     assert:
       visible: ["Agentic Development Principles", "Human-in-the-Loop"]
 
@@ -766,11 +733,9 @@ entries:
     narration: >-
       The test is simple. Can a machine decide this correctly? Then automate it and stay out of the way. Does it need judgment, or carry consequences a test cannot see? Then it is a gate, and a gate you can skip when you are in a hurry is decoration.
     steps:
-      - { action: scroll, delta: 100, delayMs: 600 }
-      - { action: highlight, text: 'not a gate', delayMs: 3243 }
-      - { action: scroll, delta: 45, delayMs: 3243 }
-      - { action: scroll, delta: 45, delayMs: 3243 }
-      - { action: scroll, delta: 45, delayMs: 3241 }
+      - { action: scroll, delta: -343, delayMs: 600 }
+      - { action: highlight, selector: '.concept-name:text-is("Human-in-the-Loop (HITL) Design")', delayMs: 4921 }
+      - { action: highlight, selector: '.concept:has(.concept-name:text-is("Human-in-the-Loop (HITL) Design")) .concept-desc', delayMs: 4921 }
     assert:
       visible: ["machine-verifiable", "not a gate"]
 
@@ -782,14 +747,13 @@ entries:
     narration: >-
       A complete, unambiguous specification must exist before implementation begins, so the agent reads and implements rather than deriving requirements mid-loop. The page lists several approaches that differ in how the specification is expressed: behaviour-driven development uses human-readable scenarios, spec-driven development uses a formal document, structured-prompt-driven development uses structured prompts, and tools like Spec Kit and GSD supply templates and frameworks.
     steps:
-      - { action: scroll, delta: 162, delayMs: 600 }
-      - { action: highlight, text: 'Specification-First Development', delayMs: 2862 }
-      - { action: highlight, selector: '.concept:has(.concept-name:text-is("Specification-First Development")) strong >> nth=0', delayMs: 2862 }
-      - { action: highlight, selector: '.concept:has(.concept-name:text-is("Specification-First Development")) strong >> nth=1', delayMs: 2862 }
-      - { action: highlight, selector: '.concept:has(.concept-name:text-is("Specification-First Development")) strong >> nth=2', delayMs: 2862 }
-      - { action: scroll, delta: 45, delayMs: 2862 }
-      - { action: scroll, delta: 45, delayMs: 2862 }
-      - { action: scroll, delta: 45, delayMs: 2862 }
+      - { action: scroll, delta: -40, delayMs: 600 }
+      - { action: highlight, selector: '.concept-name:text-is("Specification-First Development")', delayMs: 3719 }
+      - { action: highlight, selector: '.concept:has(.concept-name:text-is("Specification-First Development")) .concept-desc', delayMs: 3719 }
+      - { action: highlight, selector: '.concept:has(.concept-name:text-is("Specification-First Development")) strong:has-text("Behaviour Driven Development (BDD)")', delayMs: 1995 }
+      - { action: highlight, selector: '.concept:has(.concept-name:text-is("Specification-First Development")) strong:has-text("Spec-Driven Development (SDD)")', delayMs: 1589 }
+      - { action: highlight, selector: '.concept:has(.concept-name:text-is("Specification-First Development")) strong:has-text("Structured Prompt Driven Development (SPDD)")', delayMs: 2062 }
+      - { action: highlight, selector: '.concept:has(.concept-name:text-is("Specification-First Development")) strong:has-text("Spec Kit")', delayMs: 4245 }
     assert:
       visible: ["Specification-First Development", "Behaviour Driven Development"]
 
@@ -801,14 +765,11 @@ entries:
     narration: >-
       The page explains why this workflow was chosen over the heavier options. Spec Kit and GSD mandate directory structures, multi-file templates and dedicated command-line tools. This one is a folder of composable conversational skills. You invoke only what you need, the agent interviews you to extract requirements, and it generates a single plan document. Spec-first discipline, near-zero overhead, no lock-in.
     steps:
-      - { action: scroll, delta: 420, delayMs: 600 }
-      - { action: highlight, text: 'lightweight and flexible', delayMs: 3069 }
-      - { action: scroll, delta: 45, delayMs: 3069 }
-      - { action: scroll, delta: 45, delayMs: 3069 }
-      - { action: scroll, delta: 45, delayMs: 3069 }
-      - { action: scroll, delta: 45, delayMs: 3069 }
-      - { action: scroll, delta: 45, delayMs: 3069 }
-      - { action: scroll, delta: 45, delayMs: 3071 }
+      - { action: scroll, delta: -40, delayMs: 600 }
+      - { action: highlight, selector: '.concept-name:text-is("Specification-First Development")', delayMs: 1706 }
+      - { action: highlight, selector: '.concept:has(.concept-name:text-is("Specification-First Development")) .concept-desc', delayMs: 4345 }
+      - { action: highlight, selector: '.concept-name:text-is("Specification-First Development")', delayMs: 4345 }
+      - { action: highlight, selector: '.concept:has(.concept-name:text-is("Specification-First Development")) .concept-desc', delayMs: 4346 }
     assert:
       visible: ["Spec Kit", "plan.md"]
 
@@ -820,12 +781,10 @@ entries:
     narration: >-
       TDD follows red, green, refactor. Write a failing test. Write the minimum code to pass it. Refactor without breaking it. In agentic work it does one more job: it supplies the machine-verifiable convergence signal. The loop exits when tests pass, not when output looks plausible.
     steps:
-      - { action: scroll, delta: 637, delayMs: 600 }
-      - { action: highlight, selector: '.concept-name:text-is("Test-Driven Development (TDD)")', delayMs: 2799 }
-      - { action: highlight, selector: '.concept:has(.concept-name:text-is("Test-Driven Development (TDD)")) strong >> nth=0', delayMs: 2799 }
-      - { action: scroll, delta: 45, delayMs: 2799 }
-      - { action: scroll, delta: 45, delayMs: 2799 }
-      - { action: scroll, delta: 45, delayMs: 2800 }
+      - { action: scroll, delta: 262, delayMs: 600 }
+      - { action: highlight, selector: '.concept-name:text-is("Test-Driven Development (TDD)")', delayMs: 3718 }
+      - { action: highlight, selector: '.concept:has(.concept-name:text-is("Test-Driven Development (TDD)")) .concept-desc', delayMs: 3718 }
+      - { action: highlight, selector: '.concept-name:text-is("Test-Driven Development (TDD)")', delayMs: 3716 }
     assert:
       visible: ["Test-Driven Development", "Red-Green-Refactor"]
 
@@ -837,11 +796,9 @@ entries:
     narration: >-
       This connects back to Topic 1. Because the same prompt can produce different output next run, your own inspection is not a stable standard. Without tests there is no objective way to know the agent is done. With them, done is a fact.
     steps:
-      - { action: scroll, delta: 637, delayMs: 600 }
-      - { action: highlight, selector: '.concept:has(.concept-name:text-is("Test-Driven Development (TDD)")) .concept-desc', delayMs: 3280 }
-      - { action: scroll, delta: 45, delayMs: 3280 }
-      - { action: scroll, delta: 45, delayMs: 3280 }
-      - { action: scroll, delta: 45, delayMs: 3280 }
+      - { action: scroll, delta: 262, delayMs: 600 }
+      - { action: highlight, selector: '.concept-name:text-is("Test-Driven Development (TDD)")', delayMs: 4971 }
+      - { action: highlight, selector: '.concept:has(.concept-name:text-is("Test-Driven Development (TDD)")) .concept-desc', delayMs: 4971 }
     assert:
       visible: ["machine-verifiable", "tests pass"]
 
@@ -853,13 +810,10 @@ entries:
     narration: >-
       An ADR is a short document capturing a technical choice: context, decision, consequences. Because agents have no persistent memory between sessions, ADRs in version control act as their durable external memory. Without them, a future session has no way to know a past architectural choice was deliberate.
     steps:
-      - { action: scroll, delta: 767, delayMs: 600 }
-      - { action: highlight, selector: '.concept-name:text-is("Architecture Decision Records (ADRs)")', delayMs: 2863 }
-      - { action: scroll, delta: 45, delayMs: 2863 }
-      - { action: scroll, delta: 45, delayMs: 2863 }
-      - { action: scroll, delta: 45, delayMs: 2863 }
-      - { action: scroll, delta: 45, delayMs: 2863 }
-      - { action: scroll, delta: 45, delayMs: 2865 }
+      - { action: scroll, delta: 392, delayMs: 600 }
+      - { action: highlight, selector: '.concept-name:text-is("Architecture Decision Records (ADRs)")', delayMs: 4043 }
+      - { action: highlight, selector: '.concept:has(.concept-name:text-is("Architecture Decision Records (ADRs)")) .concept-desc', delayMs: 4043 }
+      - { action: highlight, selector: '.concept-name:text-is("Architecture Decision Records (ADRs)")', delayMs: 4041 }
     assert:
       visible: ["Architecture Decision Records", "consequences"]
 
@@ -871,12 +825,10 @@ entries:
     narration: >-
       Which produces a specific, maddening failure: a later session finds your deliberate choice, reads it as a mistake, and helpfully reverses it. The fix is to leave the reasoning where the next session will walk into it. In the repository, not in a chat log.
     steps:
-      - { action: scroll, delta: 767, delayMs: 600 }
-      - { action: highlight, selector: '.concept:has(.concept-name:text-is("Architecture Decision Records (ADRs)")) .concept-desc', delayMs: 2645 }
-      - { action: scroll, delta: 45, delayMs: 2645 }
-      - { action: scroll, delta: 45, delayMs: 2645 }
-      - { action: scroll, delta: 45, delayMs: 2645 }
-      - { action: scroll, delta: 45, delayMs: 2645 }
+      - { action: scroll, delta: 392, delayMs: 600 }
+      - { action: highlight, selector: '.concept-name:text-is("Architecture Decision Records (ADRs)")', delayMs: 3128 }
+      - { action: highlight, selector: '.concept:has(.concept-name:text-is("Architecture Decision Records (ADRs)")) .concept-desc', delayMs: 3128 }
+      - { action: highlight, selector: '.concept-name:text-is("Architecture Decision Records (ADRs)")', delayMs: 3126 }
     assert:
       visible: ["version control", "deliberate"]
 
@@ -888,13 +840,10 @@ entries:
     narration: >-
       A strategy for slicing work into tickets. Instead of building horizontal layers — the whole database schema first — work is sliced vertically: a thin, production-quality feature cutting through data, logic, interface and tests. It matters for agents because a horizontal slice cannot be demoed or tested end to end in isolation.
     steps:
-      - { action: scroll, delta: 898, delayMs: 600 }
-      - { action: highlight, text: 'Tracer Bullet Development', delayMs: 3093 }
-      - { action: scroll, delta: 45, delayMs: 3093 }
-      - { action: scroll, delta: 45, delayMs: 3093 }
-      - { action: scroll, delta: 45, delayMs: 3093 }
-      - { action: scroll, delta: 45, delayMs: 3093 }
-      - { action: scroll, delta: 45, delayMs: 3090 }
+      - { action: scroll, delta: 522, delayMs: 600 }
+      - { action: highlight, selector: '.concept-name:text-is("Tracer Bullet Development")', delayMs: 4318 }
+      - { action: highlight, selector: '.concept:has(.concept-name:text-is("Tracer Bullet Development")) .concept-desc', delayMs: 4318 }
+      - { action: highlight, selector: '.concept-name:text-is("Tracer Bullet Development")', delayMs: 4316 }
     assert:
       visible: ["Tracer Bullet Development", "vertically"]
 
@@ -906,11 +855,9 @@ entries:
     narration: >-
       Follow that through. If a slice cannot be fully tested, the agent cannot verify its own output, and the self-correction loop stalls. So a good ticket is not the smallest amount of work — it is the smallest amount of work that can prove itself.
     steps:
-      - { action: scroll, delta: 898, delayMs: 600 }
-      - { action: highlight, text: 'self-correction loop stalls', delayMs: 3130 }
-      - { action: scroll, delta: 45, delayMs: 3130 }
-      - { action: scroll, delta: 45, delayMs: 3130 }
-      - { action: scroll, delta: 45, delayMs: 3130 }
+      - { action: scroll, delta: 522, delayMs: 600 }
+      - { action: highlight, selector: '.concept-name:text-is("Tracer Bullet Development")', delayMs: 4771 }
+      - { action: highlight, selector: '.concept:has(.concept-name:text-is("Tracer Bullet Development")) .concept-desc', delayMs: 4771 }
     assert:
       visible: ["production-quality", "self-correction"]
 
@@ -922,12 +869,10 @@ entries:
     narration: >-
       In traditional development, stale documentation is an annoyance. In agentic development it is a fatal bug. Agents treat your repository's documentation as their system prompt, and they will faithfully generate code that complies with whatever standards they read.
     steps:
-      - { action: scroll, delta: 1028, delayMs: 600 }
-      - { action: highlight, text: 'Living Documentation', delayMs: 2875 }
-      - { action: scroll, delta: 45, delayMs: 2875 }
-      - { action: scroll, delta: 45, delayMs: 2875 }
-      - { action: scroll, delta: 45, delayMs: 2875 }
-      - { action: scroll, delta: 45, delayMs: 2875 }
+      - { action: scroll, delta: 653, delayMs: 600 }
+      - { action: highlight, selector: '.concept-name:text-is("Living Documentation")', delayMs: 3358 }
+      - { action: highlight, selector: '.concept:has(.concept-name:text-is("Living Documentation")) .concept-desc', delayMs: 3358 }
+      - { action: highlight, selector: '.concept-name:text-is("Living Documentation")', delayMs: 3356 }
     assert:
       visible: ["Living Documentation", "system prompt"]
 
@@ -939,12 +884,10 @@ entries:
     narration: >-
       So a coding standard you abandoned two years ago is not a historical note. It is an instruction, and it will be followed perfectly. Documentation in this model is closer to configuration than to prose: if it is wrong, the output is wrong, confidently.
     steps:
-      - { action: scroll, delta: 1028, delayMs: 600 }
-      - { action: highlight, text: 'confidently produce wrong outputs', delayMs: 2655 }
-      - { action: scroll, delta: 45, delayMs: 2655 }
-      - { action: scroll, delta: 45, delayMs: 2655 }
-      - { action: scroll, delta: 45, delayMs: 2655 }
-      - { action: scroll, delta: 45, delayMs: 2655 }
+      - { action: scroll, delta: 653, delayMs: 600 }
+      - { action: highlight, selector: '.concept-name:text-is("Living Documentation")', delayMs: 3138 }
+      - { action: highlight, selector: '.concept:has(.concept-name:text-is("Living Documentation")) .concept-desc', delayMs: 3138 }
+      - { action: highlight, selector: '.concept-name:text-is("Living Documentation")', delayMs: 3136 }
     assert:
       visible: ["coding standards", "wrong outputs"]
 
@@ -961,12 +904,10 @@ entries:
     title: Topic 4
     chapterDescription: Multi-Agent Patterns
     steps:
-      - { action: scroll, delta: 32, delayMs: 600 }
-      - { action: highlight, text: 'Orchestrator-Worker Architecture', delayMs: 3210 }
-      - { action: scroll, delta: 45, delayMs: 3210 }
-      - { action: scroll, delta: 45, delayMs: 3210 }
-      - { action: scroll, delta: 45, delayMs: 3210 }
-      - { action: scroll, delta: 45, delayMs: 3209 }
+      - { action: scroll, delta: -363, delayMs: 600 }
+      - { action: highlight, selector: '.concept-name:text-is("Orchestrator-Worker Architecture")', delayMs: 3685 }
+      - { action: highlight, selector: '.concept:has(.concept-name:text-is("Orchestrator-Worker Architecture")) .concept-desc', delayMs: 3685 }
+      - { action: highlight, selector: '.concept-name:text-is("Orchestrator-Worker Architecture")', delayMs: 3683 }
     assert:
       visible: ["Multi-Agent Patterns", "Orchestrator-Worker"]
     # Opens with a spoken seam into Topic 4.
@@ -1011,12 +952,10 @@ entries:
     setupScript: setup/capture-determinism.mjs
     roiSelector: '.concept:has-text("Orchestrator-Worker")'
     steps:
-      - { action: scroll, delta: 100, delayMs: 600 }
-      - { action: highlight, text: 'coordination accuracy', delayMs: 3090 }
-      - { action: scroll, delta: 45, delayMs: 3090 }
-      - { action: scroll, delta: 45, delayMs: 3090 }
-      - { action: scroll, delta: 45, delayMs: 3090 }
-      - { action: scroll, delta: 45, delayMs: 3090 }
+      - { action: scroll, delta: -363, delayMs: 600 }
+      - { action: highlight, selector: '.concept-name:text-is("Orchestrator-Worker Architecture")', delayMs: 3583 }
+      - { action: highlight, selector: '.concept:has(.concept-name:text-is("Orchestrator-Worker Architecture")) .concept-desc', delayMs: 3583 }
+      - { action: highlight, selector: '.concept-name:text-is("Orchestrator-Worker Architecture")', delayMs: 3581 }
     assert:
       visible: ["coordinates", "implementation decisions"]
     narration: >-
@@ -1031,11 +970,9 @@ entries:
     url: /index.html#phase-multiagent
     setupScript: setup/capture-determinism.mjs
     steps:
-      - { action: scroll, delta: 121, delayMs: 600 }
-      - { action: highlight, text: 'Subagents and Context Isolation', delayMs: 2786 }
-      - { action: scroll, delta: 45, delayMs: 2786 }
-      - { action: scroll, delta: 45, delayMs: 2786 }
-      - { action: scroll, delta: 45, delayMs: 2787 }
+      - { action: scroll, delta: -275, delayMs: 600 }
+      - { action: highlight, selector: '.concept-name:text-is("Subagents and Context Isolation")', delayMs: 4338 }
+      - { action: highlight, selector: '.concept:has(.concept-name:text-is("Subagents and Context Isolation")) .concept-desc', delayMs: 4337 }
     assert:
       visible: ["Subagents and Context Isolation", "clean context window"]
     narration: >-
@@ -1050,12 +987,10 @@ entries:
     setupScript: setup/capture-determinism.mjs
     roiSelector: '.concept:has-text("Subagents and Context Isolation")'
     steps:
-      - { action: scroll, delta: 121, delayMs: 600 }
-      - { action: highlight, text: 'pollute', delayMs: 2870 }
-      - { action: scroll, delta: 45, delayMs: 2870 }
-      - { action: scroll, delta: 45, delayMs: 2870 }
-      - { action: scroll, delta: 45, delayMs: 2870 }
-      - { action: scroll, delta: 45, delayMs: 2870 }
+      - { action: scroll, delta: -275, delayMs: 600 }
+      - { action: highlight, selector: '.concept-name:text-is("Subagents and Context Isolation")', delayMs: 3358 }
+      - { action: highlight, selector: '.concept:has(.concept-name:text-is("Subagents and Context Isolation")) .concept-desc', delayMs: 3358 }
+      - { action: highlight, selector: '.concept-name:text-is("Subagents and Context Isolation")', delayMs: 3356 }
     assert:
       visible: ["restricted tool set", "bounded task"]
     narration: >-
@@ -1069,12 +1004,10 @@ entries:
     url: /index.html#phase-multiagent
     setupScript: setup/capture-determinism.mjs
     steps:
-      - { action: scroll, delta: 210, delayMs: 600 }
-      - { action: highlight, text: 'Independent Review', delayMs: 3065 }
-      - { action: scroll, delta: 45, delayMs: 3065 }
-      - { action: scroll, delta: 45, delayMs: 3065 }
-      - { action: scroll, delta: 45, delayMs: 3065 }
-      - { action: scroll, delta: 45, delayMs: 3065 }
+      - { action: scroll, delta: -176, delayMs: 600 }
+      - { action: highlight, selector: '.concept-name:text-is("Independent Review as Quality Architecture")', delayMs: 3563 }
+      - { action: highlight, selector: '.concept:has(.concept-name:text-is("Independent Review as Quality Architecture")) .concept-desc', delayMs: 3563 }
+      - { action: highlight, selector: '.concept-name:text-is("Independent Review as Quality Architecture")', delayMs: 3561 }
     assert:
       visible: ["Independent Review", "original specification"]
     narration: >-
@@ -1090,12 +1023,10 @@ entries:
     setupScript: setup/capture-determinism.mjs
     roiSelector: '.concept:has-text("Independent Review")'
     steps:
-      - { action: scroll, delta: 210, delayMs: 600 }
-      - { action: highlight, text: 'biased by the implementer', delayMs: 2980 }
-      - { action: scroll, delta: 45, delayMs: 2980 }
-      - { action: scroll, delta: 45, delayMs: 2980 }
-      - { action: scroll, delta: 45, delayMs: 2980 }
-      - { action: scroll, delta: 45, delayMs: 2980 }
+      - { action: scroll, delta: -176, delayMs: 600 }
+      - { action: highlight, selector: '.concept-name:text-is("Independent Review as Quality Architecture")', delayMs: 3493 }
+      - { action: highlight, selector: '.concept:has(.concept-name:text-is("Independent Review as Quality Architecture")) .concept-desc', delayMs: 3493 }
+      - { action: highlight, selector: '.concept-name:text-is("Independent Review as Quality Architecture")', delayMs: 3491 }
     assert:
       visible: ["final output", "meets the spec"]
     narration: >-
@@ -1110,12 +1041,10 @@ entries:
     url: /index.html#phase-multiagent
     setupScript: setup/capture-determinism.mjs
     steps:
-      - { action: scroll, delta: 319, delayMs: 600 }
-      - { action: highlight, text: 'Parallel Execution', delayMs: 2945 }
-      - { action: scroll, delta: 45, delayMs: 2945 }
-      - { action: scroll, delta: 45, delayMs: 2945 }
-      - { action: scroll, delta: 45, delayMs: 2945 }
-      - { action: scroll, delta: 45, delayMs: 2945 }
+      - { action: scroll, delta: -66, delayMs: 600 }
+      - { action: highlight, selector: '.concept-name:text-is("Parallel Execution and Specialization")', delayMs: 3433 }
+      - { action: highlight, selector: '.concept:has(.concept-name:text-is("Parallel Execution and Specialization")) .concept-desc', delayMs: 3433 }
+      - { action: highlight, selector: '.concept-name:text-is("Parallel Execution and Specialization")', delayMs: 3431 }
     assert:
       visible: ["Parallel Execution", "simultaneously"]
     narration: >-
@@ -1131,12 +1060,10 @@ entries:
     setupScript: setup/capture-determinism.mjs
     roiSelector: '.concept:has-text("Parallel Execution")'
     steps:
-      - { action: scroll, delta: 900, delayMs: 600 }
-      - { action: highlight, text: 'optimizes both speed and cost', delayMs: 3170 }
-      - { action: scroll, delta: 45, delayMs: 3170 }
-      - { action: scroll, delta: 45, delayMs: 3170 }
-      - { action: scroll, delta: 45, delayMs: 3170 }
-      - { action: scroll, delta: 45, delayMs: 3170 }
+      - { action: scroll, delta: -66, delayMs: 600 }
+      - { action: highlight, selector: '.concept-name:text-is("Parallel Execution and Specialization")', delayMs: 3658 }
+      - { action: highlight, selector: '.concept:has(.concept-name:text-is("Parallel Execution and Specialization")) .concept-desc', delayMs: 3658 }
+      - { action: highlight, selector: '.concept-name:text-is("Parallel Execution and Specialization")', delayMs: 3656 }
     assert:
       visible: ["specialized", "cheaper models"]
     narration: >-

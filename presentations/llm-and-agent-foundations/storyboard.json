@@ -2,7 +2,7 @@
   "$generated": "GENERATED FILE — do not edit. Source: storyline.yml. Regenerate with: node scripts/compile.mjs",
   "$source": {
     "file": "storyline.yml",
-    "checksum": "e48f7c93a43ee93d2b45c337a9d09664a7e1e84289ee72256e407da32b65263f"
+    "checksum": "62e03db69f5ea529da5440f943384c02c87c9b46eb125287cae3bd8a3d568495"
   },
   "meta": {
     "title": "LLM and Agent Foundations",
@@ -79,7 +79,7 @@
         "filePath": "assets/recordings/s01-cold-open-confident.mp4",
         "durationMs": 11667,
         "roi": null,
-        "hash": "569aad770074"
+        "hash": "97dc55a6e1e3"
       }
     },
     {
@@ -142,7 +142,7 @@
         "filePath": "assets/recordings/s02-three-failures.mp4",
         "durationMs": 20067,
         "roi": null,
-        "hash": "b4312e6eedd8"
+        "hash": "3934a96f98ce"
       }
     },
     {
@@ -189,7 +189,7 @@
         "filePath": "assets/recordings/s03-hero.mp4",
         "durationMs": 15034,
         "roi": null,
-        "hash": "ffb5a76d3e59"
+        "hash": "ce3bd01bec4a"
       }
     },
     {
@@ -209,7 +209,7 @@
           },
           {
             "action": "wait",
-            "delayMs": 4200
+            "delayMs": 2960
           },
           {
             "action": "scroll",
@@ -224,7 +224,7 @@
           {
             "action": "highlight",
             "text": "understand, extend, and refine the workflow",
-            "delayMs": 5200
+            "delayMs": 3475
           }
         ]
       },
@@ -246,24 +246,24 @@
         "hash": "0b7f0d7d02e3"
       },
       "resolvedTiming": {
-        "mode": "audio-dictates",
-        "sceneMs": 9625,
-        "ratePct": 0,
-        "padVisualMs": 9625,
+        "mode": "speech-fit",
+        "sceneMs": 9611,
+        "ratePct": 0.1,
+        "padVisualMs": 0,
         "padAudioMs": 0,
         "warnings": []
       },
-      "ratePct": 0,
+      "ratePct": 0.1,
       "resolvedVisual": {
         "filePath": "assets/recordings/s04-page-establishing.mp4",
-        "durationMs": 12563.3369140625,
+        "durationMs": 9611.3369140625,
         "roi": {
           "x": 594,
           "y": 233.59375,
           "width": 782,
           "height": 43.3125
         },
-        "hash": "9eabfb2153d6"
+        "hash": "80373772450a"
       },
       "roi": {
         "x": 594,
@@ -290,12 +290,32 @@
           {
             "action": "scroll",
             "delta": 0,
-            "delayMs": 500
+            "delayMs": 600
           },
           {
             "action": "highlight",
             "text": "Context Windows, Smart Zone",
-            "delayMs": 2500
+            "delayMs": 3129
+          },
+          {
+            "action": "highlight",
+            "selector": ".concept:has(.concept-name:text-is(\"Context Windows, Smart Zone / Dumb Zone, and Lost in the Middle\")) strong >> nth=0",
+            "delayMs": 3129
+          },
+          {
+            "action": "highlight",
+            "selector": ".concept:has(.concept-name:text-is(\"Context Windows, Smart Zone / Dumb Zone, and Lost in the Middle\")) strong >> nth=1",
+            "delayMs": 3129
+          },
+          {
+            "action": "highlight",
+            "selector": ".concept:has(.concept-name:text-is(\"Context Windows, Smart Zone / Dumb Zone, and Lost in the Middle\")) strong >> nth=2",
+            "delayMs": 3129
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 3131
           }
         ]
       },
@@ -314,30 +334,30 @@
         "hash": "bf17db70d3a7"
       },
       "resolvedTiming": {
-        "mode": "audio-dictates",
-        "sceneMs": 29175,
-        "ratePct": 0,
-        "padVisualMs": 29175,
+        "mode": "speech-fit",
+        "sceneMs": 29265,
+        "ratePct": -0.3,
+        "padVisualMs": 0,
         "padAudioMs": 0,
         "warnings": []
       },
-      "ratePct": 0,
+      "ratePct": -0.3,
       "resolvedVisual": {
         "filePath": "assets/recordings/s05-context-windows-anchor.mp4",
-        "durationMs": 5942.126953125,
+        "durationMs": 29265.36376953125,
         "roi": {
-          "x": 563,
-          "y": 141.328125,
-          "width": 794,
-          "height": 23.09375
+          "x": 708.78125,
+          "y": 231.90625,
+          "width": 115.953125,
+          "height": 16
         },
-        "hash": "abc8eedc1098"
+        "hash": "4120ea634221"
       },
       "roi": {
-        "x": 563,
-        "y": 141.328125,
-        "width": 794,
-        "height": 23.09375
+        "x": 708.78125,
+        "y": 231.90625,
+        "width": 115.953125,
+        "height": 16
       }
     },
     {
@@ -404,7 +424,7 @@
         "filePath": "assets/recordings/s06-window-budget-slide.mp4",
         "durationMs": 13367,
         "roi": null,
-        "hash": "6dcb8c8bf62b"
+        "hash": "9165dd65fd74"
       }
     },
     {
@@ -422,12 +442,37 @@
           {
             "action": "scroll",
             "delta": 0,
-            "delayMs": 500
+            "delayMs": 600
           },
           {
             "action": "highlight",
             "text": "Lost in the Middle",
-            "delayMs": 2000
+            "delayMs": 2934
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2934
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2934
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2934
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2934
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2935
           }
         ]
       },
@@ -447,24 +492,24 @@
         "hash": "1bc64a2226a4"
       },
       "resolvedTiming": {
-        "mode": "audio-dictates",
-        "sceneMs": 21925,
-        "ratePct": 0,
-        "padVisualMs": 21925,
+        "mode": "speech-fit",
+        "sceneMs": 21938,
+        "ratePct": -0.1,
+        "padVisualMs": 0,
         "padAudioMs": 0,
         "warnings": []
       },
-      "ratePct": 0,
+      "ratePct": -0.1,
       "resolvedVisual": {
         "filePath": "assets/recordings/s07-context-windows-practice.mp4",
-        "durationMs": 3139.326171875,
+        "durationMs": 21937.76171875,
         "roi": {
           "x": 563,
           "y": 141.328125,
           "width": 794,
           "height": 23.09375
         },
-        "hash": "3cd25a03df36"
+        "hash": "a21b47e593ab"
       },
       "roi": {
         "x": 563,
@@ -487,12 +532,42 @@
           {
             "action": "scroll",
             "delta": 150,
-            "delayMs": 500
+            "delayMs": 600
           },
           {
             "action": "highlight",
             "text": "LLM Memory Architecture",
-            "delayMs": 2500
+            "delayMs": 2887
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2887
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2887
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2887
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2887
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2887
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2888
           }
         ]
       },
@@ -511,24 +586,24 @@
         "hash": "996caf38089a"
       },
       "resolvedTiming": {
-        "mode": "audio-dictates",
-        "sceneMs": 25150,
-        "ratePct": 0,
-        "padVisualMs": 25150,
+        "mode": "speech-fit",
+        "sceneMs": 25163,
+        "ratePct": -0.1,
+        "padVisualMs": 0,
         "padAudioMs": 0,
         "warnings": []
       },
-      "ratePct": 0,
+      "ratePct": -0.1,
       "resolvedVisual": {
         "filePath": "assets/recordings/s08-memory-anchor.mp4",
-        "durationMs": 3633.174072265625,
+        "durationMs": 25162.9921875,
         "roi": {
           "x": 563,
           "y": 121.734375,
           "width": 794,
           "height": 23.09375
         },
-        "hash": "eb12b8758de8"
+        "hash": "7c12d87d7e8d"
       },
       "roi": {
         "x": 563,
@@ -598,7 +673,7 @@
         "filePath": "assets/recordings/s09-memory-stores-slide.mp4",
         "durationMs": 14134,
         "roi": null,
-        "hash": "2e93da1bade2"
+        "hash": "4b013df46436"
       }
     },
     {
@@ -616,12 +691,32 @@
           {
             "action": "scroll",
             "delta": 150,
-            "delayMs": 500
+            "delayMs": 600
           },
           {
             "action": "highlight",
             "text": "external",
-            "delayMs": 2000
+            "delayMs": 3120
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 3120
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 3120
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 3120
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 3120
           }
         ]
       },
@@ -641,24 +736,24 @@
         "hash": "241bb182b4fd"
       },
       "resolvedTiming": {
-        "mode": "audio-dictates",
-        "sceneMs": 19300,
-        "ratePct": 0,
-        "padVisualMs": 19300,
+        "mode": "speech-fit",
+        "sceneMs": 19315,
+        "ratePct": -0.1,
+        "padVisualMs": 0,
         "padAudioMs": 0,
         "warnings": []
       },
-      "ratePct": 0,
+      "ratePct": -0.1,
       "resolvedVisual": {
         "filePath": "assets/recordings/s10-memory-practice.mp4",
-        "durationMs": 3134.7890625,
+        "durationMs": 19315.429931640625,
         "roi": {
           "x": 789.28125,
           "y": 170.65625,
           "width": 51.25,
           "height": 16
         },
-        "hash": "ec8a2aa54095"
+        "hash": "c89e2eb22193"
       },
       "roi": {
         "x": 789.28125,
@@ -681,12 +776,37 @@
           {
             "action": "scroll",
             "delta": 280,
-            "delayMs": 500
+            "delayMs": 600
           },
           {
             "action": "highlight",
             "text": "Hallucination and Non-determinism",
-            "delayMs": 2500
+            "delayMs": 2787
+          },
+          {
+            "action": "highlight",
+            "selector": ".concept:has(.concept-name:text-is(\"Hallucination and Non-determinism\")) strong >> nth=0",
+            "delayMs": 2787
+          },
+          {
+            "action": "highlight",
+            "selector": ".concept:has(.concept-name:text-is(\"Hallucination and Non-determinism\")) strong >> nth=1",
+            "delayMs": 2787
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2787
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2787
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2786
           }
         ]
       },
@@ -705,30 +825,30 @@
         "hash": "be08406ccc1e"
       },
       "resolvedTiming": {
-        "mode": "audio-dictates",
-        "sceneMs": 25375,
-        "ratePct": 0,
-        "padVisualMs": 25375,
+        "mode": "speech-fit",
+        "sceneMs": 25427,
+        "ratePct": -0.2,
+        "padVisualMs": 0,
         "padAudioMs": 0,
         "warnings": []
       },
-      "ratePct": 0,
+      "ratePct": -0.2,
       "resolvedVisual": {
         "filePath": "assets/recordings/s11-hallucination-anchor.mp4",
-        "durationMs": 3630.37109375,
+        "durationMs": 25427.419921875,
         "roi": {
-          "x": 563,
-          "y": 122.140625,
-          "width": 794,
-          "height": 23.09375
+          "x": 1134.5,
+          "y": 191.890625,
+          "width": 115.703125,
+          "height": 16
         },
-        "hash": "5ae720bd315f"
+        "hash": "0cae00160c87"
       },
       "roi": {
-        "x": 563,
-        "y": 122.140625,
-        "width": 794,
-        "height": 23.09375
+        "x": 1134.5,
+        "y": 191.890625,
+        "width": 115.703125,
+        "height": 16
       }
     },
     {
@@ -746,12 +866,42 @@
           {
             "action": "scroll",
             "delta": 280,
-            "delayMs": 500
+            "delayMs": 600
           },
           {
             "action": "highlight",
             "text": "Machine-verifiable tests",
-            "delayMs": 2000
+            "delayMs": 2905
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2905
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2905
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2905
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2905
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2905
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2905
           }
         ]
       },
@@ -771,24 +921,24 @@
         "hash": "58828c5b3711"
       },
       "resolvedTiming": {
-        "mode": "audio-dictates",
-        "sceneMs": 25275,
+        "mode": "speech-fit",
+        "sceneMs": 25274,
         "ratePct": 0,
-        "padVisualMs": 25275,
+        "padVisualMs": 0,
         "padAudioMs": 0,
         "warnings": []
       },
       "ratePct": 0,
       "resolvedVisual": {
         "filePath": "assets/recordings/s12-hallucination-practice.mp4",
-        "durationMs": 3131.191162109375,
+        "durationMs": 25274.2119140625,
         "roi": {
           "x": 563,
           "y": 148.234375,
           "width": 794,
           "height": 104.140625
         },
-        "hash": "b30ce25252f2"
+        "hash": "20f85b89fed9"
       },
       "roi": {
         "x": 563,
@@ -815,12 +965,37 @@
           {
             "action": "scroll",
             "delta": 0,
-            "delayMs": 500
+            "delayMs": 600
           },
           {
             "action": "highlight",
             "text": "Prompt Engineering",
-            "delayMs": 2500
+            "delayMs": 2863
+          },
+          {
+            "action": "highlight",
+            "selector": ".concept:has(.concept-name:text-is(\"Prompt Engineering\")) strong >> nth=0",
+            "delayMs": 2863
+          },
+          {
+            "action": "highlight",
+            "selector": ".concept:has(.concept-name:text-is(\"Prompt Engineering\")) strong >> nth=1",
+            "delayMs": 2863
+          },
+          {
+            "action": "highlight",
+            "selector": ".concept:has(.concept-name:text-is(\"Prompt Engineering\")) strong >> nth=2",
+            "delayMs": 2863
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2863
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2860
           }
         ]
       },
@@ -840,30 +1015,30 @@
         "hash": "80080b0f6dc3"
       },
       "resolvedTiming": {
-        "mode": "audio-dictates",
-        "sceneMs": 30525,
-        "ratePct": 0,
-        "padVisualMs": 30525,
+        "mode": "speech-fit",
+        "sceneMs": 30624,
+        "ratePct": -0.3,
+        "padVisualMs": 0,
         "padAudioMs": 0,
         "warnings": []
       },
-      "ratePct": 0,
+      "ratePct": -0.3,
       "resolvedVisual": {
         "filePath": "assets/recordings/s13-prompt-engineering-anchor.mp4",
-        "durationMs": 5927.757080078125,
+        "durationMs": 30623.883056640625,
         "roi": {
-          "x": 563,
-          "y": 142.046875,
-          "width": 794,
-          "height": 23.09375
+          "x": 763.765625,
+          "y": 211.796875,
+          "width": 182.0625,
+          "height": 16
         },
-        "hash": "802058aa1ac2"
+        "hash": "28ae0cdd8618"
       },
       "roi": {
-        "x": 563,
-        "y": 142.046875,
-        "width": 794,
-        "height": 23.09375
+        "x": 763.765625,
+        "y": 211.796875,
+        "width": 182.0625,
+        "height": 16
       }
     },
     {
@@ -881,12 +1056,32 @@
           {
             "action": "scroll",
             "delta": 0,
-            "delayMs": 500
+            "delayMs": 600
           },
           {
             "action": "highlight",
             "text": "positive framing",
-            "delayMs": 2000
+            "delayMs": 3220
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 3220
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 3220
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 3220
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 3220
           }
         ]
       },
@@ -906,24 +1101,24 @@
         "hash": "0c8fe2794a9d"
       },
       "resolvedTiming": {
-        "mode": "audio-dictates",
-        "sceneMs": 19800,
-        "ratePct": 0,
-        "padVisualMs": 19800,
+        "mode": "speech-fit",
+        "sceneMs": 19816,
+        "ratePct": -0.1,
+        "padVisualMs": 0,
         "padAudioMs": 0,
         "warnings": []
       },
-      "ratePct": 0,
+      "ratePct": -0.1,
       "resolvedVisual": {
         "filePath": "assets/recordings/s14-prompt-engineering-practice.mp4",
-        "durationMs": 3140.822265625,
+        "durationMs": 19815.763916015625,
         "roi": {
           "x": 680,
           "y": 190.96875,
           "width": 107.859375,
           "height": 16
         },
-        "hash": "d249699efa4a"
+        "hash": "3928db3571ce"
       },
       "roi": {
         "x": 680,
@@ -946,12 +1141,37 @@
           {
             "action": "scroll",
             "delta": 150,
-            "delayMs": 500
+            "delayMs": 600
           },
           {
             "action": "highlight",
             "text": "Context Engineering",
-            "delayMs": 2500
+            "delayMs": 2875
+          },
+          {
+            "action": "highlight",
+            "selector": ".concept:has(.concept-name:text-is(\"Context Engineering\")) strong >> nth=0",
+            "delayMs": 2875
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2875
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2875
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2875
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2875
           }
         ]
       },
@@ -970,30 +1190,30 @@
         "hash": "2d9d1a2e235d"
       },
       "resolvedTiming": {
-        "mode": "audio-dictates",
-        "sceneMs": 23825,
-        "ratePct": 0,
-        "padVisualMs": 23825,
+        "mode": "speech-fit",
+        "sceneMs": 23851,
+        "ratePct": -0.1,
+        "padVisualMs": 0,
         "padAudioMs": 0,
         "warnings": []
       },
-      "ratePct": 0,
+      "ratePct": -0.1,
       "resolvedVisual": {
         "filePath": "assets/recordings/s15-context-engineering-anchor.mp4",
-        "durationMs": 3628.740966796875,
+        "durationMs": 23851.364990234375,
         "roi": {
-          "x": 563,
-          "y": 122.453125,
-          "width": 794,
-          "height": 23.09375
+          "x": 788.1875,
+          "y": 171.375,
+          "width": 74.625,
+          "height": 16
         },
-        "hash": "5da0fea3bb83"
+        "hash": "9b8e3bb6ce1a"
       },
       "roi": {
-        "x": 563,
-        "y": 122.453125,
-        "width": 794,
-        "height": 23.09375
+        "x": 788.1875,
+        "y": 171.375,
+        "width": 74.625,
+        "height": 16
       }
     },
     {
@@ -1011,12 +1231,32 @@
           {
             "action": "scroll",
             "delta": 150,
-            "delayMs": 500
+            "delayMs": 600
           },
           {
             "action": "highlight",
             "text": "just-in-time",
-            "delayMs": 2000
+            "delayMs": 3220
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 3220
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 3220
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 3220
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 3220
           }
         ]
       },
@@ -1036,24 +1276,24 @@
         "hash": "c0522f493c40"
       },
       "resolvedTiming": {
-        "mode": "audio-dictates",
-        "sceneMs": 19800,
-        "ratePct": 0,
-        "padVisualMs": 19800,
+        "mode": "speech-fit",
+        "sceneMs": 19829,
+        "ratePct": -0.2,
+        "padVisualMs": 0,
         "padAudioMs": 0,
         "warnings": []
       },
-      "ratePct": 0,
+      "ratePct": -0.2,
       "resolvedVisual": {
         "filePath": "assets/recordings/s16-context-engineering-practice.mp4",
-        "durationMs": 3132.55322265625,
+        "durationMs": 19829.187744140625,
         "roi": {
           "x": 563,
           "y": 148.546875,
           "width": 794,
           "height": 62.484375
         },
-        "hash": "ef933c339877"
+        "hash": "0e7b1558c880"
       },
       "roi": {
         "x": 563,
@@ -1076,12 +1316,37 @@
           {
             "action": "scroll",
             "delta": 260,
-            "delayMs": 500
+            "delayMs": 600
           },
           {
             "action": "highlight",
             "text": "Retrieval-Augmented Generation",
-            "delayMs": 2500
+            "delayMs": 2684
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2684
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2684
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2684
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2684
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2685
           }
         ]
       },
@@ -1100,24 +1365,24 @@
         "hash": "6f7a41700e5c"
       },
       "resolvedTiming": {
-        "mode": "audio-dictates",
-        "sceneMs": 20425,
-        "ratePct": 0,
-        "padVisualMs": 20425,
+        "mode": "speech-fit",
+        "sceneMs": 20443,
+        "ratePct": -0.1,
+        "padVisualMs": 0,
         "padAudioMs": 0,
         "warnings": []
       },
-      "ratePct": 0,
+      "ratePct": -0.1,
       "resolvedVisual": {
         "filePath": "assets/recordings/s17-rag-anchor.mp4",
-        "durationMs": 3639.390869140625,
+        "durationMs": 20442.866943359375,
         "roi": {
           "x": 563,
           "y": 122.03125,
           "width": 794,
           "height": 23.09375
         },
-        "hash": "52bf61387937"
+        "hash": "f0ff29136308"
       },
       "roi": {
         "x": 563,
@@ -1141,12 +1406,27 @@
           {
             "action": "scroll",
             "delta": 260,
-            "delayMs": 500
+            "delayMs": 600
           },
           {
             "action": "highlight",
             "text": "just-in-time",
-            "delayMs": 2000
+            "delayMs": 2899
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2899
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2899
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2898
           }
         ]
       },
@@ -1166,24 +1446,24 @@
         "hash": "37eece408b2a"
       },
       "resolvedTiming": {
-        "mode": "audio-dictates",
-        "sceneMs": 14675,
-        "ratePct": 0,
-        "padVisualMs": 14675,
+        "mode": "speech-fit",
+        "sceneMs": 14694,
+        "ratePct": -0.1,
+        "padVisualMs": 0,
         "padAudioMs": 0,
         "warnings": []
       },
-      "ratePct": 0,
+      "ratePct": -0.1,
       "resolvedVisual": {
         "filePath": "assets/recordings/s18-rag-practice.mp4",
-        "durationMs": 3137.989990234375,
+        "durationMs": 14693.815185546875,
         "roi": {
           "x": 563,
           "y": 38.546875,
           "width": 794,
           "height": 62.484375
         },
-        "hash": "a2887d16b1d9"
+        "hash": "22efedbf0398"
       },
       "roi": {
         "x": 563,
@@ -1206,12 +1486,47 @@
           {
             "action": "scroll",
             "delta": 390,
-            "delayMs": 500
+            "delayMs": 600
           },
           {
             "action": "highlight",
             "text": "Open Knowledge Format",
-            "delayMs": 2500
+            "delayMs": 2764
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2764
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2764
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2764
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2764
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2764
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2764
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2767
           }
         ]
       },
@@ -1230,24 +1545,24 @@
         "hash": "0d3936e79a7e"
       },
       "resolvedTiming": {
-        "mode": "audio-dictates",
-        "sceneMs": 27675,
-        "ratePct": 0,
-        "padVisualMs": 27675,
+        "mode": "speech-fit",
+        "sceneMs": 27705,
+        "ratePct": -0.1,
+        "padVisualMs": 0,
         "padAudioMs": 0,
         "warnings": []
       },
-      "ratePct": 0,
+      "ratePct": -0.1,
       "resolvedVisual": {
         "filePath": "assets/recordings/s19-okf-anchor.mp4",
-        "durationMs": 3638.43212890625,
+        "durationMs": 27704.881103515625,
         "roi": {
           "x": 563,
           "y": 122.4375,
           "width": 794,
           "height": 23.09375
         },
-        "hash": "fe1c93815bb1"
+        "hash": "648d4e950bfe"
       },
       "roi": {
         "x": 563,
@@ -1271,12 +1586,22 @@
           {
             "action": "scroll",
             "delta": 390,
-            "delayMs": 500
+            "delayMs": 600
           },
           {
             "action": "highlight",
             "text": "specific fact",
-            "delayMs": 2000
+            "delayMs": 3288
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 3288
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 3289
           }
         ]
       },
@@ -1296,24 +1621,24 @@
         "hash": "be3eab4a7813"
       },
       "resolvedTiming": {
-        "mode": "audio-dictates",
-        "sceneMs": 12325,
-        "ratePct": 0,
-        "padVisualMs": 12325,
+        "mode": "speech-fit",
+        "sceneMs": 12368,
+        "ratePct": -0.4,
+        "padVisualMs": 0,
         "padAudioMs": 0,
         "warnings": []
       },
-      "ratePct": 0,
+      "ratePct": -0.4,
       "resolvedVisual": {
         "filePath": "assets/recordings/s20-okf-practice.mp4",
-        "durationMs": 3132.240234375,
+        "durationMs": 12368.010986328125,
         "roi": {
           "x": 563,
           "y": 148.53125,
           "width": 794,
           "height": 104.140625
         },
-        "hash": "91ac27817b5d"
+        "hash": "476714e0b0d9"
       },
       "roi": {
         "x": 563,
@@ -1336,12 +1661,37 @@
           {
             "action": "scroll",
             "delta": 540,
-            "delayMs": 500
+            "delayMs": 600
           },
           {
             "action": "highlight",
             "text": "Model Context Protocol",
-            "delayMs": 2500
+            "delayMs": 3147
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 3147
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 3147
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 3147
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 3147
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 3145
           }
         ]
       },
@@ -1360,24 +1710,24 @@
         "hash": "b3546aac0f48"
       },
       "resolvedTiming": {
-        "mode": "audio-dictates",
-        "sceneMs": 23200,
-        "ratePct": 0,
-        "padVisualMs": 23200,
+        "mode": "speech-fit",
+        "sceneMs": 23277,
+        "ratePct": -0.3,
+        "padVisualMs": 0,
         "padAudioMs": 0,
         "warnings": []
       },
-      "ratePct": 0,
+      "ratePct": -0.3,
       "resolvedVisual": {
         "filePath": "assets/recordings/s21-mcp-anchor.mp4",
-        "durationMs": 3632.585205078125,
+        "durationMs": 23277.23583984375,
         "roi": {
           "x": 563,
           "y": 123.671875,
           "width": 794,
           "height": 23.09375
         },
-        "hash": "a0b131bdca9a"
+        "hash": "85d2cd200924"
       },
       "roi": {
         "x": 563,
@@ -1441,7 +1791,7 @@
         "filePath": "assets/recordings/s22-rag-vs-mcp-slide.mp4",
         "durationMs": 20067,
         "roi": null,
-        "hash": "7533a0de768e"
+        "hash": "a3c87d9eea35"
       }
     },
     {
@@ -1459,12 +1809,37 @@
           {
             "action": "scroll",
             "delta": 540,
-            "delayMs": 500
+            "delayMs": 600
           },
           {
             "action": "highlight",
             "text": "current state",
-            "delayMs": 2000
+            "delayMs": 2922
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2922
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2922
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2922
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2922
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2920
           }
         ]
       },
@@ -1484,24 +1859,24 @@
         "hash": "1e62a6361c85"
       },
       "resolvedTiming": {
-        "mode": "audio-dictates",
-        "sceneMs": 21850,
+        "mode": "speech-fit",
+        "sceneMs": 21856,
         "ratePct": 0,
-        "padVisualMs": 21850,
+        "padVisualMs": 0,
         "padAudioMs": 0,
         "warnings": []
       },
       "ratePct": 0,
       "resolvedVisual": {
         "filePath": "assets/recordings/s23-mcp-practice.mp4",
-        "durationMs": 3131.97509765625,
+        "durationMs": 21855.98291015625,
         "roi": {
           "x": 563,
           "y": 149.765625,
           "width": 794,
           "height": 62.484375
         },
-        "hash": "2263e2b7627d"
+        "hash": "1d808beec687"
       },
       "roi": {
         "x": 563,
@@ -1524,12 +1899,32 @@
           {
             "action": "scroll",
             "delta": 650,
-            "delayMs": 500
+            "delayMs": 600
           },
           {
             "action": "highlight",
             "text": "The ReAct Pattern",
-            "delayMs": 2500
+            "delayMs": 3129
+          },
+          {
+            "action": "highlight",
+            "selector": ".concept:has(.concept-name:text-is(\"The ReAct Pattern and Agentic Loop Design\")) strong >> nth=0",
+            "delayMs": 3129
+          },
+          {
+            "action": "highlight",
+            "selector": ".concept:has(.concept-name:text-is(\"The ReAct Pattern and Agentic Loop Design\")) strong >> nth=1",
+            "delayMs": 3129
+          },
+          {
+            "action": "highlight",
+            "selector": ".concept:has(.concept-name:text-is(\"The ReAct Pattern and Agentic Loop Design\")) strong >> nth=2",
+            "delayMs": 3129
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 3132
           }
         ]
       },
@@ -1548,30 +1943,30 @@
         "hash": "8426446661c6"
       },
       "resolvedTiming": {
-        "mode": "audio-dictates",
-        "sceneMs": 26875,
-        "ratePct": 0,
-        "padVisualMs": 26875,
+        "mode": "speech-fit",
+        "sceneMs": 26949,
+        "ratePct": -0.3,
+        "padVisualMs": 0,
         "padAudioMs": 0,
         "warnings": []
       },
-      "ratePct": 0,
+      "ratePct": -0.3,
       "resolvedVisual": {
         "filePath": "assets/recordings/s24-react-anchor.mp4",
-        "durationMs": 3632.43212890625,
+        "durationMs": 26949.062255859375,
         "roi": {
-          "x": 563,
-          "y": 123.25,
-          "width": 794,
-          "height": 23.09375
+          "x": 1008.875,
+          "y": 172.171875,
+          "width": 55.875,
+          "height": 16
         },
-        "hash": "374b2459bd36"
+        "hash": "6593f4866759"
       },
       "roi": {
-        "x": 563,
-        "y": 123.25,
-        "width": 794,
-        "height": 23.09375
+        "x": 1008.875,
+        "y": 172.171875,
+        "width": 55.875,
+        "height": 16
       }
     },
     {
@@ -1637,7 +2032,7 @@
         "filePath": "assets/recordings/s25-react-loop-slide.mp4",
         "durationMs": 17800,
         "roi": null,
-        "hash": "fc621b18364c"
+        "hash": "c97f29d11e4b"
       }
     },
     {
@@ -1655,12 +2050,32 @@
           {
             "action": "scroll",
             "delta": 650,
-            "delayMs": 500
+            "delayMs": 600
           },
           {
             "action": "highlight",
             "text": "all tests pass",
-            "delayMs": 2000
+            "delayMs": 2615
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2615
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2615
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2615
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2615
           }
         ]
       },
@@ -1681,24 +2096,24 @@
         "hash": "57380ad83470"
       },
       "resolvedTiming": {
-        "mode": "audio-dictates",
-        "sceneMs": 16775,
-        "ratePct": 0,
-        "padVisualMs": 16775,
+        "mode": "speech-fit",
+        "sceneMs": 16803,
+        "ratePct": -0.2,
+        "padVisualMs": 0,
         "padAudioMs": 0,
         "warnings": []
       },
-      "ratePct": 0,
+      "ratePct": -0.2,
       "resolvedVisual": {
         "filePath": "assets/recordings/s26-react-practice.mp4",
-        "durationMs": 3135.06005859375,
+        "durationMs": 16803.271240234375,
         "roi": {
           "x": 563,
           "y": 149.34375,
           "width": 794,
           "height": 124.96875
         },
-        "hash": "008198f913b1"
+        "hash": "750fdf77596f"
       },
       "roi": {
         "x": 563,
@@ -1721,12 +2136,32 @@
           {
             "action": "scroll",
             "delta": 825,
-            "delayMs": 500
+            "delayMs": 600
           },
           {
             "action": "highlight",
             "text": "Planning-Execution Separation",
-            "delayMs": 2500
+            "delayMs": 2958
+          },
+          {
+            "action": "highlight",
+            "selector": ".concept:has(.concept-name:text-is(\"Planning-Execution Separation\")) strong >> nth=0",
+            "delayMs": 2958
+          },
+          {
+            "action": "highlight",
+            "selector": ".concept:has(.concept-name:text-is(\"Planning-Execution Separation\")) strong >> nth=1",
+            "delayMs": 2958
+          },
+          {
+            "action": "highlight",
+            "selector": ".concept:has(.concept-name:text-is(\"Planning-Execution Separation\")) strong >> nth=2",
+            "delayMs": 2958
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2954
           }
         ]
       },
@@ -1746,30 +2181,30 @@
         "hash": "ee3c5a4582b1"
       },
       "resolvedTiming": {
-        "mode": "audio-dictates",
-        "sceneMs": 25500,
-        "ratePct": 0,
-        "padVisualMs": 25500,
+        "mode": "speech-fit",
+        "sceneMs": 25600,
+        "ratePct": -0.4,
+        "padVisualMs": 0,
         "padAudioMs": 0,
         "warnings": []
       },
-      "ratePct": 0,
+      "ratePct": -0.4,
       "resolvedVisual": {
         "filePath": "assets/recordings/s27-planning-anchor.mp4",
-        "durationMs": 3631.70703125,
+        "durationMs": 25600.35498046875,
         "roi": {
-          "x": 563,
-          "y": 120.3125,
-          "width": 794,
-          "height": 23.09375
+          "x": 581,
+          "y": 281.25,
+          "width": 183.203125,
+          "height": 17
         },
-        "hash": "2d857bc6842b"
+        "hash": "be530698583b"
       },
       "roi": {
-        "x": 563,
-        "y": 120.3125,
-        "width": 794,
-        "height": 23.09375
+        "x": 581,
+        "y": 281.25,
+        "width": 183.203125,
+        "height": 17
       }
     },
     {
@@ -1838,7 +2273,7 @@
         "filePath": "assets/recordings/s28-qrspi-slide.mp4",
         "durationMs": 16300,
         "roi": null,
-        "hash": "ae33a3a568d2"
+        "hash": "87217c0b95e5"
       }
     },
     {
@@ -1856,12 +2291,32 @@
           {
             "action": "scroll",
             "delta": 825,
-            "delayMs": 500
+            "delayMs": 600
           },
           {
             "action": "highlight",
             "text": "QRSPI",
-            "delayMs": 2000
+            "delayMs": 3220
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 3220
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 3220
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 3220
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 3220
           }
         ]
       },
@@ -1881,24 +2336,24 @@
         "hash": "1c1770bcaef2"
       },
       "resolvedTiming": {
-        "mode": "audio-dictates",
-        "sceneMs": 19800,
-        "ratePct": 0,
-        "padVisualMs": 19800,
+        "mode": "speech-fit",
+        "sceneMs": 19810,
+        "ratePct": -0.1,
+        "padVisualMs": 0,
         "padAudioMs": 0,
         "warnings": []
       },
-      "ratePct": 0,
+      "ratePct": -0.1,
       "resolvedVisual": {
         "filePath": "assets/recordings/s29-planning-practice.mp4",
-        "durationMs": 3126.619140625,
+        "durationMs": 19810.281982421875,
         "roi": {
           "x": 749.25,
           "y": 325.34375,
           "width": 40.5625,
           "height": 16
         },
-        "hash": "800f5dfbe800"
+        "hash": "53dd91f60551"
       },
       "roi": {
         "x": 749.25,
@@ -1921,12 +2376,37 @@
           {
             "action": "scroll",
             "delta": 1090,
-            "delayMs": 500
+            "delayMs": 600
           },
           {
             "action": "highlight",
             "selector": ".concept-name:text-is(\"Agent Skills\")",
-            "delayMs": 2500
+            "delayMs": 2780
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2780
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2780
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2780
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2780
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2780
           }
         ]
       },
@@ -1946,24 +2426,24 @@
         "hash": "fbf9e89fe2c6"
       },
       "resolvedTiming": {
-        "mode": "audio-dictates",
-        "sceneMs": 21000,
-        "ratePct": 0,
-        "padVisualMs": 21000,
+        "mode": "speech-fit",
+        "sceneMs": 21028,
+        "ratePct": -0.1,
+        "padVisualMs": 0,
         "padAudioMs": 0,
         "warnings": []
       },
-      "ratePct": 0,
+      "ratePct": -0.1,
       "resolvedVisual": {
         "filePath": "assets/recordings/s30-skills-anchor.mp4",
-        "durationMs": 3623.032958984375,
+        "durationMs": 21027.782958984375,
         "roi": {
           "x": 563,
           "y": 121,
           "width": 794,
           "height": 23.09375
         },
-        "hash": "40f1de32fcc7"
+        "hash": "289502d3ad60"
       },
       "roi": {
         "x": 563,
@@ -1987,12 +2467,37 @@
           {
             "action": "scroll",
             "delta": 1090,
-            "delayMs": 500
+            "delayMs": 600
           },
           {
             "action": "highlight",
             "text": "progressive disclosure",
-            "delayMs": 2000
+            "delayMs": 2751
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2751
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2751
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2751
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2751
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2750
           }
         ]
       },
@@ -2012,24 +2517,24 @@
         "hash": "a7a8c35c25a9"
       },
       "resolvedTiming": {
-        "mode": "audio-dictates",
-        "sceneMs": 20825,
-        "ratePct": 0,
-        "padVisualMs": 20825,
+        "mode": "speech-fit",
+        "sceneMs": 20848,
+        "ratePct": -0.1,
+        "padVisualMs": 0,
         "padAudioMs": 0,
         "warnings": []
       },
-      "ratePct": 0,
+      "ratePct": -0.1,
       "resolvedVisual": {
         "filePath": "assets/recordings/s31-skills-practice.mp4",
-        "durationMs": 3129.531005859375,
+        "durationMs": 20847.65185546875,
         "roi": {
           "x": 563,
           "y": 147.09375,
           "width": 794,
           "height": 83.3125
         },
-        "hash": "bca50893eb0d"
+        "hash": "50fddc2f397e"
       },
       "roi": {
         "x": 563,
@@ -2056,12 +2561,42 @@
           {
             "action": "scroll",
             "delta": 32,
-            "delayMs": 500
+            "delayMs": 600
           },
           {
             "action": "highlight",
-            "text": "Human-in-the-Loop",
-            "delayMs": 2500
+            "selector": ".concept-name:text-is(\"Human-in-the-Loop (HITL) Design\")",
+            "delayMs": 2894
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2894
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2894
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2894
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2894
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2894
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2895
           }
         ]
       },
@@ -2080,30 +2615,30 @@
         "hash": "5478d506236c"
       },
       "resolvedTiming": {
-        "mode": "audio-dictates",
-        "sceneMs": 27500,
+        "mode": "speech-fit",
+        "sceneMs": 27505,
         "ratePct": 0,
-        "padVisualMs": 27500,
+        "padVisualMs": 0,
         "padAudioMs": 0,
         "warnings": []
       },
       "ratePct": 0,
       "resolvedVisual": {
         "filePath": "assets/recordings/s32-hitl-anchor.mp4",
-        "durationMs": 3427.458984375,
+        "durationMs": 27504.56103515625,
         "roi": {
-          "x": 586.609375,
-          "y": -4747.5625,
-          "width": 770.390625,
-          "height": 46.1875
+          "x": 563,
+          "y": 109.609375,
+          "width": 794,
+          "height": 23.09375
         },
-        "hash": "2c7d92a08fc1"
+        "hash": "d728a4f82236"
       },
       "roi": {
-        "x": 586.609375,
-        "y": -4747.5625,
-        "width": 770.390625,
-        "height": 46.1875
+        "x": 563,
+        "y": 109.609375,
+        "width": 794,
+        "height": 23.09375
       }
     },
     {
@@ -2121,12 +2656,27 @@
           {
             "action": "scroll",
             "delta": 100,
-            "delayMs": 500
+            "delayMs": 600
           },
           {
             "action": "highlight",
             "text": "not a gate",
-            "delayMs": 2000
+            "delayMs": 3243
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 3243
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 3243
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 3241
           }
         ]
       },
@@ -2146,24 +2696,24 @@
         "hash": "9fa58396d3aa"
       },
       "resolvedTiming": {
-        "mode": "audio-dictates",
-        "sceneMs": 16050,
+        "mode": "speech-fit",
+        "sceneMs": 16054,
         "ratePct": 0,
-        "padVisualMs": 16050,
+        "padVisualMs": 0,
         "padAudioMs": 0,
         "warnings": []
       },
       "ratePct": 0,
       "resolvedVisual": {
         "filePath": "assets/recordings/s33-hitl-practice.mp4",
-        "durationMs": 3135.5400390625,
+        "durationMs": 16053.7451171875,
         "roi": {
           "x": 563,
           "y": 67.703125,
           "width": 794,
           "height": 83.3125
         },
-        "hash": "87f19e423e81"
+        "hash": "288d74d525ef"
       },
       "roi": {
         "x": 563,
@@ -2186,12 +2736,42 @@
           {
             "action": "scroll",
             "delta": 162,
-            "delayMs": 500
+            "delayMs": 600
           },
           {
             "action": "highlight",
             "text": "Specification-First Development",
-            "delayMs": 2500
+            "delayMs": 2862
+          },
+          {
+            "action": "highlight",
+            "selector": ".concept:has(.concept-name:text-is(\"Specification-First Development\")) strong >> nth=0",
+            "delayMs": 2862
+          },
+          {
+            "action": "highlight",
+            "selector": ".concept:has(.concept-name:text-is(\"Specification-First Development\")) strong >> nth=1",
+            "delayMs": 2862
+          },
+          {
+            "action": "highlight",
+            "selector": ".concept:has(.concept-name:text-is(\"Specification-First Development\")) strong >> nth=2",
+            "delayMs": 2862
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2862
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2862
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2862
           }
         ]
       },
@@ -2210,30 +2790,30 @@
         "hash": "ece87501c568"
       },
       "resolvedTiming": {
-        "mode": "audio-dictates",
-        "sceneMs": 31700,
-        "ratePct": 0,
-        "padVisualMs": 31700,
+        "mode": "speech-fit",
+        "sceneMs": 31784,
+        "ratePct": -0.3,
+        "padVisualMs": 0,
         "padAudioMs": 0,
         "warnings": []
       },
-      "ratePct": 0,
+      "ratePct": -0.3,
       "resolvedVisual": {
         "filePath": "assets/recordings/s34-spec-first-anchor.mp4",
-        "durationMs": 3624.77099609375,
+        "durationMs": 31784.111083984375,
         "roi": {
-          "x": 563,
-          "y": 110.015625,
-          "width": 794,
-          "height": 23.09375
+          "x": 581,
+          "y": 265.078125,
+          "width": 300.890625,
+          "height": 16
         },
-        "hash": "7cbb763dd971"
+        "hash": "56a97e7ed8b4"
       },
       "roi": {
-        "x": 563,
-        "y": 110.015625,
-        "width": 794,
-        "height": 23.09375
+        "x": 581,
+        "y": 265.078125,
+        "width": 300.890625,
+        "height": 16
       }
     },
     {
@@ -2251,12 +2831,42 @@
           {
             "action": "scroll",
             "delta": 420,
-            "delayMs": 500
+            "delayMs": 600
           },
           {
             "action": "highlight",
             "text": "lightweight and flexible",
-            "delayMs": 2000
+            "delayMs": 3069
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 3069
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 3069
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 3069
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 3069
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 3069
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 3071
           }
         ]
       },
@@ -2276,24 +2886,24 @@
         "hash": "c4a96ec45a6f"
       },
       "resolvedTiming": {
-        "mode": "audio-dictates",
-        "sceneMs": 26425,
+        "mode": "speech-fit",
+        "sceneMs": 26428,
         "ratePct": 0,
-        "padVisualMs": 26425,
+        "padVisualMs": 0,
         "padAudioMs": 0,
         "warnings": []
       },
       "ratePct": 0,
       "resolvedVisual": {
         "filePath": "assets/recordings/s35-spec-first-practice.mp4",
-        "durationMs": 3136.97314453125,
+        "durationMs": 26427.64599609375,
         "roi": {
           "x": 563,
           "y": 189.359375,
           "width": 794,
           "height": 108.28125
         },
-        "hash": "36583d07bd81"
+        "hash": "69d1f90e5085"
       },
       "roi": {
         "x": 563,
@@ -2316,12 +2926,32 @@
           {
             "action": "scroll",
             "delta": 637,
-            "delayMs": 500
+            "delayMs": 600
           },
           {
             "action": "highlight",
-            "text": "Test-Driven Development",
-            "delayMs": 2500
+            "selector": ".concept-name:text-is(\"Test-Driven Development (TDD)\")",
+            "delayMs": 2799
+          },
+          {
+            "action": "highlight",
+            "selector": ".concept:has(.concept-name:text-is(\"Test-Driven Development (TDD)\")) strong >> nth=0",
+            "delayMs": 2799
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2799
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2799
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2800
           }
         ]
       },
@@ -2340,30 +2970,30 @@
         "hash": "b35814501ba4"
       },
       "resolvedTiming": {
-        "mode": "audio-dictates",
-        "sceneMs": 19875,
-        "ratePct": 0,
-        "padVisualMs": 19875,
+        "mode": "speech-fit",
+        "sceneMs": 19922,
+        "ratePct": -0.2,
+        "padVisualMs": 0,
         "padAudioMs": 0,
         "warnings": []
       },
-      "ratePct": 0,
+      "ratePct": -0.2,
       "resolvedVisual": {
         "filePath": "assets/recordings/s36-tdd-anchor.mp4",
-        "durationMs": 648.89599609375,
+        "durationMs": 19921.9150390625,
         "roi": {
-          "x": 586.609375,
-          "y": -5352.5625,
-          "width": 770.390625,
-          "height": 46.1875
+          "x": 670.671875,
+          "y": 137.734375,
+          "width": 133.3125,
+          "height": 16
         },
-        "hash": "6cde810f27a1"
+        "hash": "2fdaba8afe77"
       },
       "roi": {
-        "x": 586.609375,
-        "y": -5352.5625,
-        "width": 770.390625,
-        "height": 46.1875
+        "x": 670.671875,
+        "y": 137.734375,
+        "width": 133.3125,
+        "height": 16
       }
     },
     {
@@ -2381,12 +3011,27 @@
           {
             "action": "scroll",
             "delta": 637,
-            "delayMs": 500
+            "delayMs": 600
           },
           {
             "action": "highlight",
-            "text": "non-determinism",
-            "delayMs": 2000
+            "selector": ".concept:has(.concept-name:text-is(\"Test-Driven Development (TDD)\")) .concept-desc",
+            "delayMs": 3280
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 3280
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 3280
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 3280
           }
         ]
       },
@@ -2406,30 +3051,30 @@
         "hash": "9971cf8322cc"
       },
       "resolvedTiming": {
-        "mode": "audio-dictates",
-        "sceneMs": 16200,
-        "ratePct": 0,
-        "padVisualMs": 16200,
+        "mode": "speech-fit",
+        "sceneMs": 16236,
+        "ratePct": -0.2,
+        "padVisualMs": 0,
         "padAudioMs": 0,
         "warnings": []
       },
-      "ratePct": 0,
+      "ratePct": -0.2,
       "resolvedVisual": {
         "filePath": "assets/recordings/s37-tdd-practice.mp4",
-        "durationMs": 648.9111328125,
+        "durationMs": 16236.057861328125,
         "roi": {
           "x": 563,
-          "y": -3114.859375,
+          "y": 135.734375,
           "width": 794,
-          "height": 23.09375
+          "height": 83.3125
         },
-        "hash": "c343f0fc8ed3"
+        "hash": "0a711ecf8f00"
       },
       "roi": {
         "x": 563,
-        "y": -3114.859375,
+        "y": 135.734375,
         "width": 794,
-        "height": 23.09375
+        "height": 83.3125
       }
     },
     {
@@ -2446,12 +3091,37 @@
           {
             "action": "scroll",
             "delta": 767,
-            "delayMs": 500
+            "delayMs": 600
           },
           {
             "action": "highlight",
-            "text": "Architecture Decision Records",
-            "delayMs": 2500
+            "selector": ".concept-name:text-is(\"Architecture Decision Records (ADRs)\")",
+            "delayMs": 2863
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2863
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2863
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2863
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2863
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2865
           }
         ]
       },
@@ -2470,30 +3140,30 @@
         "hash": "ab092e25de09"
       },
       "resolvedTiming": {
-        "mode": "audio-dictates",
-        "sceneMs": 21500,
-        "ratePct": 0,
-        "padVisualMs": 21500,
+        "mode": "speech-fit",
+        "sceneMs": 21528,
+        "ratePct": -0.1,
+        "padVisualMs": 0,
         "padAudioMs": 0,
         "warnings": []
       },
-      "ratePct": 0,
+      "ratePct": -0.1,
       "resolvedVisual": {
         "filePath": "assets/recordings/s38-adr-anchor.mp4",
-        "durationMs": 644.73095703125,
+        "durationMs": 21528.386962890625,
         "roi": {
-          "x": 695.328125,
-          "y": -4463,
-          "width": 113.34375,
-          "height": 209.796875
+          "x": 563,
+          "y": 110.046875,
+          "width": 794,
+          "height": 23.09375
         },
-        "hash": "519bafa9c95b"
+        "hash": "0f94d9e33a2f"
       },
       "roi": {
-        "x": 695.328125,
-        "y": -4463,
-        "width": 113.34375,
-        "height": 209.796875
+        "x": 563,
+        "y": 110.046875,
+        "width": 794,
+        "height": 23.09375
       }
     },
     {
@@ -2511,12 +3181,32 @@
           {
             "action": "scroll",
             "delta": 767,
-            "delayMs": 500
+            "delayMs": 600
           },
           {
             "action": "highlight",
-            "text": "reversing deliberate decisions",
-            "delayMs": 2000
+            "selector": ".concept:has(.concept-name:text-is(\"Architecture Decision Records (ADRs)\")) .concept-desc",
+            "delayMs": 2645
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2645
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2645
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2645
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2645
           }
         ]
       },
@@ -2536,30 +3226,30 @@
         "hash": "1cc510c3b952"
       },
       "resolvedTiming": {
-        "mode": "audio-dictates",
-        "sceneMs": 16925,
-        "ratePct": 0,
-        "padVisualMs": 16925,
+        "mode": "speech-fit",
+        "sceneMs": 16944,
+        "ratePct": -0.1,
+        "padVisualMs": 0,
         "padAudioMs": 0,
         "warnings": []
       },
-      "ratePct": 0,
+      "ratePct": -0.1,
       "resolvedVisual": {
         "filePath": "assets/recordings/s39-adr-practice.mp4",
-        "durationMs": 3127.64794921875,
+        "durationMs": 16944.319091796875,
         "roi": {
-          "x": 582,
-          "y": 936.578125,
-          "width": 0,
-          "height": 0
+          "x": 563,
+          "y": 136.140625,
+          "width": 794,
+          "height": 83.3125
         },
-        "hash": "df9aff89b6de"
+        "hash": "f5508e4f4d08"
       },
       "roi": {
-        "x": 582,
-        "y": 936.578125,
-        "width": 0,
-        "height": 0
+        "x": 563,
+        "y": 136.140625,
+        "width": 794,
+        "height": 83.3125
       }
     },
     {
@@ -2576,12 +3266,37 @@
           {
             "action": "scroll",
             "delta": 898,
-            "delayMs": 500
+            "delayMs": 600
           },
           {
             "action": "highlight",
             "text": "Tracer Bullet Development",
-            "delayMs": 2500
+            "delayMs": 3093
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 3093
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 3093
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 3093
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 3093
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 3090
           }
         ]
       },
@@ -2600,24 +3315,24 @@
         "hash": "6cd093cdb612"
       },
       "resolvedTiming": {
-        "mode": "audio-dictates",
-        "sceneMs": 22875,
-        "ratePct": 0,
-        "padVisualMs": 22875,
+        "mode": "speech-fit",
+        "sceneMs": 22860,
+        "ratePct": 0.1,
+        "padVisualMs": 0,
         "padAudioMs": 0,
         "warnings": []
       },
-      "ratePct": 0,
+      "ratePct": 0.1,
       "resolvedVisual": {
         "filePath": "assets/recordings/s40-tracer-bullet-anchor.mp4",
-        "durationMs": 3637.538330078125,
+        "durationMs": 22860.136962890625,
         "roi": {
           "x": 563,
           "y": 109.453125,
           "width": 794,
           "height": 23.09375
         },
-        "hash": "1a786ca57d9f"
+        "hash": "adaf91a58367"
       },
       "roi": {
         "x": 563,
@@ -2641,12 +3356,27 @@
           {
             "action": "scroll",
             "delta": 898,
-            "delayMs": 500
+            "delayMs": 600
           },
           {
             "action": "highlight",
             "text": "self-correction loop stalls",
-            "delayMs": 2000
+            "delayMs": 3130
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 3130
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 3130
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 3130
           }
         ]
       },
@@ -2666,24 +3396,24 @@
         "hash": "fdd0e2a82663"
       },
       "resolvedTiming": {
-        "mode": "audio-dictates",
-        "sceneMs": 15600,
-        "ratePct": 0,
-        "padVisualMs": 15600,
+        "mode": "speech-fit",
+        "sceneMs": 15638,
+        "ratePct": -0.3,
+        "padVisualMs": 0,
         "padAudioMs": 0,
         "warnings": []
       },
-      "ratePct": 0,
+      "ratePct": -0.3,
       "resolvedVisual": {
         "filePath": "assets/recordings/s41-tracer-bullet-practice.mp4",
-        "durationMs": 3137.5361328125,
+        "durationMs": 15638.406982421875,
         "roi": {
           "x": 563,
           "y": 135.546875,
           "width": 794,
           "height": 83.3125
         },
-        "hash": "5f4dbc1b8162"
+        "hash": "eca140590f71"
       },
       "roi": {
         "x": 563,
@@ -2706,12 +3436,32 @@
           {
             "action": "scroll",
             "delta": 1028,
-            "delayMs": 500
+            "delayMs": 600
           },
           {
             "action": "highlight",
             "text": "Living Documentation",
-            "delayMs": 2500
+            "delayMs": 2875
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2875
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2875
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2875
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2875
           }
         ]
       },
@@ -2730,24 +3480,24 @@
         "hash": "4200910d3bca"
       },
       "resolvedTiming": {
-        "mode": "audio-dictates",
-        "sceneMs": 18075,
+        "mode": "speech-fit",
+        "sceneMs": 18082,
         "ratePct": 0,
-        "padVisualMs": 18075,
+        "padVisualMs": 0,
         "padAudioMs": 0,
         "warnings": []
       },
       "ratePct": 0,
       "resolvedVisual": {
         "filePath": "assets/recordings/s42-living-docs-anchor.mp4",
-        "durationMs": 3639.87109375,
+        "durationMs": 18082.11181640625,
         "roi": {
           "x": 563,
           "y": 109.859375,
           "width": 794,
           "height": 23.09375
         },
-        "hash": "ea9d3fc38141"
+        "hash": "e22293f67e6d"
       },
       "roi": {
         "x": 563,
@@ -2771,12 +3521,32 @@
           {
             "action": "scroll",
             "delta": 1028,
-            "delayMs": 500
+            "delayMs": 600
           },
           {
             "action": "highlight",
             "text": "confidently produce wrong outputs",
-            "delayMs": 2000
+            "delayMs": 2655
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2655
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2655
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2655
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2655
           }
         ]
       },
@@ -2796,24 +3566,24 @@
         "hash": "1dd2f528fab4"
       },
       "resolvedTiming": {
-        "mode": "audio-dictates",
-        "sceneMs": 16975,
-        "ratePct": 0,
-        "padVisualMs": 16975,
+        "mode": "speech-fit",
+        "sceneMs": 16989,
+        "ratePct": -0.1,
+        "padVisualMs": 0,
         "padAudioMs": 0,
         "warnings": []
       },
-      "ratePct": 0,
+      "ratePct": -0.1,
       "resolvedVisual": {
         "filePath": "assets/recordings/s43-living-docs-practice.mp4",
-        "durationMs": 3127.135986328125,
+        "durationMs": 16988.901123046875,
         "roi": {
           "x": 563,
           "y": 135.953125,
           "width": 794,
           "height": 83.3125
         },
-        "hash": "1d6ae2d93c29"
+        "hash": "f6c24cebbe95"
       },
       "roi": {
         "x": 563,
@@ -2840,12 +3610,32 @@
           {
             "action": "scroll",
             "delta": 32,
-            "delayMs": 500
+            "delayMs": 600
           },
           {
             "action": "highlight",
             "text": "Orchestrator-Worker Architecture",
-            "delayMs": 2500
+            "delayMs": 3210
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 3210
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 3210
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 3210
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 3209
           }
         ]
       },
@@ -2856,32 +3646,32 @@
         ]
       },
       "resolvedAudio": {
-        "filePath": "assets/audio/s44-orchestrator-anchor.wav",
-        "durationMs": 21650,
+        "filePath": "assets/audio/s44-orchestrator-anchor.r.wav",
+        "durationMs": 21725,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
         "hash": "2ad6f500d142"
       },
       "resolvedTiming": {
-        "mode": "audio-dictates",
-        "sceneMs": 22050,
-        "ratePct": 0,
-        "padVisualMs": 22050,
+        "mode": "speech-fit",
+        "sceneMs": 22167,
+        "ratePct": -0.5,
+        "padVisualMs": 0,
         "padAudioMs": 0,
         "warnings": []
       },
-      "ratePct": 0,
+      "ratePct": -0.5,
       "resolvedVisual": {
         "filePath": "assets/recordings/s44-orchestrator-anchor.mp4",
-        "durationMs": 5932.317138671875,
+        "durationMs": 22167.468994140625,
         "roi": {
           "x": 563,
           "y": 109.65625,
           "width": 794,
           "height": 23.09375
         },
-        "hash": "2315dcb30e95"
+        "hash": "5861ca46b53d"
       },
       "roi": {
         "x": 563,
@@ -2956,7 +3746,7 @@
         "filePath": "assets/recordings/s45-who-knows-what-slide.mp4",
         "durationMs": 20767,
         "roi": null,
-        "hash": "fecd0aacf506"
+        "hash": "79315e0aeb94"
       }
     },
     {
@@ -2974,12 +3764,32 @@
           {
             "action": "scroll",
             "delta": 100,
-            "delayMs": 500
+            "delayMs": 600
           },
           {
             "action": "highlight",
             "text": "coordination accuracy",
-            "delayMs": 2000
+            "delayMs": 3090
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 3090
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 3090
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 3090
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 3090
           }
         ]
       },
@@ -2991,32 +3801,32 @@
       },
       "roiSelector": ".concept:has-text(\"Orchestrator-Worker\")",
       "resolvedAudio": {
-        "filePath": "assets/audio/s46-orchestrator-practice.wav",
-        "durationMs": 18750,
+        "filePath": "assets/audio/s46-orchestrator-practice.r.wav",
+        "durationMs": 18800,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
         "hash": "552cabbeb49b"
       },
       "resolvedTiming": {
-        "mode": "audio-dictates",
-        "sceneMs": 19150,
-        "ratePct": 0,
-        "padVisualMs": 19150,
+        "mode": "speech-fit",
+        "sceneMs": 19271,
+        "ratePct": -0.6,
+        "padVisualMs": 0,
         "padAudioMs": 0,
         "warnings": []
       },
-      "ratePct": 0,
+      "ratePct": -0.6,
       "resolvedVisual": {
         "filePath": "assets/recordings/s46-orchestrator-practice.mp4",
-        "durationMs": 3132.13818359375,
+        "durationMs": 19270.85693359375,
         "roi": {
           "x": 563,
           "y": 67.75,
           "width": 794,
           "height": 41.65625
         },
-        "hash": "5ce0edd5eb92"
+        "hash": "ef1c574c3ab5"
       },
       "roi": {
         "x": 563,
@@ -3039,12 +3849,27 @@
           {
             "action": "scroll",
             "delta": 121,
-            "delayMs": 500
+            "delayMs": 600
           },
           {
             "action": "highlight",
             "text": "Subagents and Context Isolation",
-            "delayMs": 2500
+            "delayMs": 2786
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2786
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2786
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2787
           }
         ]
       },
@@ -3055,32 +3880,32 @@
         ]
       },
       "resolvedAudio": {
-        "filePath": "assets/audio/s47-subagents-anchor.wav",
-        "durationMs": 13825,
+        "filePath": "assets/audio/s47-subagents-anchor.r.wav",
+        "durationMs": 13900,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
         "hash": "d685604daebc"
       },
       "resolvedTiming": {
-        "mode": "audio-dictates",
-        "sceneMs": 14225,
-        "ratePct": 0,
-        "padVisualMs": 14225,
+        "mode": "speech-fit",
+        "sceneMs": 14357,
+        "ratePct": -0.9,
+        "padVisualMs": 0,
         "padAudioMs": 0,
         "warnings": []
       },
-      "ratePct": 0,
+      "ratePct": -0.9,
       "resolvedVisual": {
         "filePath": "assets/recordings/s47-subagents-anchor.mp4",
-        "durationMs": 3623.940185546875,
+        "durationMs": 14357.39697265625,
         "roi": {
           "x": 563,
           "y": 111.40625,
           "width": 794,
           "height": 23.09375
         },
-        "hash": "e9db18be3b6f"
+        "hash": "db2e36958f43"
       },
       "roi": {
         "x": 563,
@@ -3104,12 +3929,32 @@
           {
             "action": "scroll",
             "delta": 121,
-            "delayMs": 500
+            "delayMs": 600
           },
           {
             "action": "highlight",
             "text": "pollute",
-            "delayMs": 2000
+            "delayMs": 2870
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2870
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2870
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2870
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2870
           }
         ]
       },
@@ -3121,32 +3966,32 @@
       },
       "roiSelector": ".concept:has-text(\"Subagents and Context Isolation\")",
       "resolvedAudio": {
-        "filePath": "assets/audio/s48-subagents-practice.wav",
-        "durationMs": 17650,
+        "filePath": "assets/audio/s48-subagents-practice.r.wav",
+        "durationMs": 17675,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
         "hash": "2799a3b5b7f1"
       },
       "resolvedTiming": {
-        "mode": "audio-dictates",
-        "sceneMs": 18050,
-        "ratePct": 0,
-        "padVisualMs": 18050,
+        "mode": "speech-fit",
+        "sceneMs": 18158,
+        "ratePct": -0.6,
+        "padVisualMs": 0,
         "padAudioMs": 0,
         "warnings": []
       },
-      "ratePct": 0,
+      "ratePct": -0.6,
       "resolvedVisual": {
         "filePath": "assets/recordings/s48-subagents-practice.mp4",
-        "durationMs": 3132.178955078125,
+        "durationMs": 18158.2099609375,
         "roi": {
           "x": 563,
           "y": 137.5,
           "width": 794,
           "height": 41.65625
         },
-        "hash": "44930fe80eb6"
+        "hash": "d5832fb07871"
       },
       "roi": {
         "x": 563,
@@ -3169,12 +4014,32 @@
           {
             "action": "scroll",
             "delta": 210,
-            "delayMs": 500
+            "delayMs": 600
           },
           {
             "action": "highlight",
             "text": "Independent Review",
-            "delayMs": 2500
+            "delayMs": 3065
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 3065
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 3065
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 3065
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 3065
           }
         ]
       },
@@ -3185,32 +4050,32 @@
         ]
       },
       "resolvedAudio": {
-        "filePath": "assets/audio/s49-review-anchor.wav",
-        "durationMs": 18625,
+        "filePath": "assets/audio/s49-review-anchor.r.wav",
+        "durationMs": 18700,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
         "hash": "d7fafaa15994"
       },
       "resolvedTiming": {
-        "mode": "audio-dictates",
-        "sceneMs": 19025,
-        "ratePct": 0,
-        "padVisualMs": 19025,
+        "mode": "speech-fit",
+        "sceneMs": 19163,
+        "ratePct": -0.7,
+        "padVisualMs": 0,
         "padAudioMs": 0,
         "warnings": []
       },
-      "ratePct": 0,
+      "ratePct": -0.7,
       "resolvedVisual": {
         "filePath": "assets/recordings/s49-review-anchor.mp4",
-        "durationMs": 3624.91796875,
+        "durationMs": 19163.116943359375,
         "roi": {
           "x": 563,
           "y": 200.15625,
           "width": 794,
           "height": 23.09375
         },
-        "hash": "36a27327436a"
+        "hash": "e5b8b70713fa"
       },
       "roi": {
         "x": 563,
@@ -3234,12 +4099,32 @@
           {
             "action": "scroll",
             "delta": 210,
-            "delayMs": 500
+            "delayMs": 600
           },
           {
             "action": "highlight",
             "text": "biased by the implementer",
-            "delayMs": 2000
+            "delayMs": 2980
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2980
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2980
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2980
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2980
           }
         ]
       },
@@ -3251,32 +4136,32 @@
       },
       "roiSelector": ".concept:has-text(\"Independent Review\")",
       "resolvedAudio": {
-        "filePath": "assets/audio/s50-review-practice.wav",
-        "durationMs": 18200,
+        "filePath": "assets/audio/s50-review-practice.r.wav",
+        "durationMs": 18350,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
         "hash": "e1e157f2691a"
       },
       "resolvedTiming": {
-        "mode": "audio-dictates",
-        "sceneMs": 18600,
-        "ratePct": 0,
-        "padVisualMs": 18600,
+        "mode": "speech-fit",
+        "sceneMs": 18753,
+        "ratePct": -0.8,
+        "padVisualMs": 0,
         "padAudioMs": 0,
         "warnings": []
       },
-      "ratePct": 0,
+      "ratePct": -0.8,
       "resolvedVisual": {
         "filePath": "assets/recordings/s50-review-practice.mp4",
-        "durationMs": 3129.819091796875,
+        "durationMs": 18752.615234375,
         "roi": {
           "x": 563,
           "y": 226.25,
           "width": 794,
           "height": 62.484375
         },
-        "hash": "4a20a057a2d6"
+        "hash": "cd7de446e78c"
       },
       "roi": {
         "x": 563,
@@ -3299,12 +4184,32 @@
           {
             "action": "scroll",
             "delta": 319,
-            "delayMs": 500
+            "delayMs": 600
           },
           {
             "action": "highlight",
             "text": "Parallel Execution",
-            "delayMs": 2500
+            "delayMs": 2945
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2945
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2945
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2945
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 2945
           }
         ]
       },
@@ -3315,32 +4220,32 @@
         ]
       },
       "resolvedAudio": {
-        "filePath": "assets/audio/s51-parallel-anchor.wav",
-        "durationMs": 18025,
+        "filePath": "assets/audio/s51-parallel-anchor.r.wav",
+        "durationMs": 18050,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
         "hash": "25aa1d49e6de"
       },
       "resolvedTiming": {
-        "mode": "audio-dictates",
-        "sceneMs": 18425,
-        "ratePct": 0,
-        "padVisualMs": 18425,
+        "mode": "speech-fit",
+        "sceneMs": 18567,
+        "ratePct": -0.8,
+        "padVisualMs": 0,
         "padAudioMs": 0,
         "warnings": []
       },
-      "ratePct": 0,
+      "ratePct": -0.8,
       "resolvedVisual": {
         "filePath": "assets/recordings/s51-parallel-anchor.mp4",
-        "durationMs": 3638.01904296875,
+        "durationMs": 18566.988037109375,
         "roi": {
           "x": 563,
           "y": 309.734375,
           "width": 794,
           "height": 23.09375
         },
-        "hash": "e712022fbd13"
+        "hash": "e7a2bf1e7007"
       },
       "roi": {
         "x": 563,
@@ -3364,12 +4269,32 @@
           {
             "action": "scroll",
             "delta": 900,
-            "delayMs": 500
+            "delayMs": 600
           },
           {
             "action": "highlight",
             "text": "optimizes both speed and cost",
-            "delayMs": 2000
+            "delayMs": 3170
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 3170
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 3170
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 3170
+          },
+          {
+            "action": "scroll",
+            "delta": 45,
+            "delayMs": 3170
           }
         ]
       },
@@ -3381,32 +4306,32 @@
       },
       "roiSelector": ".concept:has-text(\"Parallel Execution\")",
       "resolvedAudio": {
-        "filePath": "assets/audio/s52-parallel-practice.wav",
-        "durationMs": 19150,
+        "filePath": "assets/audio/s52-parallel-practice.r.wav",
+        "durationMs": 19175,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
         "hash": "f594d20cf6bb"
       },
       "resolvedTiming": {
-        "mode": "audio-dictates",
-        "sceneMs": 19550,
-        "ratePct": 0,
-        "padVisualMs": 19550,
+        "mode": "speech-fit",
+        "sceneMs": 19649,
+        "ratePct": -0.5,
+        "padVisualMs": 0,
         "padAudioMs": 0,
         "warnings": []
       },
-      "ratePct": 0,
+      "ratePct": -0.5,
       "resolvedVisual": {
         "filePath": "assets/recordings/s52-parallel-practice.mp4",
-        "durationMs": 3135.402099609375,
+        "durationMs": 19648.7880859375,
         "roi": {
           "x": 563,
           "y": 335.828125,
           "width": 794,
           "height": 62.484375
         },
-        "hash": "0e27fa0a7f15"
+        "hash": "de736712b3df"
       },
       "roi": {
         "x": 563,
@@ -3480,7 +4405,7 @@
         "filePath": "assets/recordings/s53-topic-recap.mp4",
         "durationMs": 17134,
         "roi": null,
-        "hash": "c39ea3f2cd7b"
+        "hash": "d7ebbfa0367c"
       }
     },
     {
@@ -3527,7 +4452,7 @@
         "filePath": "assets/recordings/s54-closing-claim.mp4",
         "durationMs": 18267,
         "roi": null,
-        "hash": "826d3d2236ac"
+        "hash": "30af029ae609"
       }
     }
   ]

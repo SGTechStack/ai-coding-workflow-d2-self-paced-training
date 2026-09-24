@@ -1,13 +1,26 @@
-deck:
+presentation:
+  mode: video
   title: LLM and Agent Foundations
   archetype: scr
   engine: html
   theme: light
+  formats: [png, pdf, html]
+
+video:
   aspect: landscape
   outputs: [{ aspect: landscape }]
-  formats: [png, pdf, html]
+  # Capture entries deliberately declare NO `viewport`. The skill defaults a
+  # scene's viewport to the capture aspect (1920x1080 here), and compose joins
+  # the per-scene clips with `concat -c copy`, which cannot rescale. An entry
+  # that overrode the viewport (these all said 1440x810) therefore encoded its
+  # capture at 1440x810 while the rendered slides stayed 1920x1080, and the
+  # finished MP4 switched coded resolution mid-stream — the container header
+  # advertised only the first one, so ffmpeg and the verify gate saw nothing
+  # wrong while ordinary players mis-scaled every capture. Leaving the viewport
+  # unset keeps the capture resolution tied to the output by construction.
   voice: { provider: kokoro, gender: female }
   baseUrl: http://127.0.0.1:4173
+
 entries:
   # ── Cold open ──────────────────────────────────────────────────────────
   # S01 · statement · situation — plan §5 (Cold open) + §6 narration
@@ -34,12 +47,16 @@ entries:
       - { icon: circle-help, title: Ambiguity, text: The requirement had two readings and nobody chose one. }
       - { icon: git-branch, title: Intent drift, text: The code stopped matching what was asked for. }
       - { icon: package, title: Handoff quality, text: The next step inherited something it could not use. }
+    # The archetype requires a complication to name a cost. It is named in the
+    # narration rather than in a card: lengthening one card would make it the
+    # longest of three, and `tiled` asserts its cards are peers — an unequal
+    # text weight there is a false claim, and it trips the dominance advisor.
     narration: >-
       AI coding fails in three ways, and none of them are about the model being
       weak. The requirement was ambiguous and the agent guessed. The code
       drifted from the intent while everyone watched. Or the handoff to the next
-      step carried something unusable. Every rule you are about to learn exists
-      to prevent one of these.
+      step carried something unusable. Every one of them costs you the same
+      thing: hours spent doing the work twice.
 
   # S03 · hero · 0 cards, pill: Prerequisites — section opener, carries no SCR
   # role (role removed during assembly so the S->C->R skeleton stays valid:
@@ -58,8 +75,7 @@ entries:
   - id: s04-page-establishing
     type: capture
     url: /index.html
-    viewport: { width: 1440, height: 810 }
-    setupScript: setup/pin-light-theme.mjs
+    setupScript: setup/capture-determinism.mjs
     steps:
       - { action: waitForText, value: Foundations of Agentic Engineering }
       - { action: wait, delayMs: 4200 }
@@ -69,15 +85,17 @@ entries:
     assert:
       visible: ["Foundations of Agentic Engineering", "basis for the customisations taught in Lessons 1 and 2"]
       notVisible: ["Something went wrong"]
+    # Narration compressed: the Track A / Track B split is legible on screen, and
+    # two consecutive orientation scenes after a hot open spend the first 30s —
+    # the one span with real retention evidence behind it. Ends on a seam into
+    # Topic 1 (signalling).
     narration: >-
-      The prerequisites page has two tracks. Track A is the workflow itself,
-      covered elsewhere. We are working through Track B, the four topics below
-      it. Everything discussed here is on this page, so you can follow along and
-      come back to it.
+      Everything here lives on one page, as four topics, so you can follow along
+      and come back to it. We start with how the models actually work.
 
   # ══ Topic 1 · How LLMs Actually Work — scenes S05–S12 ══
   # Three concepts (Context Windows, Memory Architecture, Hallucination),
-  # two diagram slides interleaved (D1 stat-deepdive, D2 bento-a).
+  # two diagram slides interleaved (D1 stat-deepdive, D2 spotlight).
 
   # 1.1 Context Windows, Smart Zone / Dumb Zone, Lost in the Middle
 
@@ -88,8 +106,7 @@ entries:
     title: Topic 1
     chapterDescription: How LLMs Actually Work
     url: /index.html#phase-llms
-    viewport: { width: 1440, height: 810 }
-    setupScript: setup/pin-light-theme.mjs
+    setupScript: setup/capture-determinism.mjs
     steps:
       - { action: scroll, delta: 0, delayMs: 500 }
       - { action: highlight, text: "Context Windows, Smart Zone", delayMs: 2500 }
@@ -108,15 +125,17 @@ entries:
       - { icon: gauge, title: Smart Zone, text: Reasoning stays reliable here. }
       - { icon: trending-down, title: Dumb Zone, text: "Past the boundary, reasoning quality degrades." }
       - { icon: search, title: Lost in the middle, text: Content buried mid-window is recalled least accurately. }
+    # Narration carries the RELATIONSHIP between the cards (volume vs position)
+    # and the consequence. It deliberately does not re-read the three card
+    # titles, which the screen already carries.
     narration: >-
-      Two different problems share one picture. The zones are about volume: how much you have put in. Lost in the middle is about position: where you put it. A window can be comfortably inside the Smart Zone and still lose a fact you buried halfway down.
+      One picture, two different problems. One is about how much you load. The other is about where you put it. So a window can sit comfortably inside the Smart Zone and still lose a fact you buried halfway down.
 
   # S07 · capture · failure + practice
   - id: s07-context-windows-practice
     type: capture
     url: /index.html#phase-llms
-    viewport: { width: 1440, height: 810 }
-    setupScript: setup/pin-light-theme.mjs
+    setupScript: setup/capture-determinism.mjs
     roiSelector: '.concept:has-text("Smart Zone")'
     steps:
       - { action: scroll, delta: 0, delayMs: 500 }
@@ -132,8 +151,7 @@ entries:
   - id: s08-memory-anchor
     type: capture
     url: /index.html#phase-llms
-    viewport: { width: 1440, height: 810 }
-    setupScript: setup/pin-light-theme.mjs
+    setupScript: setup/capture-determinism.mjs
     steps:
       - { action: scroll, delta: 150, delayMs: 500 }
       - { action: highlight, text: "LLM Memory Architecture", delayMs: 2500 }
@@ -142,13 +160,16 @@ entries:
     narration: >-
       Large language models have no persistent state between calls. There are three stores. In-context is the current prompt and conversation — ephemeral, lost between calls. External is durable: files, version control, issue trackers, artifacts that survive sessions. Parametric is the trained weights, fixed and unchangeable. The workflow relies on external memory as its durable backbone.
 
-  # S09 · slide · D2 bento-a — External FIRST (dominant slot is positional, rule 8).
+  # S09 · slide · D2 spotlight — External FIRST (dominant slot is positional, rule 8).
   - id: s09-memory-stores-slide
     type: slide
-    layout: bento-a
+    layout: spotlight
     title: Three stores, three lifetimes
     cards:
-      - { icon: git-branch, title: External, text: "Files, version control and issue trackers. Survives every session." }
+      # `weight: primary` states the rank outright. Without it the advisor ranks
+      # by text length — which External happens to win, so the dominant slot was
+      # right only by luck. Text length measures overflow risk, not importance.
+      - { icon: git-branch, title: External, weight: primary, text: "Files, version control and issue trackers. Survives every session." }
       - { icon: message-square, title: In-context, text: The current prompt and conversation. Gone after the call. }
       - { icon: cpu, title: Parametric, text: Trained weights. Fixed and unchangeable. }
     narration: >-
@@ -158,8 +179,7 @@ entries:
   - id: s10-memory-practice
     type: capture
     url: /index.html#phase-llms
-    viewport: { width: 1440, height: 810 }
-    setupScript: setup/pin-light-theme.mjs
+    setupScript: setup/capture-determinism.mjs
     roiSelector: '.concept:has-text("LLM Memory Architecture")'
     steps:
       - { action: scroll, delta: 150, delayMs: 500 }
@@ -175,8 +195,7 @@ entries:
   - id: s11-hallucination-anchor
     type: capture
     url: /index.html#phase-llms
-    viewport: { width: 1440, height: 810 }
-    setupScript: setup/pin-light-theme.mjs
+    setupScript: setup/capture-determinism.mjs
     steps:
       - { action: scroll, delta: 280, delayMs: 500 }
       - { action: highlight, text: "Hallucination and Non-determinism", delayMs: 2500 }
@@ -189,8 +208,7 @@ entries:
   - id: s12-hallucination-practice
     type: capture
     url: /index.html#phase-llms
-    viewport: { width: 1440, height: 810 }
-    setupScript: setup/pin-light-theme.mjs
+    setupScript: setup/capture-determinism.mjs
     roiSelector: '.concept:has-text("Hallucination")'
     steps:
       - { action: scroll, delta: 280, delayMs: 500 }
@@ -211,15 +229,17 @@ entries:
     overlay: chapter
     title: Topic 2
     chapterDescription: Agentic Engineering
-    viewport: { width: 1440, height: 810 }
-    setupScript: setup/pin-light-theme.mjs
+    setupScript: setup/capture-determinism.mjs
     steps:
       - { action: scroll, delta: 0, delayMs: 500 }
       - { action: highlight, text: "Prompt Engineering", delayMs: 2500 }
     assert:
       visible: ["Agentic Engineering", "Prompt Engineering", "role framing"]
+    # Opens with a spoken seam into Topic 2. The `overlay: chapter` card carries
+    # the transition visually, but the audio track previously jumped cold.
     narration: >-
-      Prompt engineering is writing clear instructions for a single call. Four
+      Those are the limits. Now the engineering that works within them. Prompt
+      engineering is writing clear instructions for a single call. Four
       techniques. Role framing sets the agent's expertise and perspective.
       Positive framing describes the target behaviour rather than what to avoid —
       because the model predicts tokens toward whatever pattern you surface.
@@ -230,8 +250,7 @@ entries:
   - id: s14-prompt-engineering-practice
     type: capture
     url: /index.html#phase-engineering
-    viewport: { width: 1440, height: 810 }
-    setupScript: setup/pin-light-theme.mjs
+    setupScript: setup/capture-determinism.mjs
     roiSelector: '.concept:has-text("Prompt Engineering")'
     steps:
       - { action: scroll, delta: 0, delayMs: 500 }
@@ -250,8 +269,7 @@ entries:
   - id: s15-context-engineering-anchor
     type: capture
     url: /index.html#phase-engineering
-    viewport: { width: 1440, height: 810 }
-    setupScript: setup/pin-light-theme.mjs
+    setupScript: setup/capture-determinism.mjs
     steps:
       - { action: scroll, delta: 150, delayMs: 500 }
       - { action: highlight, text: "Context Engineering", delayMs: 2500 }
@@ -268,8 +286,7 @@ entries:
   - id: s16-context-engineering-practice
     type: capture
     url: /index.html#phase-engineering
-    viewport: { width: 1440, height: 810 }
-    setupScript: setup/pin-light-theme.mjs
+    setupScript: setup/capture-determinism.mjs
     roiSelector: '.concept:has-text("Context rot")'
     steps:
       - { action: scroll, delta: 150, delayMs: 500 }
@@ -287,8 +304,7 @@ entries:
   - id: s17-rag-anchor
     type: capture
     url: /index.html#phase-engineering
-    viewport: { width: 1440, height: 810 }
-    setupScript: setup/pin-light-theme.mjs
+    setupScript: setup/capture-determinism.mjs
     steps:
       - { action: scroll, delta: 260, delayMs: 500 }
       - { action: highlight, text: "Retrieval-Augmented Generation", delayMs: 2500 }
@@ -305,8 +321,7 @@ entries:
   - id: s18-rag-practice
     type: capture
     url: /index.html#phase-engineering
-    viewport: { width: 1440, height: 810 }
-    setupScript: setup/pin-light-theme.mjs
+    setupScript: setup/capture-determinism.mjs
     roiSelector: '.concept:has-text("Retrieval-Augmented Generation")'
     steps:
       - { action: scroll, delta: 260, delayMs: 500 }
@@ -324,8 +339,7 @@ entries:
   - id: s19-okf-anchor
     type: capture
     url: /index.html#phase-engineering
-    viewport: { width: 1440, height: 810 }
-    setupScript: setup/pin-light-theme.mjs
+    setupScript: setup/capture-determinism.mjs
     steps:
       - { action: scroll, delta: 390, delayMs: 500 }
       - { action: highlight, text: "Open Knowledge Format", delayMs: 2500 }
@@ -343,8 +357,7 @@ entries:
   - id: s20-okf-practice
     type: capture
     url: /index.html#phase-engineering
-    viewport: { width: 1440, height: 810 }
-    setupScript: setup/pin-light-theme.mjs
+    setupScript: setup/capture-determinism.mjs
     roiSelector: '.concept:has-text("Open Knowledge Format")'
     steps:
       - { action: scroll, delta: 390, delayMs: 500 }
@@ -361,8 +374,7 @@ entries:
   - id: s21-mcp-anchor
     type: capture
     url: /index.html#phase-engineering
-    viewport: { width: 1440, height: 810 }
-    setupScript: setup/pin-light-theme.mjs
+    setupScript: setup/capture-determinism.mjs
     steps:
       - { action: scroll, delta: 540, delayMs: 500 }
       - { action: highlight, text: "Model Context Protocol", delayMs: 2500 }
@@ -383,22 +395,22 @@ entries:
     cards:
       - { icon: database, title: RAG, text: Retrieval before generation. Fetches information to ground the answer. }
       - { icon: plug, title: MCP, text: A protocol for reaching tools. It reads systems and can act on them. }
+    # Narration reduced to the single load-bearing contrast. Both cards already
+    # state their own mechanism on screen, so re-explaining each one in the voice
+    # is the harmful redundancy case AND pushed this scene past twice the
+    # 12-18s comparison budget. The voice now carries only what the cards cannot:
+    # which of the two distinctions is the real one.
     narration: >-
-      The dividing line is not freshness. RAG retrieves when you ask, so it can
-      query a live database just as easily as a document store. What separates
-      them is what the information is for. RAG retrieves, then generates: the
-      fetch exists to ground the answer. MCP is a protocol for reaching other
-      systems at all, and reading is only one of the things it does. It can also
-      transact — call an endpoint, file a ticket, change state somewhere else.
+      It is tempting to think the line is freshness. It is not — RAG can query a
+      live database just as easily as a document store. The real line is purpose.
       Retrieval grounds an answer; a transaction has a consequence. They are not
-      competitors. They cover different areas of what an agent needs.
+      competitors, and knowing which one you need is the whole decision.
 
   # S23 · failure + practice
   - id: s23-mcp-practice
     type: capture
     url: /index.html#phase-engineering
-    viewport: { width: 1440, height: 810 }
-    setupScript: setup/pin-light-theme.mjs
+    setupScript: setup/capture-determinism.mjs
     roiSelector: '.concept:has-text("Model Context Protocol")'
     steps:
       - { action: scroll, delta: 540, delayMs: 500 }
@@ -417,8 +429,7 @@ entries:
   - id: s24-react-anchor
     type: capture
     url: /index.html#phase-engineering
-    viewport: { width: 1440, height: 810 }
-    setupScript: setup/pin-light-theme.mjs
+    setupScript: setup/capture-determinism.mjs
     steps:
       - { action: scroll, delta: 650, delayMs: 500 }
       - { action: highlight, text: "The ReAct Pattern", delayMs: 2500 }
@@ -432,28 +443,38 @@ entries:
       real outcomes instead of guessing in one pass. And every loop needs a
       convergence condition telling it when to stop.
 
-  # S25 · slide · D3 lifecycle (4 cards, each with a detail:)
+  # S25 · slide · D3 cycle (3 recurring stages)
+  # Shape is a claim. `lifecycle` draws a straight rail, which asserts a
+  # terminus — but ReAct RECURS, and this scene's whole point is what each lap
+  # costs. A loop drawn on a rail is a false statement about the content, so
+  # this is `cycle`, whose return connector carries the recurrence.
+  # `cycle` is reachable ONLY via the explicit `cycle: true` marker: a loop is a
+  # claim card shape cannot reveal, so it is never inferred. Without the marker
+  # the four detailed cards route to `lifecycle` via the allDetailed rule, which
+  # is exactly how this slide ended up on a rail.
+  # Exit is dropped as a ring node: it is the loop's guard, not a phase passed
+  # through each lap. Putting it in the ring implies you exit every lap. The exit
+  # condition now lives in the title, and S24/S26 both cover convergence.
   - id: s25-react-loop-slide
     type: slide
-    layout: lifecycle
-    title: Reason, act, observe, exit
+    layout: cycle
+    cycle: true
+    title: The loop repeats until a signal says stop
     cards:
       - { icon: brain, title: Reason, detail: Phase 1, text: Decide what to do next. }
       - { icon: play, title: Act, detail: Phase 2, text: "Call a tool, write code, run a command." }
       - { icon: eye, title: Observe, detail: Phase 3, text: Read the result and feed it back. }
-      - { icon: check, title: Exit, detail: Convergence, text: Without this the loop has no signal to stop. }
     narration: >-
-      Watch what each lap costs. Every observation is added to the window, so a
-      loop without an exit does two things at once: it never stops, and it
-      degrades as it goes. By lap fifteen the agent is reasoning over mostly its
-      own history.
+      Reason, act, observe — and then the observation joins the window and the
+      lap starts again. Without a stop signal that does two things at once: it
+      never ends, and each lap degrades the one before it. By lap fifteen the
+      agent is reasoning mostly over its own history.
 
   # S26 · failure + practice
   - id: s26-react-practice
     type: capture
     url: /index.html#phase-engineering
-    viewport: { width: 1440, height: 810 }
-    setupScript: setup/pin-light-theme.mjs
+    setupScript: setup/capture-determinism.mjs
     roiSelector: '.concept:has-text("ReAct Pattern")'
     steps:
       - { action: scroll, delta: 650, delayMs: 500 }
@@ -471,8 +492,7 @@ entries:
   - id: s27-planning-anchor
     type: capture
     url: /index.html#phase-engineering
-    viewport: { width: 1440, height: 810 }
-    setupScript: setup/pin-light-theme.mjs
+    setupScript: setup/capture-determinism.mjs
     steps:
       - { action: scroll, delta: 825, delayMs: 500 }
       - { action: highlight, text: "Planning-Execution Separation", delayMs: 2500 }
@@ -487,16 +507,33 @@ entries:
       mid-implementation and derail the session.
 
   # S28 · slide · D5 process-flow (5 cards)
+  # Title states the takeaway rather than the acronym: a bare acronym is a topic
+  # label and leaves the body with no claim to prove. The acronym itself is
+  # spoken in the narration, where it costs nothing.
+  # `Implement` also loses its `text:`. It was the only card carrying body copy,
+  # which made it the heaviest card while process-flow's dominant slot is card 0
+  # — so the arrangement pointed at `Questions` while the weight sat on the last
+  # node. The claim it carried is now the title, so removing it fixes the
+  # mis-filled dominant slot and the duplication in one move. `Implement` stays
+  # LAST: QRSPI is a genuine ordered sequence, and the arrow asserts exactly that.
+  # Only `Questions` carries body text. process-flow's dominant slot is card 0 and
+  # renders as a full-height hub, so a bare label there leaves a large empty slab
+  # — a hierarchy pointing at nothing. Giving the hub the text fills it AND keeps
+  # the heaviest card in the dominant slot, so the advisor stays quiet. The four
+  # spokes stay labels: giving all five body text overflows the canvas by 117px,
+  # which the overflow gate hard-fails (correctly).
+  # `Implement` stays LAST: QRSPI is a genuine ordered sequence and the arrow
+  # asserts exactly that.
   - id: s28-qrspi-slide
     type: slide
     layout: process-flow
-    title: QRSPI
+    title: Four steps finish before any code is written
     cards:
-      - { icon: circle-help, title: Questions }
+      - { icon: circle-help, title: Questions, text: "Resolve every ambiguity here, while resolving it is still cheap." }
       - { icon: search, title: Research }
       - { icon: layers, title: Structure }
       - { icon: list-checks, title: Plan }
-      - { icon: code, title: Implement, text: The first four finish before this one starts. }
+      - { icon: code, title: Implement }
     narration: >-
       In this workflow the practice has a name: QRSPI. The order is not the
       interesting part — the boundary is. Four steps finish completely, and only
@@ -507,8 +544,7 @@ entries:
   - id: s29-planning-practice
     type: capture
     url: /index.html#phase-engineering
-    viewport: { width: 1440, height: 810 }
-    setupScript: setup/pin-light-theme.mjs
+    setupScript: setup/capture-determinism.mjs
     roiSelector: '.concept:has-text("Planning-Execution Separation")'
     steps:
       - { action: scroll, delta: 825, delayMs: 500 }
@@ -526,8 +562,7 @@ entries:
   - id: s30-skills-anchor
     type: capture
     url: /index.html#phase-engineering
-    viewport: { width: 1440, height: 810 }
-    setupScript: setup/pin-light-theme.mjs
+    setupScript: setup/capture-determinism.mjs
     steps:
       - { action: scroll, delta: 1090, delayMs: 500 }
       - { action: highlight, selector: '.concept-name:text-is("Agent Skills")', delayMs: 2500 }
@@ -544,8 +579,7 @@ entries:
   - id: s31-skills-practice
     type: capture
     url: /index.html#phase-engineering
-    viewport: { width: 1440, height: 810 }
-    setupScript: setup/pin-light-theme.mjs
+    setupScript: setup/capture-determinism.mjs
     roiSelector: '.concept:has-text("Agent Skills")'
     steps:
       - { action: scroll, delta: 1090, delayMs: 500 }
@@ -569,10 +603,10 @@ entries:
     title: Topic 3
     chapterDescription: Agentic Development Principles
     url: /index.html#phase-principles
-    viewport: { width: 1440, height: 810 }
-    setupScript: setup/pin-light-theme.mjs
+    setupScript: setup/capture-determinism.mjs
+    # Opens with a spoken seam into Topic 3.
     narration: >-
-      Agents do not pause when a requirement is ambiguous. They guess, confidently. So human review goes at defined checkpoints where decisions need judgment — scope changes, compliance sign-off. Let the system self-correct only where the outcome is machine-verifiable: syntax errors, test failures. And the page is blunt about the rest: a gate that can be bypassed, even accidentally, is not a gate.
+      That is the engineering. Now the discipline that keeps it honest. Agents do not pause when a requirement is ambiguous. They guess, confidently. So human review goes at defined checkpoints where decisions need judgment — scope changes, compliance sign-off. Let the system self-correct only where the outcome is machine-verifiable: syntax errors, test failures. And the page is blunt about the rest: a gate that can be bypassed, even accidentally, is not a gate.
     steps:
       - { action: scroll, delta: 32, delayMs: 500 }
       - { action: highlight, text: "Human-in-the-Loop", delayMs: 2500 }
@@ -582,8 +616,7 @@ entries:
   - id: s33-hitl-practice
     type: capture
     url: /index.html#phase-principles
-    viewport: { width: 1440, height: 810 }
-    setupScript: setup/pin-light-theme.mjs
+    setupScript: setup/capture-determinism.mjs
     roiSelector: '.concept:has-text("Human-in-the-Loop")'
     narration: >-
       The test is simple. Can a machine decide this correctly? Then automate it and stay out of the way. Does it need judgment, or carry consequences a test cannot see? Then it is a gate, and a gate you can skip when you are in a hurry is decoration.
@@ -597,8 +630,7 @@ entries:
   - id: s34-spec-first-anchor
     type: capture
     url: /index.html#phase-principles
-    viewport: { width: 1440, height: 810 }
-    setupScript: setup/pin-light-theme.mjs
+    setupScript: setup/capture-determinism.mjs
     narration: >-
       A complete, unambiguous specification must exist before implementation begins, so the agent reads and implements rather than deriving requirements mid-loop. The page lists several approaches that differ in how the specification is expressed: behaviour-driven development uses human-readable scenarios, spec-driven development uses a formal document, structured-prompt-driven development uses structured prompts, and tools like Spec Kit and GSD supply templates and frameworks.
     steps:
@@ -610,8 +642,7 @@ entries:
   - id: s35-spec-first-practice
     type: capture
     url: /index.html#phase-principles
-    viewport: { width: 1440, height: 810 }
-    setupScript: setup/pin-light-theme.mjs
+    setupScript: setup/capture-determinism.mjs
     roiSelector: '.concept:has-text("Specification-First Development")'
     narration: >-
       The page explains why this workflow was chosen over the heavier options. Spec Kit and GSD mandate directory structures, multi-file templates and dedicated command-line tools. This one is a folder of composable conversational skills. You invoke only what you need, the agent interviews you to extract requirements, and it generates a single plan document. Spec-first discipline, near-zero overhead, no lock-in.
@@ -625,8 +656,7 @@ entries:
   - id: s36-tdd-anchor
     type: capture
     url: /index.html#phase-principles
-    viewport: { width: 1440, height: 810 }
-    setupScript: setup/pin-light-theme.mjs
+    setupScript: setup/capture-determinism.mjs
     narration: >-
       TDD follows red, green, refactor. Write a failing test. Write the minimum code to pass it. Refactor without breaking it. In agentic work it does one more job: it supplies the machine-verifiable convergence signal. The loop exits when tests pass, not when output looks plausible.
     steps:
@@ -638,8 +668,7 @@ entries:
   - id: s37-tdd-practice
     type: capture
     url: /index.html#phase-principles
-    viewport: { width: 1440, height: 810 }
-    setupScript: setup/pin-light-theme.mjs
+    setupScript: setup/capture-determinism.mjs
     roiSelector: '.concept:has-text("Test-Driven Development")'
     narration: >-
       This connects back to Topic 1. Because the same prompt can produce different output next run, your own inspection is not a stable standard. Without tests there is no objective way to know the agent is done. With them, done is a fact.
@@ -653,8 +682,7 @@ entries:
   - id: s38-adr-anchor
     type: capture
     url: /index.html#phase-principles
-    viewport: { width: 1440, height: 810 }
-    setupScript: setup/pin-light-theme.mjs
+    setupScript: setup/capture-determinism.mjs
     narration: >-
       An ADR is a short document capturing a technical choice: context, decision, consequences. Because agents have no persistent memory between sessions, ADRs in version control act as their durable external memory. Without them, a future session has no way to know a past architectural choice was deliberate.
     steps:
@@ -666,8 +694,7 @@ entries:
   - id: s39-adr-practice
     type: capture
     url: /index.html#phase-principles
-    viewport: { width: 1440, height: 810 }
-    setupScript: setup/pin-light-theme.mjs
+    setupScript: setup/capture-determinism.mjs
     roiSelector: '.concept:has-text("Architecture Decision Records")'
     narration: >-
       Which produces a specific, maddening failure: a later session finds your deliberate choice, reads it as a mistake, and helpfully reverses it. The fix is to leave the reasoning where the next session will walk into it. In the repository, not in a chat log.
@@ -681,8 +708,7 @@ entries:
   - id: s40-tracer-bullet-anchor
     type: capture
     url: /index.html#phase-principles
-    viewport: { width: 1440, height: 810 }
-    setupScript: setup/pin-light-theme.mjs
+    setupScript: setup/capture-determinism.mjs
     narration: >-
       A strategy for slicing work into tickets. Instead of building horizontal layers — the whole database schema first — work is sliced vertically: a thin, production-quality feature cutting through data, logic, interface and tests. It matters for agents because a horizontal slice cannot be demoed or tested end to end in isolation.
     steps:
@@ -694,8 +720,7 @@ entries:
   - id: s41-tracer-bullet-practice
     type: capture
     url: /index.html#phase-principles
-    viewport: { width: 1440, height: 810 }
-    setupScript: setup/pin-light-theme.mjs
+    setupScript: setup/capture-determinism.mjs
     roiSelector: '.concept:has-text("Tracer Bullet")'
     narration: >-
       Follow that through. If a slice cannot be fully tested, the agent cannot verify its own output, and the self-correction loop stalls. So a good ticket is not the smallest amount of work — it is the smallest amount of work that can prove itself.
@@ -709,8 +734,7 @@ entries:
   - id: s42-living-docs-anchor
     type: capture
     url: /index.html#phase-principles
-    viewport: { width: 1440, height: 810 }
-    setupScript: setup/pin-light-theme.mjs
+    setupScript: setup/capture-determinism.mjs
     narration: >-
       In traditional development, stale documentation is an annoyance. In agentic development it is a fatal bug. Agents treat your repository's documentation as their system prompt, and they will faithfully generate code that complies with whatever standards they read.
     steps:
@@ -722,8 +746,7 @@ entries:
   - id: s43-living-docs-practice
     type: capture
     url: /index.html#phase-principles
-    viewport: { width: 1440, height: 810 }
-    setupScript: setup/pin-light-theme.mjs
+    setupScript: setup/capture-determinism.mjs
     roiSelector: '.concept:has-text("Living Documentation")'
     narration: >-
       So a coding standard you abandoned two years ago is not a historical note. It is an instruction, and it will be followed perfectly. Documentation in this model is closer to configuration than to prose: if it is wrong, the output is wrong, confidently.
@@ -741,8 +764,7 @@ entries:
   - id: s44-orchestrator-anchor
     type: capture
     url: /index.html#phase-multiagent
-    viewport: { width: 1440, height: 810 }
-    setupScript: setup/pin-light-theme.mjs
+    setupScript: setup/capture-determinism.mjs
     overlay: chapter
     title: Topic 4
     chapterDescription: Multi-Agent Patterns
@@ -751,33 +773,46 @@ entries:
       - { action: highlight, text: "Orchestrator-Worker Architecture", delayMs: 2500 }
     assert:
       visible: ["Multi-Agent Patterns", "Orchestrator-Worker"]
+    # Opens with a spoken seam into Topic 4.
     narration: >-
-      The orchestrator coordinates. It sequences work and routes blockers, and it never
+      That was one agent, working with discipline. Now the same problem spread across several. The orchestrator coordinates. It sequences work and routes blockers, and it never
       reads files or makes implementation decisions. An orchestrator that does
       implementation work fills its context with detail and loses coordination accuracy.
 
   # --- S45 · slide · D6 spotlight · Orchestrator is card 1 (dominant slot is positional) ---
+  # Title states the takeaway instead of asking a question fragment.
+  # `spotlight` is KEPT rather than moved to `tiled`, and the dominance is now
+  # declared instead of implied. The four cards are not a clean peer set — three
+  # are agent roles and the fourth is an execution mode — so `tiled`'s "these are
+  # peers" claim would be as wrong as an undeclared spotlight. The orchestrator
+  # is the root: it is the thing that spawns the others and decides what each one
+  # is given, so it earns the dominant slot, and the narration now says so.
+  # (`tiled` was also the riskier option here: four sentence-length cards in one
+  # row is the classic overflow case, and overflow is a hard failure.)
   - id: s45-who-knows-what-slide
     type: slide
     layout: spotlight
-    title: Who knows what
+    title: Each agent is given only what its job needs
     cards:
-      - { icon: network, title: Orchestrator, text: Sequences work and routes blockers. Never reads files. }
+      - { icon: network, title: Orchestrator, weight: primary, text: Sequences work and routes blockers. Never reads files. }
       - { icon: box, title: Subagent, text: "Clean context, restricted tools, one bounded task." }
       - { icon: user-check, title: Reviewer, text: "Sees the output and the specification, nothing else." }
       - { icon: zap, title: In parallel, text: "Independent tasks run at once, on models suited to each." }
+    # Narration states the rule once and gestures at all four cards — including
+    # the parallel-execution card the previous version never named — instead of
+    # reciting three of the four card texts back at the viewer.
     narration: >-
-      Every rule in this topic is the same rule applied four times: control what each agent
-      knows. The orchestrator holds the plan and not the code. The subagent holds one task
-      and not the plan. The reviewer holds the specification and the output and nothing
-      about how the output came to exist.
+      Every rule in this topic is one rule, applied four times: control what each
+      agent is allowed to know. It starts with the orchestrator, because it decides
+      what everyone else is given. The plan, the single task, the specification,
+      and the work running in parallel each sit with exactly one agent — and never
+      leak to the next.
 
   # --- S46 · capture · failure + practice (Orchestrator-Worker) ---
   - id: s46-orchestrator-practice
     type: capture
     url: /index.html#phase-multiagent
-    viewport: { width: 1440, height: 810 }
-    setupScript: setup/pin-light-theme.mjs
+    setupScript: setup/capture-determinism.mjs
     roiSelector: '.concept:has-text("Orchestrator-Worker")'
     steps:
       - { action: scroll, delta: 100, delayMs: 500 }
@@ -794,8 +829,7 @@ entries:
   - id: s47-subagents-anchor
     type: capture
     url: /index.html#phase-multiagent
-    viewport: { width: 1440, height: 810 }
-    setupScript: setup/pin-light-theme.mjs
+    setupScript: setup/capture-determinism.mjs
     steps:
       - { action: scroll, delta: 121, delayMs: 500 }
       - { action: highlight, text: "Subagents and Context Isolation", delayMs: 2500 }
@@ -810,8 +844,7 @@ entries:
   - id: s48-subagents-practice
     type: capture
     url: /index.html#phase-multiagent
-    viewport: { width: 1440, height: 810 }
-    setupScript: setup/pin-light-theme.mjs
+    setupScript: setup/capture-determinism.mjs
     roiSelector: '.concept:has-text("Subagents and Context Isolation")'
     steps:
       - { action: scroll, delta: 121, delayMs: 500 }
@@ -827,8 +860,7 @@ entries:
   - id: s49-review-anchor
     type: capture
     url: /index.html#phase-multiagent
-    viewport: { width: 1440, height: 810 }
-    setupScript: setup/pin-light-theme.mjs
+    setupScript: setup/capture-determinism.mjs
     steps:
       - { action: scroll, delta: 210, delayMs: 500 }
       - { action: highlight, text: "Independent Review", delayMs: 2500 }
@@ -844,8 +876,7 @@ entries:
   - id: s50-review-practice
     type: capture
     url: /index.html#phase-multiagent
-    viewport: { width: 1440, height: 810 }
-    setupScript: setup/pin-light-theme.mjs
+    setupScript: setup/capture-determinism.mjs
     roiSelector: '.concept:has-text("Independent Review")'
     steps:
       - { action: scroll, delta: 210, delayMs: 500 }
@@ -862,8 +893,7 @@ entries:
   - id: s51-parallel-anchor
     type: capture
     url: /index.html#phase-multiagent
-    viewport: { width: 1440, height: 810 }
-    setupScript: setup/pin-light-theme.mjs
+    setupScript: setup/capture-determinism.mjs
     steps:
       - { action: scroll, delta: 319, delayMs: 500 }
       - { action: highlight, text: "Parallel Execution", delayMs: 2500 }
@@ -879,8 +909,7 @@ entries:
   - id: s52-parallel-practice
     type: capture
     url: /index.html#phase-multiagent
-    viewport: { width: 1440, height: 810 }
-    setupScript: setup/pin-light-theme.mjs
+    setupScript: setup/capture-determinism.mjs
     roiSelector: '.concept:has-text("Parallel Execution")'
     steps:
       - { action: scroll, delta: 900, delayMs: 500 }
@@ -906,21 +935,26 @@ entries:
       - { icon: wrench, title: Engineering, text: "What goes into the window, and when." }
       - { icon: shield-check, title: Discipline, text: "Specification, tests, records, and gates." }
       - { icon: network, title: Division, text: How work and context split across agents. }
+    # The four cards ARE the recap, so the voice must not re-utter them. The
+    # previous version restated all four at length — the harmful redundancy case,
+    # and roughly four ideas in one scene at ~2.5x the 10-20s budget. The voice
+    # now gives the SHAPE of the argument and hands the detail to the screen.
     narration: >-
-      Four topics, one argument. Topic 1 gave you the limits: a context window
-      that degrades before it fills, three memory stores with three lifetimes,
-      and two failure modes — confident invention and run-to-run variation.
-      Topic 2 was engineering around those limits: what enters the window, when
-      it is retrieved, how loops terminate, and why planning finishes before
-      implementation starts. Topic 3 was the discipline that makes it
-      verifiable: specifications before code, tests as the exit signal, records
-      as external memory, vertical slices that can prove themselves, and
-      documentation treated as configuration. Topic 4 was the division of
-      labour: who knows what, and why a reviewer must not know how the code was
-      written.
+      Four topics, one argument. First the limits you cannot wish away. Then the
+      engineering that works within them. Then the discipline that makes the
+      result verifiable. And last, the division of labour across agents. Read
+      down the cards — that is the whole case.
 
   # S54 · statement · 0 cards — plan §5 + §6.
   # SCR resolution beat (closing seam): the single closing claim.
+  # NOTE — this scene deliberately keeps its `narration repeats 80%` warning.
+  # A `statement` slide has no cards, so its only slide text IS the title, which
+  # makes the overlap threshold trivial to trip. The redundancy principle has
+  # three cases, and verbatim SYNCHRONISED reinforcement of a single claim is the
+  # SAFE one; the harmful case is different-but-overlapping prose competing for
+  # the phonological loop. Landing the thesis in both channels at once is the
+  # point of a closing statement, so the warning is accepted rather than worded
+  # around. This is exactly why the check is a heuristic and not an invariant.
   - id: s54-closing-claim
     type: slide
     role: resolution

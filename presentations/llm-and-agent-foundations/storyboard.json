@@ -2,10 +2,11 @@
   "$generated": "GENERATED FILE — do not edit. Source: storyline.yml. Regenerate with: node scripts/compile.mjs",
   "$source": {
     "file": "storyline.yml",
-    "checksum": "97170a6256838e1334a3ef963b2fced4bcddf06be1d81117e0f162c278a24807"
+    "checksum": "e48f7c93a43ee93d2b45c337a9d09664a7e1e84289ee72256e407da32b65263f"
   },
   "meta": {
     "title": "LLM and Agent Foundations",
+    "mode": "video",
     "fps": 30,
     "captureAspect": "landscape",
     "outputs": [
@@ -57,12 +58,6 @@
       "vertical": {
         "strategy": "native"
       },
-      "resolvedVisual": {
-        "filePath": "assets/recordings/s01-cold-open-confident.mp4",
-        "durationMs": 10800,
-        "roi": null,
-        "hash": "943637ebad50"
-      },
       "resolvedAudio": {
         "filePath": "assets/audio/s01-cold-open-confident.wav",
         "durationMs": 11250,
@@ -79,12 +74,18 @@
         "padAudioMs": 0,
         "warnings": []
       },
-      "ratePct": 0
+      "ratePct": 0,
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s01-cold-open-confident.mp4",
+        "durationMs": 11667,
+        "roi": null,
+        "hash": "569aad770074"
+      }
     },
     {
       "id": "s02-three-failures",
       "title": "Three ways AI coding fails",
-      "narration": "AI coding fails in three ways, and none of them are about the model being weak. The requirement was ambiguous and the agent guessed. The code drifted from the intent while everyone watched. Or the handoff to the next step carried something unusable. Every rule you are about to learn exists to prevent one of these.",
+      "narration": "AI coding fails in three ways, and none of them are about the model being weak. The requirement was ambiguous and the agent guessed. The code drifted from the intent while everyone watched. Or the handoff to the next step carried something unusable. Every one of them costs you the same thing: hours spent doing the work twice.",
       "role": "complication",
       "visualEngine": "html_slides",
       "captureMode": "stills",
@@ -115,34 +116,34 @@
         "image": null,
         "htmlPath": null,
         "portraitHtmlPath": null,
-        "notes": "AI coding fails in three ways, and none of them are about the model being weak. The requirement was ambiguous and the agent guessed. The code drifted from the intent while everyone watched. Or the handoff to the next step carried something unusable. Every rule you are about to learn exists to prevent one of these."
+        "notes": "AI coding fails in three ways, and none of them are about the model being weak. The requirement was ambiguous and the agent guessed. The code drifted from the intent while everyone watched. Or the handoff to the next step carried something unusable. Every one of them costs you the same thing: hours spent doing the work twice."
       },
       "vertical": {
         "strategy": "native"
       },
-      "resolvedVisual": {
-        "filePath": "assets/recordings/s02-three-failures.mp4",
-        "durationMs": 22400,
-        "roi": null,
-        "hash": "3a011a4e105d"
-      },
       "resolvedAudio": {
         "filePath": "assets/audio/s02-three-failures.wav",
-        "durationMs": 19550,
+        "durationMs": 19650,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
-        "hash": "18cd6fe4d9ca"
+        "hash": "36ca9524d0ce"
       },
       "resolvedTiming": {
         "mode": "audio-dictates",
-        "sceneMs": 19950,
+        "sceneMs": 20050,
         "ratePct": 0,
-        "padVisualMs": 19950,
+        "padVisualMs": 20050,
         "padAudioMs": 0,
         "warnings": []
       },
-      "ratePct": 0
+      "ratePct": 0,
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s02-three-failures.mp4",
+        "durationMs": 20067,
+        "roi": null,
+        "hash": "b4312e6eedd8"
+      }
     },
     {
       "id": "s03-hero",
@@ -167,12 +168,6 @@
       "vertical": {
         "strategy": "native"
       },
-      "resolvedVisual": {
-        "filePath": "assets/recordings/s03-hero.mp4",
-        "durationMs": 16800,
-        "roi": null,
-        "hash": "f8a037fdc46b"
-      },
       "resolvedAudio": {
         "filePath": "assets/audio/s03-hero.wav",
         "durationMs": 14625,
@@ -189,18 +184,24 @@
         "padAudioMs": 0,
         "warnings": []
       },
-      "ratePct": 0
+      "ratePct": 0,
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s03-hero.mp4",
+        "durationMs": 15034,
+        "roi": null,
+        "hash": "ffb5a76d3e59"
+      }
     },
     {
       "id": "s04-page-establishing",
       "title": "s04-page-establishing",
-      "narration": "The prerequisites page has two tracks. Track A is the workflow itself, covered elsewhere. We are working through Track B, the four topics below it. Everything discussed here is on this page, so you can follow along and come back to it.",
+      "narration": "Everything here lives on one page, as four topics, so you can follow along and come back to it. We start with how the models actually work.",
       "role": null,
       "visualEngine": "playwright_web",
       "captureMode": "screencast",
       "actionSpec": {
         "url": "/index.html",
-        "setupScript": "setup/pin-light-theme.mjs",
+        "setupScript": "setup/capture-determinism.mjs",
         "steps": [
           {
             "action": "waitForText",
@@ -236,46 +237,40 @@
           "Something went wrong"
         ]
       },
-      "viewport": {
-        "width": 1440,
-        "height": 810
+      "resolvedAudio": {
+        "filePath": "assets/audio/s04-page-establishing.wav",
+        "durationMs": 9225,
+        "subtitleSource": "synthesised",
+        "providerSrt": null,
+        "hasNativeSrt": false,
+        "hash": "0b7f0d7d02e3"
       },
+      "resolvedTiming": {
+        "mode": "audio-dictates",
+        "sceneMs": 9625,
+        "ratePct": 0,
+        "padVisualMs": 9625,
+        "padAudioMs": 0,
+        "warnings": []
+      },
+      "ratePct": 0,
       "resolvedVisual": {
         "filePath": "assets/recordings/s04-page-establishing.mp4",
-        "durationMs": 12583.76220703125,
+        "durationMs": 12563.3369140625,
         "roi": {
-          "x": 354,
+          "x": 594,
           "y": 233.59375,
           "width": 782,
           "height": 43.3125
         },
-        "hash": "28168de8bd8a"
+        "hash": "9eabfb2153d6"
       },
       "roi": {
-        "x": 354,
+        "x": 594,
         "y": 233.59375,
         "width": 782,
         "height": 43.3125
-      },
-      "resolvedAudio": {
-        "filePath": "assets/audio/s04-page-establishing.r.wav",
-        "durationMs": 12950,
-        "subtitleSource": "synthesised",
-        "providerSrt": null,
-        "hasNativeSrt": false,
-        "hash": "a5f81bf21229"
-      },
-      "resolvedTiming": {
-        "mode": "reject",
-        "sceneMs": 12692,
-        "ratePct": 20,
-        "padVisualMs": 108,
-        "padAudioMs": 0,
-        "warnings": [
-          "narration is 21% longer than the visual (limit 20%). Split the scene or rewrite the narration."
-        ]
-      },
-      "ratePct": 20
+      }
     },
     {
       "id": "s05-context-windows-anchor",
@@ -290,7 +285,7 @@
       "captureMode": "screencast",
       "actionSpec": {
         "url": "/index.html#phase-llms",
-        "setupScript": "setup/pin-light-theme.mjs",
+        "setupScript": "setup/capture-determinism.mjs",
         "steps": [
           {
             "action": "scroll",
@@ -310,51 +305,45 @@
           "Smart Zone"
         ]
       },
-      "viewport": {
-        "width": 1440,
-        "height": 810
-      },
-      "resolvedVisual": {
-        "filePath": "assets/recordings/s05-context-windows-anchor.mp4",
-        "durationMs": 5965.2890625,
-        "roi": {
-          "x": 323,
-          "y": 141.328125,
-          "width": 794,
-          "height": 23.09375
-        },
-        "hash": "4b15f378ad50"
-      },
-      "roi": {
-        "x": 323,
-        "y": 141.328125,
-        "width": 794,
-        "height": 23.09375
-      },
       "resolvedAudio": {
-        "filePath": "assets/audio/s05-context-windows-anchor.r.wav",
-        "durationMs": 25200,
+        "filePath": "assets/audio/s05-context-windows-anchor.wav",
+        "durationMs": 28775,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
         "hash": "bf17db70d3a7"
       },
       "resolvedTiming": {
-        "mode": "reject",
-        "sceneMs": 24379,
-        "ratePct": 20,
-        "padVisualMs": 18414,
+        "mode": "audio-dictates",
+        "sceneMs": 29175,
+        "ratePct": 0,
+        "padVisualMs": 29175,
         "padAudioMs": 0,
-        "warnings": [
-          "narration is 417% longer than the visual (limit 20%). Split the scene or rewrite the narration."
-        ]
+        "warnings": []
       },
-      "ratePct": 20
+      "ratePct": 0,
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s05-context-windows-anchor.mp4",
+        "durationMs": 5942.126953125,
+        "roi": {
+          "x": 563,
+          "y": 141.328125,
+          "width": 794,
+          "height": 23.09375
+        },
+        "hash": "abc8eedc1098"
+      },
+      "roi": {
+        "x": 563,
+        "y": 141.328125,
+        "width": 794,
+        "height": 23.09375
+      }
     },
     {
       "id": "s06-window-budget-slide",
       "title": "The window is a budget",
-      "narration": "Two different problems share one picture. The zones are about volume: how much you have put in. Lost in the middle is about position: where you put it. A window can be comfortably inside the Smart Zone and still lose a fact you buried halfway down.",
+      "narration": "One picture, two different problems. One is about how much you load. The other is about where you put it. So a window can sit comfortably inside the Smart Zone and still lose a fact you buried halfway down.",
       "role": null,
       "visualEngine": "html_slides",
       "captureMode": "stills",
@@ -389,34 +378,34 @@
         "image": null,
         "htmlPath": null,
         "portraitHtmlPath": null,
-        "notes": "Two different problems share one picture. The zones are about volume: how much you have put in. Lost in the middle is about position: where you put it. A window can be comfortably inside the Smart Zone and still lose a fact you buried halfway down."
+        "notes": "One picture, two different problems. One is about how much you load. The other is about where you put it. So a window can sit comfortably inside the Smart Zone and still lose a fact you buried halfway down."
       },
       "vertical": {
         "strategy": "native"
       },
-      "resolvedVisual": {
-        "filePath": "assets/recordings/s06-window-budget-slide.mp4",
-        "durationMs": 18400,
-        "roi": null,
-        "hash": "72793248bae0"
-      },
       "resolvedAudio": {
         "filePath": "assets/audio/s06-window-budget-slide.wav",
-        "durationMs": 15675,
+        "durationMs": 12975,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
-        "hash": "7c97a5c4782b"
+        "hash": "d278df20489a"
       },
       "resolvedTiming": {
         "mode": "audio-dictates",
-        "sceneMs": 16075,
+        "sceneMs": 13375,
         "ratePct": 0,
-        "padVisualMs": 16075,
+        "padVisualMs": 13375,
         "padAudioMs": 0,
         "warnings": []
       },
-      "ratePct": 0
+      "ratePct": 0,
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s06-window-budget-slide.mp4",
+        "durationMs": 13367,
+        "roi": null,
+        "hash": "6dcb8c8bf62b"
+      }
     },
     {
       "id": "s07-context-windows-practice",
@@ -427,7 +416,7 @@
       "captureMode": "screencast",
       "actionSpec": {
         "url": "/index.html#phase-llms",
-        "setupScript": "setup/pin-light-theme.mjs",
+        "setupScript": "setup/capture-determinism.mjs",
         "roiSelector": ".concept:has-text(\"Smart Zone\")",
         "steps": [
           {
@@ -449,46 +438,40 @@
         ]
       },
       "roiSelector": ".concept:has-text(\"Smart Zone\")",
-      "viewport": {
-        "width": 1440,
-        "height": 810
-      },
-      "resolvedVisual": {
-        "filePath": "assets/recordings/s07-context-windows-practice.mp4",
-        "durationMs": 3157.052001953125,
-        "roi": {
-          "x": 323,
-          "y": 141.328125,
-          "width": 794,
-          "height": 23.09375
-        },
-        "hash": "2dc33834a067"
-      },
-      "roi": {
-        "x": 323,
-        "y": 141.328125,
-        "width": 794,
-        "height": 23.09375
-      },
       "resolvedAudio": {
-        "filePath": "assets/audio/s07-context-windows-practice.r.wav",
-        "durationMs": 18850,
+        "filePath": "assets/audio/s07-context-windows-practice.wav",
+        "durationMs": 21525,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
         "hash": "1bc64a2226a4"
       },
       "resolvedTiming": {
-        "mode": "reject",
-        "sceneMs": 18338,
-        "ratePct": 20,
-        "padVisualMs": 15180,
+        "mode": "audio-dictates",
+        "sceneMs": 21925,
+        "ratePct": 0,
+        "padVisualMs": 21925,
         "padAudioMs": 0,
-        "warnings": [
-          "narration is 681% longer than the visual (limit 20%). Split the scene or rewrite the narration."
-        ]
+        "warnings": []
       },
-      "ratePct": 20
+      "ratePct": 0,
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s07-context-windows-practice.mp4",
+        "durationMs": 3139.326171875,
+        "roi": {
+          "x": 563,
+          "y": 141.328125,
+          "width": 794,
+          "height": 23.09375
+        },
+        "hash": "3cd25a03df36"
+      },
+      "roi": {
+        "x": 563,
+        "y": 141.328125,
+        "width": 794,
+        "height": 23.09375
+      }
     },
     {
       "id": "s08-memory-anchor",
@@ -499,7 +482,7 @@
       "captureMode": "screencast",
       "actionSpec": {
         "url": "/index.html#phase-llms",
-        "setupScript": "setup/pin-light-theme.mjs",
+        "setupScript": "setup/capture-determinism.mjs",
         "steps": [
           {
             "action": "scroll",
@@ -519,46 +502,40 @@
           "parametric"
         ]
       },
-      "viewport": {
-        "width": 1440,
-        "height": 810
-      },
-      "resolvedVisual": {
-        "filePath": "assets/recordings/s08-memory-anchor.mp4",
-        "durationMs": 3648.4169921875,
-        "roi": {
-          "x": 323,
-          "y": 121.734375,
-          "width": 794,
-          "height": 23.09375
-        },
-        "hash": "f823639979d3"
-      },
-      "roi": {
-        "x": 323,
-        "y": 121.734375,
-        "width": 794,
-        "height": 23.09375
-      },
       "resolvedAudio": {
-        "filePath": "assets/audio/s08-memory-anchor.r.wav",
-        "durationMs": 22075,
+        "filePath": "assets/audio/s08-memory-anchor.wav",
+        "durationMs": 24750,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
         "hash": "996caf38089a"
       },
       "resolvedTiming": {
-        "mode": "reject",
-        "sceneMs": 21025,
-        "ratePct": 20,
-        "padVisualMs": 17377,
+        "mode": "audio-dictates",
+        "sceneMs": 25150,
+        "ratePct": 0,
+        "padVisualMs": 25150,
         "padAudioMs": 0,
-        "warnings": [
-          "narration is 662% longer than the visual (limit 20%). Split the scene or rewrite the narration."
-        ]
+        "warnings": []
       },
-      "ratePct": 20
+      "ratePct": 0,
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s08-memory-anchor.mp4",
+        "durationMs": 3633.174072265625,
+        "roi": {
+          "x": 563,
+          "y": 121.734375,
+          "width": 794,
+          "height": 23.09375
+        },
+        "hash": "eb12b8758de8"
+      },
+      "roi": {
+        "x": 563,
+        "y": 121.734375,
+        "width": 794,
+        "height": 23.09375
+      }
     },
     {
       "id": "s09-memory-stores-slide",
@@ -568,7 +545,7 @@
       "visualEngine": "html_slides",
       "captureMode": "stills",
       "slide": {
-        "layout": "bento-a",
+        "layout": "spotlight",
         "theme": "light",
         "title": "Three stores, three lifetimes",
         "pill": null,
@@ -577,6 +554,7 @@
           {
             "icon": "git-branch",
             "title": "External",
+            "weight": "primary",
             "text": "Files, version control and issue trackers. Survives every session."
           },
           {
@@ -599,12 +577,6 @@
       "vertical": {
         "strategy": "native"
       },
-      "resolvedVisual": {
-        "filePath": "assets/recordings/s09-memory-stores-slide.mp4",
-        "durationMs": 14400,
-        "roi": null,
-        "hash": "ccdecdc76248"
-      },
       "resolvedAudio": {
         "filePath": "assets/audio/s09-memory-stores-slide.wav",
         "durationMs": 13725,
@@ -621,7 +593,13 @@
         "padAudioMs": 0,
         "warnings": []
       },
-      "ratePct": 0
+      "ratePct": 0,
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s09-memory-stores-slide.mp4",
+        "durationMs": 14134,
+        "roi": null,
+        "hash": "2e93da1bade2"
+      }
     },
     {
       "id": "s10-memory-practice",
@@ -632,7 +610,7 @@
       "captureMode": "screencast",
       "actionSpec": {
         "url": "/index.html#phase-llms",
-        "setupScript": "setup/pin-light-theme.mjs",
+        "setupScript": "setup/capture-determinism.mjs",
         "roiSelector": ".concept:has-text(\"LLM Memory Architecture\")",
         "steps": [
           {
@@ -654,46 +632,40 @@
         ]
       },
       "roiSelector": ".concept:has-text(\"LLM Memory Architecture\")",
-      "viewport": {
-        "width": 1440,
-        "height": 810
-      },
-      "resolvedVisual": {
-        "filePath": "assets/recordings/s10-memory-practice.mp4",
-        "durationMs": 3136.72314453125,
-        "roi": {
-          "x": 549.28125,
-          "y": 170.65625,
-          "width": 51.25,
-          "height": 16
-        },
-        "hash": "b54da3bdcc9d"
-      },
-      "roi": {
-        "x": 549.28125,
-        "y": 170.65625,
-        "width": 51.25,
-        "height": 16
-      },
       "resolvedAudio": {
-        "filePath": "assets/audio/s10-memory-practice.r.wav",
-        "durationMs": 16900,
+        "filePath": "assets/audio/s10-memory-practice.wav",
+        "durationMs": 18900,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
         "hash": "241bb182b4fd"
       },
       "resolvedTiming": {
-        "mode": "reject",
-        "sceneMs": 16150,
-        "ratePct": 20,
-        "padVisualMs": 13013,
+        "mode": "audio-dictates",
+        "sceneMs": 19300,
+        "ratePct": 0,
+        "padVisualMs": 19300,
         "padAudioMs": 0,
-        "warnings": [
-          "narration is 591% longer than the visual (limit 20%). Split the scene or rewrite the narration."
-        ]
+        "warnings": []
       },
-      "ratePct": 20
+      "ratePct": 0,
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s10-memory-practice.mp4",
+        "durationMs": 3134.7890625,
+        "roi": {
+          "x": 789.28125,
+          "y": 170.65625,
+          "width": 51.25,
+          "height": 16
+        },
+        "hash": "ec8a2aa54095"
+      },
+      "roi": {
+        "x": 789.28125,
+        "y": 170.65625,
+        "width": 51.25,
+        "height": 16
+      }
     },
     {
       "id": "s11-hallucination-anchor",
@@ -704,7 +676,7 @@
       "captureMode": "screencast",
       "actionSpec": {
         "url": "/index.html#phase-llms",
-        "setupScript": "setup/pin-light-theme.mjs",
+        "setupScript": "setup/capture-determinism.mjs",
         "steps": [
           {
             "action": "scroll",
@@ -724,46 +696,40 @@
           "Non-determinism"
         ]
       },
-      "viewport": {
-        "width": 1440,
-        "height": 810
-      },
-      "resolvedVisual": {
-        "filePath": "assets/recordings/s11-hallucination-anchor.mp4",
-        "durationMs": 3648.065185546875,
-        "roi": {
-          "x": 323,
-          "y": 122.140625,
-          "width": 794,
-          "height": 23.09375
-        },
-        "hash": "f12cf6526c38"
-      },
-      "roi": {
-        "x": 323,
-        "y": 122.140625,
-        "width": 794,
-        "height": 23.09375
-      },
       "resolvedAudio": {
-        "filePath": "assets/audio/s11-hallucination-anchor.r.wav",
-        "durationMs": 22325,
+        "filePath": "assets/audio/s11-hallucination-anchor.wav",
+        "durationMs": 24975,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
         "hash": "be08406ccc1e"
       },
       "resolvedTiming": {
-        "mode": "reject",
-        "sceneMs": 21213,
-        "ratePct": 20,
-        "padVisualMs": 17564,
+        "mode": "audio-dictates",
+        "sceneMs": 25375,
+        "ratePct": 0,
+        "padVisualMs": 25375,
         "padAudioMs": 0,
-        "warnings": [
-          "narration is 669% longer than the visual (limit 20%). Split the scene or rewrite the narration."
-        ]
+        "warnings": []
       },
-      "ratePct": 20
+      "ratePct": 0,
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s11-hallucination-anchor.mp4",
+        "durationMs": 3630.37109375,
+        "roi": {
+          "x": 563,
+          "y": 122.140625,
+          "width": 794,
+          "height": 23.09375
+        },
+        "hash": "5ae720bd315f"
+      },
+      "roi": {
+        "x": 563,
+        "y": 122.140625,
+        "width": 794,
+        "height": 23.09375
+      }
     },
     {
       "id": "s12-hallucination-practice",
@@ -774,7 +740,7 @@
       "captureMode": "screencast",
       "actionSpec": {
         "url": "/index.html#phase-llms",
-        "setupScript": "setup/pin-light-theme.mjs",
+        "setupScript": "setup/capture-determinism.mjs",
         "roiSelector": ".concept:has-text(\"Hallucination\")",
         "steps": [
           {
@@ -796,51 +762,45 @@
         ]
       },
       "roiSelector": ".concept:has-text(\"Hallucination\")",
-      "viewport": {
-        "width": 1440,
-        "height": 810
-      },
-      "resolvedVisual": {
-        "filePath": "assets/recordings/s12-hallucination-practice.mp4",
-        "durationMs": 3139.722900390625,
-        "roi": {
-          "x": 323,
-          "y": 148.234375,
-          "width": 794,
-          "height": 104.140625
-        },
-        "hash": "8f4d1e195ea3"
-      },
-      "roi": {
-        "x": 323,
-        "y": 148.234375,
-        "width": 794,
-        "height": 104.140625
-      },
       "resolvedAudio": {
-        "filePath": "assets/audio/s12-hallucination-practice.r.wav",
-        "durationMs": 21800,
+        "filePath": "assets/audio/s12-hallucination-practice.wav",
+        "durationMs": 24875,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
         "hash": "58828c5b3711"
       },
       "resolvedTiming": {
-        "mode": "reject",
-        "sceneMs": 21129,
-        "ratePct": 20,
-        "padVisualMs": 17989,
+        "mode": "audio-dictates",
+        "sceneMs": 25275,
+        "ratePct": 0,
+        "padVisualMs": 25275,
         "padAudioMs": 0,
-        "warnings": [
-          "narration is 808% longer than the visual (limit 20%). Split the scene or rewrite the narration."
-        ]
+        "warnings": []
       },
-      "ratePct": 20
+      "ratePct": 0,
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s12-hallucination-practice.mp4",
+        "durationMs": 3131.191162109375,
+        "roi": {
+          "x": 563,
+          "y": 148.234375,
+          "width": 794,
+          "height": 104.140625
+        },
+        "hash": "b30ce25252f2"
+      },
+      "roi": {
+        "x": 563,
+        "y": 148.234375,
+        "width": 794,
+        "height": 104.140625
+      }
     },
     {
       "id": "s13-prompt-engineering-anchor",
       "title": "Topic 2",
-      "narration": "Prompt engineering is writing clear instructions for a single call. Four techniques. Role framing sets the agent's expertise and perspective. Positive framing describes the target behaviour rather than what to avoid — because the model predicts tokens toward whatever pattern you surface. Chain-of-thought elicitation asks it to reason step by step. And explicit completion criteria define what done means.",
+      "narration": "Those are the limits. Now the engineering that works within them. Prompt engineering is writing clear instructions for a single call. Four techniques. Role framing sets the agent's expertise and perspective. Positive framing describes the target behaviour rather than what to avoid — because the model predicts tokens toward whatever pattern you surface. Chain-of-thought elicitation asks it to reason step by step. And explicit completion criteria define what done means.",
       "role": null,
       "chapter": {
         "title": "Topic 2",
@@ -850,7 +810,7 @@
       "captureMode": "screencast",
       "actionSpec": {
         "url": "/index.html#phase-engineering",
-        "setupScript": "setup/pin-light-theme.mjs",
+        "setupScript": "setup/capture-determinism.mjs",
         "steps": [
           {
             "action": "scroll",
@@ -871,46 +831,40 @@
           "role framing"
         ]
       },
-      "viewport": {
-        "width": 1440,
-        "height": 810
+      "resolvedAudio": {
+        "filePath": "assets/audio/s13-prompt-engineering-anchor.wav",
+        "durationMs": 30125,
+        "subtitleSource": "synthesised",
+        "providerSrt": null,
+        "hasNativeSrt": false,
+        "hash": "80080b0f6dc3"
       },
+      "resolvedTiming": {
+        "mode": "audio-dictates",
+        "sceneMs": 30525,
+        "ratePct": 0,
+        "padVisualMs": 30525,
+        "padAudioMs": 0,
+        "warnings": []
+      },
+      "ratePct": 0,
       "resolvedVisual": {
         "filePath": "assets/recordings/s13-prompt-engineering-anchor.mp4",
-        "durationMs": 5961.89404296875,
+        "durationMs": 5927.757080078125,
         "roi": {
-          "x": 323,
+          "x": 563,
           "y": 142.046875,
           "width": 794,
           "height": 23.09375
         },
-        "hash": "32e0ca3ee830"
+        "hash": "802058aa1ac2"
       },
       "roi": {
-        "x": 323,
+        "x": 563,
         "y": 142.046875,
         "width": 794,
         "height": 23.09375
-      },
-      "resolvedAudio": {
-        "filePath": "assets/audio/s13-prompt-engineering-anchor.r.wav",
-        "durationMs": 22800,
-        "subtitleSource": "synthesised",
-        "providerSrt": null,
-        "hasNativeSrt": false,
-        "hash": "eb8893548a7d"
-      },
-      "resolvedTiming": {
-        "mode": "reject",
-        "sceneMs": 21942,
-        "ratePct": 20,
-        "padVisualMs": 15980,
-        "padAudioMs": 0,
-        "warnings": [
-          "narration is 365% longer than the visual (limit 20%). Split the scene or rewrite the narration."
-        ]
-      },
-      "ratePct": 20
+      }
     },
     {
       "id": "s14-prompt-engineering-practice",
@@ -921,7 +875,7 @@
       "captureMode": "screencast",
       "actionSpec": {
         "url": "/index.html#phase-engineering",
-        "setupScript": "setup/pin-light-theme.mjs",
+        "setupScript": "setup/capture-determinism.mjs",
         "roiSelector": ".concept:has-text(\"Prompt Engineering\")",
         "steps": [
           {
@@ -943,46 +897,40 @@
         ]
       },
       "roiSelector": ".concept:has-text(\"Prompt Engineering\")",
-      "viewport": {
-        "width": 1440,
-        "height": 810
-      },
-      "resolvedVisual": {
-        "filePath": "assets/recordings/s14-prompt-engineering-practice.mp4",
-        "durationMs": 3156.0908203125,
-        "roi": {
-          "x": 440,
-          "y": 190.96875,
-          "width": 107.859375,
-          "height": 16
-        },
-        "hash": "a430e5fdc42b"
-      },
-      "roi": {
-        "x": 440,
-        "y": 190.96875,
-        "width": 107.859375,
-        "height": 16
-      },
       "resolvedAudio": {
-        "filePath": "assets/audio/s14-prompt-engineering-practice.r.wav",
-        "durationMs": 17225,
+        "filePath": "assets/audio/s14-prompt-engineering-practice.wav",
+        "durationMs": 19400,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
         "hash": "0c8fe2794a9d"
       },
       "resolvedTiming": {
-        "mode": "reject",
-        "sceneMs": 16567,
-        "ratePct": 20,
-        "padVisualMs": 13411,
+        "mode": "audio-dictates",
+        "sceneMs": 19800,
+        "ratePct": 0,
+        "padVisualMs": 19800,
         "padAudioMs": 0,
-        "warnings": [
-          "narration is 604% longer than the visual (limit 20%). Split the scene or rewrite the narration."
-        ]
+        "warnings": []
       },
-      "ratePct": 20
+      "ratePct": 0,
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s14-prompt-engineering-practice.mp4",
+        "durationMs": 3140.822265625,
+        "roi": {
+          "x": 680,
+          "y": 190.96875,
+          "width": 107.859375,
+          "height": 16
+        },
+        "hash": "d249699efa4a"
+      },
+      "roi": {
+        "x": 680,
+        "y": 190.96875,
+        "width": 107.859375,
+        "height": 16
+      }
     },
     {
       "id": "s15-context-engineering-anchor",
@@ -993,7 +941,7 @@
       "captureMode": "screencast",
       "actionSpec": {
         "url": "/index.html#phase-engineering",
-        "setupScript": "setup/pin-light-theme.mjs",
+        "setupScript": "setup/capture-determinism.mjs",
         "steps": [
           {
             "action": "scroll",
@@ -1013,46 +961,40 @@
           "Context rot"
         ]
       },
-      "viewport": {
-        "width": 1440,
-        "height": 810
-      },
-      "resolvedVisual": {
-        "filePath": "assets/recordings/s15-context-engineering-anchor.mp4",
-        "durationMs": 3655.900146484375,
-        "roi": {
-          "x": 323,
-          "y": 122.453125,
-          "width": 794,
-          "height": 23.09375
-        },
-        "hash": "bdf0fb1332bf"
-      },
-      "roi": {
-        "x": 323,
-        "y": 122.453125,
-        "width": 794,
-        "height": 23.09375
-      },
       "resolvedAudio": {
-        "filePath": "assets/audio/s15-context-engineering-anchor.r.wav",
-        "durationMs": 20675,
+        "filePath": "assets/audio/s15-context-engineering-anchor.wav",
+        "durationMs": 23425,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
         "hash": "2d9d1a2e235d"
       },
       "resolvedTiming": {
-        "mode": "reject",
-        "sceneMs": 19921,
-        "ratePct": 20,
-        "padVisualMs": 16265,
+        "mode": "audio-dictates",
+        "sceneMs": 23825,
+        "ratePct": 0,
+        "padVisualMs": 23825,
         "padAudioMs": 0,
-        "warnings": [
-          "narration is 619% longer than the visual (limit 20%). Split the scene or rewrite the narration."
-        ]
+        "warnings": []
       },
-      "ratePct": 20
+      "ratePct": 0,
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s15-context-engineering-anchor.mp4",
+        "durationMs": 3628.740966796875,
+        "roi": {
+          "x": 563,
+          "y": 122.453125,
+          "width": 794,
+          "height": 23.09375
+        },
+        "hash": "5da0fea3bb83"
+      },
+      "roi": {
+        "x": 563,
+        "y": 122.453125,
+        "width": 794,
+        "height": 23.09375
+      }
     },
     {
       "id": "s16-context-engineering-practice",
@@ -1063,7 +1005,7 @@
       "captureMode": "screencast",
       "actionSpec": {
         "url": "/index.html#phase-engineering",
-        "setupScript": "setup/pin-light-theme.mjs",
+        "setupScript": "setup/capture-determinism.mjs",
         "roiSelector": ".concept:has-text(\"Context rot\")",
         "steps": [
           {
@@ -1085,46 +1027,40 @@
         ]
       },
       "roiSelector": ".concept:has-text(\"Context rot\")",
-      "viewport": {
-        "width": 1440,
-        "height": 810
-      },
-      "resolvedVisual": {
-        "filePath": "assets/recordings/s16-context-engineering-practice.mp4",
-        "durationMs": 3158.390869140625,
-        "roi": {
-          "x": 323,
-          "y": 148.546875,
-          "width": 794,
-          "height": 62.484375
-        },
-        "hash": "dabdd6255880"
-      },
-      "roi": {
-        "x": 323,
-        "y": 148.546875,
-        "width": 794,
-        "height": 62.484375
-      },
       "resolvedAudio": {
-        "filePath": "assets/audio/s16-context-engineering-practice.r.wav",
-        "durationMs": 17025,
+        "filePath": "assets/audio/s16-context-engineering-practice.wav",
+        "durationMs": 19400,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
         "hash": "c0522f493c40"
       },
       "resolvedTiming": {
-        "mode": "reject",
-        "sceneMs": 16567,
-        "ratePct": 20,
-        "padVisualMs": 13408,
+        "mode": "audio-dictates",
+        "sceneMs": 19800,
+        "ratePct": 0,
+        "padVisualMs": 19800,
         "padAudioMs": 0,
-        "warnings": [
-          "narration is 603% longer than the visual (limit 20%). Split the scene or rewrite the narration."
-        ]
+        "warnings": []
       },
-      "ratePct": 20
+      "ratePct": 0,
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s16-context-engineering-practice.mp4",
+        "durationMs": 3132.55322265625,
+        "roi": {
+          "x": 563,
+          "y": 148.546875,
+          "width": 794,
+          "height": 62.484375
+        },
+        "hash": "ef933c339877"
+      },
+      "roi": {
+        "x": 563,
+        "y": 148.546875,
+        "width": 794,
+        "height": 62.484375
+      }
     },
     {
       "id": "s17-rag-anchor",
@@ -1135,7 +1071,7 @@
       "captureMode": "screencast",
       "actionSpec": {
         "url": "/index.html#phase-engineering",
-        "setupScript": "setup/pin-light-theme.mjs",
+        "setupScript": "setup/capture-determinism.mjs",
         "steps": [
           {
             "action": "scroll",
@@ -1155,46 +1091,40 @@
           "chunked"
         ]
       },
-      "viewport": {
-        "width": 1440,
-        "height": 810
-      },
-      "resolvedVisual": {
-        "filePath": "assets/recordings/s17-rag-anchor.mp4",
-        "durationMs": 3642.465087890625,
-        "roi": {
-          "x": 323,
-          "y": 122.03125,
-          "width": 794,
-          "height": 23.09375
-        },
-        "hash": "3e3b08ef31d4"
-      },
-      "roi": {
-        "x": 323,
-        "y": 122.03125,
-        "width": 794,
-        "height": 23.09375
-      },
       "resolvedAudio": {
-        "filePath": "assets/audio/s17-rag-anchor.r.wav",
-        "durationMs": 17775,
+        "filePath": "assets/audio/s17-rag-anchor.wav",
+        "durationMs": 20025,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
         "hash": "6f7a41700e5c"
       },
       "resolvedTiming": {
-        "mode": "reject",
-        "sceneMs": 17088,
-        "ratePct": 20,
-        "padVisualMs": 13445,
+        "mode": "audio-dictates",
+        "sceneMs": 20425,
+        "ratePct": 0,
+        "padVisualMs": 20425,
         "padAudioMs": 0,
-        "warnings": [
-          "narration is 518% longer than the visual (limit 20%). Split the scene or rewrite the narration."
-        ]
+        "warnings": []
       },
-      "ratePct": 20
+      "ratePct": 0,
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s17-rag-anchor.mp4",
+        "durationMs": 3639.390869140625,
+        "roi": {
+          "x": 563,
+          "y": 122.03125,
+          "width": 794,
+          "height": 23.09375
+        },
+        "hash": "52bf61387937"
+      },
+      "roi": {
+        "x": 563,
+        "y": 122.03125,
+        "width": 794,
+        "height": 23.09375
+      }
     },
     {
       "id": "s18-rag-practice",
@@ -1205,7 +1135,7 @@
       "captureMode": "screencast",
       "actionSpec": {
         "url": "/index.html#phase-engineering",
-        "setupScript": "setup/pin-light-theme.mjs",
+        "setupScript": "setup/capture-determinism.mjs",
         "roiSelector": ".concept:has-text(\"Retrieval-Augmented Generation\")",
         "steps": [
           {
@@ -1227,46 +1157,40 @@
         ]
       },
       "roiSelector": ".concept:has-text(\"Retrieval-Augmented Generation\")",
-      "viewport": {
-        "width": 1440,
-        "height": 810
-      },
-      "resolvedVisual": {
-        "filePath": "assets/recordings/s18-rag-practice.mp4",
-        "durationMs": 3152.69287109375,
-        "roi": {
-          "x": 323,
-          "y": 38.546875,
-          "width": 794,
-          "height": 62.484375
-        },
-        "hash": "53a6e9a91d81"
-      },
-      "roi": {
-        "x": 323,
-        "y": 38.546875,
-        "width": 794,
-        "height": 62.484375
-      },
       "resolvedAudio": {
-        "filePath": "assets/audio/s18-rag-practice.r.wav",
-        "durationMs": 12825,
+        "filePath": "assets/audio/s18-rag-practice.wav",
+        "durationMs": 14275,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
         "hash": "37eece408b2a"
       },
       "resolvedTiming": {
-        "mode": "reject",
-        "sceneMs": 12296,
-        "ratePct": 20,
-        "padVisualMs": 9143,
+        "mode": "audio-dictates",
+        "sceneMs": 14675,
+        "ratePct": 0,
+        "padVisualMs": 14675,
         "padAudioMs": 0,
-        "warnings": [
-          "narration is 419% longer than the visual (limit 20%). Split the scene or rewrite the narration."
-        ]
+        "warnings": []
       },
-      "ratePct": 20
+      "ratePct": 0,
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s18-rag-practice.mp4",
+        "durationMs": 3137.989990234375,
+        "roi": {
+          "x": 563,
+          "y": 38.546875,
+          "width": 794,
+          "height": 62.484375
+        },
+        "hash": "a2887d16b1d9"
+      },
+      "roi": {
+        "x": 563,
+        "y": 38.546875,
+        "width": 794,
+        "height": 62.484375
+      }
     },
     {
       "id": "s19-okf-anchor",
@@ -1277,7 +1201,7 @@
       "captureMode": "screencast",
       "actionSpec": {
         "url": "/index.html#phase-engineering",
-        "setupScript": "setup/pin-light-theme.mjs",
+        "setupScript": "setup/capture-determinism.mjs",
         "steps": [
           {
             "action": "scroll",
@@ -1297,46 +1221,40 @@
           "typed entities"
         ]
       },
-      "viewport": {
-        "width": 1440,
-        "height": 810
-      },
-      "resolvedVisual": {
-        "filePath": "assets/recordings/s19-okf-anchor.mp4",
-        "durationMs": 3650.89111328125,
-        "roi": {
-          "x": 323,
-          "y": 122.4375,
-          "width": 794,
-          "height": 23.09375
-        },
-        "hash": "74feb5b38c9e"
-      },
-      "roi": {
-        "x": 323,
-        "y": 122.4375,
-        "width": 794,
-        "height": 23.09375
-      },
       "resolvedAudio": {
-        "filePath": "assets/audio/s19-okf-anchor.r.wav",
-        "durationMs": 24275,
+        "filePath": "assets/audio/s19-okf-anchor.wav",
+        "durationMs": 27275,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
         "hash": "0d3936e79a7e"
       },
       "resolvedTiming": {
-        "mode": "reject",
-        "sceneMs": 23129,
-        "ratePct": 20,
-        "padVisualMs": 19478,
+        "mode": "audio-dictates",
+        "sceneMs": 27675,
+        "ratePct": 0,
+        "padVisualMs": 27675,
         "padAudioMs": 0,
-        "warnings": [
-          "narration is 739% longer than the visual (limit 20%). Split the scene or rewrite the narration."
-        ]
+        "warnings": []
       },
-      "ratePct": 20
+      "ratePct": 0,
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s19-okf-anchor.mp4",
+        "durationMs": 3638.43212890625,
+        "roi": {
+          "x": 563,
+          "y": 122.4375,
+          "width": 794,
+          "height": 23.09375
+        },
+        "hash": "fe1c93815bb1"
+      },
+      "roi": {
+        "x": 563,
+        "y": 122.4375,
+        "width": 794,
+        "height": 23.09375
+      }
     },
     {
       "id": "s20-okf-practice",
@@ -1347,7 +1265,7 @@
       "captureMode": "screencast",
       "actionSpec": {
         "url": "/index.html#phase-engineering",
-        "setupScript": "setup/pin-light-theme.mjs",
+        "setupScript": "setup/capture-determinism.mjs",
         "roiSelector": ".concept:has-text(\"Open Knowledge Format\")",
         "steps": [
           {
@@ -1369,46 +1287,40 @@
         ]
       },
       "roiSelector": ".concept:has-text(\"Open Knowledge Format\")",
-      "viewport": {
-        "width": 1440,
-        "height": 810
-      },
-      "resolvedVisual": {
-        "filePath": "assets/recordings/s20-okf-practice.mp4",
-        "durationMs": 3148.40087890625,
-        "roi": {
-          "x": 323,
-          "y": 148.53125,
-          "width": 794,
-          "height": 104.140625
-        },
-        "hash": "dfd880bc5325"
-      },
-      "roi": {
-        "x": 323,
-        "y": 148.53125,
-        "width": 794,
-        "height": 104.140625
-      },
       "resolvedAudio": {
-        "filePath": "assets/audio/s20-okf-practice.r.wav",
-        "durationMs": 10500,
+        "filePath": "assets/audio/s20-okf-practice.wav",
+        "durationMs": 11925,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
         "hash": "be3eab4a7813"
       },
       "resolvedTiming": {
-        "mode": "reject",
-        "sceneMs": 10338,
-        "ratePct": 20,
-        "padVisualMs": 7189,
+        "mode": "audio-dictates",
+        "sceneMs": 12325,
+        "ratePct": 0,
+        "padVisualMs": 12325,
         "padAudioMs": 0,
-        "warnings": [
-          "narration is 334% longer than the visual (limit 20%). Split the scene or rewrite the narration."
-        ]
+        "warnings": []
       },
-      "ratePct": 20
+      "ratePct": 0,
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s20-okf-practice.mp4",
+        "durationMs": 3132.240234375,
+        "roi": {
+          "x": 563,
+          "y": 148.53125,
+          "width": 794,
+          "height": 104.140625
+        },
+        "hash": "91ac27817b5d"
+      },
+      "roi": {
+        "x": 563,
+        "y": 148.53125,
+        "width": 794,
+        "height": 104.140625
+      }
     },
     {
       "id": "s21-mcp-anchor",
@@ -1419,7 +1331,7 @@
       "captureMode": "screencast",
       "actionSpec": {
         "url": "/index.html#phase-engineering",
-        "setupScript": "setup/pin-light-theme.mjs",
+        "setupScript": "setup/capture-determinism.mjs",
         "steps": [
           {
             "action": "scroll",
@@ -1439,51 +1351,45 @@
           "external tools"
         ]
       },
-      "viewport": {
-        "width": 1440,
-        "height": 810
-      },
-      "resolvedVisual": {
-        "filePath": "assets/recordings/s21-mcp-anchor.mp4",
-        "durationMs": 3651.304931640625,
-        "roi": {
-          "x": 323,
-          "y": 123.671875,
-          "width": 794,
-          "height": 23.09375
-        },
-        "hash": "e851c3bae61a"
-      },
-      "roi": {
-        "x": 323,
-        "y": 123.671875,
-        "width": 794,
-        "height": 23.09375
-      },
       "resolvedAudio": {
-        "filePath": "assets/audio/s21-mcp-anchor.r.wav",
-        "durationMs": 20325,
+        "filePath": "assets/audio/s21-mcp-anchor.wav",
+        "durationMs": 22800,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
         "hash": "b3546aac0f48"
       },
       "resolvedTiming": {
-        "mode": "reject",
-        "sceneMs": 19400,
-        "ratePct": 20,
-        "padVisualMs": 15749,
+        "mode": "audio-dictates",
+        "sceneMs": 23200,
+        "ratePct": 0,
+        "padVisualMs": 23200,
         "padAudioMs": 0,
-        "warnings": [
-          "narration is 601% longer than the visual (limit 20%). Split the scene or rewrite the narration."
-        ]
+        "warnings": []
       },
-      "ratePct": 20
+      "ratePct": 0,
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s21-mcp-anchor.mp4",
+        "durationMs": 3632.585205078125,
+        "roi": {
+          "x": 563,
+          "y": 123.671875,
+          "width": 794,
+          "height": 23.09375
+        },
+        "hash": "a0b131bdca9a"
+      },
+      "roi": {
+        "x": 563,
+        "y": 123.671875,
+        "width": 794,
+        "height": 23.09375
+      }
     },
     {
       "id": "s22-rag-vs-mcp-slide",
       "title": "Retrieve, or act",
-      "narration": "The dividing line is not freshness. RAG retrieves when you ask, so it can query a live database just as easily as a document store. What separates them is what the information is for. RAG retrieves, then generates: the fetch exists to ground the answer. MCP is a protocol for reaching other systems at all, and reading is only one of the things it does. It can also transact — call an endpoint, file a ticket, change state somewhere else. Retrieval grounds an answer; a transaction has a consequence. They are not competitors. They cover different areas of what an agent needs.",
+      "narration": "It is tempting to think the line is freshness. It is not — RAG can query a live database just as easily as a document store. The real line is purpose. Retrieval grounds an answer; a transaction has a consequence. They are not competitors, and knowing which one you need is the whole decision.",
       "role": null,
       "visualEngine": "html_slides",
       "captureMode": "stills",
@@ -1509,34 +1415,34 @@
         "image": null,
         "htmlPath": null,
         "portraitHtmlPath": null,
-        "notes": "The dividing line is not freshness. RAG retrieves when you ask, so it can query a live database just as easily as a document store. What separates them is what the information is for. RAG retrieves, then generates: the fetch exists to ground the answer. MCP is a protocol for reaching other systems at all, and reading is only one of the things it does. It can also transact — call an endpoint, file a ticket, change state somewhere else. Retrieval grounds an answer; a transaction has a consequence. They are not competitors. They cover different areas of what an agent needs."
+        "notes": "It is tempting to think the line is freshness. It is not — RAG can query a live database just as easily as a document store. The real line is purpose. Retrieval grounds an answer; a transaction has a consequence. They are not competitors, and knowing which one you need is the whole decision."
       },
       "vertical": {
         "strategy": "native"
       },
-      "resolvedVisual": {
-        "filePath": "assets/recordings/s22-rag-vs-mcp-slide.mp4",
-        "durationMs": 40800,
-        "roi": null,
-        "hash": "98c43b089520"
-      },
       "resolvedAudio": {
         "filePath": "assets/audio/s22-rag-vs-mcp-slide.wav",
-        "durationMs": 38350,
+        "durationMs": 19650,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
-        "hash": "96d855b86045"
+        "hash": "48c13ce88506"
       },
       "resolvedTiming": {
         "mode": "audio-dictates",
-        "sceneMs": 38750,
+        "sceneMs": 20050,
         "ratePct": 0,
-        "padVisualMs": 38750,
+        "padVisualMs": 20050,
         "padAudioMs": 0,
         "warnings": []
       },
-      "ratePct": 0
+      "ratePct": 0,
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s22-rag-vs-mcp-slide.mp4",
+        "durationMs": 20067,
+        "roi": null,
+        "hash": "7533a0de768e"
+      }
     },
     {
       "id": "s23-mcp-practice",
@@ -1547,7 +1453,7 @@
       "captureMode": "screencast",
       "actionSpec": {
         "url": "/index.html#phase-engineering",
-        "setupScript": "setup/pin-light-theme.mjs",
+        "setupScript": "setup/capture-determinism.mjs",
         "roiSelector": ".concept:has-text(\"Model Context Protocol\")",
         "steps": [
           {
@@ -1569,46 +1475,40 @@
         ]
       },
       "roiSelector": ".concept:has-text(\"Model Context Protocol\")",
-      "viewport": {
-        "width": 1440,
-        "height": 810
-      },
-      "resolvedVisual": {
-        "filePath": "assets/recordings/s23-mcp-practice.mp4",
-        "durationMs": 3159.93115234375,
-        "roi": {
-          "x": 323,
-          "y": 149.765625,
-          "width": 794,
-          "height": 62.484375
-        },
-        "hash": "cac97948522e"
-      },
-      "roi": {
-        "x": 323,
-        "y": 149.765625,
-        "width": 794,
-        "height": 62.484375
-      },
       "resolvedAudio": {
-        "filePath": "assets/audio/s23-mcp-practice.r.wav",
-        "durationMs": 18725,
+        "filePath": "assets/audio/s23-mcp-practice.wav",
+        "durationMs": 21450,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
         "hash": "1e62a6361c85"
       },
       "resolvedTiming": {
-        "mode": "reject",
-        "sceneMs": 18275,
-        "ratePct": 20,
-        "padVisualMs": 15115,
+        "mode": "audio-dictates",
+        "sceneMs": 21850,
+        "ratePct": 0,
+        "padVisualMs": 21850,
         "padAudioMs": 0,
-        "warnings": [
-          "narration is 677% longer than the visual (limit 20%). Split the scene or rewrite the narration."
-        ]
+        "warnings": []
       },
-      "ratePct": 20
+      "ratePct": 0,
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s23-mcp-practice.mp4",
+        "durationMs": 3131.97509765625,
+        "roi": {
+          "x": 563,
+          "y": 149.765625,
+          "width": 794,
+          "height": 62.484375
+        },
+        "hash": "2263e2b7627d"
+      },
+      "roi": {
+        "x": 563,
+        "y": 149.765625,
+        "width": 794,
+        "height": 62.484375
+      }
     },
     {
       "id": "s24-react-anchor",
@@ -1619,7 +1519,7 @@
       "captureMode": "screencast",
       "actionSpec": {
         "url": "/index.html#phase-engineering",
-        "setupScript": "setup/pin-light-theme.mjs",
+        "setupScript": "setup/capture-determinism.mjs",
         "steps": [
           {
             "action": "scroll",
@@ -1639,58 +1539,52 @@
           "convergence condition"
         ]
       },
-      "viewport": {
-        "width": 1440,
-        "height": 810
-      },
-      "resolvedVisual": {
-        "filePath": "assets/recordings/s24-react-anchor.mp4",
-        "durationMs": 3663.046142578125,
-        "roi": {
-          "x": 323,
-          "y": 123.25,
-          "width": 794,
-          "height": 23.09375
-        },
-        "hash": "256c43e738c1"
-      },
-      "roi": {
-        "x": 323,
-        "y": 123.25,
-        "width": 794,
-        "height": 23.09375
-      },
       "resolvedAudio": {
-        "filePath": "assets/audio/s24-react-anchor.r.wav",
-        "durationMs": 23625,
+        "filePath": "assets/audio/s24-react-anchor.wav",
+        "durationMs": 26475,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
         "hash": "8426446661c6"
       },
       "resolvedTiming": {
-        "mode": "reject",
-        "sceneMs": 22463,
-        "ratePct": 20,
-        "padVisualMs": 18799,
+        "mode": "audio-dictates",
+        "sceneMs": 26875,
+        "ratePct": 0,
+        "padVisualMs": 26875,
         "padAudioMs": 0,
-        "warnings": [
-          "narration is 711% longer than the visual (limit 20%). Split the scene or rewrite the narration."
-        ]
+        "warnings": []
       },
-      "ratePct": 20
+      "ratePct": 0,
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s24-react-anchor.mp4",
+        "durationMs": 3632.43212890625,
+        "roi": {
+          "x": 563,
+          "y": 123.25,
+          "width": 794,
+          "height": 23.09375
+        },
+        "hash": "374b2459bd36"
+      },
+      "roi": {
+        "x": 563,
+        "y": 123.25,
+        "width": 794,
+        "height": 23.09375
+      }
     },
     {
       "id": "s25-react-loop-slide",
-      "title": "Reason, act, observe, exit",
-      "narration": "Watch what each lap costs. Every observation is added to the window, so a loop without an exit does two things at once: it never stops, and it degrades as it goes. By lap fifteen the agent is reasoning over mostly its own history.",
+      "title": "The loop repeats until a signal says stop",
+      "narration": "Reason, act, observe — and then the observation joins the window and the lap starts again. Without a stop signal that does two things at once: it never ends, and each lap degrades the one before it. By lap fifteen the agent is reasoning mostly over its own history.",
       "role": null,
       "visualEngine": "html_slides",
       "captureMode": "stills",
       "slide": {
-        "layout": "lifecycle",
+        "layout": "cycle",
         "theme": "light",
-        "title": "Reason, act, observe, exit",
+        "title": "The loop repeats until a signal says stop",
         "pill": null,
         "body": null,
         "cards": [
@@ -1711,46 +1605,40 @@
             "title": "Observe",
             "detail": "Phase 3",
             "text": "Read the result and feed it back."
-          },
-          {
-            "icon": "check",
-            "title": "Exit",
-            "detail": "Convergence",
-            "text": "Without this the loop has no signal to stop."
           }
         ],
         "stat": null,
         "image": null,
         "htmlPath": null,
         "portraitHtmlPath": null,
-        "notes": "Watch what each lap costs. Every observation is added to the window, so a loop without an exit does two things at once: it never stops, and it degrades as it goes. By lap fifteen the agent is reasoning over mostly its own history."
+        "notes": "Reason, act, observe — and then the observation joins the window and the lap starts again. Without a stop signal that does two things at once: it never ends, and each lap degrades the one before it. By lap fifteen the agent is reasoning mostly over its own history."
       },
       "vertical": {
         "strategy": "native"
       },
-      "resolvedVisual": {
-        "filePath": "assets/recordings/s25-react-loop-slide.mp4",
-        "durationMs": 17600,
-        "roi": null,
-        "hash": "7a845b123d4b"
-      },
       "resolvedAudio": {
         "filePath": "assets/audio/s25-react-loop-slide.wav",
-        "durationMs": 15700,
+        "durationMs": 17400,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
-        "hash": "6c1ad44a531d"
+        "hash": "adffca7ffc48"
       },
       "resolvedTiming": {
         "mode": "audio-dictates",
-        "sceneMs": 16100,
+        "sceneMs": 17800,
         "ratePct": 0,
-        "padVisualMs": 16100,
+        "padVisualMs": 17800,
         "padAudioMs": 0,
         "warnings": []
       },
-      "ratePct": 0
+      "ratePct": 0,
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s25-react-loop-slide.mp4",
+        "durationMs": 17800,
+        "roi": null,
+        "hash": "fc621b18364c"
+      }
     },
     {
       "id": "s26-react-practice",
@@ -1761,7 +1649,7 @@
       "captureMode": "screencast",
       "actionSpec": {
         "url": "/index.html#phase-engineering",
-        "setupScript": "setup/pin-light-theme.mjs",
+        "setupScript": "setup/capture-determinism.mjs",
         "roiSelector": ".concept:has-text(\"ReAct Pattern\")",
         "steps": [
           {
@@ -1784,46 +1672,40 @@
         ]
       },
       "roiSelector": ".concept:has-text(\"ReAct Pattern\")",
-      "viewport": {
-        "width": 1440,
-        "height": 810
-      },
-      "resolvedVisual": {
-        "filePath": "assets/recordings/s26-react-practice.mp4",
-        "durationMs": 3143.819091796875,
-        "roi": {
-          "x": 323,
-          "y": 149.34375,
-          "width": 794,
-          "height": 124.96875
-        },
-        "hash": "ba8d428f501b"
-      },
-      "roi": {
-        "x": 323,
-        "y": 149.34375,
-        "width": 794,
-        "height": 124.96875
-      },
       "resolvedAudio": {
-        "filePath": "assets/audio/s26-react-practice.r.wav",
-        "durationMs": 14800,
+        "filePath": "assets/audio/s26-react-practice.wav",
+        "durationMs": 16375,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
         "hash": "57380ad83470"
       },
       "resolvedTiming": {
-        "mode": "reject",
-        "sceneMs": 14046,
-        "ratePct": 20,
-        "padVisualMs": 10902,
+        "mode": "audio-dictates",
+        "sceneMs": 16775,
+        "ratePct": 0,
+        "padVisualMs": 16775,
         "padAudioMs": 0,
-        "warnings": [
-          "narration is 497% longer than the visual (limit 20%). Split the scene or rewrite the narration."
-        ]
+        "warnings": []
       },
-      "ratePct": 20
+      "ratePct": 0,
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s26-react-practice.mp4",
+        "durationMs": 3135.06005859375,
+        "roi": {
+          "x": 563,
+          "y": 149.34375,
+          "width": 794,
+          "height": 124.96875
+        },
+        "hash": "008198f913b1"
+      },
+      "roi": {
+        "x": 563,
+        "y": 149.34375,
+        "width": 794,
+        "height": 124.96875
+      }
     },
     {
       "id": "s27-planning-anchor",
@@ -1834,7 +1716,7 @@
       "captureMode": "screencast",
       "actionSpec": {
         "url": "/index.html#phase-engineering",
-        "setupScript": "setup/pin-light-theme.mjs",
+        "setupScript": "setup/capture-determinism.mjs",
         "steps": [
           {
             "action": "scroll",
@@ -1855,50 +1737,44 @@
           "Plan narration"
         ]
       },
-      "viewport": {
-        "width": 1440,
-        "height": 810
-      },
-      "resolvedVisual": {
-        "filePath": "assets/recordings/s27-planning-anchor.mp4",
-        "durationMs": 3635.732177734375,
-        "roi": {
-          "x": 323,
-          "y": 120.3125,
-          "width": 794,
-          "height": 23.09375
-        },
-        "hash": "9dcef0960873"
-      },
-      "roi": {
-        "x": 323,
-        "y": 120.3125,
-        "width": 794,
-        "height": 23.09375
-      },
       "resolvedAudio": {
-        "filePath": "assets/audio/s27-planning-anchor.r.wav",
-        "durationMs": 22200,
+        "filePath": "assets/audio/s27-planning-anchor.wav",
+        "durationMs": 25100,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
         "hash": "ee3c5a4582b1"
       },
       "resolvedTiming": {
-        "mode": "reject",
-        "sceneMs": 21317,
-        "ratePct": 20,
-        "padVisualMs": 17681,
+        "mode": "audio-dictates",
+        "sceneMs": 25500,
+        "ratePct": 0,
+        "padVisualMs": 25500,
         "padAudioMs": 0,
-        "warnings": [
-          "narration is 676% longer than the visual (limit 20%). Split the scene or rewrite the narration."
-        ]
+        "warnings": []
       },
-      "ratePct": 20
+      "ratePct": 0,
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s27-planning-anchor.mp4",
+        "durationMs": 3631.70703125,
+        "roi": {
+          "x": 563,
+          "y": 120.3125,
+          "width": 794,
+          "height": 23.09375
+        },
+        "hash": "2d857bc6842b"
+      },
+      "roi": {
+        "x": 563,
+        "y": 120.3125,
+        "width": 794,
+        "height": 23.09375
+      }
     },
     {
       "id": "s28-qrspi-slide",
-      "title": "QRSPI",
+      "title": "Four steps finish before any code is written",
       "narration": "In this workflow the practice has a name: QRSPI. The order is not the interesting part — the boundary is. Four steps finish completely, and only then does code get written. Everything ambiguous is resolved while resolving it is still cheap.",
       "role": null,
       "visualEngine": "html_slides",
@@ -1906,13 +1782,14 @@
       "slide": {
         "layout": "process-flow",
         "theme": "light",
-        "title": "QRSPI",
+        "title": "Four steps finish before any code is written",
         "pill": null,
         "body": null,
         "cards": [
           {
             "icon": "circle-help",
-            "title": "Questions"
+            "title": "Questions",
+            "text": "Resolve every ambiguity here, while resolving it is still cheap."
           },
           {
             "icon": "search",
@@ -1928,8 +1805,7 @@
           },
           {
             "icon": "code",
-            "title": "Implement",
-            "text": "The first four finish before this one starts."
+            "title": "Implement"
           }
         ],
         "stat": null,
@@ -1940,12 +1816,6 @@
       },
       "vertical": {
         "strategy": "native"
-      },
-      "resolvedVisual": {
-        "filePath": "assets/recordings/s28-qrspi-slide.mp4",
-        "durationMs": 16400,
-        "roi": null,
-        "hash": "04c0722c9ed4"
       },
       "resolvedAudio": {
         "filePath": "assets/audio/s28-qrspi-slide.wav",
@@ -1963,7 +1833,13 @@
         "padAudioMs": 0,
         "warnings": []
       },
-      "ratePct": 0
+      "ratePct": 0,
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s28-qrspi-slide.mp4",
+        "durationMs": 16300,
+        "roi": null,
+        "hash": "ae33a3a568d2"
+      }
     },
     {
       "id": "s29-planning-practice",
@@ -1974,7 +1850,7 @@
       "captureMode": "screencast",
       "actionSpec": {
         "url": "/index.html#phase-engineering",
-        "setupScript": "setup/pin-light-theme.mjs",
+        "setupScript": "setup/capture-determinism.mjs",
         "roiSelector": ".concept:has-text(\"Planning-Execution Separation\")",
         "steps": [
           {
@@ -1996,46 +1872,40 @@
         ]
       },
       "roiSelector": ".concept:has-text(\"Planning-Execution Separation\")",
-      "viewport": {
-        "width": 1440,
-        "height": 810
-      },
-      "resolvedVisual": {
-        "filePath": "assets/recordings/s29-planning-practice.mp4",
-        "durationMs": 3140.807861328125,
-        "roi": {
-          "x": 509.25,
-          "y": 325.34375,
-          "width": 40.5625,
-          "height": 16
-        },
-        "hash": "59424ac4a1e3"
-      },
-      "roi": {
-        "x": 509.25,
-        "y": 325.34375,
-        "width": 40.5625,
-        "height": 16
-      },
       "resolvedAudio": {
-        "filePath": "assets/audio/s29-planning-practice.r.wav",
-        "durationMs": 17250,
+        "filePath": "assets/audio/s29-planning-practice.wav",
+        "durationMs": 19400,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
         "hash": "1c1770bcaef2"
       },
       "resolvedTiming": {
-        "mode": "reject",
-        "sceneMs": 16567,
-        "ratePct": 20,
-        "padVisualMs": 13426,
+        "mode": "audio-dictates",
+        "sceneMs": 19800,
+        "ratePct": 0,
+        "padVisualMs": 19800,
         "padAudioMs": 0,
-        "warnings": [
-          "narration is 608% longer than the visual (limit 20%). Split the scene or rewrite the narration."
-        ]
+        "warnings": []
       },
-      "ratePct": 20
+      "ratePct": 0,
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s29-planning-practice.mp4",
+        "durationMs": 3126.619140625,
+        "roi": {
+          "x": 749.25,
+          "y": 325.34375,
+          "width": 40.5625,
+          "height": 16
+        },
+        "hash": "800f5dfbe800"
+      },
+      "roi": {
+        "x": 749.25,
+        "y": 325.34375,
+        "width": 40.5625,
+        "height": 16
+      }
     },
     {
       "id": "s30-skills-anchor",
@@ -2046,7 +1916,7 @@
       "captureMode": "screencast",
       "actionSpec": {
         "url": "/index.html#phase-engineering",
-        "setupScript": "setup/pin-light-theme.mjs",
+        "setupScript": "setup/capture-determinism.mjs",
         "steps": [
           {
             "action": "scroll",
@@ -2067,46 +1937,40 @@
           "Progressive disclosure"
         ]
       },
-      "viewport": {
-        "width": 1440,
-        "height": 810
-      },
-      "resolvedVisual": {
-        "filePath": "assets/recordings/s30-skills-anchor.mp4",
-        "durationMs": 3648.401123046875,
-        "roi": {
-          "x": 323,
-          "y": 121,
-          "width": 794,
-          "height": 23.09375
-        },
-        "hash": "98931613d189"
-      },
-      "roi": {
-        "x": 323,
-        "y": 121,
-        "width": 794,
-        "height": 23.09375
-      },
       "resolvedAudio": {
-        "filePath": "assets/audio/s30-skills-anchor.r.wav",
-        "durationMs": 18000,
+        "filePath": "assets/audio/s30-skills-anchor.wav",
+        "durationMs": 20600,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
         "hash": "fbf9e89fe2c6"
       },
       "resolvedTiming": {
-        "mode": "reject",
-        "sceneMs": 17567,
-        "ratePct": 20,
-        "padVisualMs": 13918,
+        "mode": "audio-dictates",
+        "sceneMs": 21000,
+        "ratePct": 0,
+        "padVisualMs": 21000,
         "padAudioMs": 0,
-        "warnings": [
-          "narration is 534% longer than the visual (limit 20%). Split the scene or rewrite the narration."
-        ]
+        "warnings": []
       },
-      "ratePct": 20
+      "ratePct": 0,
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s30-skills-anchor.mp4",
+        "durationMs": 3623.032958984375,
+        "roi": {
+          "x": 563,
+          "y": 121,
+          "width": 794,
+          "height": 23.09375
+        },
+        "hash": "40f1de32fcc7"
+      },
+      "roi": {
+        "x": 563,
+        "y": 121,
+        "width": 794,
+        "height": 23.09375
+      }
     },
     {
       "id": "s31-skills-practice",
@@ -2117,7 +1981,7 @@
       "captureMode": "screencast",
       "actionSpec": {
         "url": "/index.html#phase-engineering",
-        "setupScript": "setup/pin-light-theme.mjs",
+        "setupScript": "setup/capture-determinism.mjs",
         "roiSelector": ".concept:has-text(\"Agent Skills\")",
         "steps": [
           {
@@ -2139,51 +2003,45 @@
         ]
       },
       "roiSelector": ".concept:has-text(\"Agent Skills\")",
-      "viewport": {
-        "width": 1440,
-        "height": 810
-      },
-      "resolvedVisual": {
-        "filePath": "assets/recordings/s31-skills-practice.mp4",
-        "durationMs": 3137.798828125,
-        "roi": {
-          "x": 323,
-          "y": 147.09375,
-          "width": 794,
-          "height": 83.3125
-        },
-        "hash": "e6cb217fc15d"
-      },
-      "roi": {
-        "x": 323,
-        "y": 147.09375,
-        "width": 794,
-        "height": 83.3125
-      },
       "resolvedAudio": {
-        "filePath": "assets/audio/s31-skills-practice.r.wav",
-        "durationMs": 17975,
+        "filePath": "assets/audio/s31-skills-practice.wav",
+        "durationMs": 20425,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
         "hash": "a7a8c35c25a9"
       },
       "resolvedTiming": {
-        "mode": "reject",
-        "sceneMs": 17421,
-        "ratePct": 20,
-        "padVisualMs": 14283,
+        "mode": "audio-dictates",
+        "sceneMs": 20825,
+        "ratePct": 0,
+        "padVisualMs": 20825,
         "padAudioMs": 0,
-        "warnings": [
-          "narration is 646% longer than the visual (limit 20%). Split the scene or rewrite the narration."
-        ]
+        "warnings": []
       },
-      "ratePct": 20
+      "ratePct": 0,
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s31-skills-practice.mp4",
+        "durationMs": 3129.531005859375,
+        "roi": {
+          "x": 563,
+          "y": 147.09375,
+          "width": 794,
+          "height": 83.3125
+        },
+        "hash": "bca50893eb0d"
+      },
+      "roi": {
+        "x": 563,
+        "y": 147.09375,
+        "width": 794,
+        "height": 83.3125
+      }
     },
     {
       "id": "s32-hitl-anchor",
       "title": "Topic 3",
-      "narration": "Agents do not pause when a requirement is ambiguous. They guess, confidently. So human review goes at defined checkpoints where decisions need judgment — scope changes, compliance sign-off. Let the system self-correct only where the outcome is machine-verifiable: syntax errors, test failures. And the page is blunt about the rest: a gate that can be bypassed, even accidentally, is not a gate.",
+      "narration": "That is the engineering. Now the discipline that keeps it honest. Agents do not pause when a requirement is ambiguous. They guess, confidently. So human review goes at defined checkpoints where decisions need judgment — scope changes, compliance sign-off. Let the system self-correct only where the outcome is machine-verifiable: syntax errors, test failures. And the page is blunt about the rest: a gate that can be bypassed, even accidentally, is not a gate.",
       "role": null,
       "chapter": {
         "title": "Topic 3",
@@ -2193,7 +2051,7 @@
       "captureMode": "screencast",
       "actionSpec": {
         "url": "/index.html#phase-principles",
-        "setupScript": "setup/pin-light-theme.mjs",
+        "setupScript": "setup/capture-determinism.mjs",
         "steps": [
           {
             "action": "scroll",
@@ -2213,46 +2071,40 @@
           "Human-in-the-Loop"
         ]
       },
-      "viewport": {
-        "width": 1440,
-        "height": 810
-      },
-      "resolvedVisual": {
-        "filePath": "assets/recordings/s32-hitl-anchor.mp4",
-        "durationMs": 3444.0888671875,
-        "roi": {
-          "x": 346.609375,
-          "y": -5038.5625,
-          "width": 770.390625,
-          "height": 46.1875
-        },
-        "hash": "da21b9b125ca"
-      },
-      "roi": {
-        "x": 346.609375,
-        "y": -5038.5625,
-        "width": 770.390625,
-        "height": 46.1875
-      },
       "resolvedAudio": {
-        "filePath": "assets/audio/s32-hitl-anchor.r.wav",
-        "durationMs": 21875,
+        "filePath": "assets/audio/s32-hitl-anchor.wav",
+        "durationMs": 27100,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
-        "hash": "923b6e6524c0"
+        "hash": "5478d506236c"
       },
       "resolvedTiming": {
-        "mode": "reject",
-        "sceneMs": 20858,
-        "ratePct": 20,
-        "padVisualMs": 17414,
+        "mode": "audio-dictates",
+        "sceneMs": 27500,
+        "ratePct": 0,
+        "padVisualMs": 27500,
         "padAudioMs": 0,
-        "warnings": [
-          "narration is 706% longer than the visual (limit 20%). Split the scene or rewrite the narration."
-        ]
+        "warnings": []
       },
-      "ratePct": 20
+      "ratePct": 0,
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s32-hitl-anchor.mp4",
+        "durationMs": 3427.458984375,
+        "roi": {
+          "x": 586.609375,
+          "y": -4747.5625,
+          "width": 770.390625,
+          "height": 46.1875
+        },
+        "hash": "2c7d92a08fc1"
+      },
+      "roi": {
+        "x": 586.609375,
+        "y": -4747.5625,
+        "width": 770.390625,
+        "height": 46.1875
+      }
     },
     {
       "id": "s33-hitl-practice",
@@ -2263,7 +2115,7 @@
       "captureMode": "screencast",
       "actionSpec": {
         "url": "/index.html#phase-principles",
-        "setupScript": "setup/pin-light-theme.mjs",
+        "setupScript": "setup/capture-determinism.mjs",
         "roiSelector": ".concept:has-text(\"Human-in-the-Loop\")",
         "steps": [
           {
@@ -2285,46 +2137,40 @@
         ]
       },
       "roiSelector": ".concept:has-text(\"Human-in-the-Loop\")",
-      "viewport": {
-        "width": 1440,
-        "height": 810
-      },
-      "resolvedVisual": {
-        "filePath": "assets/recordings/s33-hitl-practice.mp4",
-        "durationMs": 3142.299072265625,
-        "roi": {
-          "x": 323,
-          "y": 67.703125,
-          "width": 794,
-          "height": 83.3125
-        },
-        "hash": "d2922313a1ea"
-      },
-      "roi": {
-        "x": 323,
-        "y": 67.703125,
-        "width": 794,
-        "height": 83.3125
-      },
       "resolvedAudio": {
-        "filePath": "assets/audio/s33-hitl-practice.r.wav",
-        "durationMs": 13850,
+        "filePath": "assets/audio/s33-hitl-practice.wav",
+        "durationMs": 15650,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
         "hash": "9fa58396d3aa"
       },
       "resolvedTiming": {
-        "mode": "reject",
-        "sceneMs": 13442,
-        "ratePct": 20,
-        "padVisualMs": 10299,
+        "mode": "audio-dictates",
+        "sceneMs": 16050,
+        "ratePct": 0,
+        "padVisualMs": 16050,
         "padAudioMs": 0,
-        "warnings": [
-          "narration is 471% longer than the visual (limit 20%). Split the scene or rewrite the narration."
-        ]
+        "warnings": []
       },
-      "ratePct": 20
+      "ratePct": 0,
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s33-hitl-practice.mp4",
+        "durationMs": 3135.5400390625,
+        "roi": {
+          "x": 563,
+          "y": 67.703125,
+          "width": 794,
+          "height": 83.3125
+        },
+        "hash": "87f19e423e81"
+      },
+      "roi": {
+        "x": 563,
+        "y": 67.703125,
+        "width": 794,
+        "height": 83.3125
+      }
     },
     {
       "id": "s34-spec-first-anchor",
@@ -2335,7 +2181,7 @@
       "captureMode": "screencast",
       "actionSpec": {
         "url": "/index.html#phase-principles",
-        "setupScript": "setup/pin-light-theme.mjs",
+        "setupScript": "setup/capture-determinism.mjs",
         "steps": [
           {
             "action": "scroll",
@@ -2355,46 +2201,40 @@
           "Behaviour Driven Development"
         ]
       },
-      "viewport": {
-        "width": 1440,
-        "height": 810
-      },
-      "resolvedVisual": {
-        "filePath": "assets/recordings/s34-spec-first-anchor.mp4",
-        "durationMs": 3654.169677734375,
-        "roi": {
-          "x": 323,
-          "y": 110.015625,
-          "width": 794,
-          "height": 23.09375
-        },
-        "hash": "13c15cf895a3"
-      },
-      "roi": {
-        "x": 323,
-        "y": 110.015625,
-        "width": 794,
-        "height": 23.09375
-      },
       "resolvedAudio": {
-        "filePath": "assets/audio/s34-spec-first-anchor.r.wav",
-        "durationMs": 28075,
+        "filePath": "assets/audio/s34-spec-first-anchor.wav",
+        "durationMs": 31300,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
         "hash": "ece87501c568"
       },
       "resolvedTiming": {
-        "mode": "reject",
-        "sceneMs": 26483,
-        "ratePct": 20,
-        "padVisualMs": 22829,
+        "mode": "audio-dictates",
+        "sceneMs": 31700,
+        "ratePct": 0,
+        "padVisualMs": 31700,
         "padAudioMs": 0,
-        "warnings": [
-          "narration is 862% longer than the visual (limit 20%). Split the scene or rewrite the narration."
-        ]
+        "warnings": []
       },
-      "ratePct": 20
+      "ratePct": 0,
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s34-spec-first-anchor.mp4",
+        "durationMs": 3624.77099609375,
+        "roi": {
+          "x": 563,
+          "y": 110.015625,
+          "width": 794,
+          "height": 23.09375
+        },
+        "hash": "7cbb763dd971"
+      },
+      "roi": {
+        "x": 563,
+        "y": 110.015625,
+        "width": 794,
+        "height": 23.09375
+      }
     },
     {
       "id": "s35-spec-first-practice",
@@ -2405,7 +2245,7 @@
       "captureMode": "screencast",
       "actionSpec": {
         "url": "/index.html#phase-principles",
-        "setupScript": "setup/pin-light-theme.mjs",
+        "setupScript": "setup/capture-determinism.mjs",
         "roiSelector": ".concept:has-text(\"Specification-First Development\")",
         "steps": [
           {
@@ -2427,46 +2267,40 @@
         ]
       },
       "roiSelector": ".concept:has-text(\"Specification-First Development\")",
-      "viewport": {
-        "width": 1440,
-        "height": 810
-      },
-      "resolvedVisual": {
-        "filePath": "assets/recordings/s35-spec-first-practice.mp4",
-        "durationMs": 3141.64794921875,
-        "roi": {
-          "x": 323,
-          "y": 189.359375,
-          "width": 794,
-          "height": 108.28125
-        },
-        "hash": "713b447206bf"
-      },
-      "roi": {
-        "x": 323,
-        "y": 189.359375,
-        "width": 794,
-        "height": 108.28125
-      },
       "resolvedAudio": {
-        "filePath": "assets/audio/s35-spec-first-practice.r.wav",
-        "durationMs": 23325,
+        "filePath": "assets/audio/s35-spec-first-practice.wav",
+        "durationMs": 26025,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
         "hash": "c4a96ec45a6f"
       },
       "resolvedTiming": {
-        "mode": "reject",
-        "sceneMs": 22088,
-        "ratePct": 20,
-        "padVisualMs": 18946,
+        "mode": "audio-dictates",
+        "sceneMs": 26425,
+        "ratePct": 0,
+        "padVisualMs": 26425,
         "padAudioMs": 0,
-        "warnings": [
-          "narration is 849% longer than the visual (limit 20%). Split the scene or rewrite the narration."
-        ]
+        "warnings": []
       },
-      "ratePct": 20
+      "ratePct": 0,
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s35-spec-first-practice.mp4",
+        "durationMs": 3136.97314453125,
+        "roi": {
+          "x": 563,
+          "y": 189.359375,
+          "width": 794,
+          "height": 108.28125
+        },
+        "hash": "36583d07bd81"
+      },
+      "roi": {
+        "x": 563,
+        "y": 189.359375,
+        "width": 794,
+        "height": 108.28125
+      }
     },
     {
       "id": "s36-tdd-anchor",
@@ -2477,7 +2311,7 @@
       "captureMode": "screencast",
       "actionSpec": {
         "url": "/index.html#phase-principles",
-        "setupScript": "setup/pin-light-theme.mjs",
+        "setupScript": "setup/capture-determinism.mjs",
         "steps": [
           {
             "action": "scroll",
@@ -2497,46 +2331,40 @@
           "Red-Green-Refactor"
         ]
       },
-      "viewport": {
-        "width": 1440,
-        "height": 810
-      },
-      "resolvedVisual": {
-        "filePath": "assets/recordings/s36-tdd-anchor.mp4",
-        "durationMs": 1136.89892578125,
-        "roi": {
-          "x": 346.609375,
-          "y": -5643.5625,
-          "width": 770.390625,
-          "height": 46.1875
-        },
-        "hash": "e78093fdfa36"
-      },
-      "roi": {
-        "x": 346.609375,
-        "y": -5643.5625,
-        "width": 770.390625,
-        "height": 46.1875
-      },
       "resolvedAudio": {
-        "filePath": "assets/audio/s36-tdd-anchor.r.wav",
-        "durationMs": 17275,
+        "filePath": "assets/audio/s36-tdd-anchor.wav",
+        "durationMs": 19475,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
         "hash": "b35814501ba4"
       },
       "resolvedTiming": {
-        "mode": "reject",
-        "sceneMs": 16629,
-        "ratePct": 20,
-        "padVisualMs": 15492,
+        "mode": "audio-dictates",
+        "sceneMs": 19875,
+        "ratePct": 0,
+        "padVisualMs": 19875,
         "padAudioMs": 0,
-        "warnings": [
-          "narration is 2543% longer than the visual (limit 20%). Split the scene or rewrite the narration."
-        ]
+        "warnings": []
       },
-      "ratePct": 20
+      "ratePct": 0,
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s36-tdd-anchor.mp4",
+        "durationMs": 648.89599609375,
+        "roi": {
+          "x": 586.609375,
+          "y": -5352.5625,
+          "width": 770.390625,
+          "height": 46.1875
+        },
+        "hash": "6cde810f27a1"
+      },
+      "roi": {
+        "x": 586.609375,
+        "y": -5352.5625,
+        "width": 770.390625,
+        "height": 46.1875
+      }
     },
     {
       "id": "s37-tdd-practice",
@@ -2547,7 +2375,7 @@
       "captureMode": "screencast",
       "actionSpec": {
         "url": "/index.html#phase-principles",
-        "setupScript": "setup/pin-light-theme.mjs",
+        "setupScript": "setup/capture-determinism.mjs",
         "roiSelector": ".concept:has-text(\"Test-Driven Development\")",
         "steps": [
           {
@@ -2569,46 +2397,40 @@
         ]
       },
       "roiSelector": ".concept:has-text(\"Test-Driven Development\")",
-      "viewport": {
-        "width": 1440,
-        "height": 810
-      },
-      "resolvedVisual": {
-        "filePath": "assets/recordings/s37-tdd-practice.mp4",
-        "durationMs": 1130.443115234375,
-        "roi": {
-          "x": 323,
-          "y": -3114.859375,
-          "width": 794,
-          "height": 23.09375
-        },
-        "hash": "0ebcf6ba98a6"
-      },
-      "roi": {
-        "x": 323,
-        "y": -3114.859375,
-        "width": 794,
-        "height": 23.09375
-      },
       "resolvedAudio": {
-        "filePath": "assets/audio/s37-tdd-practice.r.wav",
-        "durationMs": 14075,
+        "filePath": "assets/audio/s37-tdd-practice.wav",
+        "durationMs": 15800,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
         "hash": "9971cf8322cc"
       },
       "resolvedTiming": {
-        "mode": "reject",
-        "sceneMs": 13567,
-        "ratePct": 20,
-        "padVisualMs": 12436,
+        "mode": "audio-dictates",
+        "sceneMs": 16200,
+        "ratePct": 0,
+        "padVisualMs": 16200,
         "padAudioMs": 0,
-        "warnings": [
-          "narration is 2063% longer than the visual (limit 20%). Split the scene or rewrite the narration."
-        ]
+        "warnings": []
       },
-      "ratePct": 20
+      "ratePct": 0,
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s37-tdd-practice.mp4",
+        "durationMs": 648.9111328125,
+        "roi": {
+          "x": 563,
+          "y": -3114.859375,
+          "width": 794,
+          "height": 23.09375
+        },
+        "hash": "c343f0fc8ed3"
+      },
+      "roi": {
+        "x": 563,
+        "y": -3114.859375,
+        "width": 794,
+        "height": 23.09375
+      }
     },
     {
       "id": "s38-adr-anchor",
@@ -2619,7 +2441,7 @@
       "captureMode": "screencast",
       "actionSpec": {
         "url": "/index.html#phase-principles",
-        "setupScript": "setup/pin-light-theme.mjs",
+        "setupScript": "setup/capture-determinism.mjs",
         "steps": [
           {
             "action": "scroll",
@@ -2639,46 +2461,40 @@
           "consequences"
         ]
       },
-      "viewport": {
-        "width": 1440,
-        "height": 810
-      },
-      "resolvedVisual": {
-        "filePath": "assets/recordings/s38-adr-anchor.mp4",
-        "durationMs": 1131.365966796875,
-        "roi": {
-          "x": 455.328125,
-          "y": -4754,
-          "width": 113.34375,
-          "height": 209.796875
-        },
-        "hash": "f3ebc30f091d"
-      },
-      "roi": {
-        "x": 455.328125,
-        "y": -4754,
-        "width": 113.34375,
-        "height": 209.796875
-      },
       "resolvedAudio": {
-        "filePath": "assets/audio/s38-adr-anchor.r.wav",
-        "durationMs": 19000,
+        "filePath": "assets/audio/s38-adr-anchor.wav",
+        "durationMs": 21100,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
         "hash": "ab092e25de09"
       },
       "resolvedTiming": {
-        "mode": "reject",
-        "sceneMs": 17983,
-        "ratePct": 20,
-        "padVisualMs": 16852,
+        "mode": "audio-dictates",
+        "sceneMs": 21500,
+        "ratePct": 0,
+        "padVisualMs": 21500,
         "padAudioMs": 0,
-        "warnings": [
-          "narration is 2785% longer than the visual (limit 20%). Split the scene or rewrite the narration."
-        ]
+        "warnings": []
       },
-      "ratePct": 20
+      "ratePct": 0,
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s38-adr-anchor.mp4",
+        "durationMs": 644.73095703125,
+        "roi": {
+          "x": 695.328125,
+          "y": -4463,
+          "width": 113.34375,
+          "height": 209.796875
+        },
+        "hash": "519bafa9c95b"
+      },
+      "roi": {
+        "x": 695.328125,
+        "y": -4463,
+        "width": 113.34375,
+        "height": 209.796875
+      }
     },
     {
       "id": "s39-adr-practice",
@@ -2689,7 +2505,7 @@
       "captureMode": "screencast",
       "actionSpec": {
         "url": "/index.html#phase-principles",
-        "setupScript": "setup/pin-light-theme.mjs",
+        "setupScript": "setup/capture-determinism.mjs",
         "roiSelector": ".concept:has-text(\"Architecture Decision Records\")",
         "steps": [
           {
@@ -2711,46 +2527,40 @@
         ]
       },
       "roiSelector": ".concept:has-text(\"Architecture Decision Records\")",
-      "viewport": {
-        "width": 1440,
-        "height": 810
-      },
-      "resolvedVisual": {
-        "filePath": "assets/recordings/s39-adr-practice.mp4",
-        "durationMs": 1121.701171875,
-        "roi": {
-          "x": 342,
-          "y": 936.578125,
-          "width": 0,
-          "height": 0
-        },
-        "hash": "8a13abc56652"
-      },
-      "roi": {
-        "x": 342,
-        "y": 936.578125,
-        "width": 0,
-        "height": 0
-      },
       "resolvedAudio": {
-        "filePath": "assets/audio/s39-adr-practice.r.wav",
-        "durationMs": 14400,
+        "filePath": "assets/audio/s39-adr-practice.wav",
+        "durationMs": 16525,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
         "hash": "1cc510c3b952"
       },
       "resolvedTiming": {
-        "mode": "reject",
-        "sceneMs": 14171,
-        "ratePct": 20,
-        "padVisualMs": 13049,
+        "mode": "audio-dictates",
+        "sceneMs": 16925,
+        "ratePct": 0,
+        "padVisualMs": 16925,
         "padAudioMs": 0,
-        "warnings": [
-          "narration is 2190% longer than the visual (limit 20%). Split the scene or rewrite the narration."
-        ]
+        "warnings": []
       },
-      "ratePct": 20
+      "ratePct": 0,
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s39-adr-practice.mp4",
+        "durationMs": 3127.64794921875,
+        "roi": {
+          "x": 582,
+          "y": 936.578125,
+          "width": 0,
+          "height": 0
+        },
+        "hash": "df9aff89b6de"
+      },
+      "roi": {
+        "x": 582,
+        "y": 936.578125,
+        "width": 0,
+        "height": 0
+      }
     },
     {
       "id": "s40-tracer-bullet-anchor",
@@ -2761,7 +2571,7 @@
       "captureMode": "screencast",
       "actionSpec": {
         "url": "/index.html#phase-principles",
-        "setupScript": "setup/pin-light-theme.mjs",
+        "setupScript": "setup/capture-determinism.mjs",
         "steps": [
           {
             "action": "scroll",
@@ -2781,46 +2591,40 @@
           "vertically"
         ]
       },
-      "viewport": {
-        "width": 1440,
-        "height": 810
-      },
-      "resolvedVisual": {
-        "filePath": "assets/recordings/s40-tracer-bullet-anchor.mp4",
-        "durationMs": 3637.055908203125,
-        "roi": {
-          "x": 323,
-          "y": 109.453125,
-          "width": 794,
-          "height": 23.09375
-        },
-        "hash": "1aafc19579aa"
-      },
-      "roi": {
-        "x": 323,
-        "y": 109.453125,
-        "width": 794,
-        "height": 23.09375
-      },
       "resolvedAudio": {
-        "filePath": "assets/audio/s40-tracer-bullet-anchor.r.wav",
-        "durationMs": 19875,
+        "filePath": "assets/audio/s40-tracer-bullet-anchor.wav",
+        "durationMs": 22475,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
         "hash": "6cd093cdb612"
       },
       "resolvedTiming": {
-        "mode": "reject",
-        "sceneMs": 19129,
-        "ratePct": 20,
-        "padVisualMs": 15492,
+        "mode": "audio-dictates",
+        "sceneMs": 22875,
+        "ratePct": 0,
+        "padVisualMs": 22875,
         "padAudioMs": 0,
-        "warnings": [
-          "narration is 594% longer than the visual (limit 20%). Split the scene or rewrite the narration."
-        ]
+        "warnings": []
       },
-      "ratePct": 20
+      "ratePct": 0,
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s40-tracer-bullet-anchor.mp4",
+        "durationMs": 3637.538330078125,
+        "roi": {
+          "x": 563,
+          "y": 109.453125,
+          "width": 794,
+          "height": 23.09375
+        },
+        "hash": "1a786ca57d9f"
+      },
+      "roi": {
+        "x": 563,
+        "y": 109.453125,
+        "width": 794,
+        "height": 23.09375
+      }
     },
     {
       "id": "s41-tracer-bullet-practice",
@@ -2831,7 +2635,7 @@
       "captureMode": "screencast",
       "actionSpec": {
         "url": "/index.html#phase-principles",
-        "setupScript": "setup/pin-light-theme.mjs",
+        "setupScript": "setup/capture-determinism.mjs",
         "roiSelector": ".concept:has-text(\"Tracer Bullet\")",
         "steps": [
           {
@@ -2853,46 +2657,40 @@
         ]
       },
       "roiSelector": ".concept:has-text(\"Tracer Bullet\")",
-      "viewport": {
-        "width": 1440,
-        "height": 810
-      },
-      "resolvedVisual": {
-        "filePath": "assets/recordings/s41-tracer-bullet-practice.mp4",
-        "durationMs": 3143.222900390625,
-        "roi": {
-          "x": 323,
-          "y": 135.546875,
-          "width": 794,
-          "height": 83.3125
-        },
-        "hash": "d95ecef8913f"
-      },
-      "roi": {
-        "x": 323,
-        "y": 135.546875,
-        "width": 794,
-        "height": 83.3125
-      },
       "resolvedAudio": {
-        "filePath": "assets/audio/s41-tracer-bullet-practice.r.wav",
-        "durationMs": 13250,
+        "filePath": "assets/audio/s41-tracer-bullet-practice.wav",
+        "durationMs": 15200,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
         "hash": "fdd0e2a82663"
       },
       "resolvedTiming": {
-        "mode": "reject",
-        "sceneMs": 13067,
-        "ratePct": 20,
-        "padVisualMs": 9923,
+        "mode": "audio-dictates",
+        "sceneMs": 15600,
+        "ratePct": 0,
+        "padVisualMs": 15600,
         "padAudioMs": 0,
-        "warnings": [
-          "narration is 454% longer than the visual (limit 20%). Split the scene or rewrite the narration."
-        ]
+        "warnings": []
       },
-      "ratePct": 20
+      "ratePct": 0,
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s41-tracer-bullet-practice.mp4",
+        "durationMs": 3137.5361328125,
+        "roi": {
+          "x": 563,
+          "y": 135.546875,
+          "width": 794,
+          "height": 83.3125
+        },
+        "hash": "5f4dbc1b8162"
+      },
+      "roi": {
+        "x": 563,
+        "y": 135.546875,
+        "width": 794,
+        "height": 83.3125
+      }
     },
     {
       "id": "s42-living-docs-anchor",
@@ -2903,7 +2701,7 @@
       "captureMode": "screencast",
       "actionSpec": {
         "url": "/index.html#phase-principles",
-        "setupScript": "setup/pin-light-theme.mjs",
+        "setupScript": "setup/capture-determinism.mjs",
         "steps": [
           {
             "action": "scroll",
@@ -2923,46 +2721,40 @@
           "system prompt"
         ]
       },
-      "viewport": {
-        "width": 1440,
-        "height": 810
-      },
-      "resolvedVisual": {
-        "filePath": "assets/recordings/s42-living-docs-anchor.mp4",
-        "durationMs": 3647.2412109375,
-        "roi": {
-          "x": 323,
-          "y": 109.859375,
-          "width": 794,
-          "height": 23.09375
-        },
-        "hash": "31c978d8fb10"
-      },
-      "roi": {
-        "x": 323,
-        "y": 109.859375,
-        "width": 794,
-        "height": 23.09375
-      },
       "resolvedAudio": {
-        "filePath": "assets/audio/s42-living-docs-anchor.r.wav",
-        "durationMs": 15650,
+        "filePath": "assets/audio/s42-living-docs-anchor.wav",
+        "durationMs": 17675,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
         "hash": "4200910d3bca"
       },
       "resolvedTiming": {
-        "mode": "reject",
-        "sceneMs": 15129,
-        "ratePct": 20,
-        "padVisualMs": 11482,
+        "mode": "audio-dictates",
+        "sceneMs": 18075,
+        "ratePct": 0,
+        "padVisualMs": 18075,
         "padAudioMs": 0,
-        "warnings": [
-          "narration is 444% longer than the visual (limit 20%). Split the scene or rewrite the narration."
-        ]
+        "warnings": []
       },
-      "ratePct": 20
+      "ratePct": 0,
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s42-living-docs-anchor.mp4",
+        "durationMs": 3639.87109375,
+        "roi": {
+          "x": 563,
+          "y": 109.859375,
+          "width": 794,
+          "height": 23.09375
+        },
+        "hash": "ea9d3fc38141"
+      },
+      "roi": {
+        "x": 563,
+        "y": 109.859375,
+        "width": 794,
+        "height": 23.09375
+      }
     },
     {
       "id": "s43-living-docs-practice",
@@ -2973,7 +2765,7 @@
       "captureMode": "screencast",
       "actionSpec": {
         "url": "/index.html#phase-principles",
-        "setupScript": "setup/pin-light-theme.mjs",
+        "setupScript": "setup/capture-determinism.mjs",
         "roiSelector": ".concept:has-text(\"Living Documentation\")",
         "steps": [
           {
@@ -2995,51 +2787,45 @@
         ]
       },
       "roiSelector": ".concept:has-text(\"Living Documentation\")",
-      "viewport": {
-        "width": 1440,
-        "height": 810
-      },
-      "resolvedVisual": {
-        "filePath": "assets/recordings/s43-living-docs-practice.mp4",
-        "durationMs": 3140.716064453125,
-        "roi": {
-          "x": 323,
-          "y": 135.953125,
-          "width": 794,
-          "height": 83.3125
-        },
-        "hash": "75d713823c4c"
-      },
-      "roi": {
-        "x": 323,
-        "y": 135.953125,
-        "width": 794,
-        "height": 83.3125
-      },
       "resolvedAudio": {
-        "filePath": "assets/audio/s43-living-docs-practice.r.wav",
-        "durationMs": 14650,
+        "filePath": "assets/audio/s43-living-docs-practice.wav",
+        "durationMs": 16575,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
         "hash": "1dd2f528fab4"
       },
       "resolvedTiming": {
-        "mode": "reject",
-        "sceneMs": 14213,
-        "ratePct": 20,
-        "padVisualMs": 11072,
+        "mode": "audio-dictates",
+        "sceneMs": 16975,
+        "ratePct": 0,
+        "padVisualMs": 16975,
         "padAudioMs": 0,
-        "warnings": [
-          "narration is 505% longer than the visual (limit 20%). Split the scene or rewrite the narration."
-        ]
+        "warnings": []
       },
-      "ratePct": 20
+      "ratePct": 0,
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s43-living-docs-practice.mp4",
+        "durationMs": 3127.135986328125,
+        "roi": {
+          "x": 563,
+          "y": 135.953125,
+          "width": 794,
+          "height": 83.3125
+        },
+        "hash": "1d6ae2d93c29"
+      },
+      "roi": {
+        "x": 563,
+        "y": 135.953125,
+        "width": 794,
+        "height": 83.3125
+      }
     },
     {
       "id": "s44-orchestrator-anchor",
       "title": "Topic 4",
-      "narration": "The orchestrator coordinates. It sequences work and routes blockers, and it never reads files or makes implementation decisions. An orchestrator that does implementation work fills its context with detail and loses coordination accuracy.",
+      "narration": "That was one agent, working with discipline. Now the same problem spread across several. The orchestrator coordinates. It sequences work and routes blockers, and it never reads files or makes implementation decisions. An orchestrator that does implementation work fills its context with detail and loses coordination accuracy.",
       "role": null,
       "chapter": {
         "title": "Topic 4",
@@ -3049,7 +2835,7 @@
       "captureMode": "screencast",
       "actionSpec": {
         "url": "/index.html#phase-multiagent",
-        "setupScript": "setup/pin-light-theme.mjs",
+        "setupScript": "setup/capture-determinism.mjs",
         "steps": [
           {
             "action": "scroll",
@@ -3069,64 +2855,59 @@
           "Orchestrator-Worker"
         ]
       },
-      "viewport": {
-        "width": 1440,
-        "height": 810
+      "resolvedAudio": {
+        "filePath": "assets/audio/s44-orchestrator-anchor.wav",
+        "durationMs": 21650,
+        "subtitleSource": "synthesised",
+        "providerSrt": null,
+        "hasNativeSrt": false,
+        "hash": "2ad6f500d142"
       },
+      "resolvedTiming": {
+        "mode": "audio-dictates",
+        "sceneMs": 22050,
+        "ratePct": 0,
+        "padVisualMs": 22050,
+        "padAudioMs": 0,
+        "warnings": []
+      },
+      "ratePct": 0,
       "resolvedVisual": {
         "filePath": "assets/recordings/s44-orchestrator-anchor.mp4",
-        "durationMs": 5951.390869140625,
+        "durationMs": 5932.317138671875,
         "roi": {
-          "x": 323,
+          "x": 563,
           "y": 109.65625,
           "width": 794,
           "height": 23.09375
         },
-        "hash": "738c6fcc87b4"
+        "hash": "2315dcb30e95"
       },
       "roi": {
-        "x": 323,
+        "x": 563,
         "y": 109.65625,
         "width": 794,
         "height": 23.09375
-      },
-      "resolvedAudio": {
-        "filePath": "assets/audio/s44-orchestrator-anchor.r.wav",
-        "durationMs": 14450,
-        "subtitleSource": "synthesised",
-        "providerSrt": null,
-        "hasNativeSrt": false,
-        "hash": "c3be1b023ebb"
-      },
-      "resolvedTiming": {
-        "mode": "reject",
-        "sceneMs": 13921,
-        "ratePct": 20,
-        "padVisualMs": 7969,
-        "padAudioMs": 0,
-        "warnings": [
-          "narration is 192% longer than the visual (limit 20%). Split the scene or rewrite the narration."
-        ]
-      },
-      "ratePct": 20
+      }
     },
     {
       "id": "s45-who-knows-what-slide",
-      "title": "Who knows what",
-      "narration": "Every rule in this topic is the same rule applied four times: control what each agent knows. The orchestrator holds the plan and not the code. The subagent holds one task and not the plan. The reviewer holds the specification and the output and nothing about how the output came to exist.",
+      "title": "Each agent is given only what its job needs",
+      "narration": "Every rule in this topic is one rule, applied four times: control what each agent is allowed to know. It starts with the orchestrator, because it decides what everyone else is given. The plan, the single task, the specification, and the work running in parallel each sit with exactly one agent — and never leak to the next.",
       "role": null,
       "visualEngine": "html_slides",
       "captureMode": "stills",
       "slide": {
         "layout": "spotlight",
         "theme": "light",
-        "title": "Who knows what",
+        "title": "Each agent is given only what its job needs",
         "pill": null,
         "body": null,
         "cards": [
           {
             "icon": "network",
             "title": "Orchestrator",
+            "weight": "primary",
             "text": "Sequences work and routes blockers. Never reads files."
           },
           {
@@ -3149,34 +2930,34 @@
         "image": null,
         "htmlPath": null,
         "portraitHtmlPath": null,
-        "notes": "Every rule in this topic is the same rule applied four times: control what each agent knows. The orchestrator holds the plan and not the code. The subagent holds one task and not the plan. The reviewer holds the specification and the output and nothing about how the output came to exist."
+        "notes": "Every rule in this topic is one rule, applied four times: control what each agent is allowed to know. It starts with the orchestrator, because it decides what everyone else is given. The plan, the single task, the specification, and the work running in parallel each sit with exactly one agent — and never leak to the next."
       },
       "vertical": {
         "strategy": "native"
       },
-      "resolvedVisual": {
-        "filePath": "assets/recordings/s45-who-knows-what-slide.mp4",
-        "durationMs": 20800,
-        "roi": null,
-        "hash": "d8ed4c299761"
-      },
       "resolvedAudio": {
         "filePath": "assets/audio/s45-who-knows-what-slide.wav",
-        "durationMs": 18825,
+        "durationMs": 20350,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
-        "hash": "6845c817c262"
+        "hash": "26583ec1450e"
       },
       "resolvedTiming": {
         "mode": "audio-dictates",
-        "sceneMs": 19225,
+        "sceneMs": 20750,
         "ratePct": 0,
-        "padVisualMs": 19225,
+        "padVisualMs": 20750,
         "padAudioMs": 0,
         "warnings": []
       },
-      "ratePct": 0
+      "ratePct": 0,
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s45-who-knows-what-slide.mp4",
+        "durationMs": 20767,
+        "roi": null,
+        "hash": "fecd0aacf506"
+      }
     },
     {
       "id": "s46-orchestrator-practice",
@@ -3187,7 +2968,7 @@
       "captureMode": "screencast",
       "actionSpec": {
         "url": "/index.html#phase-multiagent",
-        "setupScript": "setup/pin-light-theme.mjs",
+        "setupScript": "setup/capture-determinism.mjs",
         "roiSelector": ".concept:has-text(\"Orchestrator-Worker\")",
         "steps": [
           {
@@ -3209,46 +2990,40 @@
         ]
       },
       "roiSelector": ".concept:has-text(\"Orchestrator-Worker\")",
-      "viewport": {
-        "width": 1440,
-        "height": 810
-      },
-      "resolvedVisual": {
-        "filePath": "assets/recordings/s46-orchestrator-practice.mp4",
-        "durationMs": 3133.8759765625,
-        "roi": {
-          "x": 323,
-          "y": 67.75,
-          "width": 794,
-          "height": 41.65625
-        },
-        "hash": "59a95c17659f"
-      },
-      "roi": {
-        "x": 323,
-        "y": 67.75,
-        "width": 794,
-        "height": 41.65625
-      },
       "resolvedAudio": {
-        "filePath": "assets/audio/s46-orchestrator-practice.r.wav",
-        "durationMs": 16475,
+        "filePath": "assets/audio/s46-orchestrator-practice.wav",
+        "durationMs": 18750,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
         "hash": "552cabbeb49b"
       },
       "resolvedTiming": {
-        "mode": "reject",
-        "sceneMs": 16025,
-        "ratePct": 20,
-        "padVisualMs": 12891,
+        "mode": "audio-dictates",
+        "sceneMs": 19150,
+        "ratePct": 0,
+        "padVisualMs": 19150,
         "padAudioMs": 0,
-        "warnings": [
-          "narration is 586% longer than the visual (limit 20%). Split the scene or rewrite the narration."
-        ]
+        "warnings": []
       },
-      "ratePct": 20
+      "ratePct": 0,
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s46-orchestrator-practice.mp4",
+        "durationMs": 3132.13818359375,
+        "roi": {
+          "x": 563,
+          "y": 67.75,
+          "width": 794,
+          "height": 41.65625
+        },
+        "hash": "5ce0edd5eb92"
+      },
+      "roi": {
+        "x": 563,
+        "y": 67.75,
+        "width": 794,
+        "height": 41.65625
+      }
     },
     {
       "id": "s47-subagents-anchor",
@@ -3259,7 +3034,7 @@
       "captureMode": "screencast",
       "actionSpec": {
         "url": "/index.html#phase-multiagent",
-        "setupScript": "setup/pin-light-theme.mjs",
+        "setupScript": "setup/capture-determinism.mjs",
         "steps": [
           {
             "action": "scroll",
@@ -3279,46 +3054,40 @@
           "clean context window"
         ]
       },
-      "viewport": {
-        "width": 1440,
-        "height": 810
-      },
-      "resolvedVisual": {
-        "filePath": "assets/recordings/s47-subagents-anchor.mp4",
-        "durationMs": 3641.078857421875,
-        "roi": {
-          "x": 323,
-          "y": 109.40625,
-          "width": 794,
-          "height": 23.09375
-        },
-        "hash": "9456cab63a1f"
-      },
-      "roi": {
-        "x": 323,
-        "y": 109.40625,
-        "width": 794,
-        "height": 23.09375
-      },
       "resolvedAudio": {
-        "filePath": "assets/audio/s47-subagents-anchor.r.wav",
-        "durationMs": 12225,
+        "filePath": "assets/audio/s47-subagents-anchor.wav",
+        "durationMs": 13825,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
         "hash": "d685604daebc"
       },
       "resolvedTiming": {
-        "mode": "reject",
-        "sceneMs": 11921,
-        "ratePct": 20,
-        "padVisualMs": 8280,
+        "mode": "audio-dictates",
+        "sceneMs": 14225,
+        "ratePct": 0,
+        "padVisualMs": 14225,
         "padAudioMs": 0,
-        "warnings": [
-          "narration is 327% longer than the visual (limit 20%). Split the scene or rewrite the narration."
-        ]
+        "warnings": []
       },
-      "ratePct": 20
+      "ratePct": 0,
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s47-subagents-anchor.mp4",
+        "durationMs": 3623.940185546875,
+        "roi": {
+          "x": 563,
+          "y": 111.40625,
+          "width": 794,
+          "height": 23.09375
+        },
+        "hash": "e9db18be3b6f"
+      },
+      "roi": {
+        "x": 563,
+        "y": 111.40625,
+        "width": 794,
+        "height": 23.09375
+      }
     },
     {
       "id": "s48-subagents-practice",
@@ -3329,7 +3098,7 @@
       "captureMode": "screencast",
       "actionSpec": {
         "url": "/index.html#phase-multiagent",
-        "setupScript": "setup/pin-light-theme.mjs",
+        "setupScript": "setup/capture-determinism.mjs",
         "roiSelector": ".concept:has-text(\"Subagents and Context Isolation\")",
         "steps": [
           {
@@ -3351,46 +3120,40 @@
         ]
       },
       "roiSelector": ".concept:has-text(\"Subagents and Context Isolation\")",
-      "viewport": {
-        "width": 1440,
-        "height": 810
-      },
-      "resolvedVisual": {
-        "filePath": "assets/recordings/s48-subagents-practice.mp4",
-        "durationMs": 3141.578125,
-        "roi": {
-          "x": 323,
-          "y": 135.5,
-          "width": 794,
-          "height": 41.65625
-        },
-        "hash": "44a116fd7245"
-      },
-      "roi": {
-        "x": 323,
-        "y": 135.5,
-        "width": 794,
-        "height": 41.65625
-      },
       "resolvedAudio": {
-        "filePath": "assets/audio/s48-subagents-practice.r.wav",
-        "durationMs": 15175,
+        "filePath": "assets/audio/s48-subagents-practice.wav",
+        "durationMs": 17650,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
         "hash": "2799a3b5b7f1"
       },
       "resolvedTiming": {
-        "mode": "reject",
-        "sceneMs": 15108,
-        "ratePct": 20,
-        "padVisualMs": 11967,
+        "mode": "audio-dictates",
+        "sceneMs": 18050,
+        "ratePct": 0,
+        "padVisualMs": 18050,
         "padAudioMs": 0,
-        "warnings": [
-          "narration is 544% longer than the visual (limit 20%). Split the scene or rewrite the narration."
-        ]
+        "warnings": []
       },
-      "ratePct": 20
+      "ratePct": 0,
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s48-subagents-practice.mp4",
+        "durationMs": 3132.178955078125,
+        "roi": {
+          "x": 563,
+          "y": 137.5,
+          "width": 794,
+          "height": 41.65625
+        },
+        "hash": "44930fe80eb6"
+      },
+      "roi": {
+        "x": 563,
+        "y": 137.5,
+        "width": 794,
+        "height": 41.65625
+      }
     },
     {
       "id": "s49-review-anchor",
@@ -3401,7 +3164,7 @@
       "captureMode": "screencast",
       "actionSpec": {
         "url": "/index.html#phase-multiagent",
-        "setupScript": "setup/pin-light-theme.mjs",
+        "setupScript": "setup/capture-determinism.mjs",
         "steps": [
           {
             "action": "scroll",
@@ -3421,46 +3184,40 @@
           "original specification"
         ]
       },
-      "viewport": {
-        "width": 1440,
-        "height": 810
-      },
-      "resolvedVisual": {
-        "filePath": "assets/recordings/s49-review-anchor.mp4",
-        "durationMs": 3645.0390625,
-        "roi": {
-          "x": 323,
-          "y": 109.15625,
-          "width": 794,
-          "height": 23.09375
-        },
-        "hash": "e924f6c4dc3e"
-      },
-      "roi": {
-        "x": 323,
-        "y": 109.15625,
-        "width": 794,
-        "height": 23.09375
-      },
       "resolvedAudio": {
-        "filePath": "assets/audio/s49-review-anchor.r.wav",
-        "durationMs": 16850,
+        "filePath": "assets/audio/s49-review-anchor.wav",
+        "durationMs": 18625,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
         "hash": "d7fafaa15994"
       },
       "resolvedTiming": {
-        "mode": "reject",
-        "sceneMs": 15921,
-        "ratePct": 20,
-        "padVisualMs": 12276,
+        "mode": "audio-dictates",
+        "sceneMs": 19025,
+        "ratePct": 0,
+        "padVisualMs": 19025,
         "padAudioMs": 0,
-        "warnings": [
-          "narration is 474% longer than the visual (limit 20%). Split the scene or rewrite the narration."
-        ]
+        "warnings": []
       },
-      "ratePct": 20
+      "ratePct": 0,
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s49-review-anchor.mp4",
+        "durationMs": 3624.91796875,
+        "roi": {
+          "x": 563,
+          "y": 200.15625,
+          "width": 794,
+          "height": 23.09375
+        },
+        "hash": "36a27327436a"
+      },
+      "roi": {
+        "x": 563,
+        "y": 200.15625,
+        "width": 794,
+        "height": 23.09375
+      }
     },
     {
       "id": "s50-review-practice",
@@ -3471,7 +3228,7 @@
       "captureMode": "screencast",
       "actionSpec": {
         "url": "/index.html#phase-multiagent",
-        "setupScript": "setup/pin-light-theme.mjs",
+        "setupScript": "setup/capture-determinism.mjs",
         "roiSelector": ".concept:has-text(\"Independent Review\")",
         "steps": [
           {
@@ -3493,46 +3250,40 @@
         ]
       },
       "roiSelector": ".concept:has-text(\"Independent Review\")",
-      "viewport": {
-        "width": 1440,
-        "height": 810
-      },
-      "resolvedVisual": {
-        "filePath": "assets/recordings/s50-review-practice.mp4",
-        "durationMs": 3136.673095703125,
-        "roi": {
-          "x": 323,
-          "y": 135.25,
-          "width": 794,
-          "height": 62.484375
-        },
-        "hash": "2e77ae0a27c3"
-      },
-      "roi": {
-        "x": 323,
-        "y": 135.25,
-        "width": 794,
-        "height": 62.484375
-      },
       "resolvedAudio": {
-        "filePath": "assets/audio/s50-review-practice.r.wav",
-        "durationMs": 16100.000000000002,
+        "filePath": "assets/audio/s50-review-practice.wav",
+        "durationMs": 18200,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
         "hash": "e1e157f2691a"
       },
       "resolvedTiming": {
-        "mode": "reject",
-        "sceneMs": 15567,
-        "ratePct": 20,
-        "padVisualMs": 12430,
+        "mode": "audio-dictates",
+        "sceneMs": 18600,
+        "ratePct": 0,
+        "padVisualMs": 18600,
         "padAudioMs": 0,
-        "warnings": [
-          "narration is 565% longer than the visual (limit 20%). Split the scene or rewrite the narration."
-        ]
+        "warnings": []
       },
-      "ratePct": 20
+      "ratePct": 0,
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s50-review-practice.mp4",
+        "durationMs": 3129.819091796875,
+        "roi": {
+          "x": 563,
+          "y": 226.25,
+          "width": 794,
+          "height": 62.484375
+        },
+        "hash": "4a20a057a2d6"
+      },
+      "roi": {
+        "x": 563,
+        "y": 226.25,
+        "width": 794,
+        "height": 62.484375
+      }
     },
     {
       "id": "s51-parallel-anchor",
@@ -3543,7 +3294,7 @@
       "captureMode": "screencast",
       "actionSpec": {
         "url": "/index.html#phase-multiagent",
-        "setupScript": "setup/pin-light-theme.mjs",
+        "setupScript": "setup/capture-determinism.mjs",
         "steps": [
           {
             "action": "scroll",
@@ -3563,46 +3314,40 @@
           "simultaneously"
         ]
       },
-      "viewport": {
-        "width": 1440,
-        "height": 810
-      },
-      "resolvedVisual": {
-        "filePath": "assets/recordings/s51-parallel-anchor.mp4",
-        "durationMs": 3644.0078125,
-        "roi": {
-          "x": 323,
-          "y": 109.734375,
-          "width": 794,
-          "height": 23.09375
-        },
-        "hash": "c03793dfb54e"
-      },
-      "roi": {
-        "x": 323,
-        "y": 109.734375,
-        "width": 794,
-        "height": 23.09375
-      },
       "resolvedAudio": {
-        "filePath": "assets/audio/s51-parallel-anchor.r.wav",
-        "durationMs": 16100.000000000002,
+        "filePath": "assets/audio/s51-parallel-anchor.wav",
+        "durationMs": 18025,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
         "hash": "25aa1d49e6de"
       },
       "resolvedTiming": {
-        "mode": "reject",
-        "sceneMs": 15421,
-        "ratePct": 20,
-        "padVisualMs": 11777,
+        "mode": "audio-dictates",
+        "sceneMs": 18425,
+        "ratePct": 0,
+        "padVisualMs": 18425,
         "padAudioMs": 0,
-        "warnings": [
-          "narration is 456% longer than the visual (limit 20%). Split the scene or rewrite the narration."
-        ]
+        "warnings": []
       },
-      "ratePct": 20
+      "ratePct": 0,
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s51-parallel-anchor.mp4",
+        "durationMs": 3638.01904296875,
+        "roi": {
+          "x": 563,
+          "y": 309.734375,
+          "width": 794,
+          "height": 23.09375
+        },
+        "hash": "e712022fbd13"
+      },
+      "roi": {
+        "x": 563,
+        "y": 309.734375,
+        "width": 794,
+        "height": 23.09375
+      }
     },
     {
       "id": "s52-parallel-practice",
@@ -3613,7 +3358,7 @@
       "captureMode": "screencast",
       "actionSpec": {
         "url": "/index.html#phase-multiagent",
-        "setupScript": "setup/pin-light-theme.mjs",
+        "setupScript": "setup/capture-determinism.mjs",
         "roiSelector": ".concept:has-text(\"Parallel Execution\")",
         "steps": [
           {
@@ -3635,51 +3380,45 @@
         ]
       },
       "roiSelector": ".concept:has-text(\"Parallel Execution\")",
-      "viewport": {
-        "width": 1440,
-        "height": 810
-      },
-      "resolvedVisual": {
-        "filePath": "assets/recordings/s52-parallel-practice.mp4",
-        "durationMs": 3137.76904296875,
-        "roi": {
-          "x": 323,
-          "y": 65.828125,
-          "width": 794,
-          "height": 62.484375
-        },
-        "hash": "5cf897fad2ff"
-      },
-      "roi": {
-        "x": 323,
-        "y": 65.828125,
-        "width": 794,
-        "height": 62.484375
-      },
       "resolvedAudio": {
-        "filePath": "assets/audio/s52-parallel-practice.r.wav",
-        "durationMs": 16775,
+        "filePath": "assets/audio/s52-parallel-practice.wav",
+        "durationMs": 19150,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
         "hash": "f594d20cf6bb"
       },
       "resolvedTiming": {
-        "mode": "reject",
-        "sceneMs": 16358,
-        "ratePct": 20,
-        "padVisualMs": 13221,
+        "mode": "audio-dictates",
+        "sceneMs": 19550,
+        "ratePct": 0,
+        "padVisualMs": 19550,
         "padAudioMs": 0,
-        "warnings": [
-          "narration is 599% longer than the visual (limit 20%). Split the scene or rewrite the narration."
-        ]
+        "warnings": []
       },
-      "ratePct": 20
+      "ratePct": 0,
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s52-parallel-practice.mp4",
+        "durationMs": 3135.402099609375,
+        "roi": {
+          "x": 563,
+          "y": 335.828125,
+          "width": 794,
+          "height": 62.484375
+        },
+        "hash": "0e27fa0a7f15"
+      },
+      "roi": {
+        "x": 563,
+        "y": 335.828125,
+        "width": 794,
+        "height": 62.484375
+      }
     },
     {
       "id": "s53-topic-recap",
       "title": "What the four topics establish",
-      "narration": "Four topics, one argument. Topic 1 gave you the limits: a context window that degrades before it fills, three memory stores with three lifetimes, and two failure modes — confident invention and run-to-run variation. Topic 2 was engineering around those limits: what enters the window, when it is retrieved, how loops terminate, and why planning finishes before implementation starts. Topic 3 was the discipline that makes it verifiable: specifications before code, tests as the exit signal, records as external memory, vertical slices that can prove themselves, and documentation treated as configuration. Topic 4 was the division of labour: who knows what, and why a reviewer must not know how the code was written.",
+      "narration": "Four topics, one argument. First the limits you cannot wish away. Then the engineering that works within them. Then the discipline that makes the result verifiable. And last, the division of labour across agents. Read down the cards — that is the whole case.",
       "role": "resolution",
       "visualEngine": "html_slides",
       "captureMode": "stills",
@@ -3715,34 +3454,34 @@
         "image": null,
         "htmlPath": null,
         "portraitHtmlPath": null,
-        "notes": "Four topics, one argument. Topic 1 gave you the limits: a context window that degrades before it fills, three memory stores with three lifetimes, and two failure modes — confident invention and run-to-run variation. Topic 2 was engineering around those limits: what enters the window, when it is retrieved, how loops terminate, and why planning finishes before implementation starts. Topic 3 was the discipline that makes it verifiable: specifications before code, tests as the exit signal, records as external memory, vertical slices that can prove themselves, and documentation treated as configuration. Topic 4 was the division of labour: who knows what, and why a reviewer must not know how the code was written."
+        "notes": "Four topics, one argument. First the limits you cannot wish away. Then the engineering that works within them. Then the discipline that makes the result verifiable. And last, the division of labour across agents. Read down the cards — that is the whole case."
       },
       "vertical": {
         "strategy": "native"
       },
-      "resolvedVisual": {
-        "filePath": "assets/recordings/s53-topic-recap.mp4",
-        "durationMs": 45200,
-        "roi": null,
-        "hash": "9592bbd164bd"
-      },
       "resolvedAudio": {
         "filePath": "assets/audio/s53-topic-recap.wav",
-        "durationMs": 46550,
+        "durationMs": 16725,
         "subtitleSource": "synthesised",
         "providerSrt": null,
         "hasNativeSrt": false,
-        "hash": "245779e318d8"
+        "hash": "5d60bd4c4e26"
       },
       "resolvedTiming": {
         "mode": "audio-dictates",
-        "sceneMs": 46950,
+        "sceneMs": 17125,
         "ratePct": 0,
-        "padVisualMs": 46950,
+        "padVisualMs": 17125,
         "padAudioMs": 0,
         "warnings": []
       },
-      "ratePct": 0
+      "ratePct": 0,
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s53-topic-recap.mp4",
+        "durationMs": 17134,
+        "roi": null,
+        "hash": "c39ea3f2cd7b"
+      }
     },
     {
       "id": "s54-closing-claim",
@@ -3767,12 +3506,6 @@
       "vertical": {
         "strategy": "native"
       },
-      "resolvedVisual": {
-        "filePath": "assets/recordings/s54-closing-claim.mp4",
-        "durationMs": 19600,
-        "roi": null,
-        "hash": "d3e5ee2b7919"
-      },
       "resolvedAudio": {
         "filePath": "assets/audio/s54-closing-claim.wav",
         "durationMs": 17850,
@@ -3789,7 +3522,13 @@
         "padAudioMs": 0,
         "warnings": []
       },
-      "ratePct": 0
+      "ratePct": 0,
+      "resolvedVisual": {
+        "filePath": "assets/recordings/s54-closing-claim.mp4",
+        "durationMs": 18267,
+        "roi": null,
+        "hash": "826d3d2236ac"
+      }
     }
   ]
 }

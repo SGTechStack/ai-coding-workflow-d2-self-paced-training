@@ -1,0 +1,331 @@
+presentation:
+  mode: video
+  title: Inside the E2E Workflow
+  engine: html
+  theme: light
+  formats: [png, pdf, html]
+
+video:
+  aspect: landscape
+  outputs: [{ aspect: landscape }]
+  # Source text: ai-coding-workflow-d2-team/skills/e2e/references/workflow.md
+  # (and SKILL.md step 4 for the foundation-repair routing in s17).
+  #
+  # Served from the REPO ROOT, not docs/:  npx --yes serve . -l 4173
+  # so the flowchart page can live inside this presentation (flow/index.html)
+  # and docs/ gains nothing but the finished MP4.
+  #
+  # ORDER: Phase 0 comes before the cast, because it is the first thing a new
+  # user meets (the first run builds the foundation and stops) and the cast
+  # slide relies on "campaign" and "foundation". The 4+-criteria and
+  # 100k-context split rules are deliberately NOT taught: they are internal
+  # tuning. s05 says only that one subagent may cover several jobs, so the cast
+  # slide does not imply four agents always run.
+  #
+  # CAMERA. Only the highlight box and one eased pan per scene move on camera:
+  #   * Flowchart scenes chain. Each opens, via a #y<offset> anchor in
+  #     flow/index.html, exactly where the previous flowchart scene ended, then
+  #     glides to its own section with one `scroll` step. The page turns that
+  #     wheel event into an eased pan of dur = clamp(600 + 0.7*px, 800, 1700) ms,
+  #     and the step's delayMs = dur + 150, so a box appears only after the pan
+  #     settles. Scenes sharing a section (s08 -> s09) simply cut.
+  #   * showActions: false on every capture, so no cursor or "Mouse wheel" label
+  #     is drawn over the pan.
+  #   * Every highlight is `gapless: true` (a capture.mjs opt-in): the box hands
+  #     over from node to node instead of blinking off between beats. Highlights
+  #     only move DOWN the diagram and never revisit a node, in the order the
+  #     narration names them.
+  #
+  # TIMING: clip = (leading scroll or wait delayMs + ~120) + sum(highlight delayMs), ending on
+  # the final highlight's auto-hide repaint. Each capture is sized to
+  # narration + 400ms so planTiming() stays in `speech-fit`.
+  #
+  # Narration never speaks file names or the slash command literally: TTS reads
+  # punctuation unpredictably and the captions are the same text.
+  voice: { provider: kokoro, gender: female }
+  baseUrl: http://127.0.0.1:4173
+
+entries:
+  # ── Cold open ───────────────────────────────────────────────────────────
+  - id: s01-green-is-not-proof
+    type: slide
+    layout: statement
+    title: A green test is not proof.
+    narration: >-
+      A passing test proves that something ran. It does not prove the story works
+      for the user. The E2E workflow is built to close that gap.
+
+  # Defines "campaign" here: every later scene uses it.
+  - id: s02-inside-e2e
+    type: slide
+    layout: hero
+    pill: Story E2E
+    title: Inside the E2E workflow
+    narration: >-
+      The walkthrough video showed the E2E command from the outside. This one
+      shows what happens inside it. Each story is tested in its own campaign: one
+      story, end to end, with its own evidence. We follow one campaign from start
+      to finish, then look at what happens when something goes wrong.
+
+  # ── Phase 0 · Foundation ───────────────────────────────────────────────
+  - id: s03-foundation
+    type: slide
+    layout: tiled
+    title: Phase 0 builds a test setup every story can trust
+    cards:
+      - { icon: rotate-ccw, title: Safe reset, text: "Test data resets, so runs never interfere." }
+      - { icon: key-round, title: Test accounts, text: "Tests sign in as the right user." }
+      - { icon: monitor, title: Browser setup, text: "One configured browser, with trace and video on." }
+      - { icon: circle-check, title: Smoke test, text: "One real test proves it all works." }
+    narration: >-
+      Before any story is tested, the project needs a foundation you can trust.
+      A safe way to reset test data. Test accounts that really sign in. A
+      configured browser that records trace and video. And one small smoke test
+      that proves the whole setup works. The first time you run the command on a
+      project, it builds this foundation and stops there. Stories start on the
+      next run.
+
+  # Leading `wait` covers the colour-key sentence before any box appears.
+  - id: s04-flow-foundation
+    type: capture
+    url: /presentations/e2e-workflow/flow/
+    showActions: false   # no "Mouse wheel" label or cursor over the pan
+    steps:
+      - { action: wait, delayMs: 10015 }
+      - { action: highlight, selector: '#n-foundation', gapless: true, delayMs: 2100 }
+      - { action: highlight, selector: '#n-ready', gapless: true, delayMs: 2650 }
+      - { action: highlight, selector: '#n-campaign_start', gapless: true, delayMs: 2650 }
+      - { action: highlight, selector: '#n-foundation_fix', gapless: true, delayMs: 9500 }
+    assert:
+      visible: ["Story E2E campaign workflow", "Foundation setup"]
+      notVisible: ["404", "Not Found"]
+    narration: >-
+      This is the whole workflow on one page. Blue and grey boxes are steps,
+      yellow ones are checks and skips, red is where things stop or get fixed,
+      orange is a fail, and green is a pass or done. Building the foundation
+      happens once. Checking it happens every time: each campaign starts by
+      verifying that nothing has drifted. If something has, the campaign stops.
+      The subagents testing a story never patch the foundation themselves.
+
+  # ── The cast ───────────────────────────────────────────────────────────
+  - id: s05-cast
+    type: slide
+    # process-flow, not spotlight: spotlight widens a whole grid COLUMN for the
+    # primary card, which also stretched Author and read as random sizing. Here
+    # the coordinator is the single hub and the three subagents are equal nodes.
+    layout: process-flow
+    title: One coordinator hands the work to fresh subagents
+    cards:
+      - { icon: network, title: Coordinator, text: "Chooses the next story, and checks the finished evidence itself." }
+      - { icon: compass, title: Discoverer, text: "Learns the real app live, and records what it finds." }
+      - { icon: pen-line, title: Author, text: "Writes the Playwright scenarios and runs preflight." }
+      - { icon: play, title: Executor, text: "Runs the final evidence, verifies the report, and tears down." }
+    narration: >-
+      Once the foundation is healthy, a campaign can start. The command you run
+      is the coordinator. It never tests anything itself. It picks the next
+      story, hands the work to fresh subagents one story at a time, and at the
+      end checks their evidence for itself. Each subagent starts with a clean
+      context, so a mistake one subagent made cannot quietly shape the next one's
+      thinking. Depending on the size of the story, one subagent may cover more than one of
+      these jobs.
+
+  # ── Phase 1 · Author preparation ───────────────────────────────────────
+  - id: s07-author-prep
+    type: slide
+    layout: process-flow
+    title: Four steps finish before any evidence is spent
+    cards:
+      - { icon: list-checks, title: 1A Analyze, text: "Split every criterion into the things a user can observe." }
+      - { icon: compass, title: 1B Live discovery }
+      - { icon: pen-line, title: 1C Author }
+      - { icon: shield-check, title: 1D Preflight }
+    narration: >-
+      Phase one prepares the tests in four steps: analyze, live discovery,
+      author, and preflight. No final evidence is produced until all four are
+      done.
+
+  - id: s08-flow-analyze
+    type: capture
+    url: /presentations/e2e-workflow/flow/
+    showActions: false   # no "Mouse wheel" label or cursor over the pan
+    steps:
+      - { action: scroll, delta: 680, delayMs: 1226 }
+      - { action: highlight, selector: '#n-analyze', gapless: true, delayMs: 13100 }
+      - { action: highlight, selector: '#n-analysis_ok', gapless: true, delayMs: 5529 }
+    assert:
+      visible: ["1A. Analyze", "Requirements checklist"]
+    narration: >-
+      Analysis reads each acceptance criterion and lists every separate thing
+      the user should see. Take a criterion that says saving a patient shows a
+      success message and the new record. That is two things, so each one is
+      checked on its own. The result is a requirements checklist, so nothing in
+      the story gets missed.
+
+  - id: s09-flow-discovery
+    type: capture
+    url: /presentations/e2e-workflow/flow/#y680
+    showActions: false   # no "Mouse wheel" label or cursor over the pan
+    steps:
+      - { action: highlight, selector: '#n-discovery', gapless: true, delayMs: 9000 }
+      - { action: highlight, selector: '#n-discovery_ok', gapless: true, delayMs: 5550 }
+    assert:
+      visible: ["1B. Live discovery", "Validated discovery handoff"]
+    narration: >-
+      Discovery then opens the running app and learns the real controls, labels
+      and routes. Source code can help with setup, but only the running app shows
+      what the user sees. The facts it records are what the tests are written
+      from.
+
+  # Narration follows the diagram's own order (the decision check sits ABOVE
+  # authoring), so the box only ever moves down.
+  - id: s10-flow-author
+    type: capture
+    url: /presentations/e2e-workflow/flow/#y680
+    showActions: false   # no "Mouse wheel" label or cursor over the pan
+    steps:
+      - { action: scroll, delta: 820, delayMs: 1324 }
+      - { action: highlight, selector: '#n-decide_scope', gapless: true, delayMs: 7122 }
+      - { action: highlight, selector: '#n-ask_human', gapless: true, delayMs: 6200 }
+      - { action: highlight, selector: '#n-author', gapless: true, delayMs: 10666 }
+    assert:
+      visible: ["1C. Author specs", "Ask one short"]
+    narration: >-
+      Just before authoring, there is one check. Does a criterion have two
+      reasonable interpretations that would give different results, with nothing
+      in the story or the live app to settle it? Only then does it stop and ask
+      you one short question. Otherwise it records its assumption and carries on.
+      Then the author writes the Playwright scenarios. Each one states its data,
+      its user, the visible outcome, and the criterion it proves.
+
+  - id: s11-flow-preflight
+    type: capture
+    url: /presentations/e2e-workflow/flow/#y1500
+    showActions: false   # no "Mouse wheel" label or cursor over the pan
+    steps:
+      - { action: scroll, delta: 400, delayMs: 1030 }
+      # Two beats only: the "passes?" diamond carries both branches the voice
+      # names. The 2A node beside it prints the 100k rule, which is not taught,
+      # so it is never highlighted.
+      - { action: highlight, selector: '#n-preflight', gapless: true, delayMs: 4650 }
+      - { action: highlight, selector: '#n-preflight_ok', gapless: true, delayMs: 12217 }
+    assert:
+      visible: ["1D. Preflight", "Fix spec only"]
+    narration: >-
+      Preflight checks that the tests really match the story before any time is
+      spent on evidence. If it fails, only the spec is fixed, and preflight runs
+      again. When it passes, the story analysis and the tests are frozen: locked,
+      so nothing can change them while the evidence runs.
+
+  # ── Phase 2 · Evidence execution ───────────────────────────────────────
+  - id: s12-evidence
+    type: slide
+    layout: lifecycle
+    title: Evidence is produced fresh, then judged against the story
+    cards:
+      - { icon: file-check, title: 2A Verify, detail: "", text: "Confirm the tests are the ones preflight approved." }
+      - { icon: play, title: 2B Run, detail: "", text: "A clean environment, with trace, video and screenshots." }
+      - { icon: file-chart-column, title: 2C Report, detail: "", text: "Fresh and complete, or it does not count." }
+      - { icon: user-check, title: 2D Review, detail: "", text: "Does the evidence prove every acceptance claim?" }
+    narration: >-
+      Phase two runs in four steps. First, it confirms the tests are exactly the
+      ones that passed preflight. Then it runs them against a clean environment
+      and records everything. It generates the report and checks the evidence is
+      fresh. Finally, it reviews the result against the story.
+
+  - id: s13-outcomes
+    type: slide
+    # comparison, not tiled: the technical fault is a different KIND of outcome
+    # (the test broke, not the product), so it gets its own accent card instead
+    # of sitting as a fourth peer beside pass/fail/skipped.
+    layout: comparison
+    title: A broken test is fixed, not reported
+    cards:
+      - { icon: clipboard-check, title: "PASS, FAIL or SKIPPED", detail: Goes in the report, text: "What the product did, with the evidence kept." }
+      - { icon: wrench, title: Technical fault, detail: Rechecked and fixed, text: "The test or its setup broke. It is fixed and run again." }
+    narration: >-
+      Every run ends one of two ways. Either it tells you something about the
+      product: pass, fail or skipped, with the evidence kept. A fail means the
+      tool did its job and found a gap for you to fix. A skip means that part
+      could not be checked in the browser: a required precondition could not be met,
+      or it is a rule only the backend can see, which belongs in a backend test. Or the test itself
+      broke. That is a technical fault. It is rechecked, fixed, and run again
+      with fresh evidence.
+  - id: s14-flow-review
+    type: capture
+    url: /presentations/e2e-workflow/flow/#y1900
+    showActions: false   # no "Mouse wheel" label or cursor over the pan
+    steps:
+      - { action: scroll, delta: 1400, delayMs: 1730 }
+      - { action: highlight, selector: '#n-review', gapless: true, delayMs: 2000 }
+      - { action: highlight, selector: '#n-review_ok', gapless: true, delayMs: 3500 }
+      - { action: highlight, selector: '#n-handoff', gapless: true, delayMs: 4225 }
+    assert:
+      visible: ["Evidence proves", "Write final handoff"]
+    narration: >-
+      The review then checks whether the evidence really proves each claim. If it
+      does, the final handoff is written, and the coordinator checks that file and
+      the raw results itself.
+
+  - id: s15-flow-teardown
+    type: capture
+    url: /presentations/e2e-workflow/flow/#y3300
+    showActions: false   # no "Mouse wheel" label or cursor over the pan
+    steps:
+      - { action: scroll, delta: 200, delayMs: 950 }
+      - { action: highlight, selector: '#n-teardown', gapless: true, delayMs: 5130 }
+      - { action: highlight, selector: '#n-teardown_ok', gapless: true, delayMs: 2200 }
+      - { action: highlight, selector: '#n-teardown_stop', gapless: true, delayMs: 2651 }
+    assert:
+      visible: ["Teardown + restore", "Campaign complete"]
+    narration: >-
+      Finally, teardown removes only what this campaign created, and restores the
+      shared development stack. If it cannot be sure what it owns, it stops
+      rather than guessing.
+
+  # ── When something fails ───────────────────────────────────────────────
+  - id: s16-failure-routes
+    type: slide
+    layout: tiled
+    title: Most failures go to one of four places
+    cards:
+      - { icon: undo-2, title: Back to preflight, text: "A spec problem, stale evidence, or weak proof." }
+      - { icon: layers, title: Back to Phase 0, text: "The shared foundation itself is faulty." }
+      - { icon: circle-help, title: Ask the human, text: "Two interpretations that change the verdict." }
+      - { icon: octagon, title: Stop, text: "The app is unreachable, or teardown cannot tell what it owns." }
+    narration: >-
+      Most failures go to one of four places. A test problem, stale evidence or
+      weak proof goes back to preflight. A faulty foundation goes back to Phase 0.
+      A genuine ambiguity comes to you as one short question. And an unreachable
+      app, or a teardown that cannot identify its own resources, stops the
+      campaign.
+
+  # Reconciles S04 ("subagents never patch the foundation") with the fact that a
+  # repair CAN happen mid-campaign: it is always a separate, checked task. Also
+  # states WHY a wrong fix is worse than a skip — the title's whole claim.
+  - id: s17-foundation-gap
+    type: slide
+    layout: statement
+    title: A wrong foundation fix is worse than a skip.
+    narration: >-
+      Foundation repairs get extra checks. When a subagent finds that a small
+      foundation change would unblock a real outcome, it reports the gap instead
+      of making the change. The coordinator sends one subagent to fix it, and a
+      different one to check the fix against the app's real code. A wrong fix can
+      make a test pass when it should not, and a false pass is worse than an
+      honest skip. After two attempts, the decision comes to you.
+
+  # ── Conclusion ─────────────────────────────────────────────────────────
+  - id: s18-summary
+    type: slide
+    layout: lifecycle
+    title: What happens when you run the E2E command
+    cards:
+      - { icon: layers, title: Phase 0, detail: "", text: "The foundation is built once, then checked every run." }
+      - { icon: list-checks, title: Phase 1, detail: "", text: "Tests are prepared from the story and the live app." }
+      - { icon: play, title: Phase 2, detail: "", text: "The tests run fresh, and the result is reviewed against the story." }
+    narration: >-
+      To sum up. The first run builds the foundation, and every campaign after
+      that checks it. Phase one turns the story into tests, using the running
+      app. Phase two runs those tests on a clean environment and reviews the
+      result. Your part is to confirm the story, answer a question if one comes
+      up, and read the verdict.

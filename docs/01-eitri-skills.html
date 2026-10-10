@@ -942,6 +942,7 @@
   <button class="sidenav-toggle" data-target="snav-e2e" data-href="#story-e2e">Story E2E Evidence <span class="snav-chevron">▾</span></button>
   <div class="snav-group" id="snav-e2e">
     <a href="#e2e" class="sidenav-link sidenav-sub"><code>/e2e</code></a>
+    <a href="#e2e-workflow" class="sidenav-link sidenav-sub">Inside the <code>/e2e</code> workflow</a>
   </div>
 
   <button class="sidenav-toggle" data-target="snav-grill" data-href="#grilling-gates">Grilling Before Gates <span class="snav-chevron">▾</span></button>
@@ -1449,6 +1450,70 @@ git clone https://github.com/SGTechStack/App-Standards</code></pre>
         <div>
           <div style="margin-bottom:4px;"><strong>Reading a FAIL or a SKIP</strong></div>
           <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">A <strong>FAIL</strong> means the product does not match its acceptance criterion: the description explains why and names the likely file, a screenshot shows where, and the video and trace are there to dig deeper. A <strong>SKIP</strong> always comes with a real reason, such as an error traced to its root cause. Once a story is done, you accept and the loop runs again on the next one.</p>
+        </div>
+
+      </div>
+      </details>
+    </div>
+  </div>
+
+  <div class="step-card" id="e2e-workflow" style="border-color:var(--accent-orange-border);background:var(--accent-orange-bg)">
+    <div class="step-header" style="background:var(--accent-orange-bg);border-color:var(--accent-orange-border)">
+      <div class="step-num">↳</div>
+      <div>
+        <div class="step-title">Inside the <code>/e2e</code> workflow</div>
+        <div class="step-subtitle">What happens behind the command: the phases, the subagents, and where failures go</div>
+      </div>
+    </div>
+    <div class="step-body">
+      <div class="video-wrap">
+        <video controls style="width: 100%; border-radius: var(--radius-lg); margin-bottom: 8px;">
+          <source src="videos/e2e-workflow.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <div class="video-caption">
+          <span class="video-caption-title">Inside the /e2e Workflow</span>
+          <span class="video-duration">~ 5–6 min</span>
+        </div>
+      </div>
+      <details class="step-details"><summary>Video Recap</summary>
+      <p style="margin-bottom: 20px; font-size: 0.95rem;">The walkthrough video in the <code>/e2e</code> card shows the command from the outside: run it, confirm a story, read the report. This one goes inside. Each story is tested in its own <strong>campaign</strong>: one story, end to end, with its own evidence.</p>
+
+      <div style="display:flex;flex-direction:column;gap:14px;margin-bottom:8px;">
+
+        <div>
+          <div style="margin-bottom:4px;"><strong>Phase 0: Foundation, Built Once and Checked Every Run</strong></div>
+          <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">Before any story is tested, the project needs a foundation: a safe reset for test data, test accounts that really sign in, a configured browser that records trace and video, and one smoke test that proves it all works. The first run builds it and stops; stories start on the next run. Every campaign then begins by checking the foundation has not drifted. If it has, the campaign stops. The subagents testing a story never patch the foundation themselves.</p>
+        </div>
+
+        <div>
+          <div style="margin-bottom:4px;"><strong>One Coordinator, Fresh Subagents</strong></div>
+          <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">The command you run is the <strong>coordinator</strong> (the orchestrator in the walkthrough video). It never tests anything itself: it picks the next story, hands the work to fresh subagents one story at a time, and checks their evidence for itself at the end. The <strong>discoverer</strong> learns the real app, the <strong>author</strong> writes the tests, and the <strong>executor</strong> runs the final evidence. Each starts with a clean context, so one subagent's mistake cannot shape the next one's thinking. Depending on the size of the story, one subagent may cover more than one of these jobs.</p>
+        </div>
+
+        <div>
+          <div style="margin-bottom:4px;"><strong>Phase 1: Preparing the Tests</strong></div>
+          <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">Four steps finish before any evidence is spent. <strong>Analyze</strong> lists every separate thing the user should see; a criterion that promises a success message and a new record becomes two checks. <strong>Live discovery</strong> opens the running app to learn the real controls, labels and routes. Just before authoring, if a criterion has two reasonable interpretations that would give different results, and neither the story nor the live app settles it, you get one short question. The <strong>author</strong> then writes the Playwright scenarios, and <strong>preflight</strong> checks they really match the story. Once preflight passes, the analysis and tests are frozen so nothing can change them during the run.</p>
+        </div>
+
+        <div>
+          <div style="margin-bottom:4px;"><strong>Phase 2: Running the Evidence</strong></div>
+          <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">The executor confirms the tests are the ones preflight approved, runs them against a clean environment with trace, video and screenshots, and generates the Allure report. A review then checks the evidence really proves each claim before the final handoff is written for the coordinator. Teardown removes only what the campaign created, and stops rather than guessing if it cannot tell what it owns.</p>
+        </div>
+
+        <div>
+          <div style="margin-bottom:4px;"><strong>Results vs Technical Faults</strong></div>
+          <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;"><strong>PASS</strong>, <strong>FAIL</strong> and <strong>SKIPPED</strong> describe the product and go in the report with their evidence. A FAIL means the tool found a gap for you to fix. A SKIP means that part could not be checked in the browser: either a required precondition could not be met, with the blocker on record, or it is a rule only the backend can see, which belongs in a backend test instead. A <strong>technical fault</strong> means the test or its setup broke: it is rechecked, fixed, and run again with fresh evidence.</p>
+        </div>
+
+        <div>
+          <div style="margin-bottom:4px;"><strong>Where Failures Go</strong></div>
+          <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">Most failures go to one of four places: a spec problem or weak proof goes back to preflight, a faulty foundation goes back to Phase 0, a genuine ambiguity comes to you as one question, and an unreachable app or unsafe teardown stops the campaign. Foundation repairs get extra checks: one subagent fixes the gap and a different one verifies the fix against the app's real code, because a wrong fix can produce a false pass. After two attempts, the decision comes to you.</p>
+        </div>
+
+        <div>
+          <div style="margin-bottom:4px;"><strong>Your Part</strong></div>
+          <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">Confirm the story, answer a question if one comes up, and read the verdict.</p>
         </div>
 
       </div>

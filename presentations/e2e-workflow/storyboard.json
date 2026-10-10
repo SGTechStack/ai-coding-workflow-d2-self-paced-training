@@ -1,0 +1,1172 @@
+{
+  "$generated": "GENERATED FILE — do not edit. Source: storyline.yml. Regenerate with: node scripts/compile.mjs",
+  "$source": {
+    "file": "storyline.yml",
+    "checksum": "dda28fc24691a388e245bf42b97737bd0717ce5ab4e2ef4a65a7469176a27b66"
+  },
+  "meta": {
+    "title": "Inside the E2E Workflow",
+    "mode": "video",
+    "fps": 30,
+    "captureAspect": "landscape",
+    "outputs": [
+      {
+        "aspect": "landscape"
+      }
+    ],
+    "voice": {
+      "provider": "kokoro",
+      "gender": "female"
+    },
+    "subtitles": {
+      "enabled": true
+    },
+    "background": "#F1F5F9",
+    "baseUrl": "http://127.0.0.1:4173",
+    "deck": {
+      "archetype": null,
+      "engine": "html",
+      "theme": "light",
+      "formats": [
+        "png",
+        "pdf",
+        "html"
+      ]
+    }
+  },
+  "scenes": [
+    {
+      "id": "s01-green-is-not-proof",
+      "title": "A green test is not proof.",
+      "narration": "A passing test proves that something ran. It does not prove the story works for the user. The E2E workflow is built to close that gap.",
+      "role": null,
+      "visualEngine": "html_slides",
+      "captureMode": "stills",
+      "slide": {
+        "layout": "statement",
+        "theme": "light",
+        "title": "A green test is not proof.",
+        "pill": null,
+        "body": null,
+        "cards": [],
+        "stat": null,
+        "image": null,
+        "htmlPath": null,
+        "portraitHtmlPath": null,
+        "notes": "A passing test proves that something ran. It does not prove the story works for the user. The E2E workflow is built to close that gap."
+      },
+      "vertical": {
+        "strategy": "native"
+      },
+      "resolvedVisual": {
+        "filePath": "assets\\recordings\\s01-green-is-not-proof.mp4",
+        "durationMs": 9300,
+        "roi": null,
+        "hash": "9c88a64ca3eb"
+      },
+      "resolvedAudio": {
+        "filePath": "assets\\audio\\s01-green-is-not-proof.wav",
+        "durationMs": 8900,
+        "subtitleSource": "synthesised",
+        "providerSrt": null,
+        "hasNativeSrt": false,
+        "hash": "f54ce05d76ea"
+      },
+      "resolvedTiming": {
+        "mode": "audio-dictates",
+        "sceneMs": 9300,
+        "ratePct": 0,
+        "padVisualMs": 9300,
+        "padAudioMs": 0,
+        "warnings": []
+      },
+      "ratePct": 0
+    },
+    {
+      "id": "s02-inside-e2e",
+      "title": "Inside the E2E workflow",
+      "narration": "The walkthrough video showed the E2E command from the outside. This one shows what happens inside it. Each story is tested in its own campaign: one story, end to end, with its own evidence. We follow one campaign from start to finish, then look at what happens when something goes wrong.",
+      "role": null,
+      "visualEngine": "html_slides",
+      "captureMode": "stills",
+      "slide": {
+        "layout": "hero",
+        "theme": "light",
+        "title": "Inside the E2E workflow",
+        "pill": "Story E2E",
+        "body": null,
+        "cards": [],
+        "stat": null,
+        "image": null,
+        "htmlPath": null,
+        "portraitHtmlPath": null,
+        "notes": "The walkthrough video showed the E2E command from the outside. This one shows what happens inside it. Each story is tested in its own campaign: one story, end to end, with its own evidence. We follow one campaign from start to finish, then look at what happens when something goes wrong."
+      },
+      "vertical": {
+        "strategy": "native"
+      },
+      "resolvedVisual": {
+        "filePath": "assets\\recordings\\s02-inside-e2e.mp4",
+        "durationMs": 18834,
+        "roi": null,
+        "hash": "5bb21f15c90d"
+      },
+      "resolvedAudio": {
+        "filePath": "assets\\audio\\s02-inside-e2e.wav",
+        "durationMs": 18425,
+        "subtitleSource": "synthesised",
+        "providerSrt": null,
+        "hasNativeSrt": false,
+        "hash": "82910f160fe2"
+      },
+      "resolvedTiming": {
+        "mode": "audio-dictates",
+        "sceneMs": 18825,
+        "ratePct": 0,
+        "padVisualMs": 18825,
+        "padAudioMs": 0,
+        "warnings": []
+      },
+      "ratePct": 0
+    },
+    {
+      "id": "s03-foundation",
+      "title": "Phase 0 builds a test setup every story can trust",
+      "narration": "Before any story is tested, the project needs a foundation you can trust. A safe way to reset test data. Test accounts that really sign in. A configured browser that records trace and video. And one small smoke test that proves the whole setup works. The first time you run the command on a project, it builds this foundation and stops there. Stories start on the next run.",
+      "role": null,
+      "visualEngine": "html_slides",
+      "captureMode": "stills",
+      "slide": {
+        "layout": "tiled",
+        "theme": "light",
+        "title": "Phase 0 builds a test setup every story can trust",
+        "pill": null,
+        "body": null,
+        "cards": [
+          {
+            "icon": "rotate-ccw",
+            "title": "Safe reset",
+            "text": "Test data resets, so runs never interfere."
+          },
+          {
+            "icon": "key-round",
+            "title": "Test accounts",
+            "text": "Tests sign in as the right user."
+          },
+          {
+            "icon": "monitor",
+            "title": "Browser setup",
+            "text": "One configured browser, with trace and video on."
+          },
+          {
+            "icon": "circle-check",
+            "title": "Smoke test",
+            "text": "One real test proves it all works."
+          }
+        ],
+        "stat": null,
+        "image": null,
+        "htmlPath": null,
+        "portraitHtmlPath": null,
+        "notes": "Before any story is tested, the project needs a foundation you can trust. A safe way to reset test data. Test accounts that really sign in. A configured browser that records trace and video. And one small smoke test that proves the whole setup works. The first time you run the command on a project, it builds this foundation and stops there. Stories start on the next run."
+      },
+      "vertical": {
+        "strategy": "native"
+      },
+      "resolvedVisual": {
+        "filePath": "assets\\recordings\\s03-foundation.mp4",
+        "durationMs": 23834,
+        "roi": null,
+        "hash": "2dae3a6cf17f"
+      },
+      "resolvedAudio": {
+        "filePath": "assets\\audio\\s03-foundation.wav",
+        "durationMs": 23425,
+        "subtitleSource": "synthesised",
+        "providerSrt": null,
+        "hasNativeSrt": false,
+        "hash": "9d40596a8258"
+      },
+      "resolvedTiming": {
+        "mode": "audio-dictates",
+        "sceneMs": 23825,
+        "ratePct": 0,
+        "padVisualMs": 23825,
+        "padAudioMs": 0,
+        "warnings": []
+      },
+      "ratePct": 0
+    },
+    {
+      "id": "s04-flow-foundation",
+      "title": "s04-flow-foundation",
+      "narration": "This is the whole workflow on one page. Blue and grey boxes are steps, yellow ones are checks and skips, red is where things stop or get fixed, orange is a fail, and green is a pass or done. Building the foundation happens once. Checking it happens every time: each campaign starts by verifying that nothing has drifted. If something has, the campaign stops. The subagents testing a story never patch the foundation themselves.",
+      "role": null,
+      "visualEngine": "playwright_web",
+      "captureMode": "screencast",
+      "actionSpec": {
+        "url": "/presentations/e2e-workflow/flow/",
+        "steps": [
+          {
+            "action": "wait",
+            "delayMs": 10015
+          },
+          {
+            "action": "highlight",
+            "selector": "#n-foundation",
+            "gapless": true,
+            "delayMs": 2100
+          },
+          {
+            "action": "highlight",
+            "selector": "#n-ready",
+            "gapless": true,
+            "delayMs": 2650
+          },
+          {
+            "action": "highlight",
+            "selector": "#n-campaign_start",
+            "gapless": true,
+            "delayMs": 2650
+          },
+          {
+            "action": "highlight",
+            "selector": "#n-foundation_fix",
+            "gapless": true,
+            "delayMs": 9500
+          }
+        ],
+        "showActions": false
+      },
+      "assert": {
+        "visible": [
+          "Story E2E campaign workflow",
+          "Foundation setup"
+        ],
+        "notVisible": [
+          "404",
+          "Not Found"
+        ]
+      },
+      "resolvedVisual": {
+        "filePath": "assets\\recordings\\s04-flow-foundation.mp4",
+        "durationMs": 27069.43505859375,
+        "roi": {
+          "x": 903.9700317382812,
+          "y": 741.4447631835938,
+          "width": 241.77435302734375,
+          "height": 62.93701171875
+        },
+        "hash": "606e4fbeb5ad"
+      },
+      "roi": {
+        "x": 903.9700317382812,
+        "y": 741.4447631835938,
+        "width": 241.77435302734375,
+        "height": 62.93701171875
+      },
+      "resolvedAudio": {
+        "filePath": "assets\\audio\\s04-flow-foundation.wav",
+        "durationMs": 26675,
+        "subtitleSource": "synthesised",
+        "providerSrt": null,
+        "hasNativeSrt": false,
+        "hash": "6ad61ffb9bef"
+      },
+      "resolvedTiming": {
+        "mode": "speech-fit",
+        "sceneMs": 27069,
+        "ratePct": 0,
+        "padVisualMs": 0,
+        "padAudioMs": 0,
+        "warnings": []
+      },
+      "ratePct": 0
+    },
+    {
+      "id": "s05-cast",
+      "title": "One coordinator hands the work to fresh subagents",
+      "narration": "Once the foundation is healthy, a campaign can start. The command you run is the coordinator. It never tests anything itself. It picks the next story, hands the work to fresh subagents one story at a time, and at the end checks their evidence for itself. Each subagent starts with a clean context, so a mistake one subagent made cannot quietly shape the next one's thinking. Depending on the size of the story, one subagent may cover more than one of these jobs.",
+      "role": null,
+      "visualEngine": "html_slides",
+      "captureMode": "stills",
+      "slide": {
+        "layout": "process-flow",
+        "theme": "light",
+        "title": "One coordinator hands the work to fresh subagents",
+        "pill": null,
+        "body": null,
+        "cards": [
+          {
+            "icon": "network",
+            "title": "Coordinator",
+            "text": "Chooses the next story, and checks the finished evidence itself."
+          },
+          {
+            "icon": "compass",
+            "title": "Discoverer",
+            "text": "Learns the real app live, and records what it finds."
+          },
+          {
+            "icon": "pen-line",
+            "title": "Author",
+            "text": "Writes the Playwright scenarios and runs preflight."
+          },
+          {
+            "icon": "play",
+            "title": "Executor",
+            "text": "Runs the final evidence, verifies the report, and tears down."
+          }
+        ],
+        "stat": null,
+        "image": null,
+        "htmlPath": null,
+        "portraitHtmlPath": null,
+        "notes": "Once the foundation is healthy, a campaign can start. The command you run is the coordinator. It never tests anything itself. It picks the next story, hands the work to fresh subagents one story at a time, and at the end checks their evidence for itself. Each subagent starts with a clean context, so a mistake one subagent made cannot quietly shape the next one's thinking. Depending on the size of the story, one subagent may cover more than one of these jobs."
+      },
+      "vertical": {
+        "strategy": "native"
+      },
+      "resolvedVisual": {
+        "filePath": "assets\\recordings\\s05-cast.mp4",
+        "durationMs": 29400,
+        "roi": null,
+        "hash": "adb18125ee42"
+      },
+      "resolvedAudio": {
+        "filePath": "assets\\audio\\s05-cast.wav",
+        "durationMs": 29000,
+        "subtitleSource": "synthesised",
+        "providerSrt": null,
+        "hasNativeSrt": false,
+        "hash": "6277a9a5ac5e"
+      },
+      "resolvedTiming": {
+        "mode": "audio-dictates",
+        "sceneMs": 29400,
+        "ratePct": 0,
+        "padVisualMs": 29400,
+        "padAudioMs": 0,
+        "warnings": []
+      },
+      "ratePct": 0
+    },
+    {
+      "id": "s07-author-prep",
+      "title": "Four steps finish before any evidence is spent",
+      "narration": "Phase one prepares the tests in four steps: analyze, live discovery, author, and preflight. No final evidence is produced until all four are done.",
+      "role": null,
+      "visualEngine": "html_slides",
+      "captureMode": "stills",
+      "slide": {
+        "layout": "process-flow",
+        "theme": "light",
+        "title": "Four steps finish before any evidence is spent",
+        "pill": null,
+        "body": null,
+        "cards": [
+          {
+            "icon": "list-checks",
+            "title": "1A Analyze",
+            "text": "Split every criterion into the things a user can observe."
+          },
+          {
+            "icon": "compass",
+            "title": "1B Live discovery"
+          },
+          {
+            "icon": "pen-line",
+            "title": "1C Author"
+          },
+          {
+            "icon": "shield-check",
+            "title": "1D Preflight"
+          }
+        ],
+        "stat": null,
+        "image": null,
+        "htmlPath": null,
+        "portraitHtmlPath": null,
+        "notes": "Phase one prepares the tests in four steps: analyze, live discovery, author, and preflight. No final evidence is produced until all four are done."
+      },
+      "vertical": {
+        "strategy": "native"
+      },
+      "resolvedVisual": {
+        "filePath": "assets\\recordings\\s07-author-prep.mp4",
+        "durationMs": 10900,
+        "roi": null,
+        "hash": "be6b23c1e8a0"
+      },
+      "resolvedAudio": {
+        "filePath": "assets\\audio\\s07-author-prep.wav",
+        "durationMs": 10500,
+        "subtitleSource": "synthesised",
+        "providerSrt": null,
+        "hasNativeSrt": false,
+        "hash": "6c9726312889"
+      },
+      "resolvedTiming": {
+        "mode": "audio-dictates",
+        "sceneMs": 10900,
+        "ratePct": 0,
+        "padVisualMs": 10900,
+        "padAudioMs": 0,
+        "warnings": []
+      },
+      "ratePct": 0
+    },
+    {
+      "id": "s08-flow-analyze",
+      "title": "s08-flow-analyze",
+      "narration": "Analysis reads each acceptance criterion and lists every separate thing the user should see. Take a criterion that says saving a patient shows a success message and the new record. That is two things, so each one is checked on its own. The result is a requirements checklist, so nothing in the story gets missed.",
+      "role": null,
+      "visualEngine": "playwright_web",
+      "captureMode": "screencast",
+      "actionSpec": {
+        "url": "/presentations/e2e-workflow/flow/",
+        "steps": [
+          {
+            "action": "scroll",
+            "delta": 680,
+            "delayMs": 1226
+          },
+          {
+            "action": "highlight",
+            "selector": "#n-analyze",
+            "gapless": true,
+            "delayMs": 13100
+          },
+          {
+            "action": "highlight",
+            "selector": "#n-analysis_ok",
+            "gapless": true,
+            "delayMs": 5529
+          }
+        ],
+        "showActions": false
+      },
+      "assert": {
+        "visible": [
+          "1A. Analyze",
+          "Requirements checklist"
+        ]
+      },
+      "resolvedVisual": {
+        "filePath": "assets\\recordings\\s08-flow-analyze.mp4",
+        "durationMs": 20002.797119140625,
+        "roi": {
+          "x": 763.431640625,
+          "y": 735.66796875,
+          "width": 354.8543701171875,
+          "height": 114.5733642578125
+        },
+        "hash": "88714f54b5ca"
+      },
+      "roi": {
+        "x": 763.431640625,
+        "y": 735.66796875,
+        "width": 354.8543701171875,
+        "height": 114.5733642578125
+      },
+      "resolvedAudio": {
+        "filePath": "assets\\audio\\s08-flow-analyze.wav",
+        "durationMs": 19575,
+        "subtitleSource": "synthesised",
+        "providerSrt": null,
+        "hasNativeSrt": false,
+        "hash": "66054cc857d5"
+      },
+      "resolvedTiming": {
+        "mode": "speech-fit",
+        "sceneMs": 20003,
+        "ratePct": -0.1,
+        "padVisualMs": 0,
+        "padAudioMs": 0,
+        "warnings": []
+      },
+      "ratePct": -0.1
+    },
+    {
+      "id": "s09-flow-discovery",
+      "title": "s09-flow-discovery",
+      "narration": "Discovery then opens the running app and learns the real controls, labels and routes. Source code can help with setup, but only the running app shows what the user sees. The facts it records are what the tests are written from.",
+      "role": null,
+      "visualEngine": "playwright_web",
+      "captureMode": "screencast",
+      "actionSpec": {
+        "url": "/presentations/e2e-workflow/flow/#y680",
+        "steps": [
+          {
+            "action": "highlight",
+            "selector": "#n-discovery",
+            "gapless": true,
+            "delayMs": 9000
+          },
+          {
+            "action": "highlight",
+            "selector": "#n-discovery_ok",
+            "gapless": true,
+            "delayMs": 5550
+          }
+        ],
+        "showActions": false
+      },
+      "assert": {
+        "visible": [
+          "1B. Live discovery",
+          "Validated discovery handoff"
+        ]
+      },
+      "resolvedVisual": {
+        "filePath": "assets\\recordings\\s09-flow-discovery.mp4",
+        "durationMs": 14650.0830078125,
+        "roi": {
+          "x": 915.8773803710938,
+          "y": 254.70623779296875,
+          "width": 188.63787841796875,
+          "height": 110.57293701171875
+        },
+        "hash": "86357010efce"
+      },
+      "roi": {
+        "x": 915.8773803710938,
+        "y": 254.70623779296875,
+        "width": 188.63787841796875,
+        "height": 110.57293701171875
+      },
+      "resolvedAudio": {
+        "filePath": "assets\\audio\\s09-flow-discovery.r.wav",
+        "durationMs": 14225,
+        "subtitleSource": "synthesised",
+        "providerSrt": null,
+        "hasNativeSrt": false,
+        "hash": "a074a50b8225"
+      },
+      "resolvedTiming": {
+        "mode": "speech-fit",
+        "sceneMs": 14650,
+        "ratePct": -0.7,
+        "padVisualMs": 0,
+        "padAudioMs": 0,
+        "warnings": []
+      },
+      "ratePct": -0.7
+    },
+    {
+      "id": "s10-flow-author",
+      "title": "s10-flow-author",
+      "narration": "Just before authoring, there is one check. Does a criterion have two reasonable interpretations that would give different results, with nothing in the story or the live app to settle it? Only then does it stop and ask you one short question. Otherwise it records its assumption and carries on. Then the author writes the Playwright scenarios. Each one states its data, its user, the visible outcome, and the criterion it proves.",
+      "role": null,
+      "visualEngine": "playwright_web",
+      "captureMode": "screencast",
+      "actionSpec": {
+        "url": "/presentations/e2e-workflow/flow/#y680",
+        "steps": [
+          {
+            "action": "scroll",
+            "delta": 820,
+            "delayMs": 1324
+          },
+          {
+            "action": "highlight",
+            "selector": "#n-decide_scope",
+            "gapless": true,
+            "delayMs": 7122
+          },
+          {
+            "action": "highlight",
+            "selector": "#n-ask_human",
+            "gapless": true,
+            "delayMs": 6200
+          },
+          {
+            "action": "highlight",
+            "selector": "#n-author",
+            "gapless": true,
+            "delayMs": 10666
+          }
+        ],
+        "showActions": false
+      },
+      "assert": {
+        "visible": [
+          "1C. Author specs",
+          "Ask one short"
+        ]
+      },
+      "resolvedVisual": {
+        "filePath": "assets\\recordings\\s10-flow-author.mp4",
+        "durationMs": 25470.344970703125,
+        "roi": {
+          "x": 472.38446044921875,
+          "y": 368.71142578125,
+          "width": 168.88995361328125,
+          "height": 62.93701171875
+        },
+        "hash": "5eec45c09e78"
+      },
+      "roi": {
+        "x": 472.38446044921875,
+        "y": 368.71142578125,
+        "width": 168.88995361328125,
+        "height": 62.93701171875
+      },
+      "resolvedAudio": {
+        "filePath": "assets\\audio\\s10-flow-author.wav",
+        "durationMs": 25100,
+        "subtitleSource": "synthesised",
+        "providerSrt": null,
+        "hasNativeSrt": false,
+        "hash": "c3abe63e4038"
+      },
+      "resolvedTiming": {
+        "mode": "speech-fit",
+        "sceneMs": 25470,
+        "ratePct": 0.1,
+        "padVisualMs": 0,
+        "padAudioMs": 0,
+        "warnings": []
+      },
+      "ratePct": 0.1
+    },
+    {
+      "id": "s11-flow-preflight",
+      "title": "s11-flow-preflight",
+      "narration": "Preflight checks that the tests really match the story before any time is spent on evidence. If it fails, only the spec is fixed, and preflight runs again. When it passes, the story analysis and the tests are frozen: locked, so nothing can change them while the evidence runs.",
+      "role": null,
+      "visualEngine": "playwright_web",
+      "captureMode": "screencast",
+      "actionSpec": {
+        "url": "/presentations/e2e-workflow/flow/#y1500",
+        "steps": [
+          {
+            "action": "scroll",
+            "delta": 400,
+            "delayMs": 1030
+          },
+          {
+            "action": "highlight",
+            "selector": "#n-preflight",
+            "gapless": true,
+            "delayMs": 4650
+          },
+          {
+            "action": "highlight",
+            "selector": "#n-preflight_ok",
+            "gapless": true,
+            "delayMs": 12217
+          }
+        ],
+        "showActions": false
+      },
+      "assert": {
+        "visible": [
+          "1D. Preflight",
+          "Fix spec only"
+        ]
+      },
+      "resolvedVisual": {
+        "filePath": "assets\\recordings\\s11-flow-preflight.mp4",
+        "durationMs": 18059.555908203125,
+        "roi": {
+          "x": 832.0657958984375,
+          "y": 343.1669921875,
+          "width": 169.57000732421875,
+          "height": 109.806640625
+        },
+        "hash": "a567d2be68df"
+      },
+      "roi": {
+        "x": 832.0657958984375,
+        "y": 343.1669921875,
+        "width": 169.57000732421875,
+        "height": 109.806640625
+      },
+      "resolvedAudio": {
+        "filePath": "assets\\audio\\s11-flow-preflight.wav",
+        "durationMs": 17625,
+        "subtitleSource": "synthesised",
+        "providerSrt": null,
+        "hasNativeSrt": false,
+        "hash": "f616126a628f"
+      },
+      "resolvedTiming": {
+        "mode": "speech-fit",
+        "sceneMs": 18060,
+        "ratePct": -0.2,
+        "padVisualMs": 0,
+        "padAudioMs": 0,
+        "warnings": []
+      },
+      "ratePct": -0.2
+    },
+    {
+      "id": "s12-evidence",
+      "title": "Evidence is produced fresh, then judged against the story",
+      "narration": "Phase two runs in four steps. First, it confirms the tests are exactly the ones that passed preflight. Then it runs them against a clean environment and records everything. It generates the report and checks the evidence is fresh. Finally, it reviews the result against the story.",
+      "role": null,
+      "visualEngine": "html_slides",
+      "captureMode": "stills",
+      "slide": {
+        "layout": "lifecycle",
+        "theme": "light",
+        "title": "Evidence is produced fresh, then judged against the story",
+        "pill": null,
+        "body": null,
+        "cards": [
+          {
+            "icon": "file-check",
+            "title": "2A Verify",
+            "detail": "",
+            "text": "Confirm the tests are the ones preflight approved."
+          },
+          {
+            "icon": "play",
+            "title": "2B Run",
+            "detail": "",
+            "text": "A clean environment, with trace, video and screenshots."
+          },
+          {
+            "icon": "file-chart-column",
+            "title": "2C Report",
+            "detail": "",
+            "text": "Fresh and complete, or it does not count."
+          },
+          {
+            "icon": "user-check",
+            "title": "2D Review",
+            "detail": "",
+            "text": "Does the evidence prove every acceptance claim?"
+          }
+        ],
+        "stat": null,
+        "image": null,
+        "htmlPath": null,
+        "portraitHtmlPath": null,
+        "notes": "Phase two runs in four steps. First, it confirms the tests are exactly the ones that passed preflight. Then it runs them against a clean environment and records everything. It generates the report and checks the evidence is fresh. Finally, it reviews the result against the story."
+      },
+      "vertical": {
+        "strategy": "native"
+      },
+      "resolvedVisual": {
+        "filePath": "assets\\recordings\\s12-evidence.mp4",
+        "durationMs": 19067,
+        "roi": null,
+        "hash": "c4db9d6c330e"
+      },
+      "resolvedAudio": {
+        "filePath": "assets\\audio\\s12-evidence.wav",
+        "durationMs": 18650,
+        "subtitleSource": "synthesised",
+        "providerSrt": null,
+        "hasNativeSrt": false,
+        "hash": "c7f4dd0f16d0"
+      },
+      "resolvedTiming": {
+        "mode": "audio-dictates",
+        "sceneMs": 19050,
+        "ratePct": 0,
+        "padVisualMs": 19050,
+        "padAudioMs": 0,
+        "warnings": []
+      },
+      "ratePct": 0
+    },
+    {
+      "id": "s13-outcomes",
+      "title": "A broken test is fixed, not reported",
+      "narration": "Every run ends one of two ways. Either it tells you something about the product: pass, fail or skipped, with the evidence kept. A fail means the tool did its job and found a gap for you to fix. A skip means that part could not be checked in the browser: a required precondition could not be met, or it is a rule only the backend can see, which belongs in a backend test. Or the test itself broke. That is a technical fault. It is rechecked, fixed, and run again with fresh evidence.",
+      "role": null,
+      "visualEngine": "html_slides",
+      "captureMode": "stills",
+      "slide": {
+        "layout": "comparison",
+        "theme": "light",
+        "title": "A broken test is fixed, not reported",
+        "pill": null,
+        "body": null,
+        "cards": [
+          {
+            "icon": "clipboard-check",
+            "title": "PASS, FAIL or SKIPPED",
+            "detail": "Goes in the report",
+            "text": "What the product did, with the evidence kept."
+          },
+          {
+            "icon": "wrench",
+            "title": "Technical fault",
+            "detail": "Rechecked and fixed",
+            "text": "The test or its setup broke. It is fixed and run again."
+          }
+        ],
+        "stat": null,
+        "image": null,
+        "htmlPath": null,
+        "portraitHtmlPath": null,
+        "notes": "Every run ends one of two ways. Either it tells you something about the product: pass, fail or skipped, with the evidence kept. A fail means the tool did its job and found a gap for you to fix. A skip means that part could not be checked in the browser: a required precondition could not be met, or it is a rule only the backend can see, which belongs in a backend test. Or the test itself broke. That is a technical fault. It is rechecked, fixed, and run again with fresh evidence."
+      },
+      "vertical": {
+        "strategy": "native"
+      },
+      "resolvedVisual": {
+        "filePath": "assets\\recordings\\s13-outcomes.mp4",
+        "durationMs": 30134,
+        "roi": null,
+        "hash": "192e8cd09d05"
+      },
+      "resolvedAudio": {
+        "filePath": "assets\\audio\\s13-outcomes.wav",
+        "durationMs": 29725,
+        "subtitleSource": "synthesised",
+        "providerSrt": null,
+        "hasNativeSrt": false,
+        "hash": "dc39d9e6e5b5"
+      },
+      "resolvedTiming": {
+        "mode": "audio-dictates",
+        "sceneMs": 30125,
+        "ratePct": 0,
+        "padVisualMs": 30125,
+        "padAudioMs": 0,
+        "warnings": []
+      },
+      "ratePct": 0
+    },
+    {
+      "id": "s14-flow-review",
+      "title": "s14-flow-review",
+      "narration": "The review then checks whether the evidence really proves each claim. If it does, the final handoff is written, and the coordinator checks that file and the raw results itself.",
+      "role": null,
+      "visualEngine": "playwright_web",
+      "captureMode": "screencast",
+      "actionSpec": {
+        "url": "/presentations/e2e-workflow/flow/#y1900",
+        "steps": [
+          {
+            "action": "scroll",
+            "delta": 1400,
+            "delayMs": 1730
+          },
+          {
+            "action": "highlight",
+            "selector": "#n-review",
+            "gapless": true,
+            "delayMs": 2000
+          },
+          {
+            "action": "highlight",
+            "selector": "#n-review_ok",
+            "gapless": true,
+            "delayMs": 3500
+          },
+          {
+            "action": "highlight",
+            "selector": "#n-handoff",
+            "gapless": true,
+            "delayMs": 4225
+          }
+        ],
+        "showActions": false
+      },
+      "assert": {
+        "visible": [
+          "Evidence proves",
+          "Write final handoff"
+        ]
+      },
+      "resolvedVisual": {
+        "filePath": "assets\\recordings\\s14-flow-review.mp4",
+        "durationMs": 11624.98193359375,
+        "roi": {
+          "x": 997.8289184570312,
+          "y": 405.620361328125,
+          "width": 163.40960693359375,
+          "height": 62.93701171875
+        },
+        "hash": "2be6057321f5"
+      },
+      "roi": {
+        "x": 997.8289184570312,
+        "y": 405.620361328125,
+        "width": 163.40960693359375,
+        "height": 62.93701171875
+      },
+      "resolvedAudio": {
+        "filePath": "assets\\audio\\s14-flow-review.wav",
+        "durationMs": 11175,
+        "subtitleSource": "synthesised",
+        "providerSrt": null,
+        "hasNativeSrt": false,
+        "hash": "f92cec8eae04"
+      },
+      "resolvedTiming": {
+        "mode": "speech-fit",
+        "sceneMs": 11625,
+        "ratePct": -0.4,
+        "padVisualMs": 0,
+        "padAudioMs": 0,
+        "warnings": []
+      },
+      "ratePct": -0.4
+    },
+    {
+      "id": "s15-flow-teardown",
+      "title": "s15-flow-teardown",
+      "narration": "Finally, teardown removes only what this campaign created, and restores the shared development stack. If it cannot be sure what it owns, it stops rather than guessing.",
+      "role": null,
+      "visualEngine": "playwright_web",
+      "captureMode": "screencast",
+      "actionSpec": {
+        "url": "/presentations/e2e-workflow/flow/#y3300",
+        "steps": [
+          {
+            "action": "scroll",
+            "delta": 200,
+            "delayMs": 950
+          },
+          {
+            "action": "highlight",
+            "selector": "#n-teardown",
+            "gapless": true,
+            "delayMs": 5130
+          },
+          {
+            "action": "highlight",
+            "selector": "#n-teardown_ok",
+            "gapless": true,
+            "delayMs": 2200
+          },
+          {
+            "action": "highlight",
+            "selector": "#n-teardown_stop",
+            "gapless": true,
+            "delayMs": 2651
+          }
+        ],
+        "showActions": false
+      },
+      "assert": {
+        "visible": [
+          "Teardown + restore",
+          "Campaign complete"
+        ]
+      },
+      "resolvedVisual": {
+        "filePath": "assets\\recordings\\s15-flow-teardown.mp4",
+        "durationMs": 11093.8798828125,
+        "roi": {
+          "x": 1081.15380859375,
+          "y": 641.912841796875,
+          "width": 207.4256591796875,
+          "height": 62.93701171875
+        },
+        "hash": "9448ae7fdc36"
+      },
+      "roi": {
+        "x": 1081.15380859375,
+        "y": 641.912841796875,
+        "width": 207.4256591796875,
+        "height": 62.93701171875
+      },
+      "resolvedAudio": {
+        "filePath": "assets\\audio\\s16-flow-teardown.wav",
+        "durationMs": 10725,
+        "subtitleSource": "synthesised",
+        "providerSrt": null,
+        "hasNativeSrt": false,
+        "hash": "126aa8832edd"
+      },
+      "resolvedTiming": {
+        "mode": "speech-fit",
+        "sceneMs": 11094,
+        "ratePct": 0.3,
+        "padVisualMs": 0,
+        "padAudioMs": 0,
+        "warnings": []
+      },
+      "ratePct": 0.3
+    },
+    {
+      "id": "s16-failure-routes",
+      "title": "Most failures go to one of four places",
+      "narration": "Most failures go to one of four places. A test problem, stale evidence or weak proof goes back to preflight. A faulty foundation goes back to Phase 0. A genuine ambiguity comes to you as one short question. And an unreachable app, or a teardown that cannot identify its own resources, stops the campaign.",
+      "role": null,
+      "visualEngine": "html_slides",
+      "captureMode": "stills",
+      "slide": {
+        "layout": "tiled",
+        "theme": "light",
+        "title": "Most failures go to one of four places",
+        "pill": null,
+        "body": null,
+        "cards": [
+          {
+            "icon": "undo-2",
+            "title": "Back to preflight",
+            "text": "A spec problem, stale evidence, or weak proof."
+          },
+          {
+            "icon": "layers",
+            "title": "Back to Phase 0",
+            "text": "The shared foundation itself is faulty."
+          },
+          {
+            "icon": "circle-help",
+            "title": "Ask the human",
+            "text": "Two interpretations that change the verdict."
+          },
+          {
+            "icon": "octagon",
+            "title": "Stop",
+            "text": "The app is unreachable, or teardown cannot tell what it owns."
+          }
+        ],
+        "stat": null,
+        "image": null,
+        "htmlPath": null,
+        "portraitHtmlPath": null,
+        "notes": "Most failures go to one of four places. A test problem, stale evidence or weak proof goes back to preflight. A faulty foundation goes back to Phase 0. A genuine ambiguity comes to you as one short question. And an unreachable app, or a teardown that cannot identify its own resources, stops the campaign."
+      },
+      "vertical": {
+        "strategy": "native"
+      },
+      "resolvedVisual": {
+        "filePath": "assets\\recordings\\s16-failure-routes.mp4",
+        "durationMs": 21100,
+        "roi": null,
+        "hash": "e67830cc2d46"
+      },
+      "resolvedAudio": {
+        "filePath": "assets\\audio\\s16-failure-routes.wav",
+        "durationMs": 20700,
+        "subtitleSource": "synthesised",
+        "providerSrt": null,
+        "hasNativeSrt": false,
+        "hash": "f21261234e9e"
+      },
+      "resolvedTiming": {
+        "mode": "audio-dictates",
+        "sceneMs": 21100,
+        "ratePct": 0,
+        "padVisualMs": 21100,
+        "padAudioMs": 0,
+        "warnings": []
+      },
+      "ratePct": 0
+    },
+    {
+      "id": "s17-foundation-gap",
+      "title": "A wrong foundation fix is worse than a skip.",
+      "narration": "Foundation repairs get extra checks. When a subagent finds that a small foundation change would unblock a real outcome, it reports the gap instead of making the change. The coordinator sends one subagent to fix it, and a different one to check the fix against the app's real code. A wrong fix can make a test pass when it should not, and a false pass is worse than an honest skip. After two attempts, the decision comes to you.",
+      "role": null,
+      "visualEngine": "html_slides",
+      "captureMode": "stills",
+      "slide": {
+        "layout": "statement",
+        "theme": "light",
+        "title": "A wrong foundation fix is worse than a skip.",
+        "pill": null,
+        "body": null,
+        "cards": [],
+        "stat": null,
+        "image": null,
+        "htmlPath": null,
+        "portraitHtmlPath": null,
+        "notes": "Foundation repairs get extra checks. When a subagent finds that a small foundation change would unblock a real outcome, it reports the gap instead of making the change. The coordinator sends one subagent to fix it, and a different one to check the fix against the app's real code. A wrong fix can make a test pass when it should not, and a false pass is worse than an honest skip. After two attempts, the decision comes to you."
+      },
+      "vertical": {
+        "strategy": "native"
+      },
+      "resolvedVisual": {
+        "filePath": "assets\\recordings\\s17-foundation-gap.mp4",
+        "durationMs": 25900,
+        "roi": null,
+        "hash": "2a570c72aac7"
+      },
+      "resolvedAudio": {
+        "filePath": "assets\\audio\\s17-foundation-gap.wav",
+        "durationMs": 25500,
+        "subtitleSource": "synthesised",
+        "providerSrt": null,
+        "hasNativeSrt": false,
+        "hash": "e1f0773bdf90"
+      },
+      "resolvedTiming": {
+        "mode": "audio-dictates",
+        "sceneMs": 25900,
+        "ratePct": 0,
+        "padVisualMs": 25900,
+        "padAudioMs": 0,
+        "warnings": []
+      },
+      "ratePct": 0
+    },
+    {
+      "id": "s18-summary",
+      "title": "What happens when you run the E2E command",
+      "narration": "To sum up. The first run builds the foundation, and every campaign after that checks it. Phase one turns the story into tests, using the running app. Phase two runs those tests on a clean environment and reviews the result. Your part is to confirm the story, answer a question if one comes up, and read the verdict.",
+      "role": null,
+      "visualEngine": "html_slides",
+      "captureMode": "stills",
+      "slide": {
+        "layout": "lifecycle",
+        "theme": "light",
+        "title": "What happens when you run the E2E command",
+        "pill": null,
+        "body": null,
+        "cards": [
+          {
+            "icon": "layers",
+            "title": "Phase 0",
+            "detail": "",
+            "text": "The foundation is built once, then checked every run."
+          },
+          {
+            "icon": "list-checks",
+            "title": "Phase 1",
+            "detail": "",
+            "text": "Tests are prepared from the story and the live app."
+          },
+          {
+            "icon": "play",
+            "title": "Phase 2",
+            "detail": "",
+            "text": "The tests run fresh, and the result is reviewed against the story."
+          }
+        ],
+        "stat": null,
+        "image": null,
+        "htmlPath": null,
+        "portraitHtmlPath": null,
+        "notes": "To sum up. The first run builds the foundation, and every campaign after that checks it. Phase one turns the story into tests, using the running app. Phase two runs those tests on a clean environment and reviews the result. Your part is to confirm the story, answer a question if one comes up, and read the verdict."
+      },
+      "vertical": {
+        "strategy": "native"
+      },
+      "resolvedVisual": {
+        "filePath": "assets\\recordings\\s18-summary.mp4",
+        "durationMs": 20800,
+        "roi": null,
+        "hash": "4cc3b03a5943"
+      },
+      "resolvedAudio": {
+        "filePath": "assets\\audio\\s18-summary.wav",
+        "durationMs": 20400,
+        "subtitleSource": "synthesised",
+        "providerSrt": null,
+        "hasNativeSrt": false,
+        "hash": "982e2a555257"
+      },
+      "resolvedTiming": {
+        "mode": "audio-dictates",
+        "sceneMs": 20800,
+        "ratePct": 0,
+        "padVisualMs": 20800,
+        "padAudioMs": 0,
+        "warnings": []
+      },
+      "ratePct": 0
+    }
+  ]
+}

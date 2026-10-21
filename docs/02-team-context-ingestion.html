@@ -224,6 +224,9 @@
       line-height: 1.55;
     }
     tr:last-child td { border-bottom: none; }
+    .table-wrap { overflow-x: auto; margin: 14px 0; }
+    .table-wrap table { margin: 0; }  /* margin lives on the wrapper so it still collapses with neighbours */
+    @media (max-width: 860px) { .table-wrap td:first-child { white-space: normal; } }
     td:first-child { white-space: nowrap; font-weight: 600; }
 
     /* ── Code ── */
@@ -822,12 +825,30 @@
     .phase-toggle { margin-left: auto; font-size: 0.8rem; color: var(--text-subtle); transition: transform 0.2s; }
 
     @media (max-width: 640px) {
+      code { overflow-wrap: anywhere; }  /* long commands and paths may break rather than overflow */
+      .emr-example-label { overflow-wrap: anywhere; }
+      /* Stack each table row into a card; data-label carries the column heading */
+      .table-wrap thead { display: none; }
+      .table-wrap table, .table-wrap tbody, .table-wrap tr, .table-wrap td { display: block; width: 100%; }
+      .table-wrap tr { border-bottom: 1px solid var(--border); }
+      .table-wrap tr:last-child { border-bottom: none; }
+      .table-wrap td { border-bottom: none; padding: 4px 14px; }
+      .table-wrap td:first-child { white-space: normal; padding-top: 12px; color: var(--text); }
+      .table-wrap td:last-child { padding-bottom: 12px; }
+      .table-wrap td[data-label]:not(:first-child)::before {
+        content: attr(data-label);
+        display: block;
+        margin-bottom: 2px;
+        font-size: 0.68rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.07em;
+        color: var(--text-subtle);
+      }
       h1 { font-size: 1.6rem; }
       .step-header { flex-wrap: wrap; }
       .lesson-nav { flex-direction: column; align-items: flex-start; gap: 8px; }
       .output-row .label { min-width: 100px; }
-      .topnav-inner { padding: 0 16px; }
-      .topnav-link { padding: 0 10px; font-size: 0.76rem; gap: 5px; }
     }
 
     /* ── Page sidenav ── */
@@ -846,6 +867,29 @@
       box-shadow: var(--shadow-sm);
     }
     @media (min-width: 1400px) { .page-sidenav { display: block; } }
+    /* ── Inline "On this page" menu below the title, built from .page-sidenav for screens too narrow for the sidebar ── */
+    .page-toc { margin: 16px 0 8px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow-sm); }
+    .page-toc > summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 14px;
+      cursor: pointer;
+      list-style: none;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--orange);
+    }
+    .page-toc > summary::-webkit-details-marker { display: none; }
+    .page-toc > summary::after { content: '▾'; font-size: 0.8rem; color: var(--text-subtle); transition: transform 0.2s; }
+    .page-toc[open] > summary::after { transform: rotate(180deg); }
+    .page-toc nav { display: flex; flex-direction: column; padding: 4px 0 8px; border-top: 1px solid var(--border); }
+    .page-toc nav a { padding: 10px 14px; font-size: 0.85rem; line-height: 1.4; color: var(--text-muted); text-decoration: none; }
+    .page-toc nav a:hover { color: var(--text); background: var(--border-light); text-decoration: none; }
+    .page-toc nav a.page-toc-sub { padding-left: 30px; font-size: 0.8rem; }
+    @media (min-width: 1400px) { .page-toc { display: none; } }
     .sidenav-label {
       font-size: 0.62rem;
       font-weight: 700;
@@ -905,6 +949,24 @@
     .snav-group.collapsed { max-height: 0; }
     [id] { scroll-margin-top: 68px; }
     h2[id] { scroll-margin-top: 80px; }
+
+    /* ── Narrow-screen top nav: brand + toggle on row 1, scrollable lesson links on row 2 ── */
+    @media (max-width: 860px) {
+      .topnav-inner { height: auto; flex-wrap: wrap; padding: 8px 16px 0; row-gap: 4px; }
+      .topnav-divider { display: none; }
+      .topnav-links { order: 3; flex: 1 0 100%; overflow-x: auto; scrollbar-width: none; padding-bottom: 6px; }
+      .topnav-links::-webkit-scrollbar { display: none; }
+      .topnav-link { padding: 10px; min-height: 40px; font-size: 0.76rem; gap: 5px; }
+      .theme-toggle { width: 40px; height: 40px; }
+      [id] { scroll-margin-top: 112px; }
+      h2[id] { scroll-margin-top: 124px; }
+    }
+
+    /* ── Phone readability: left-align justified text, raise the smallest labels ── */
+    @media (max-width: 640px) {
+      p, .lead { text-align: left; }
+      .chip, .copy-btn, .flow-phase-header, .flow-num, .quiz-heading-label, .topnav-step, .video-placeholder-label, .step-details > summary::after, .table-wrap td[data-label]:not(:first-child)::before { font-size: 0.7rem; }
+    }
   </style>
 </head>
 <body>
@@ -1020,7 +1082,7 @@
     </div>
   </details>
 
-  <div class="phase-table-wrap">
+  <div class="table-wrap">
     <table>
       <thead>
         <tr>
@@ -1032,34 +1094,34 @@
       </thead>
       <tbody>
         <tr>
-          <td><strong>1. Requirements</strong></td>
-          <td>Business domain intent, persona maps, scope boundaries</td>
-          <td><code>/speckit-specify</code>, <code>/wayfinder</code>, CLARA</td>
-          <td>Agent designs the wrong features and user stories miss domain vocabulary</td>
+          <td data-label="Phase"><strong>1. Requirements</strong></td>
+          <td data-label="What to inject">Business domain intent, persona maps, scope boundaries</td>
+          <td data-label="Skill(s) that consume it"><code>/speckit-specify</code>, <code>/wayfinder</code>, CLARA</td>
+          <td data-label="Cost of skipping">Agent designs the wrong features and user stories miss domain vocabulary</td>
         </tr>
         <tr>
-          <td><strong>2. Application Architecture Standards</strong></td>
-          <td>Shared architecture standards, integration recipes, ADR templates</td>
-          <td><code>/dependency-orchestrator</code>, <code>/wayfinder</code></td>
-          <td>Stories are decomposed without structural constraints, causing upstream architectural flaws to propagate into every ticket</td>
+          <td data-label="Phase"><strong>2. Application Architecture Standards</strong></td>
+          <td data-label="What to inject">Shared architecture standards, integration recipes, ADR templates</td>
+          <td data-label="Skill(s) that consume it"><code>/dependency-orchestrator</code>, <code>/wayfinder</code></td>
+          <td data-label="Cost of skipping">Stories are decomposed without structural constraints, causing upstream architectural flaws to propagate into every ticket</td>
         </tr>
         <tr>
-          <td><strong>3. Compliance</strong></td>
-          <td>Regulatory and security policies (IM8, ARC, custom)</td>
-          <td><code>/spec-compliance</code>, <code>/policies</code></td>
-          <td>Policy gaps survive into implementation, requiring a rework sprint</td>
+          <td data-label="Phase"><strong>3. Compliance</strong></td>
+          <td data-label="What to inject">Regulatory and security policies (IM8, ARC, custom)</td>
+          <td data-label="Skill(s) that consume it"><code>/spec-compliance</code>, <code>/policies</code></td>
+          <td data-label="Cost of skipping">Policy gaps survive into implementation, requiring a rework sprint</td>
         </tr>
         <tr>
-          <td><strong>4. Implementation</strong></td>
-          <td>Coding best practices, framework guides, API reference docs</td>
-          <td><code>/do-work</code> (via <code>/query-kb</code> → Bedrock)</td>
-          <td>Agent writes code against stale training-data APIs, resulting in build failures and type errors</td>
+          <td data-label="Phase"><strong>4. Implementation</strong></td>
+          <td data-label="What to inject">Coding best practices, framework guides, API reference docs</td>
+          <td data-label="Skill(s) that consume it"><code>/do-work</code> (via <code>/query-kb</code> → Bedrock)</td>
+          <td data-label="Cost of skipping">Agent writes code against stale training-data APIs, resulting in build failures and type errors</td>
         </tr>
         <tr>
-          <td><strong>5. Execution &amp; Code Review</strong></td>
-          <td>Repository coding style, quality gate thresholds, Registered Checks</td>
-          <td><code>/code-reviewer</code>, <code>/do-work</code></td>
-          <td>Agent runs the wrong suite of checks, and convention violations pass through undetected</td>
+          <td data-label="Phase"><strong>5. Execution &amp; Code Review</strong></td>
+          <td data-label="What to inject">Repository coding style, quality gate thresholds, Registered Checks</td>
+          <td data-label="Skill(s) that consume it"><code>/code-reviewer</code>, <code>/do-work</code></td>
+          <td data-label="Cost of skipping">Agent runs the wrong suite of checks, and convention violations pass through undetected</td>
         </tr>
       </tbody>
     </table>
@@ -1637,6 +1699,40 @@ export BEDROCK_KB_TAG_VALUE="emr-system"</code></pre>
     window.addEventListener('scroll', update, { passive: true });
     update();
   })();
+
+  // Inline "On this page" menu for screens too narrow for the sidebar, built from the sidebar's links
+  (function() {
+    var sidenav = document.querySelector('.page-sidenav');
+    var title = document.querySelector('.page-wrap h1');
+    if (!sidenav || !title) return;
+    var toc = document.createElement('details');
+    toc.className = 'page-toc';
+    toc.innerHTML = '<summary>On this page</summary><nav></nav>';
+    var list = toc.querySelector('nav');
+    function addLink(href, source, isSub) {
+      var a = document.createElement('a');
+      a.href = href;
+      a.innerHTML = source.innerHTML.trim();
+      if (isSub) a.className = 'page-toc-sub';
+      list.appendChild(a);
+    }
+    sidenav.querySelectorAll('.sidenav-link, .sidenav-toggle').forEach(function(el) {
+      if (el.classList.contains('sidenav-toggle')) {
+        var label = el.cloneNode(true);
+        var chevron = label.querySelector('.snav-chevron');
+        if (chevron) chevron.remove();
+        addLink(el.dataset.href, label, false);
+      } else {
+        addLink(el.getAttribute('href'), el, el.classList.contains('sidenav-sub'));
+      }
+    });
+    // Collapse before the jump so the target lands where the shorter page puts it
+    list.addEventListener('click', function(e) {
+      if (e.target.closest('a')) toc.open = false;
+    });
+    var lead = title.nextElementSibling;
+    (lead && lead.classList.contains('lead') ? lead : title).after(toc);
+  })();
 </script>
 <script>
   (function() {
@@ -1658,6 +1754,12 @@ export BEDROCK_KB_TAG_VALUE="emr-system"</code></pre>
     if (document.documentElement.getAttribute('data-theme') === 'dark') {
       btn.setAttribute('aria-label', 'Switch to light mode');
       btn.setAttribute('title', 'Switch to light mode');
+    }
+    // On narrow screens the lesson links scroll sideways; centre the current lesson in view
+    var activeLink = document.querySelector('.topnav-link.active');
+    if (activeLink) {
+      var linkRow = activeLink.parentElement;
+      linkRow.scrollLeft = activeLink.offsetLeft - linkRow.offsetLeft - (linkRow.clientWidth - activeLink.offsetWidth) / 2;
     }
   })();
 </script>

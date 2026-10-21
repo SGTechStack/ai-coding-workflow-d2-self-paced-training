@@ -33,6 +33,16 @@
         .tag-base { background: #334155; color: #CBD5E1; font-size: 10px; padding: 2px 8px; border-radius: 4px; font-weight: 600; line-height: 14px; }
         .cmd-text { font-family: 'SF Mono', 'Fira Code', Consolas, monospace; font-size: 11.5px; font-weight: 600; letter-spacing: -0.3px; color: #E2E8F0; word-wrap: break-word; }
         .cmd-desc { font-size: 11px; color: #94A3B8; margin-top: 6px; line-height: 1.35; }
+        /* Narrower screens: fewer columns; minmax(0, 1fr) lets long commands wrap instead of widening a column */
+        @media (max-width: 1140px) { .phase-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+        @media (max-width: 820px) { .phase-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+        @media (max-width: 640px) {
+            .phase-grid { grid-template-columns: minmax(0, 1fr); }
+            .slide-deck { padding: 12px; }
+            .slide-board { padding: 16px; border-radius: 12px; }
+            .slide-board h2.text-3xl { font-size: 1.5rem; line-height: 2rem; }  /* outranks Tailwind's CDN-injected .text-3xl */
+            .cmd-text { overflow-wrap: anywhere; }
+        }
     </style>
 </head>
 <body>

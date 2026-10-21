@@ -706,14 +706,17 @@
     .vch-name { font-size: 1rem; font-weight: 800; color: white; text-align: center; line-height: 1.3; letter-spacing: -0.01em; }
     .video-card-h .video-card-body { flex: 1; border-top: none; border-left: 1px solid var(--border); display: flex; flex-direction: column; justify-content: center; }
 
-    @media (max-width: 640px) {
-      h1 { font-size: 1.9rem; }
+    /* Below ~790px the flow can't keep its intended 6 + 1 rows, so stack it vertically */
+    @media (max-width: 800px) {
       .mp-flow { flex-direction: column; }
       .mp-flow-step { border-right: none; border-bottom: 1px solid var(--border); }
       .mp-flow-step::after { content: '↓'; right: auto; top: auto; bottom: -10px; left: 50%; transform: translateX(-50%); }
       .mp-flow-step:last-child { border-bottom: none; }
-      .topnav-inner { padding: 0 16px; }
-      .topnav-link { padding: 0 10px; font-size: 0.76rem; gap: 5px; }
+    }
+
+    @media (max-width: 640px) {
+      code { overflow-wrap: anywhere; }  /* long commands and paths may break rather than overflow */
+      h1 { font-size: 1.9rem; }
       .video-grid { grid-template-columns: 1fr; }
       .video-card-title { font-size: 0.8rem; }
       .video-card-h { flex-direction: column; }
@@ -759,6 +762,29 @@
       box-shadow: var(--shadow-sm);
     }
     @media (min-width: 1400px) { .page-sidenav { display: block; } }
+    /* ── Inline "On this page" menu below the title, built from .page-sidenav for screens too narrow for the sidebar ── */
+    .page-toc { margin: 16px 0 8px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow-sm); }
+    .page-toc > summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 14px;
+      cursor: pointer;
+      list-style: none;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--orange);
+    }
+    .page-toc > summary::-webkit-details-marker { display: none; }
+    .page-toc > summary::after { content: '▾'; font-size: 0.8rem; color: var(--text-subtle); transition: transform 0.2s; }
+    .page-toc[open] > summary::after { transform: rotate(180deg); }
+    .page-toc nav { display: flex; flex-direction: column; padding: 4px 0 8px; border-top: 1px solid var(--border); }
+    .page-toc nav a { padding: 10px 14px; font-size: 0.85rem; line-height: 1.4; color: var(--text-muted); text-decoration: none; }
+    .page-toc nav a:hover { color: var(--text); background: var(--border-light); text-decoration: none; }
+    .page-toc nav a.page-toc-sub { padding-left: 30px; font-size: 0.8rem; }
+    @media (min-width: 1400px) { .page-toc { display: none; } }
     .sidenav-label {
       font-size: 0.62rem;
       font-weight: 700;
@@ -833,6 +859,25 @@
     .callout p, .callout li { text-align: justify; }
     .page-wrap p { text-align: justify; }
     .key-articles-list { text-align: left; }
+
+    /* ── Narrow-screen top nav: brand + toggle on row 1, scrollable lesson links on row 2 ── */
+    @media (max-width: 860px) {
+      .topnav-inner { height: auto; flex-wrap: wrap; padding: 8px 16px 0; row-gap: 4px; }
+      .topnav-divider { display: none; }
+      .topnav-links { order: 3; flex: 1 0 100%; overflow-x: auto; scrollbar-width: none; padding-bottom: 6px; }
+      .topnav-links::-webkit-scrollbar { display: none; }
+      .topnav-link { padding: 10px; min-height: 40px; font-size: 0.76rem; gap: 5px; }
+      .theme-toggle { width: 40px; height: 40px; }
+      [id] { scroll-margin-top: 112px; }
+      h2[id] { scroll-margin-top: 164px; }
+      .track-header[id] { scroll-margin-top: 119px; }
+    }
+
+    /* ── Phone readability: left-align justified text, raise the smallest labels ── */
+    @media (max-width: 640px) {
+      .fot-q details summary, .fot-answer, .concept-desc, .mp-flow-desc, .track-desc, .lead, .callout p, .callout li, .page-wrap p { text-align: left; }
+      .chip, .copy-btn, .phase-num-badge, .key-articles-label, .topnav-step, .video-ts-badge, .vch-source { font-size: 0.7rem; }
+    }
   </style>
 </head>
 <body>
@@ -1465,6 +1510,40 @@
     window.addEventListener('scroll', update, { passive: true });
     update();
   })();
+
+  // Inline "On this page" menu for screens too narrow for the sidebar, built from the sidebar's links
+  (function() {
+    var sidenav = document.querySelector('.page-sidenav');
+    var title = document.querySelector('.page-wrap h1');
+    if (!sidenav || !title) return;
+    var toc = document.createElement('details');
+    toc.className = 'page-toc';
+    toc.innerHTML = '<summary>On this page</summary><nav></nav>';
+    var list = toc.querySelector('nav');
+    function addLink(href, source, isSub) {
+      var a = document.createElement('a');
+      a.href = href;
+      a.innerHTML = source.innerHTML.trim();
+      if (isSub) a.className = 'page-toc-sub';
+      list.appendChild(a);
+    }
+    sidenav.querySelectorAll('.sidenav-link, .sidenav-toggle').forEach(function(el) {
+      if (el.classList.contains('sidenav-toggle')) {
+        var label = el.cloneNode(true);
+        var chevron = label.querySelector('.snav-chevron');
+        if (chevron) chevron.remove();
+        addLink(el.dataset.href, label, false);
+      } else {
+        addLink(el.getAttribute('href'), el, el.classList.contains('sidenav-sub'));
+      }
+    });
+    // Collapse before the jump so the target lands where the shorter page puts it
+    list.addEventListener('click', function(e) {
+      if (e.target.closest('a')) toc.open = false;
+    });
+    var lead = title.nextElementSibling;
+    (lead && lead.classList.contains('lead') ? lead : title).after(toc);
+  })();
 </script>
 <script>
   (function() {
@@ -1486,6 +1565,12 @@
     if (document.documentElement.getAttribute('data-theme') === 'dark') {
       btn.setAttribute('aria-label', 'Switch to light mode');
       btn.setAttribute('title', 'Switch to light mode');
+    }
+    // On narrow screens the lesson links scroll sideways; centre the current lesson in view
+    var activeLink = document.querySelector('.topnav-link.active');
+    if (activeLink) {
+      var linkRow = activeLink.parentElement;
+      linkRow.scrollLeft = activeLink.offsetLeft - linkRow.offsetLeft - (linkRow.clientWidth - activeLink.offsetWidth) / 2;
     }
   })();
 </script>

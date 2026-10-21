@@ -585,6 +585,9 @@
       color: var(--text-muted);
     }
     tr:last-child td { border-bottom: none; }
+    .table-wrap { overflow-x: auto; margin: 14px 0; }
+    .table-wrap table { margin: 0; }  /* margin lives on the wrapper so it still collapses with neighbours */
+    @media (max-width: 860px) { .table-wrap td:first-child { white-space: normal; } }
     td code { font-size: 0.82em; }
     td:first-child { font-weight: 600; color: var(--text); white-space: nowrap; }
 
@@ -783,6 +786,29 @@
       box-shadow: var(--shadow-sm);
     }
     @media (min-width: 1400px) { .page-sidenav { display: block; } }
+    /* ── Inline "On this page" menu below the title, built from .page-sidenav for screens too narrow for the sidebar ── */
+    .page-toc { margin: 16px 0 8px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow-sm); }
+    .page-toc > summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 14px;
+      cursor: pointer;
+      list-style: none;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--orange);
+    }
+    .page-toc > summary::-webkit-details-marker { display: none; }
+    .page-toc > summary::after { content: '▾'; font-size: 0.8rem; color: var(--text-subtle); transition: transform 0.2s; }
+    .page-toc[open] > summary::after { transform: rotate(180deg); }
+    .page-toc nav { display: flex; flex-direction: column; padding: 4px 0 8px; border-top: 1px solid var(--border); }
+    .page-toc nav a { padding: 10px 14px; font-size: 0.85rem; line-height: 1.4; color: var(--text-muted); text-decoration: none; }
+    .page-toc nav a:hover { color: var(--text); background: var(--border-light); text-decoration: none; }
+    .page-toc nav a.page-toc-sub { padding-left: 30px; font-size: 0.8rem; }
+    @media (min-width: 1400px) { .page-toc { display: none; } }
     .sidenav-label {
       font-size: 0.62rem;
       font-weight: 700;
@@ -835,11 +861,49 @@
     h2[id] { scroll-margin-top: 80px; }
 
     @media (max-width: 640px) {
+      code { overflow-wrap: anywhere; }  /* long commands and paths may break rather than overflow */
+      .emr-example-label { overflow-wrap: anywhere; }
+      .pm-flow-connector { display: block; }  /* as flex, each text run and <code> was a separate unwrappable item */
+      .output-row .label { min-width: 0; flex-shrink: 1; }
+      /* Stack each table row into a card; data-label carries the column heading */
+      .table-wrap thead { display: none; }
+      .table-wrap table, .table-wrap tbody, .table-wrap tr, .table-wrap td { display: block; width: 100%; }
+      .table-wrap tr { border-bottom: 1px solid var(--border); }
+      .table-wrap tr:last-child { border-bottom: none; }
+      .table-wrap td { border-bottom: none; padding: 4px 14px; }
+      .table-wrap td:first-child { white-space: normal; padding-top: 12px; color: var(--text); }
+      .table-wrap td:last-child { padding-bottom: 12px; }
+      .table-wrap td[data-label]:not(:first-child)::before {
+        content: attr(data-label);
+        display: block;
+        margin-bottom: 2px;
+        font-size: 0.68rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.07em;
+        color: var(--text-subtle);
+      }
       h1 { font-size: 1.8rem; }
-      .topnav-inner { padding: 0 16px; }
-      .topnav-link { padding: 0 8px; font-size: 0.72rem; gap: 4px; }
       .screenshot-grid { grid-template-columns: 1fr; }
       .pm-flow-step { gap: 12px; }
+    }
+
+    /* ── Narrow-screen top nav: brand + toggle on row 1, scrollable lesson links on row 2 ── */
+    @media (max-width: 860px) {
+      .topnav-inner { height: auto; flex-wrap: wrap; padding: 8px 16px 0; row-gap: 4px; }
+      .topnav-divider { display: none; }
+      .topnav-links { order: 3; flex: 1 0 100%; overflow-x: auto; scrollbar-width: none; padding-bottom: 6px; }
+      .topnav-links::-webkit-scrollbar { display: none; }
+      .topnav-link { padding: 10px; min-height: 40px; font-size: 0.76rem; gap: 5px; }
+      .theme-toggle { width: 40px; height: 40px; }
+      [id] { scroll-margin-top: 112px; }
+      h2[id] { scroll-margin-top: 124px; }
+    }
+
+    /* ── Phone readability: left-align justified text, raise the smallest labels ── */
+    @media (max-width: 640px) {
+      .lead, p, li, .step-body p, .fot-q details summary, .fot-answer { text-align: left; }
+      .topnav-step, .chip, .copy-btn, .story-card-label, .fot-label, .video-placeholder-label, .step-details > summary::after, .table-wrap td[data-label]:not(:first-child)::before { font-size: 0.7rem; }
     }
   </style>
 </head>
@@ -1048,21 +1112,23 @@
       <h3>Using <code>/grill-with-docs</code> or <code>/wayfinder</code> to sharpen stories</h3>
       <p>Before finalising your story list, run it through one of these skills with the Tech Lead. Both will surface ambiguities that would otherwise only appear mid-implementation:</p>
 
-      <table>
-        <thead><tr><th style="width:150px">Skill</th><th>Best used when</th><th>What it produces</th></tr></thead>
-        <tbody>
-          <tr>
-            <td><code>/grill-with-docs</code></td>
-            <td>You have a rough idea and want to think it through. The skill interviews you to extract requirements and challenges assumptions</td>
-            <td>Architecture Decision Records (ADRs) and a domain glossary alongside a refined story list</td>
-          </tr>
-          <tr>
-            <td><code>/wayfinder</code></td>
-            <td>You have a complex, multi-path problem with several unknowns that need to be resolved as decision tickets</td>
-            <td>A set of decision tickets resolved one at a time, producing a clear route through the complexity</td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th style="width:150px">Skill</th><th>Best used when</th><th>What it produces</th></tr></thead>
+          <tbody>
+            <tr>
+              <td data-label="Skill"><code>/grill-with-docs</code></td>
+              <td data-label="Best used when">You have a rough idea and want to think it through. The skill interviews you to extract requirements and challenges assumptions</td>
+              <td data-label="What it produces">Architecture Decision Records (ADRs) and a domain glossary alongside a refined story list</td>
+            </tr>
+            <tr>
+              <td data-label="Skill"><code>/wayfinder</code></td>
+              <td data-label="Best used when">You have a complex, multi-path problem with several unknowns that need to be resolved as decision tickets</td>
+              <td data-label="What it produces">A set of decision tickets resolved one at a time, producing a clear route through the complexity</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
       <div class="fot-block">
         <div class="fot-label">Food for thought</div>
@@ -1721,6 +1787,12 @@
       btn.setAttribute('aria-label', 'Switch to light mode');
       btn.setAttribute('title', 'Switch to light mode');
     }
+    // On narrow screens the lesson links scroll sideways; centre the current lesson in view
+    var activeLink = document.querySelector('.topnav-link.active');
+    if (activeLink) {
+      var linkRow = activeLink.parentElement;
+      linkRow.scrollLeft = activeLink.offsetLeft - linkRow.offsetLeft - (linkRow.clientWidth - activeLink.offsetWidth) / 2;
+    }
   })();
 
   // Copy buttons
@@ -1754,6 +1826,40 @@
     }
     window.addEventListener('scroll', update, { passive: true });
     update();
+  })();
+
+  // Inline "On this page" menu for screens too narrow for the sidebar, built from the sidebar's links
+  (function() {
+    var sidenav = document.querySelector('.page-sidenav');
+    var title = document.querySelector('.page-wrap h1');
+    if (!sidenav || !title) return;
+    var toc = document.createElement('details');
+    toc.className = 'page-toc';
+    toc.innerHTML = '<summary>On this page</summary><nav></nav>';
+    var list = toc.querySelector('nav');
+    function addLink(href, source, isSub) {
+      var a = document.createElement('a');
+      a.href = href;
+      a.innerHTML = source.innerHTML.trim();
+      if (isSub) a.className = 'page-toc-sub';
+      list.appendChild(a);
+    }
+    sidenav.querySelectorAll('.sidenav-link, .sidenav-toggle').forEach(function(el) {
+      if (el.classList.contains('sidenav-toggle')) {
+        var label = el.cloneNode(true);
+        var chevron = label.querySelector('.snav-chevron');
+        if (chevron) chevron.remove();
+        addLink(el.dataset.href, label, false);
+      } else {
+        addLink(el.getAttribute('href'), el, el.classList.contains('sidenav-sub'));
+      }
+    });
+    // Collapse before the jump so the target lands where the shorter page puts it
+    list.addEventListener('click', function(e) {
+      if (e.target.closest('a')) toc.open = false;
+    });
+    var lead = title.nextElementSibling;
+    (lead && lead.classList.contains('lead') ? lead : title).after(toc);
   })();
 </script>
 

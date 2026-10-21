@@ -664,8 +664,6 @@
       .mp-flow-step { border-right: none; border-bottom: 1px solid var(--border); }
       .mp-flow-step::after { content: '↓'; right: auto; top: auto; bottom: -10px; left: 50%; transform: translateX(-50%); }
       .mp-flow-step:last-child { border-bottom: none; }
-      .topnav-inner { padding: 0 16px; }
-      .topnav-link { padding: 0 10px; font-size: 0.76rem; gap: 5px; }
       .video-grid { grid-template-columns: 1fr; }
       .video-card-title { font-size: 0.8rem; }
       .video-card-h { flex-direction: column; }
@@ -762,6 +760,19 @@
     .callout p, .callout li { text-align: justify; }
     .page-wrap p { text-align: justify; }
     .key-articles-list { text-align: left; }
+
+    /* ── Narrow-screen top nav: brand + toggle on row 1, scrollable lesson links on row 2 ── */
+    @media (max-width: 860px) {
+      .topnav-inner { height: auto; flex-wrap: wrap; padding: 8px 16px 0; row-gap: 4px; }
+      .topnav-divider { display: none; }
+      .topnav-links { order: 3; flex: 1 0 100%; overflow-x: auto; scrollbar-width: none; padding-bottom: 6px; }
+      .topnav-links::-webkit-scrollbar { display: none; }
+      .topnav-link { padding: 10px; min-height: 40px; font-size: 0.76rem; gap: 5px; }
+      .theme-toggle { width: 40px; height: 40px; }
+      [id] { scroll-margin-top: 112px; }
+      h2[id] { scroll-margin-top: 164px; }
+      .track-header[id] { scroll-margin-top: 119px; }
+    }
   </style>
 </head>
 <body>
@@ -1394,6 +1405,12 @@
     if (document.documentElement.getAttribute('data-theme') === 'dark') {
       btn.setAttribute('aria-label', 'Switch to light mode');
       btn.setAttribute('title', 'Switch to light mode');
+    }
+    // On narrow screens the lesson links scroll sideways; centre the current lesson in view
+    var activeLink = document.querySelector('.topnav-link.active');
+    if (activeLink) {
+      var linkRow = activeLink.parentElement;
+      linkRow.scrollLeft = activeLink.offsetLeft - linkRow.offsetLeft - (linkRow.clientWidth - activeLink.offsetWidth) / 2;
     }
   })();
 </script>

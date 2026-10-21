@@ -813,6 +813,8 @@
     .step-details[open] > summary { padding-bottom: 14px; margin-bottom: 4px; }
 
     @media (max-width: 640px) {
+      code { overflow-wrap: anywhere; }  /* long commands and paths may break rather than overflow */
+      .emr-example-label { overflow-wrap: anywhere; }
       /* Stack each table row into a card; data-label carries the column heading */
       .table-wrap thead { display: none; }
       .table-wrap table, .table-wrap tbody, .table-wrap tr, .table-wrap td { display: block; width: 100%; }
@@ -1388,100 +1390,100 @@ git clone https://github.com/SGTechStack/App-Standards</code></pre>
     <form id="quiz-form">
       <div class="quiz-question">
         <h3>1. What three specific components are provided by the AppStandards repository to enforce organisational conventions?</h3>
-        <label class="quiz-option"><input type="radio" name="q1" value="a"> CI/CD pipelines, Dockerfiles, and Kubernetes manifests</label>
-        <label class="quiz-option"><input type="radio" name="q1" value="b"> Standard patterns/design decisions, implementation recipes, and grilling questions</label>
-        <label class="quiz-option"><input type="radio" name="q1" value="c"> Compliance frameworks, penetration testing tools, and vulnerability scanners</label>
-        <label class="quiz-option"><input type="radio" name="q1" value="d"> Unit tests, integration tests, and end-to-end browser tests</label>
+        <label class="quiz-option"><input type="radio" name="q1" value="a"><span>CI/CD pipelines, Dockerfiles, and Kubernetes manifests</span></label>
+        <label class="quiz-option"><input type="radio" name="q1" value="b"><span>Standard patterns/design decisions, implementation recipes, and grilling questions</span></label>
+        <label class="quiz-option"><input type="radio" name="q1" value="c"><span>Compliance frameworks, penetration testing tools, and vulnerability scanners</span></label>
+        <label class="quiz-option"><input type="radio" name="q1" value="d"><span>Unit tests, integration tests, and end-to-end browser tests</span></label>
         <div class="quiz-explanation"><strong>Why (b) is correct:</strong> The AppStandards repository provides design decisions/patterns, implementation recipes, and grilling questions for the agent to reference. It is a documentation and recipe library, not a repository for CI/CD infrastructure (a), security testing tools (c), or application tests (d).</div>
       </div>
 
       <div class="quiz-question">
         <h3>2. What critical planning artefact does <code>/dependency-orchestrator</code> produce before any code is written?</h3>
-        <label class="quiz-option"><input type="radio" name="q2" value="a"> A DAG-based wave plan that sequences user stories in dependency order for PM and dev teams</label>
-        <label class="quiz-option"><input type="radio" name="q2" value="b"> A compliance audit report of the TRD against IM8 and ARC governance control frameworks</label>
-        <label class="quiz-option"><input type="radio" name="q2" value="c"> A set of runnable ArchUnit boundary tests derived from the project's wayfinder ADRs</label>
-        <label class="quiz-option"><input type="radio" name="q2" value="d"> A set of vertical tracer-bullet issues decomposed from the compliance-approved TRD directly</label>
+        <label class="quiz-option"><input type="radio" name="q2" value="a"><span>A DAG-based wave plan that sequences user stories in dependency order for PM and dev teams</span></label>
+        <label class="quiz-option"><input type="radio" name="q2" value="b"><span>A compliance audit report of the TRD against IM8 and ARC governance control frameworks</span></label>
+        <label class="quiz-option"><input type="radio" name="q2" value="c"><span>A set of runnable ArchUnit boundary tests derived from the project's wayfinder ADRs</span></label>
+        <label class="quiz-option"><input type="radio" name="q2" value="d"><span>A set of vertical tracer-bullet issues decomposed from the compliance-approved TRD directly</span></label>
         <div class="quiz-explanation"><strong>Why (a) is correct:</strong> <code>/dependency-orchestrator</code> builds a DAG-based wave plan — the story-sequencing layer Matt Pocock's harness has no equivalent of. Option (b) describes <code>/spec-compliance</code>, (c) describes <code>/arch-tests-gen</code>, and (d) describes <code>/to-tickets</code>.</div>
       </div>
 
       <div class="quiz-question">
         <h3>3. How does <code>/arch-tests-gen</code> prevent architectural drift from slipping through code review?</h3>
-        <label class="quiz-option"><input type="radio" name="q3" value="a"> By relying on the <code>/code-reviewer</code> agent to spot layer violations during the PR review phase</label>
-        <label class="quiz-option"><input type="radio" name="q3" value="b"> By compiling ADRs into build-failing ArchUnit and dependency-cruiser tests</label>
-        <label class="quiz-option"><input type="radio" name="q3" value="c"> By scanning the codebase with Semgrep to detect when developers bypass the service layer</label>
-        <label class="quiz-option"><input type="radio" name="q3" value="d"> By generating an HTML report of all dependency graphs for the lead architect to manually approve</label>
+        <label class="quiz-option"><input type="radio" name="q3" value="a"><span>By relying on the <code>/code-reviewer</code> agent to spot layer violations during the PR review phase</span></label>
+        <label class="quiz-option"><input type="radio" name="q3" value="b"><span>By compiling ADRs into build-failing ArchUnit and dependency-cruiser tests</span></label>
+        <label class="quiz-option"><input type="radio" name="q3" value="c"><span>By scanning the codebase with Semgrep to detect when developers bypass the service layer</span></label>
+        <label class="quiz-option"><input type="radio" name="q3" value="d"><span>By generating an HTML report of all dependency graphs for the lead architect to manually approve</span></label>
         <div class="quiz-explanation"><strong>Why (b) is correct:</strong> <code>/arch-tests-gen</code> translates documented ADRs into executable boundary tests (ArchUnit/dependency-cruiser) that fail the build if violated, catching drift automatically. It does not rely on the AI reviewer catching it (a), Semgrep rules (c), or manual visual approvals of dependency graphs (d).</div>
       </div>
 
       <div class="quiz-question">
         <h3>4. Why does <code>/spec-compliance</code> run at Step 7 — before <code>/to-tickets</code> at Step 8?</h3>
-        <label class="quiz-option"><input type="radio" name="q4" value="a"> Because the ArchUnit tests generated in Step 4 require the compliance audit to complete first</label>
-        <label class="quiz-option"><input type="radio" name="q4" value="b"> Because <code>/to-tickets</code> cannot access the issue tracker until a compliance-approved label is set</label>
-        <label class="quiz-option"><input type="radio" name="q4" value="c"> Because fixing a compliance flaw in the document costs one edit now, whereas finding it post-implementation requires a full rework sprint</label>
-        <label class="quiz-option"><input type="radio" name="q4" value="d"> Because the mutation gate in <code>/do-work</code> depends on the compliance report being present at the start</label>
+        <label class="quiz-option"><input type="radio" name="q4" value="a"><span>Because the ArchUnit tests generated in Step 4 require the compliance audit to complete first</span></label>
+        <label class="quiz-option"><input type="radio" name="q4" value="b"><span>Because <code>/to-tickets</code> cannot access the issue tracker until a compliance-approved label is set</span></label>
+        <label class="quiz-option"><input type="radio" name="q4" value="c"><span>Because fixing a compliance flaw in the document costs one edit now, whereas finding it post-implementation requires a full rework sprint</span></label>
+        <label class="quiz-option"><input type="radio" name="q4" value="d"><span>Because the mutation gate in <code>/do-work</code> depends on the compliance report being present at the start</span></label>
         <div class="quiz-explanation"><strong>Why (c) is correct:</strong> A TRD flaw caught at Step 7 costs one edit; caught post-implementation it costs a rework sprint. Options (a), (b), and (d) describe dependencies between steps that don't exist — ArchUnit tests don't require the compliance report, and <code>/to-tickets</code> doesn't check labels before running.</div>
       </div>
 
       <div class="quiz-question">
         <h3>5. Which three axes does <code>/issue-verification</code> use to vet issues, and which internal skill does it rely on?</h3>
-        <label class="quiz-option"><input type="radio" name="q5" value="a"> Correctness, completeness, and testability — using <code>/spec-compliance</code> as the internal reviewer</label>
-        <label class="quiz-option"><input type="radio" name="q5" value="b"> Verticality, coverage, and compliance — using <code>/mutation-testing</code> as the internal quality gate</label>
-        <label class="quiz-option"><input type="radio" name="q5" value="c"> Demoability, scope alignment, and code quality — using <code>/code-reviewer</code> as the internal audit</label>
-        <label class="quiz-option"><input type="radio" name="q5" value="d"> Verticality, demoability, and well-specifiedness — using <code>/fry-me</code> as the internal challenger</label>
+        <label class="quiz-option"><input type="radio" name="q5" value="a"><span>Correctness, completeness, and testability — using <code>/spec-compliance</code> as the internal reviewer</span></label>
+        <label class="quiz-option"><input type="radio" name="q5" value="b"><span>Verticality, coverage, and compliance — using <code>/mutation-testing</code> as the internal quality gate</span></label>
+        <label class="quiz-option"><input type="radio" name="q5" value="c"><span>Demoability, scope alignment, and code quality — using <code>/code-reviewer</code> as the internal audit</span></label>
+        <label class="quiz-option"><input type="radio" name="q5" value="d"><span>Verticality, demoability, and well-specifiedness — using <code>/fry-me</code> as the internal challenger</span></label>
         <div class="quiz-explanation"><strong>Why (d) is correct:</strong> The three axes are verticality, demoability, and well-specifiedness. The internal skill is <code>/fry-me</code>. Options (a), (b), and (c) each substitute incorrect axis names or the wrong internal skill.</div>
       </div>
 
       <div class="quiz-question">
         <h3>6. What is the primary purpose of the <code>/grill-me</code> skill before entering a HITL gate?</h3>
-        <label class="quiz-option"><input type="radio" name="q6" value="a"> To automatically fix compliance violations in the codebase before handing off to a human reviewer</label>
-        <label class="quiz-option"><input type="radio" name="q6" value="b"> To generate an HTML report of all architectural flaws for the reviewer</label>
-        <label class="quiz-option"><input type="radio" name="q6" value="c"> To play devil's advocate and force you to defend or refine your design decisions before review</label>
-        <label class="quiz-option"><input type="radio" name="q6" value="d"> To bypass the HITL gate if the developer provides sufficient justification</label>
+        <label class="quiz-option"><input type="radio" name="q6" value="a"><span>To automatically fix compliance violations in the codebase before handing off to a human reviewer</span></label>
+        <label class="quiz-option"><input type="radio" name="q6" value="b"><span>To generate an HTML report of all architectural flaws for the reviewer</span></label>
+        <label class="quiz-option"><input type="radio" name="q6" value="c"><span>To play devil's advocate and force you to defend or refine your design decisions before review</span></label>
+        <label class="quiz-option"><input type="radio" name="q6" value="d"><span>To bypass the HITL gate if the developer provides sufficient justification</span></label>
         <div class="quiz-explanation"><strong>Why (c) is correct:</strong> <code>/grill-me</code> acts as a Socratic challenger to surface hidden assumptions and align decisions before you hit a formal HITL gate. It does not automatically fix code (a), generate HTML reports (b), or bypass human review (d).</div>
       </div>
 
       <div class="quiz-question">
         <h3>7. What is the specific exit condition for the <code>/do-work</code> self-steering loop?</h3>
-        <label class="quiz-option"><input type="radio" name="q7" value="a"> All unit tests pass and the build succeeds without any compilation errors at runtime</label>
-        <label class="quiz-option"><input type="radio" name="q7" value="b"> Must-fix count is zero and all compile, test, coverage, and compliance gates are green</label>
-        <label class="quiz-option"><input type="radio" name="q7" value="c"> The mutation kill rate exceeds 80% on the full codebase and all coverage thresholds are met</label>
-        <label class="quiz-option"><input type="radio" name="q7" value="d"> A human approves the implementation at HITL Gate 2 after reviewing the consolidated report</label>
+        <label class="quiz-option"><input type="radio" name="q7" value="a"><span>All unit tests pass and the build succeeds without any compilation errors at runtime</span></label>
+        <label class="quiz-option"><input type="radio" name="q7" value="b"><span>Must-fix count is zero and all compile, test, coverage, and compliance gates are green</span></label>
+        <label class="quiz-option"><input type="radio" name="q7" value="c"><span>The mutation kill rate exceeds 80% on the full codebase and all coverage thresholds are met</span></label>
+        <label class="quiz-option"><input type="radio" name="q7" value="d"><span>A human approves the implementation at HITL Gate 2 after reviewing the consolidated report</span></label>
         <div class="quiz-explanation"><strong>Why (b) is correct:</strong> The convergence condition is Must-fix = 0 <em>and</em> all compile, test, coverage, and compliance gates green — not any single gate alone. Unit tests passing (a) is just one gate. Mutation threshold (c) is one gate. HITL Gate 2 (d) is a planning-phase gate that runs before <code>/do-work</code> begins, not as its exit condition.</div>
       </div>
 
       <div class="quiz-question">
         <h3>8. Why is the <code>/mutation-testing</code> gate specifically scoped to changed files rather than the entire codebase?</h3>
-        <label class="quiz-option"><input type="radio" name="q8" value="a"> To exclude mutation survivors in unchanged files from the 70% kill rate threshold calculation</label>
-        <label class="quiz-option"><input type="radio" name="q8" value="b"> To recalculate coverage metrics only for the files modified in the current feature slice</label>
-        <label class="quiz-option"><input type="radio" name="q8" value="c"> To keep the feedback loop fast enough to run on every iteration without slowing down delivery</label>
-        <label class="quiz-option"><input type="radio" name="q8" value="d"> To ensure mutation testing completes before the compile-and-test gate runs inside the do-work loop</label>
+        <label class="quiz-option"><input type="radio" name="q8" value="a"><span>To exclude mutation survivors in unchanged files from the 70% kill rate threshold calculation</span></label>
+        <label class="quiz-option"><input type="radio" name="q8" value="b"><span>To recalculate coverage metrics only for the files modified in the current feature slice</span></label>
+        <label class="quiz-option"><input type="radio" name="q8" value="c"><span>To keep the feedback loop fast enough to run on every iteration without slowing down delivery</span></label>
+        <label class="quiz-option"><input type="radio" name="q8" value="d"><span>To ensure mutation testing completes before the compile-and-test gate runs inside the do-work loop</span></label>
         <div class="quiz-explanation"><strong>Why (c) is correct:</strong> Scoping to changed files keeps the gate fast per feature slice — fast enough to run on every loop iteration without slowing delivery. Option (a) describes a side-effect, not the design intent. Options (b) and (d) describe mechanisms that don't match how the mutation and coverage gates work inside the loop.</div>
       </div>
 
       <div class="quiz-question">
         <h3>9. You need to check only IM8 security controls on a changeset, without running all other reviewers. Which invocation is correct?</h3>
-        <label class="quiz-option"><input type="radio" name="q9" value="a"> <code>/code-reviewer im8</code> — runs only the IM8 Application Technical Controls review on the diff</label>
-        <label class="quiz-option"><input type="radio" name="q9" value="b"> <code>/code-reviewer standards</code> — checks the changeset against the repo's CODING_STANDARDS.md</label>
-        <label class="quiz-option"><input type="radio" name="q9" value="c"> <code>/code-reviewer semgrep</code> — scans the changeset for injection flaws and hardcoded secrets</label>
-        <label class="quiz-option"><input type="radio" name="q9" value="d"> <code>/code-reviewer springboot</code> — runs all eight Spring Boot specialist reviewers on the diff</label>
+        <label class="quiz-option"><input type="radio" name="q9" value="a"><span><code>/code-reviewer im8</code> — runs only the IM8 Application Technical Controls review on the diff</span></label>
+        <label class="quiz-option"><input type="radio" name="q9" value="b"><span><code>/code-reviewer standards</code> — checks the changeset against the repo's CODING_STANDARDS.md</span></label>
+        <label class="quiz-option"><input type="radio" name="q9" value="c"><span><code>/code-reviewer semgrep</code> — scans the changeset for injection flaws and hardcoded secrets</span></label>
+        <label class="quiz-option"><input type="radio" name="q9" value="d"><span><code>/code-reviewer springboot</code> — runs all eight Spring Boot specialist reviewers on the diff</span></label>
         <div class="quiz-explanation"><strong>Why (a) is correct:</strong> <code>/code-reviewer im8</code> targets the IM8 Application Technical Controls reviewer specifically. <code>standards</code> (b) checks repo-convention compliance via CODING_STANDARDS.md. <code>semgrep</code> (c) scans for injection and secrets patterns. <code>springboot</code> (d) runs all eight Spring Boot specialist reviewers — more than you asked for.</div>
       </div>
 
       <div class="quiz-question">
         <h3>10. When customising the <code>/do-work</code> skill for your stack, what is the purpose of the <code>skills/do-work/common/kb-router.md</code> file?</h3>
-        <label class="quiz-option"><input type="radio" name="q10" value="a"> To map code signals (like imports) to Bedrock knowledge base prefixes so the agent retrieves the right docs automatically</label>
-        <label class="quiz-option"><input type="radio" name="q10" value="b"> To define the network routing rules and API gateways for the application's internal microservices</label>
-        <label class="quiz-option"><input type="radio" name="q10" value="c"> To specify which developers on the team are routed specific pull requests for manual review</label>
-        <label class="quiz-option"><input type="radio" name="q10" value="d"> To configure the HTTP endpoints the <code>/issue-verification</code> skill uses to demo the application</label>
+        <label class="quiz-option"><input type="radio" name="q10" value="a"><span>To map code signals (like imports) to Bedrock knowledge base prefixes so the agent retrieves the right docs automatically</span></label>
+        <label class="quiz-option"><input type="radio" name="q10" value="b"><span>To define the network routing rules and API gateways for the application's internal microservices</span></label>
+        <label class="quiz-option"><input type="radio" name="q10" value="c"><span>To specify which developers on the team are routed specific pull requests for manual review</span></label>
+        <label class="quiz-option"><input type="radio" name="q10" value="d"><span>To configure the HTTP endpoints the <code>/issue-verification</code> skill uses to demo the application</span></label>
         <div class="quiz-explanation"><strong>Why (a) is correct:</strong> The KB router maps codebase signals (like a specific SDK import) to a Bedrock knowledge base prefix, allowing <code>/do-work</code> to proactively retrieve the right documentation. It is not used for network routing (b), PR assignments (c), or endpoint configuration (d).</div>
       </div>
 
       <div class="quiz-question">
         <h3>11. <code>/arch-tests-gen</code> (Step 4) uses <code>&lt;feature&gt;</code> placeholders in boundary tests. What does <code>/arch-tests-gen-feature</code> (Step 13) specifically add?</h3>
-        <label class="quiz-option"><input type="radio" name="q11" value="a"> It extends the rule plan with new architectural constraints discovered during feature implementation</label>
-        <label class="quiz-option"><input type="radio" name="q11" value="b"> It instantiates the placeholders with real package and folder names for the slice just built</label>
-        <label class="quiz-option"><input type="radio" name="q11" value="c"> It regenerates the full dependency-cruiser configuration to cover all features built so far</label>
-        <label class="quiz-option"><input type="radio" name="q11" value="d"> It recompiles all ArchUnit tests to enforce the updated ADRs from the current wayfinder session</label>
+        <label class="quiz-option"><input type="radio" name="q11" value="a"><span>It extends the rule plan with new architectural constraints discovered during feature implementation</span></label>
+        <label class="quiz-option"><input type="radio" name="q11" value="b"><span>It instantiates the placeholders with real package and folder names for the slice just built</span></label>
+        <label class="quiz-option"><input type="radio" name="q11" value="c"><span>It regenerates the full dependency-cruiser configuration to cover all features built so far</span></label>
+        <label class="quiz-option"><input type="radio" name="q11" value="d"><span>It recompiles all ArchUnit tests to enforce the updated ADRs from the current wayfinder session</span></label>
         <div class="quiz-explanation"><strong>Why (b) is correct:</strong> <code>/arch-tests-gen-feature</code> replaces <code>&lt;feature&gt;</code> placeholders with real package and folder names for the slice just built. Option (a) describes extending the rule plan — that's <code>/arch-tests-plan</code>. Option (c) describes regenerating the full dependency-cruiser config. Option (d) describes recompiling from updated ADRs — that's <code>/arch-tests-gen</code>.</div>
       </div>
 

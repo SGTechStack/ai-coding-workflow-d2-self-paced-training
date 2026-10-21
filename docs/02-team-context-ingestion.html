@@ -825,6 +825,8 @@
     .phase-toggle { margin-left: auto; font-size: 0.8rem; color: var(--text-subtle); transition: transform 0.2s; }
 
     @media (max-width: 640px) {
+      code { overflow-wrap: anywhere; }  /* long commands and paths may break rather than overflow */
+      .emr-example-label { overflow-wrap: anywhere; }
       /* Stack each table row into a card; data-label carries the column heading */
       .table-wrap thead { display: none; }
       .table-wrap table, .table-wrap tbody, .table-wrap tr, .table-wrap td { display: block; width: 100%; }

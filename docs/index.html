@@ -659,6 +659,7 @@
     .video-card-h .video-card-body { flex: 1; border-top: none; border-left: 1px solid var(--border); display: flex; flex-direction: column; justify-content: center; }
 
     @media (max-width: 640px) {
+      code { overflow-wrap: anywhere; }  /* long commands and paths may break rather than overflow */
       h1 { font-size: 1.9rem; }
       .mp-flow { flex-direction: column; }
       .mp-flow-step { border-right: none; border-bottom: 1px solid var(--border); }

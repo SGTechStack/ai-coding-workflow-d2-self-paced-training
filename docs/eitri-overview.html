@@ -395,6 +395,7 @@
     .cta-btn:hover { background: #c2410c; box-shadow: 0 3px 12px rgba(234,88,12,.35); text-decoration: none; }
 
     @media (max-width: 640px) {
+      code { overflow-wrap: anywhere; }  /* long commands and paths may break rather than overflow */
       h1 { font-size: 1.9rem; }
       .module-body { flex-direction: column; }
       .module-arrow { display: none; }

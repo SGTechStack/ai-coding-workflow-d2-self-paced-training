@@ -224,6 +224,9 @@
       line-height: 1.55;
     }
     tr:last-child td { border-bottom: none; }
+    .table-wrap { overflow-x: auto; margin: 14px 0; }
+    .table-wrap table { margin: 0; }  /* margin lives on the wrapper so it still collapses with neighbours */
+    @media (max-width: 860px) { .table-wrap td:first-child { white-space: normal; } }
     td:first-child { white-space: nowrap; font-weight: 600; }
 
     /* ── Code ── */
@@ -822,6 +825,24 @@
     .phase-toggle { margin-left: auto; font-size: 0.8rem; color: var(--text-subtle); transition: transform 0.2s; }
 
     @media (max-width: 640px) {
+      /* Stack each table row into a card; data-label carries the column heading */
+      .table-wrap thead { display: none; }
+      .table-wrap table, .table-wrap tbody, .table-wrap tr, .table-wrap td { display: block; width: 100%; }
+      .table-wrap tr { border-bottom: 1px solid var(--border); }
+      .table-wrap tr:last-child { border-bottom: none; }
+      .table-wrap td { border-bottom: none; padding: 4px 14px; }
+      .table-wrap td:first-child { white-space: normal; padding-top: 12px; color: var(--text); }
+      .table-wrap td:last-child { padding-bottom: 12px; }
+      .table-wrap td[data-label]:not(:first-child)::before {
+        content: attr(data-label);
+        display: block;
+        margin-bottom: 2px;
+        font-size: 0.68rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.07em;
+        color: var(--text-subtle);
+      }
       h1 { font-size: 1.6rem; }
       .step-header { flex-wrap: wrap; }
       .lesson-nav { flex-direction: column; align-items: flex-start; gap: 8px; }
@@ -1030,7 +1051,7 @@
     </div>
   </details>
 
-  <div class="phase-table-wrap">
+  <div class="table-wrap">
     <table>
       <thead>
         <tr>
@@ -1042,34 +1063,34 @@
       </thead>
       <tbody>
         <tr>
-          <td><strong>1. Requirements</strong></td>
-          <td>Business domain intent, persona maps, scope boundaries</td>
-          <td><code>/speckit-specify</code>, <code>/wayfinder</code>, CLARA</td>
-          <td>Agent designs the wrong features and user stories miss domain vocabulary</td>
+          <td data-label="Phase"><strong>1. Requirements</strong></td>
+          <td data-label="What to inject">Business domain intent, persona maps, scope boundaries</td>
+          <td data-label="Skill(s) that consume it"><code>/speckit-specify</code>, <code>/wayfinder</code>, CLARA</td>
+          <td data-label="Cost of skipping">Agent designs the wrong features and user stories miss domain vocabulary</td>
         </tr>
         <tr>
-          <td><strong>2. Application Architecture Standards</strong></td>
-          <td>Shared architecture standards, integration recipes, ADR templates</td>
-          <td><code>/dependency-orchestrator</code>, <code>/wayfinder</code></td>
-          <td>Stories are decomposed without structural constraints, causing upstream architectural flaws to propagate into every ticket</td>
+          <td data-label="Phase"><strong>2. Application Architecture Standards</strong></td>
+          <td data-label="What to inject">Shared architecture standards, integration recipes, ADR templates</td>
+          <td data-label="Skill(s) that consume it"><code>/dependency-orchestrator</code>, <code>/wayfinder</code></td>
+          <td data-label="Cost of skipping">Stories are decomposed without structural constraints, causing upstream architectural flaws to propagate into every ticket</td>
         </tr>
         <tr>
-          <td><strong>3. Compliance</strong></td>
-          <td>Regulatory and security policies (IM8, ARC, custom)</td>
-          <td><code>/spec-compliance</code>, <code>/policies</code></td>
-          <td>Policy gaps survive into implementation, requiring a rework sprint</td>
+          <td data-label="Phase"><strong>3. Compliance</strong></td>
+          <td data-label="What to inject">Regulatory and security policies (IM8, ARC, custom)</td>
+          <td data-label="Skill(s) that consume it"><code>/spec-compliance</code>, <code>/policies</code></td>
+          <td data-label="Cost of skipping">Policy gaps survive into implementation, requiring a rework sprint</td>
         </tr>
         <tr>
-          <td><strong>4. Implementation</strong></td>
-          <td>Coding best practices, framework guides, API reference docs</td>
-          <td><code>/do-work</code> (via <code>/query-kb</code> → Bedrock)</td>
-          <td>Agent writes code against stale training-data APIs, resulting in build failures and type errors</td>
+          <td data-label="Phase"><strong>4. Implementation</strong></td>
+          <td data-label="What to inject">Coding best practices, framework guides, API reference docs</td>
+          <td data-label="Skill(s) that consume it"><code>/do-work</code> (via <code>/query-kb</code> → Bedrock)</td>
+          <td data-label="Cost of skipping">Agent writes code against stale training-data APIs, resulting in build failures and type errors</td>
         </tr>
         <tr>
-          <td><strong>5. Execution &amp; Code Review</strong></td>
-          <td>Repository coding style, quality gate thresholds, Registered Checks</td>
-          <td><code>/code-reviewer</code>, <code>/do-work</code></td>
-          <td>Agent runs the wrong suite of checks, and convention violations pass through undetected</td>
+          <td data-label="Phase"><strong>5. Execution &amp; Code Review</strong></td>
+          <td data-label="What to inject">Repository coding style, quality gate thresholds, Registered Checks</td>
+          <td data-label="Skill(s) that consume it"><code>/code-reviewer</code>, <code>/do-work</code></td>
+          <td data-label="Cost of skipping">Agent runs the wrong suite of checks, and convention violations pass through undetected</td>
         </tr>
       </tbody>
     </table>

@@ -224,6 +224,9 @@
       line-height: 1.55;
     }
     tr:last-child td { border-bottom: none; }
+    .table-wrap { overflow-x: auto; margin: 14px 0; }
+    .table-wrap table { margin: 0; }  /* margin lives on the wrapper so it still collapses with neighbours */
+    @media (max-width: 860px) { .table-wrap td:first-child { white-space: normal; } }
 
     /* ── Code ── */
     code {
@@ -810,6 +813,24 @@
     .step-details[open] > summary { padding-bottom: 14px; margin-bottom: 4px; }
 
     @media (max-width: 640px) {
+      /* Stack each table row into a card; data-label carries the column heading */
+      .table-wrap thead { display: none; }
+      .table-wrap table, .table-wrap tbody, .table-wrap tr, .table-wrap td { display: block; width: 100%; }
+      .table-wrap tr { border-bottom: 1px solid var(--border); }
+      .table-wrap tr:last-child { border-bottom: none; }
+      .table-wrap td { border-bottom: none; padding: 4px 14px; }
+      .table-wrap td:first-child { white-space: normal; padding-top: 12px; color: var(--text); }
+      .table-wrap td:last-child { padding-bottom: 12px; }
+      .table-wrap td[data-label]:not(:first-child)::before {
+        content: attr(data-label);
+        display: block;
+        margin-bottom: 2px;
+        font-size: 0.68rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.07em;
+        color: var(--text-subtle);
+      }
       h1 { font-size: 1.6rem; }
       .step-header { flex-wrap: wrap; }
       .lesson-nav { flex-direction: column; align-items: flex-start; gap: 8px; }
@@ -1064,23 +1085,25 @@ git clone https://github.com/SGTechStack/App-Standards</code></pre>
   <div class="callout blue" style="margin-bottom:24px">
     <div class="callout-title">The three reference stories</div>
     <p>Every example in this lesson traces back to one of these three user stories. Keep them in mind as you read.</p>
-    <table style="margin-top:12px;border:none">
-      <thead><tr><th style="width:130px">Story</th><th>User story</th></tr></thead>
-      <tbody>
-        <tr>
-          <td><strong>Registration</strong></td>
-          <td>As a nurse, I want to register a new patient so they have a record in the system before clinical assessment begins.</td>
-        </tr>
-        <tr>
-          <td><strong>Triage</strong></td>
-          <td>As a nurse, I want to record vital signs and assign a TOCC risk flag so the Emergency Department can prioritise treatment.</td>
-        </tr>
-        <tr>
-          <td><strong>Consultation</strong></td>
-          <td>As an attending physician, I want to document a consultation, prescribe medication, and generate a referral letter so the patient's care pathway is tracked and the encounter is ready for handoff or discharge.</td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="table-wrap" style="margin-top:12px">
+      <table style="border:none">
+        <thead><tr><th style="width:130px">Story</th><th>User story</th></tr></thead>
+        <tbody>
+          <tr>
+            <td data-label="Story"><strong>Registration</strong></td>
+            <td data-label="User story">As a nurse, I want to register a new patient so they have a record in the system before clinical assessment begins.</td>
+          </tr>
+          <tr>
+            <td data-label="Story"><strong>Triage</strong></td>
+            <td data-label="User story">As a nurse, I want to record vital signs and assign a TOCC risk flag so the Emergency Department can prioritise treatment.</td>
+          </tr>
+          <tr>
+            <td data-label="Story"><strong>Consultation</strong></td>
+            <td data-label="User story">As an attending physician, I want to document a consultation, prescribe medication, and generate a referral letter so the patient's care pathway is tracked and the encounter is ready for handoff or discharge.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 
   <h2 id="planning-sequencing">Planning &amp; Story Sequencing</h2>

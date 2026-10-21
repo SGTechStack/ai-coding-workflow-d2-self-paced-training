@@ -585,6 +585,9 @@
       color: var(--text-muted);
     }
     tr:last-child td { border-bottom: none; }
+    .table-wrap { overflow-x: auto; margin: 14px 0; }
+    .table-wrap table { margin: 0; }  /* margin lives on the wrapper so it still collapses with neighbours */
+    @media (max-width: 860px) { .table-wrap td:first-child { white-space: normal; } }
     td code { font-size: 0.82em; }
     td:first-child { font-weight: 600; color: var(--text); white-space: nowrap; }
 
@@ -835,6 +838,24 @@
     h2[id] { scroll-margin-top: 80px; }
 
     @media (max-width: 640px) {
+      /* Stack each table row into a card; data-label carries the column heading */
+      .table-wrap thead { display: none; }
+      .table-wrap table, .table-wrap tbody, .table-wrap tr, .table-wrap td { display: block; width: 100%; }
+      .table-wrap tr { border-bottom: 1px solid var(--border); }
+      .table-wrap tr:last-child { border-bottom: none; }
+      .table-wrap td { border-bottom: none; padding: 4px 14px; }
+      .table-wrap td:first-child { white-space: normal; padding-top: 12px; color: var(--text); }
+      .table-wrap td:last-child { padding-bottom: 12px; }
+      .table-wrap td[data-label]:not(:first-child)::before {
+        content: attr(data-label);
+        display: block;
+        margin-bottom: 2px;
+        font-size: 0.68rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.07em;
+        color: var(--text-subtle);
+      }
       h1 { font-size: 1.8rem; }
       .screenshot-grid { grid-template-columns: 1fr; }
       .pm-flow-step { gap: 12px; }
@@ -1058,21 +1079,23 @@
       <h3>Using <code>/grill-with-docs</code> or <code>/wayfinder</code> to sharpen stories</h3>
       <p>Before finalising your story list, run it through one of these skills with the Tech Lead. Both will surface ambiguities that would otherwise only appear mid-implementation:</p>
 
-      <table>
-        <thead><tr><th style="width:150px">Skill</th><th>Best used when</th><th>What it produces</th></tr></thead>
-        <tbody>
-          <tr>
-            <td><code>/grill-with-docs</code></td>
-            <td>You have a rough idea and want to think it through. The skill interviews you to extract requirements and challenges assumptions</td>
-            <td>Architecture Decision Records (ADRs) and a domain glossary alongside a refined story list</td>
-          </tr>
-          <tr>
-            <td><code>/wayfinder</code></td>
-            <td>You have a complex, multi-path problem with several unknowns that need to be resolved as decision tickets</td>
-            <td>A set of decision tickets resolved one at a time, producing a clear route through the complexity</td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th style="width:150px">Skill</th><th>Best used when</th><th>What it produces</th></tr></thead>
+          <tbody>
+            <tr>
+              <td data-label="Skill"><code>/grill-with-docs</code></td>
+              <td data-label="Best used when">You have a rough idea and want to think it through. The skill interviews you to extract requirements and challenges assumptions</td>
+              <td data-label="What it produces">Architecture Decision Records (ADRs) and a domain glossary alongside a refined story list</td>
+            </tr>
+            <tr>
+              <td data-label="Skill"><code>/wayfinder</code></td>
+              <td data-label="Best used when">You have a complex, multi-path problem with several unknowns that need to be resolved as decision tickets</td>
+              <td data-label="What it produces">A set of decision tickets resolved one at a time, producing a clear route through the complexity</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
       <div class="fot-block">
         <div class="fot-label">Food for thought</div>

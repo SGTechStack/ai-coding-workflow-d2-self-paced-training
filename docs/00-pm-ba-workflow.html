@@ -786,6 +786,29 @@
       box-shadow: var(--shadow-sm);
     }
     @media (min-width: 1400px) { .page-sidenav { display: block; } }
+    /* ── Inline "On this page" menu below the title, built from .page-sidenav for screens too narrow for the sidebar ── */
+    .page-toc { margin: 16px 0 8px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow-sm); }
+    .page-toc > summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 14px;
+      cursor: pointer;
+      list-style: none;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--orange);
+    }
+    .page-toc > summary::-webkit-details-marker { display: none; }
+    .page-toc > summary::after { content: '▾'; font-size: 0.8rem; color: var(--text-subtle); transition: transform 0.2s; }
+    .page-toc[open] > summary::after { transform: rotate(180deg); }
+    .page-toc nav { display: flex; flex-direction: column; padding: 4px 0 8px; border-top: 1px solid var(--border); }
+    .page-toc nav a { padding: 10px 14px; font-size: 0.85rem; line-height: 1.4; color: var(--text-muted); text-decoration: none; }
+    .page-toc nav a:hover { color: var(--text); background: var(--border-light); text-decoration: none; }
+    .page-toc nav a.page-toc-sub { padding-left: 30px; font-size: 0.8rem; }
+    @media (min-width: 1400px) { .page-toc { display: none; } }
     .sidenav-label {
       font-size: 0.62rem;
       font-weight: 700;
@@ -1803,6 +1826,40 @@
     }
     window.addEventListener('scroll', update, { passive: true });
     update();
+  })();
+
+  // Inline "On this page" menu for screens too narrow for the sidebar, built from the sidebar's links
+  (function() {
+    var sidenav = document.querySelector('.page-sidenav');
+    var title = document.querySelector('.page-wrap h1');
+    if (!sidenav || !title) return;
+    var toc = document.createElement('details');
+    toc.className = 'page-toc';
+    toc.innerHTML = '<summary>On this page</summary><nav></nav>';
+    var list = toc.querySelector('nav');
+    function addLink(href, source, isSub) {
+      var a = document.createElement('a');
+      a.href = href;
+      a.innerHTML = source.innerHTML.trim();
+      if (isSub) a.className = 'page-toc-sub';
+      list.appendChild(a);
+    }
+    sidenav.querySelectorAll('.sidenav-link, .sidenav-toggle').forEach(function(el) {
+      if (el.classList.contains('sidenav-toggle')) {
+        var label = el.cloneNode(true);
+        var chevron = label.querySelector('.snav-chevron');
+        if (chevron) chevron.remove();
+        addLink(el.dataset.href, label, false);
+      } else {
+        addLink(el.getAttribute('href'), el, el.classList.contains('sidenav-sub'));
+      }
+    });
+    // Collapse before the jump so the target lands where the shorter page puts it
+    list.addEventListener('click', function(e) {
+      if (e.target.closest('a')) toc.open = false;
+    });
+    var lead = title.nextElementSibling;
+    (lead && lead.classList.contains('lead') ? lead : title).after(toc);
   })();
 </script>
 

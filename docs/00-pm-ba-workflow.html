@@ -876,6 +876,12 @@
       [id] { scroll-margin-top: 112px; }
       h2[id] { scroll-margin-top: 124px; }
     }
+
+    /* ── Phone readability: left-align justified text, raise the smallest labels ── */
+    @media (max-width: 640px) {
+      .lead, p, li, .step-body p, .fot-q details summary, .fot-answer { text-align: left; }
+      .topnav-step, .chip, .copy-btn, .story-card-label, .fot-label, .video-placeholder-label, .step-details > summary::after, .table-wrap td[data-label]:not(:first-child)::before { font-size: 0.7rem; }
+    }
   </style>
 </head>
 <body>

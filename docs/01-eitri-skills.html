@@ -926,6 +926,12 @@
       [id] { scroll-margin-top: 112px; }
       h2[id] { scroll-margin-top: 124px; }
     }
+
+    /* ── Phone readability: left-align justified text, raise the smallest labels ── */
+    @media (max-width: 640px) {
+      p, .lead { text-align: left; }
+      .chip, .copy-btn, .flow-phase-header, .flow-num, .quiz-heading-label, .topnav-step, .video-placeholder-label, .step-details > summary::after, .table-wrap td[data-label]:not(:first-child)::before { font-size: 0.7rem; }
+    }
   </style>
 </head>
 <body>

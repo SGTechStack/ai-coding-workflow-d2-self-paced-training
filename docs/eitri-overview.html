@@ -410,6 +410,12 @@
       .topnav-link { padding: 10px; min-height: 40px; font-size: 0.76rem; gap: 5px; }
       .theme-toggle { width: 40px; height: 40px; }
     }
+
+    /* ── Phone readability: left-align justified text, raise the smallest labels ── */
+    @media (max-width: 640px) {
+      p, li, .lead, .obj-list li, .module-desc { text-align: left; }
+      .topnav-step, .module-eyebrow { font-size: 0.7rem; }
+    }
   </style>
 </head>
 <body>

@@ -658,13 +658,17 @@
     .vch-name { font-size: 1rem; font-weight: 800; color: white; text-align: center; line-height: 1.3; letter-spacing: -0.01em; }
     .video-card-h .video-card-body { flex: 1; border-top: none; border-left: 1px solid var(--border); display: flex; flex-direction: column; justify-content: center; }
 
-    @media (max-width: 640px) {
-      code { overflow-wrap: anywhere; }  /* long commands and paths may break rather than overflow */
-      h1 { font-size: 1.9rem; }
+    /* Below ~790px the flow can't keep its intended 6 + 1 rows, so stack it vertically */
+    @media (max-width: 800px) {
       .mp-flow { flex-direction: column; }
       .mp-flow-step { border-right: none; border-bottom: 1px solid var(--border); }
       .mp-flow-step::after { content: '↓'; right: auto; top: auto; bottom: -10px; left: 50%; transform: translateX(-50%); }
       .mp-flow-step:last-child { border-bottom: none; }
+    }
+
+    @media (max-width: 640px) {
+      code { overflow-wrap: anywhere; }  /* long commands and paths may break rather than overflow */
+      h1 { font-size: 1.9rem; }
       .video-grid { grid-template-columns: 1fr; }
       .video-card-title { font-size: 0.8rem; }
       .video-card-h { flex-direction: column; }
@@ -773,6 +777,12 @@
       [id] { scroll-margin-top: 112px; }
       h2[id] { scroll-margin-top: 164px; }
       .track-header[id] { scroll-margin-top: 119px; }
+    }
+
+    /* ── Phone readability: left-align justified text, raise the smallest labels ── */
+    @media (max-width: 640px) {
+      .fot-q details summary, .fot-answer, .concept-desc, .mp-flow-desc, .track-desc, .lead, .callout p, .callout li, .page-wrap p { text-align: left; }
+      .chip, .copy-btn, .phase-num-badge, .key-articles-label, .topnav-step, .video-ts-badge, .vch-source { font-size: 0.7rem; }
     }
   </style>
 </head>

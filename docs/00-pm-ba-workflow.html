@@ -992,7 +992,7 @@
       <div class="pm-flow-num">2</div>
       <div class="pm-flow-content">
         <div class="pm-flow-title">Run <code>/dependency-orchestrator</code> — Generate the PM Report</div>
-        <div class="pm-flow-desc">The Tech Lead runs the skill. The PO answers the interview questions: project name, platforms, story groupings, priorities, and constraints. The skill builds the delivery plan and produces the PM report.</div>
+        <div class="pm-flow-desc">The Tech Lead runs the skill. The PO prepares the structured YAML stories file (project type, constraints, groups, priorities, releases) and confirms the summary the skill reads back. The skill builds the delivery plan and produces the PM report.</div>
         <div class="pm-flow-badges"><span class="chip chip-pm">PO</span><span class="chip chip-tl">Tech Lead</span></div>
       </div>
     </div>
@@ -1036,18 +1036,18 @@
       <div class="pm-flow-num">6</div>
       <div class="pm-flow-content">
         <div class="pm-flow-title">Reconcile Completed Stories — <code>/reconcile-stories</code></div>
-        <div class="pm-flow-desc">The Tech Lead runs <code>/reconcile-stories</code> to pull closed GitHub issues back into the plan. The skill recalculates how much schedule buffer each remaining story has before it would delay the end date, updates the projected finish date, and regenerates both <code>pm-report.html</code> and <code>dev-report.html</code> — each completed story is marked as done, and an overall progress indicator shows how many stories remain.</div>
+        <div class="pm-flow-desc">The Tech Lead runs <code>/reconcile-stories</code> to pull closed GitHub issues back into the plan. The skill recalculates how much schedule buffer each remaining story has before it would delay the end date, updates the projected finish date, and writes new reconciled copies of the PM and dev reports — each completed story is marked as done, and an overall progress indicator shows how many stories remain. Two known bugs make the remaining-time numbers unreliable for now (see Phase 5).</div>
         <div class="pm-flow-badges"><span class="chip chip-pm">PO</span><span class="chip chip-tl">Tech Lead</span></div>
       </div>
     </div>
 
-    <div class="pm-flow-connector">Output: reconciled <code>pm-report.html</code> and <code>dev-report.html</code> with updated projections</div>
+    <div class="pm-flow-connector">Output: versioned <code>pm-report-reconciled-vN-*.html</code> and <code>dev-report-reconciled-vN-*.html</code> showing what is done and what is left</div>
 
     <div class="pm-flow-step">
       <div class="pm-flow-num">7</div>
       <div class="pm-flow-content">
         <div class="pm-flow-title">E2E Testing &amp; Acceptance</div>
-        <div class="pm-flow-desc">Once all stories are done, the team runs end-to-end tests against the acceptance criteria from each user story. You start the app and walk through each story manually to confirm the system does what it promised. This is your acceptance gate before UAT.</div>
+        <div class="pm-flow-desc">Each story's last merge request already carries <code>/e2e</code> evidence: Playwright tests and an Allure report proving its acceptance criteria in a real browser. You review that evidence, then start the app and walk through each story manually to confirm the system does what it promised. This is your acceptance gate before UAT.</div>
         <div class="pm-flow-badges"><span class="chip chip-pm">PO</span><span class="chip chip-dev">QA / Developer</span></div>
       </div>
     </div>
@@ -1107,6 +1107,11 @@
         <div class="story-card-label" style="color: var(--red);">Problematic — horizontal slice, not independently testable</div>
         <div class="story-card-text">"As a developer, I want to build the patient database schema so that patient data can be stored."</div>
         <div class="story-card-ac"><strong>Why it fails:</strong> This is an implementation task, not a user capability. It cannot be demoed. The delivery tool requires every story to have a verifiable end state that a non-developer can check.</div>
+      </div>
+
+      <div class="callout blue">
+        <div class="callout-title">Three suggested paths to a PRD</div>
+        <p>The harness leaves the requirements method up to you and suggests three paths: <strong>SpecKit</strong> (<code>/speckit.constitution</code> then <code>/speckit.specify</code>, producing <code>spec.md</code>) for simple, well-defined features; <strong>Matt Pocock's Socratic workflow</strong> (<code>/wayfinder</code>, then <code>/to-spec</code> for an early-draft TRD) for large or unclear features; and <strong>CLARA</strong> product research for new products that need user research first, ending in spec files under <code>specs/</code>. Whichever path you take, commit the spec files (and any prototype) so the development team can pick them up. If you already ran <code>/to-spec</code> on Path 2, developers refine that draft TRD at Step 2a instead of starting from scratch.</p>
       </div>
 
       <h3>Using <code>/grill-with-docs</code> or <code>/wayfinder</code> to sharpen stories</h3>
@@ -1197,57 +1202,44 @@
 
       <h3>What to prepare before the session</h3>
       <ul>
-        <li>Your finalised list of user stories (from Phase 1), each with acceptance criteria, saved as a file</li>
-        <li>A view on whether all stories are one release or should be split into sequential releases</li>
-        <li>Any known sequential constraints you are already aware of (e.g., "Reporting can only start after Patient Intake is complete")</li>
-        <li><em>Optional:</em> a grouping of stories by business value area (e.g., "Patient Intake", "Discharge Flow", "Reporting") and which areas are highest priority. If skipped, the skill will place all stories in a single default group</li>
+        <li>Your finalised user stories (from Phase 1), each with acceptance criteria, in a <strong>structured YAML stories file</strong>. If they are in markdown or a spreadsheet, run <code>/convert-stories</code> first; the orchestrator only accepts YAML</li>
+        <li>The project block: a name and a project <code>type</code> (<code>web_fullstack</code>, <code>web_frontend_only</code>, <code>mobile_fullstack</code>, <code>mobile_frontend_only</code> or <code>backend_only</code>). The type decides which foundation templates are loaded</li>
+        <li>Any known sequential constraints, listed under <code>project.constraints</code> (e.g., "Reporting can only start after Patient Intake is complete")</li>
+        <li><em>Optional:</em> a <code>releases</code> section if the stories should be split into sequential releases (release N must finish before release N+1 starts)</li>
+        <li><em>Optional:</em> a <code>groups</code> section that groups stories by business value area (e.g., "Patient Intake", "Discharge Flow", "Reporting"), each with an optional numeric <code>priority</code> (1 = highest)</li>
       </ul>
 
       <h3>The interview questions the skill asks</h3>
-      <p>The skill conducts a structured interview before building the delivery plan. The questions are always asked in this order:</p>
+      <p>Most of the planning inputs live in the YAML stories file, so the interview itself is short. The skill asks one question at a time:</p>
 
       <div class="output-block">
-        <div class="output-block-label">/dependency-orchestrator — PO Interview Questions</div>
+        <div class="output-block-label">/dependency-orchestrator — Interview Questions</div>
         <div class="output-block-body">
           <div class="output-row">
-            <span class="label">1. Project name</span>
-            <span class="note">What is the project called? Used as the report title.</span>
+            <span class="label">1. Stories file path</span>
+            <span class="note">The path to the structured YAML stories file. The skill never opens the file itself: it runs a validation script that reads back the project name, project type, story count, releases and groups, and asks you to confirm them. If the counts are wrong, fix the YAML and re-validate. Do not paste stories inline.</span>
           </div>
           <div class="output-row">
-            <span class="label">2. Platform(s)</span>
-            <span class="note">Which stacks apply? (Web frontend / Mobile / Backend API / combinations). This determines which foundation templates are loaded. Do not skip stacks that are genuinely in scope.</span>
+            <span class="label">2. Role</span>
+            <span class="note"><strong>PM / BA</strong> builds the dependency graph and generates only the PM report. <strong>Developer</strong> generates the developer delivery plan (Phase 3).</span>
           </div>
           <div class="output-row">
-            <span class="label">3. User stories file</span>
-            <span class="note">Provide a file path, document link, or MCP resource pointing to the stories from Phase 1. Do not paste stories inline. The skill requires a file path so it can process them without loading the entire list into its context.</span>
+            <span class="label">3. Team size <em>(Developer role only)</em></span>
+            <span class="note">Not asked for the PM role. The PM report shows every team size option instead.</span>
           </div>
           <div class="output-row">
-            <span class="label">4. Release planning</span>
-            <span class="note">Should all stories be treated as a single release, or broken into sequential releases (2–3 month chunks)? If sequential, the skill will ask you to group stories by release (e.g., "Release 1: stories 1–80, Release 2: stories 81–120"). Each release gets its own delivery plan. Later releases only start once earlier releases are fully complete.</span>
-          </div>
-          <div class="output-row">
-            <span class="label">5. Known constraints</span>
-            <span class="note">Any hard sequential dependencies you already know about? (e.g., "Reporting can only start after Patient Intake is complete"). These ordering rules are built into the delivery plan.</span>
-          </div>
-          <div class="output-row">
-            <span class="label">6. Optional components</span>
-            <span class="note">Do any of these apply to your project? Database migrations (Alembic, Flyway, Liquibase), CI/CD pipeline setup, App Store setup (mobile only). Answer yes / no / unsure for each.</span>
-          </div>
-          <div class="output-row">
-            <span class="label">7. Business value groups <em>(optional)</em></span>
-            <span class="note">Group the stories by feature / business area (e.g., "Patient Intake", "Checkout Flow", "Reporting"). You can specify which stories belong to each group, or skip this step. If skipped, all feature stories are placed in a single default group. Infrastructure stories are always grouped as "Platform Setup".</span>
-          </div>
-          <div class="output-row">
-            <span class="label">8. Group priorities <em>(only if Q7 answered)</em></span>
-            <span class="note">Are any groups higher priority than others? Valid values: <code>critical</code>, <code>high</code>, <code>normal</code> (default), <code>low</code>. Priority propagates to all stories in the group and affects scheduling order. Higher-priority stories are scheduled before lower-priority ones, even when they have the same schedule buffer.</span>
+            <span class="label">Existing plan <em>(only if one exists)</em></span>
+            <span class="note">If a dependency graph already exists, the skill assumes the new stories are add-ons and asks whether they merge into the current release or form a new sequential release. You can choose to start fresh instead.</span>
           </div>
         </div>
       </div>
 
+      <p>Groups, priorities, releases and constraints are not asked in the interview: they come from the YAML file. Group <code>priority</code> is an integer where a lower number means higher priority, and groups with the same number are scheduled in parallel. If no groups are defined, all feature stories land in a single default group.</p>
+
       <div class="screenshot-block">
         <div class="screenshot-label">The skill asking the PO interview questions</div>
         <img src="images/pm-prompt-questions.png" alt="Screenshot of the /dependency-orchestrator skill interviewing the PO, showing questions about project name, platforms, user stories, and business value groups in the terminal" loading="lazy">
-        <div class="screenshot-caption">The skill interviews the PO before building the delivery plan. Stories must be provided as a file path or document link, not pasted inline, to keep the skill's context lean.</div>
+        <div class="screenshot-caption">Captured on an earlier version that asked more interview questions. The current skill reads those answers from the YAML stories file. Stories must still be provided as a file path, not pasted inline, to keep the skill's context lean.</div>
       </div>
 
       <h3>What the skill does after the questions are answered</h3>
@@ -1256,12 +1248,12 @@
         <li><strong>Backwards mapping:</strong> for each story, the skill traces the dependency chain backwards from the story's end state to the foundation layer, deriving every dev task required and its dependencies</li>
         <li><strong>Dependency graph construction:</strong> all tasks and edges are merged into a single <code>project-dag.json</code> file, deduplicating shared foundation tasks across stories</li>
         <li><strong>Scheduling analysis:</strong> the skill runs Critical Path Method (CPM) analysis once to identify which tasks must happen in sequence and which can run in parallel. It then separately simulates the delivery timeline for different team sizes, from 1 developer up to the point where adding more gives no further benefit, to find the optimal staffing level. The critical path itself does not change with team size. Only the overall delivery duration does</li>
-        <li><strong>Report generation:</strong> the PM report is written to <code>pm-report.html</code> and its key metrics are summarised in the conversation</li>
+        <li><strong>Report generation:</strong> the PM report is written to <code>reports/pm-report.html</code>. The skill gives you the file path; open the report to read the metrics</li>
       </ul>
 
       <div class="callout">
         <div class="callout-title">Adding stories later (add-on mode)</div>
-        <p>If stakeholders add new requirements after the initial plan is produced, re-run <code>/dependency-orchestrator</code>. The skill detects the existing plan, asks whether to merge the new stories in (add-on mode) or start fresh, and re-generates the full report with the combined picture. The critical path and delivery date are recomputed from scratch.</p>
+        <p>If stakeholders add new requirements after the initial plan is produced, re-run <code>/dependency-orchestrator</code>. The skill detects the existing plan and defaults to adding the new stories to it, either in the current release or as a new sequential release, then re-generates the report with the combined picture. Results are cached, so only the new or edited stories are re-processed. You should never need to rebuild from scratch just because scope changed; <strong>start fresh</strong> throws the existing plan away.</p>
       </div>
 
       <div class="fot-block">
@@ -1508,6 +1500,12 @@
 
       <p>The skill asks for: the path to <code>processor-output.json</code> (the single output file from the dependency orchestrator), the target GitHub repo, the team size to use for scheduling data, any labels to add to all issues, and whether to do a dry run first. Always confirm the dry run output before creating real issues. Once created, issues cannot be automatically deleted.</p>
 
+      <div class="callout">
+        <div class="callout-title">Two traps worth knowing about</div>
+        <p><strong>Add the <code>auto-generated</code> label.</strong> It is the label <code>/reconcile-stories</code> filters on in Phase 5, and <code>/stories-to-issues</code> does not add it unless you ask. Without it, the re-forecast finds nothing.</p>
+        <p style="margin-top:8px;"><strong>Always dry-run after adding stories.</strong> <code>/stories-to-issues</code> does not check for duplicates, so running it again after an add-on recreates tickets that already exist. Dry-run first and check that only the new stories show up.</p>
+      </div>
+
       <div class="callout green">
         <div class="callout-title">Why the acceptance criteria in the issue are verbatim</div>
         <p>The skill copies your original acceptance criteria into the GitHub issue <em>without any summarisation or rephrasing</em>. This is deliberate: the acceptance criteria in the issue are the same contract you agreed with the stakeholder in Phase 1. Any rewording risks silently changing the definition of done. When a developer closes this issue, they are asserting they have met your original criteria.</p>
@@ -1603,7 +1601,14 @@
 
       <div class="role-row"><span class="chip chip-tl">Tech Lead</span> runs the skill at the end of each wave, or whenever the PO needs an updated delivery projection</div>
 
-      <p>As developers complete stories and close their GitHub issues, the original delivery plan becomes stale. <code>/reconcile-stories</code> pulls the current state of those issues into the plan: completed stories are marked done, the schedule for remaining stories is recomputed, and updated PM and dev reports are generated with accurate projections.</p>
+      <p>As developers complete stories and close their GitHub issues, the original delivery plan becomes stale. <code>/reconcile-stories</code> pulls the current state of those issues into the plan: completed stories are marked done, the schedule for remaining stories is recomputed, and new reconciled PM and dev reports are written alongside the originals.</p>
+
+      <div class="callout">
+        <div class="callout-title">Don't trust the re-forecast numbers yet</div>
+        <p>Two bugs are open in <code>/reconcile-stories</code>. Use it to see <em>which</em> stories are done, not <em>how long</em> is left.</p>
+        <p style="margin-top:8px;"><strong>1. Nothing feeds back into the plan.</strong> The skill only writes new, versioned <code>-reconciled-vN-*</code> files. <code>/dependency-orchestrator</code> never reads them, so the next planning run still uses the original estimates as if nothing had shipped.</p>
+        <p style="margin-top:8px;"><strong>2. Finished work isn't counted as finished.</strong> A closed story should drop to zero days, but a rounding floor bumps each finished task back to a quarter-day. Completed work still takes developer time, still delays what follows it, and still shows on the critical path. On a 40-day, 10-story project it claims 8.5 days left when 4 remain, and 5 days left when you are actually done.</p>
+      </div>
 
       <h3>What changes and what does not</h3>
 
@@ -1626,7 +1631,7 @@
         <li><strong>Progress bar:</strong> stories done vs remaining, and whether the project is ahead or behind the original schedule</li>
         <li><strong>Completed story markers</strong> on each finished story, showing the actual GitHub issue close date</li>
         <li><strong>Updated Gantt chart</strong> reflecting remaining work only, with completed stories appearing faded</li>
-        <li><strong>Revised projected finish date</strong> based on remaining effort and current team velocity</li>
+        <li><strong>Revised projected finish date</strong> based on remaining effort and current team velocity (inflated by the rounding bug above)</li>
       </ul>
 
       <h3>How to run it</h3>
@@ -1640,7 +1645,7 @@
 
       <div class="callout blue">
         <div class="callout-title">When to run it</div>
-        <p>Run at the end of each wave to give stakeholders an updated picture before the next wave begins. Also run it any time someone asks "where are we?" The reconciled report answers with actual progress data, not the original estimate.</p>
+        <p>Run at the end of each wave to give stakeholders an updated picture before the next wave begins. Also run it any time someone asks "where are we?" The reconciled report shows which stories have actually closed, not just the original plan.</p>
       </div>
 
       <div class="callout">
@@ -1684,7 +1689,7 @@
     </div>
     <div class="step-body">
 
-      <p>When all GitHub issues from Phase 3 are closed and automated tests pass, the project enters the acceptance phase. Closing a GitHub issue is the formal handoff from the dev team to you, signalling that a story's acceptance criteria are met. This is the PO's primary gate: does the application actually deliver the value described in each user story?</p>
+      <p>When all GitHub issues from Phase 3 are closed and automated tests pass, the project enters the acceptance phase. In the developer workflow, each story's last issue runs <code>/e2e</code> (Step 5) before its merge request can merge, so every story arrives with Playwright tests and an Allure report (with video and trace) proving its acceptance criteria. Closing a GitHub issue is the formal handoff from the dev team to you, signalling that a story's acceptance criteria are met. This is the PO's primary gate: does the application actually deliver the value described in each user story?</p>
 
       <h3>Two layers of verification</h3>
 
@@ -1693,7 +1698,7 @@
         <div class="output-block-body">
           <div class="output-row">
             <span class="label">E2E tests</span>
-            <span class="value">Automated tests that start the application and simulate real user flows end-to-end. They verify that the technical layers (API, database, UI) integrate correctly. A passing E2E test suite confirms the application does not crash on the happy path. It does not verify that the UX is good or that edge cases are handled correctly.</span>
+            <span class="value">Developers produce these with <code>/e2e</code> on each story's last issue: Playwright scenarios titled with each acceptance criterion verbatim, run against a clean environment, with an Allure report you can open to see the steps, video and trace behind every PASS, FAIL or SKIP. They prove the criteria as written. They do not tell you whether the UX is good or whether the criteria themselves captured what users need.</span>
           </div>
           <div class="output-row">
             <span class="label">Manual acceptance</span>

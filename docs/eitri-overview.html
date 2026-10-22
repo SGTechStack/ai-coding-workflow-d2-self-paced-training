@@ -441,7 +441,7 @@
   <!-- Hero -->
   <span class="course-eyebrow">Tutorial Overview</span>
   <h1>Eitri Agentic Dev Workflow</h1>
-  <p class="lead">This tutorial is for developers looking to build AI engineering skills. A software development background is required. Without prior experience writing, testing, and shipping code, you will not be able to critically review and validate the code and artefacts the workflow produces. Eitri builds on Matt Pocock's agentic engineering framework, extending it with story dependency sequencing, issue quality gates, compliance reviews, architecture boundary enforcement, and a human-in-the-loop (HITL) self-steering implementation loop. This tutorial starts with the foundational concepts behind the workflow, walks through each Eitri skill and where it fits, and shows you how to inject your team's domain context, architecture standards, compliance policies, and coding best practices to ensure the skills operate according to your team's standards.</p>
+  <p class="lead">This tutorial is for developers looking to build AI engineering skills. A software development background is required. Without prior experience writing, testing, and shipping code, you will not be able to critically review and validate the code and artefacts the workflow produces. Eitri builds on Matt Pocock's agentic engineering framework, extending it with story dependency sequencing, architecture boundary enforcement, spec standards and compliance checks, issue quality gates, a self-steering implementation loop, and browser-based story verification, with two human-in-the-loop (HITL) sign-offs before any code is built. This tutorial starts with the foundational concepts behind the workflow, walks through each Eitri skill and where it fits, and shows you how to inject your team's domain context, architecture standards, compliance policies, and coding best practices to ensure the skills operate according to your team's standards.</p>
 
   <div style="margin: 24px 0; padding: 18px 20px; background: var(--accent-orange-bg); border: 1px solid var(--accent-orange-border); border-left: 4px solid var(--orange); border-radius: var(--radius);">
     <div style="font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.09em; color: var(--orange); margin-bottom: 10px;">Why Matt Pocock's framework?</div>
@@ -456,11 +456,11 @@
   <!-- Objectives -->
   <h2>By the end of this tutorial, you will be able to:</h2>
   <ul class="obj-list">
-    <li>Execute Matt Pocock's agentic workflow end-to-end — from wayfinding (breaking down large efforts into investigation tickets) and PRD synthesis, to ticket decomposition, TDD implementation, two-axis code review, and structured bug diagnosis</li>
+    <li>Execute Matt Pocock's agentic workflow end-to-end — from wayfinding (breaking down large efforts into investigation tickets) and spec synthesis, to ticket decomposition, TDD implementation, two-axis code review, and structured bug diagnosis</li>
     <li>Explain the Large Language Model (LLM) mechanics that shape the workflow's design — context windows, the Smart Zone and Dumb Zone, context rot, the three memory stores (in-context, external, parametric), hallucination, and non-determinism</li>
     <li>Understand the engineering disciplines applied throughout the workflow — prompt engineering, context engineering, the ReAct pattern and its failure modes, QRSPI (Questions → Research → Structure → Plan → Implement) front-loading, agent skills and progressive disclosure, Retrieval-Augmented Generation (RAG), and Model Context Protocol (MCP)</li>
     <li>Apply the development principles that structure agentic work — HITL design, specification-first development, TDD as a machine-verifiable convergence signal, Architecture Decision Records (ADRs), tracer bullet development, living documentation, and multi-agent orchestration patterns</li>
-    <li>Invoke the right Eitri skill at each workflow step — from dependency orchestration and architecture boundary enforcement through compliance audit, issue quality gates, and the self-steering implementation loop</li>
+    <li>Invoke the right Eitri skill at each workflow step — from dependency orchestration and architecture boundary enforcement through standards and compliance checks, issue quality gates, the self-steering implementation loop, and story E2E verification</li>
     <li>Configure the workflow for your team by injecting business domain requirements, architecture standards, compliance policies, coding best practices, and code review standards at the right phase, ensuring every skill adheres to your team's specific standards</li>
     <li>Ship a working application directly from user stories — applying the complete Eitri Agentic Dev Workflow to transform raw requirements into production-ready code</li>
   </ul>
@@ -493,7 +493,7 @@
         <div class="module-info">
           <div class="module-eyebrow">Lesson 0</div>
           <div class="module-title">PO Workflow</div>
-          <div class="module-desc">Details the full Product Owner (PO) journey in the Eitri Agentic Dev Workflow — from eliciting user stories with stakeholders, to generating a dependency-sequenced delivery plan with the Tech Lead, and finally syncing completed work into GitHub.</div>
+          <div class="module-desc">Details the full Product Owner (PO) journey in the Eitri Agentic Dev Workflow — from eliciting user stories with stakeholders, to generating a dependency-sequenced delivery plan, creating GitHub issues from it, and re-forecasting as stories close.</div>
         </div>
         <div class="module-arrow">→</div>
       </div>
@@ -510,10 +510,12 @@
           <div class="module-topics">
             <span class="topic-tag">/dependency-orchestrator</span>
             <span class="topic-tag">/arch-tests-plan &amp; /arch-tests-gen</span>
+            <span class="topic-tag">/spec-standards-check</span>
             <span class="topic-tag">/spec-compliance</span>
             <span class="topic-tag">/issue-verification</span>
             <span class="topic-tag">/do-work</span>
             <span class="topic-tag">/arch-tests-gen-feature</span>
+            <span class="topic-tag">/e2e</span>
             <span class="topic-tag">/grill-me</span>
           </div>
         </div>

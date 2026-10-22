@@ -978,38 +978,31 @@
   <div class="sidenav-label">On this page</div>
   <a href="#workflow-overview" class="sidenav-link">Eitri Agentic Dev Workflow</a>
 
-  <button class="sidenav-toggle" data-target="snav-planning" data-href="#planning-sequencing">Planning &amp; Story Sequencing <span class="snav-chevron">▾</span></button>
+  <button class="sidenav-toggle" data-target="snav-planning" data-href="#planning-sequencing">Continuous Tracks (S2 · S3) <span class="snav-chevron">▾</span></button>
   <div class="snav-group" id="snav-planning">
     <a href="#dependency-orchestrator" class="sidenav-link sidenav-sub"><code>/dependency-orchestrator</code></a>
     <a href="#arch-tests" class="sidenav-link sidenav-sub"><code>/arch-tests-plan</code></a>
   </div>
 
-  <button class="sidenav-toggle" data-target="snav-compliance" data-href="#compliance-quality">Compliance &amp; Issue Quality <span class="snav-chevron">▾</span></button>
+  <button class="sidenav-toggle" data-target="snav-compliance" data-href="#compliance-quality">Plan Each Story (Steps 1–3) <span class="snav-chevron">▾</span></button>
   <div class="snav-group" id="snav-compliance">
+    <a href="#spec-standards-check" class="sidenav-link sidenav-sub"><code>/spec-standards-check</code></a>
     <a href="#spec-compliance" class="sidenav-link sidenav-sub"><code>/spec-compliance</code></a>
     <a href="#issue-verification" class="sidenav-link sidenav-sub"><code>/issue-verification</code></a>
+    <a href="#grill-me" class="sidenav-link sidenav-sub"><code>/grill-me</code> &amp; HITL</a>
   </div>
 
-  <button class="sidenav-toggle" data-target="snav-impl" data-href="#implementation-loop">Implementation Loop <span class="snav-chevron">▾</span></button>
+  <button class="sidenav-toggle" data-target="snav-impl" data-href="#implementation-loop">Build Each Issue (Step 4) <span class="snav-chevron">▾</span></button>
   <div class="snav-group" id="snav-impl">
     <a href="#do-work" class="sidenav-link sidenav-sub"><code>/do-work</code></a>
     <a href="#customise-do-work" class="sidenav-link sidenav-sub">Customising <code>/do-work</code></a>
-  </div>
-
-  <button class="sidenav-toggle" data-target="snav-arch" data-href="#arch-linting">Architecture Linting <span class="snav-chevron">▾</span></button>
-  <div class="snav-group" id="snav-arch">
     <a href="#arch-tests-feature" class="sidenav-link sidenav-sub"><code>/arch-tests-gen-feature</code></a>
   </div>
 
-  <button class="sidenav-toggle" data-target="snav-e2e" data-href="#story-e2e">Story E2E Evidence <span class="snav-chevron">▾</span></button>
+  <button class="sidenav-toggle" data-target="snav-e2e" data-href="#story-e2e">Verify Each Story (Step 5) <span class="snav-chevron">▾</span></button>
   <div class="snav-group" id="snav-e2e">
     <a href="#e2e" class="sidenav-link sidenav-sub"><code>/e2e</code></a>
     <a href="#e2e-workflow" class="sidenav-link sidenav-sub">Inside the <code>/e2e</code> workflow</a>
-  </div>
-
-  <button class="sidenav-toggle" data-target="snav-grill" data-href="#grilling-gates">Grilling Before Gates <span class="snav-chevron">▾</span></button>
-  <div class="snav-group" id="snav-grill">
-    <a href="#grill-me" class="sidenav-link sidenav-sub"><code>/grill-me</code></a>
   </div>
 
   <a href="#quiz" class="sidenav-link">Knowledge Check</a>
@@ -1020,14 +1013,15 @@
   <div class="lesson-hero">
     <p class="lesson-label">Lesson 1 of 2 — Eitri Agentic Dev Workflow <span class="chip chip-pass">✦ Hands on</span></p>
     <h1>What Was Built on Top of Matt Pocock</h1>
-    <p class="lead">Matt Pocock's workflow covers the full idea-to-ship cycle but does not sequence stories in dependency order, enforce architectural boundaries in code, apply government compliance policies, or verify that tickets are well-specified before implementation begins. Eitri adds each of these checks at the step in the workflow where it belongs.</p>
+    <p class="lead">Matt Pocock's workflow covers the full idea-to-ship cycle but does not sequence stories in dependency order, enforce architectural boundaries in code, check specs against organisational standards and government compliance policies, verify that tickets are well-specified before implementation begins, or prove each story works in a real browser. Eitri adds each of these checks at the step in the workflow where it belongs.</p>
     <div style="margin-top: 16px; padding: 14px 18px; background: var(--border-light); border-radius: var(--radius); border-left: 3px solid var(--orange);">
       <div style="font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--orange); margin-bottom: 10px;">By the end of this lesson you will know:</div>
       <ul style="padding-left: 16px; display: flex; flex-direction: column; gap: 6px; margin: 0;">
-        <li style="font-size: 0.875rem; color: var(--text-muted);">How to sequence stories in dependency order using <code>/dependency-orchestrator</code></li>
-        <li style="font-size: 0.875rem; color: var(--text-muted);">How to enforce architectural boundaries and apply compliance policies using <code>/arch-tests-plan</code> and <code>/spec-compliance</code></li>
-        <li style="font-size: 0.875rem; color: var(--text-muted);">How to verify ticket quality using <code>/issue-verification</code> before implementation begins</li>
-        <li style="font-size: 0.875rem; color: var(--text-muted);">How to execute the self-steering developer loop using <code>/do-work</code></li>
+        <li style="font-size: 0.875rem; color: var(--text-muted);">How the workflow is organised: one-time setup (S1), two continuous tracks (S2, S3), and the developer's five steps with two HITL checkpoints</li>
+        <li style="font-size: 0.875rem; color: var(--text-muted);">How the S2 planning loop (<code>/dependency-orchestrator</code>) and S3 architecture guardrails (<code>/arch-tests-plan</code>, <code>/arch-tests-gen</code>) keep running for the life of the project</li>
+        <li style="font-size: 0.875rem; color: var(--text-muted);">How to check a TRD against AppStandards and IM8/ARC with <code>/spec-standards-check</code> and <code>/spec-compliance</code>, and vet tickets with <code>/issue-verification</code></li>
+        <li style="font-size: 0.875rem; color: var(--text-muted);">How <code>/do-work</code> builds each issue in a self-correcting loop, then validates it with every <code>/code-reviewer</code> check before committing</li>
+        <li style="font-size: 0.875rem; color: var(--text-muted);">How <code>/e2e</code> proves each story with browser evidence before its last MR can merge</li>
       </ul>
     </div>
   </div>
@@ -1050,8 +1044,8 @@ git clone https://github.com/SGTechStack/App-Standards</code></pre>
   <div class="step-card">
     <div class="step-header">
       <div>
-        <div class="step-title">The 5-phase workflow</div>
-        <div class="step-subtitle">End-to-end view of all 5 phases, workflow skills, and HITL gates</div>
+        <div class="step-title">The workflow at a glance</div>
+        <div class="step-subtitle">One-time setup, two continuous tracks, and the developer's five steps with two HITL checkpoints</div>
       </div>
     </div>
     <div class="step-body">
@@ -1066,52 +1060,69 @@ git clone https://github.com/SGTechStack/App-Standards</code></pre>
         </div>
       </div>
 
+      <div class="callout" style="margin:12px 0 0">
+        <div class="callout-title">Recorded on an earlier version</div>
+        <p>This video walks through an earlier five-phase layout (Architecture, Specification, Decomposition, Implementation, Closeout) with numbered steps 1–14. The skills are the same, but the harness now groups them as <strong>S1 · S2 · S3</strong> plus <strong>Steps 1–5</strong>, adds <code>/spec-standards-check</code> (Step 2b) and <code>/e2e</code> (Step 5), and moves <code>/arch-tests-gen-feature</code> to Step 4c. The interactive diagram below still uses the older layout. The recap below and the rest of this lesson follow the current harness.</p>
+      </div>
+
       <details class="step-details">
         <summary>Video Recap</summary>
 
         <a href="images/eitri-workflow.html" target="_blank" style="display:block;margin-bottom:20px;" title="Open full workflow diagram">
-          <img src="images/eitri-workflow-preview.png" alt="Eitri enhanced workflow diagram showing all 5 phases with skills, HITL gates, and the do-work self-steering loop" style="width:100%;border-radius:10px;border:1px solid #E2E8F0;box-shadow:0 4px 16px rgba(0,0,0,0.08);transition:box-shadow 0.2s;" onmouseover="this.style.boxShadow='0 8px 24px rgba(0,0,0,0.15)'" onmouseout="this.style.boxShadow='0 4px 16px rgba(0,0,0,0.08)'">
+          <img src="images/eitri-workflow-preview.png" alt="Eitri workflow diagram showing S1 setup, the S2 and S3 continuous tracks, the five developer steps with HITL 1 and HITL 2, and the /do-work validate step" style="width:100%;border-radius:10px;border:1px solid #E2E8F0;box-shadow:0 4px 16px rgba(0,0,0,0.08);transition:box-shadow 0.2s;" onmouseover="this.style.boxShadow='0 8px 24px rgba(0,0,0,0.15)'" onmouseout="this.style.boxShadow='0 4px 16px rgba(0,0,0,0.08)'">
           <p style="text-align:center;font-size:12px;color:#64748B;margin:6px 0 0;">Click to open the full interactive diagram</p>
         </a>
 
-<p style="margin-bottom: 20px; font-size: 0.95rem;">Eitri is a suite of custom AI skills built on top of Matt Pocock's foundational five-phase workflow (Architecture, Specification, Decomposition, Implementation, and Closeout). While the baseline workflow is strong, applying it to a government enterprise environment exposes <strong>four critical gaps</strong> that Eitri fills:</p>
+<p style="margin-bottom: 16px; font-size: 0.95rem;">Eitri is a suite of custom AI skills built on top of Matt Pocock's engineering workflow. Only the <strong>five numbered steps</strong> are part of a developer's everyday loop. Everything else either runs once or runs alongside them:</p>
+
+        <div class="table-wrap" style="margin-bottom:16px">
+          <table>
+            <thead><tr><th style="width:150px">How often</th><th>What you run</th><th style="width:150px">Who</th></tr></thead>
+            <tbody>
+              <tr><td data-label="How often"><strong>Once per project</strong></td><td data-label="What you run"><strong>S1</strong> <code>/setup-matt-pocock-skills</code></td><td data-label="Who">Architect / Tech Lead</td></tr>
+              <tr><td data-label="How often"><strong>Continuously</strong></td><td data-label="What you run"><strong>S2</strong> the planning loop: <code>/dependency-orchestrator</code> · <code>/stories-to-issues</code> · <code>/reconcile-stories</code></td><td data-label="Who">PM</td></tr>
+              <tr><td data-label="How often"><strong>Continuously</strong></td><td data-label="What you run"><strong>S3</strong> architecture guardrails: <code>/arch-tests-plan</code> · <code>/arch-tests-gen</code> · <code>/arch-tests-gen-feature</code></td><td data-label="Who">Architect / Tech Lead</td></tr>
+              <tr><td data-label="How often"><strong>Once per story</strong></td><td data-label="What you run"><strong>Step 1</strong> Explore → <strong>Step 2</strong> Spec → <em>HITL 1</em> → <strong>Step 3</strong> Tickets → <em>HITL 2</em></td><td data-label="Who">Developer</td></tr>
+              <tr><td data-label="How often"><strong>Once per issue</strong></td><td data-label="What you run"><strong>Step 4</strong> Build with <code>/do-work</code>, then push and open an MR</td><td data-label="Who">Developer or agent</td></tr>
+              <tr><td data-label="How often"><strong>Once per story, on its last issue</strong></td><td data-label="What you run"><strong>Step 5</strong> Verify with <code>/e2e</code> before you push. The story's last MR can't merge without it</td><td data-label="Who">Developer</td></tr>
+              <tr><td data-label="How often"><strong>When needed</strong></td><td data-label="What you run">Toolbox: <code>/diagnosing-bugs</code>, <code>/improve-codebase-architecture</code>, <code>/grill-me</code>, <code>/code-review</code>, <code>/git-commit</code>, <code>/ask-workflow</code></td><td data-label="Who">Anyone</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p style="font-size:0.875rem;color:var(--text-muted);margin:0 0 8px;line-height:1.65;"><strong>Words to know.</strong> <em>S1</em> is one-time setup. <em>S2</em> and <em>S3</em> are <strong>continuous tracks</strong>: they start before the first story and keep running as stories close and the architecture evolves. <em>HITL 1</em> and <em>HITL 2</em> are the two Human-in-the-Loop checkpoints, and both belong to the <strong>developer</strong>. <em>Stages 4.1–4.4</em> are the CI/CD pipeline checks, the only thing called a "stage".</p>
 
         <h3 style="margin:24px 0 14px;font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-muted);">How Eitri fills the gaps</h3>
         <div style="display:flex;flex-direction:column;gap:14px;margin-bottom:8px;">
 
           <div>
             <div style="margin-bottom:4px;"><strong>Gap 1: No build sequencing</strong> ➔ <code>/dependency-orchestrator</code> <span class="chip chip-plus">[+]</span></div>
-            <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">Without sequencing, teams guess what to build first. In Phase 1 (Architecture), Eitri maps out dependencies across your stories to generate a PM delivery report (estimates &amp; critical path) and a developer wave plan before any code is written.</p>
+            <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">Without sequencing, teams guess what to build first. In the S2 planning loop, Eitri maps dependencies across your stories to generate a PM report (estimates &amp; critical path) and a developer delivery plan, then keeps that plan current as stories close and new ones arrive.</p>
           </div>
 
           <div>
-            <div style="margin-bottom:4px;"><strong>Gap 2: Architectural drift</strong> ➔ <code>/arch-tests-plan</code> &amp; <code>/arch-tests-gen</code> <span class="chip chip-plus">[+]</span></div>
-            <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">Nothing stops code from drifting between layers. Eitri converts your architectural boundaries into automated, build-failing tests. If a developer violates a rule, the build fails immediately rather than waiting for a code review.</p>
+            <div style="margin-bottom:4px;"><strong>Gap 2: Architectural drift</strong> ➔ <code>/arch-tests-plan</code>, <code>/arch-tests-gen</code> &amp; <code>/arch-tests-gen-feature</code> <span class="chip chip-plus">[+]</span></div>
+            <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">Nothing stops code from drifting between layers. The S3 track converts your architectural boundaries into build-failing tests, and adds feature-level tests each time you build a new module (Step 4c).</p>
           </div>
 
           <div>
-            <div style="margin-bottom:4px;"><strong>Gap 3: Missing compliance checks</strong> ➔ <code>/spec-compliance</code> <span class="chip chip-plus">[+]</span></div>
-            <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">Catching a security violation during the specification phase is a simple document edit; catching it later causes massive rework. In Phase 2, Eitri automatically audits the TRD against policies like IM8 and ARC before the <strong>TRD Sign-off</strong> gate.</p>
+            <div style="margin-bottom:4px;"><strong>Gap 3: Missing standards and compliance checks</strong> ➔ <code>/spec-standards-check</code> &amp; <code>/spec-compliance</code> <span class="chip chip-plus">[+]</span></div>
+            <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">Catching a gap during the spec is a simple document edit; catching it later causes rework. In Step 2, Eitri checks the TRD against your AppStandards (2b) and audits it against IM8 and ARC (2c) before <strong>HITL 1</strong>, the TRD sign-off.</p>
           </div>
 
           <div>
             <div style="margin-bottom:4px;"><strong>Gap 4: Vague ticket instructions</strong> ➔ <code>/issue-verification</code> <span class="chip chip-plus">[+]</span></div>
-            <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">An agent stalls on vague tickets. In Phase 3, Eitri verifies that every ticket covers all layers, is demoable, and has unambiguous criteria before publishing them to the tracker and advancing to the <strong>Ticket Sign-off</strong> gate.</p>
-          </div>
-          
-          <div style="margin-top: 8px;">
-            <div style="margin-bottom:4px;"><strong>Bonus: The Self-Steering Loop</strong> ➔ <code>/do-work</code> <span class="chip chip-plus">[+]</span></div>
-            <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">The baseline implement skill runs in a single pass. In Phase 4, Eitri wraps implementation in a self-steering engine: build (TDD) ➔ AI code review ➔ automated quality gates. If any check fails, the engine instantly triggers a fix-and-retry loop until every gate is green.</p>
+            <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">An agent stalls on vague tickets. In Step 3b, Eitri verifies that every ticket covers all layers, is demoable, and has testable criteria before <strong>HITL 2</strong>, where the developer approves the issues.</p>
           </div>
 
-          <div style="margin-top: 8px;">
-            <div style="margin-bottom:4px;"><strong>Phase 5 Closeout</strong> ➔ <code>/arch-tests-gen-feature</code> <span class="chip chip-plus">[+]</span></div>
-            <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">Takes the placeholder architecture rules generated by the arch-tests-plan skill in Phase 1 and fills them in with the real package names from the newly built feature, converting theoretical boundaries into automated tests.</p>
+          <div>
+            <div style="margin-bottom:4px;"><strong>Gap 5: Single-pass implementation</strong> ➔ <code>/do-work</code> <span class="chip chip-plus">[+]</span></div>
+            <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">Matt Pocock's <code>/implement</code> reviews once at the end. In Step 4, <code>/do-work</code> keeps fixing and re-reviewing until nothing must-fix is left, then validates every issue with a single <code>/code-reviewer</code> run that fans out all the quality and compliance checks at once.</p>
           </div>
 
-          <div style="margin-top: 8px;">
-            <div style="margin-bottom:4px;"><strong>Gap 5: No proof the story works for the user</strong> ➔ <code>/e2e</code> <span class="chip chip-plus">[+]</span></div>
-            <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">Passing unit tests and green boundaries do not prove the user story actually works end to end. In Phase 5, Eitri drives the real app in a browser one story at a time, proving each acceptance criterion with fresh Playwright tests plus Allure, video, and trace evidence, classified honestly as PASS, FAIL, or SKIPPED.</p>
+          <div>
+            <div style="margin-bottom:4px;"><strong>Gap 6: No proof the story works for the user</strong> ➔ <code>/e2e</code> <span class="chip chip-plus">[+]</span></div>
+            <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">Passing unit tests and green boundaries do not prove the user story works end to end. In Step 5, on the story's last issue, Eitri drives the real app in a browser and proves each acceptance criterion with fresh Playwright tests plus Allure, video, and trace evidence. The story's last MR can't merge until that campaign passes.</p>
           </div>
 
         </div>
@@ -1121,7 +1132,7 @@ git clone https://github.com/SGTechStack/App-Standards</code></pre>
   </div>
 
   <div style="margin: 44px 0 24px; padding-top: 24px; border-top: 1px dashed var(--border);">
-    <p class="lead" style="margin: 0; color: var(--text);">The sections below walk through each Eitri skill in workflow order — what gap it fills, what it produces, and how it connects to the next step. Each section maps to a phase in the diagram above.</p>
+    <p class="lead" style="margin: 0; color: var(--text);">The sections below walk through each Eitri skill in workflow order — what gap it fills, what it produces, and how it connects to the next step. The number badge on each card is its place in the harness: <strong>S2</strong>/<strong>S3</strong> for the continuous tracks, <strong>2b</strong>–<strong>5</strong> for the developer steps.</p>
   </div>
 
   <div class="callout blue" style="margin-bottom:24px">
@@ -1148,11 +1159,11 @@ git clone https://github.com/SGTechStack/App-Standards</code></pre>
     </div>
   </div>
 
-  <h2 id="planning-sequencing">Planning &amp; Story Sequencing</h2>
+  <h2 id="planning-sequencing">Continuous Tracks (S2 · S3)</h2>
 
   <div class="step-card" id="dependency-orchestrator">
     <div class="step-header">
-      <div class="step-num">2</div>
+      <div class="step-num">S2</div>
       <div>
         <div class="step-title"><code>/dependency-orchestrator</code> <span class="chip chip-plus">[+]</span></div>
         <div class="step-subtitle">Story sequencing — builds a delivery wave plan before any code is written</div>
@@ -1169,14 +1180,14 @@ git clone https://github.com/SGTechStack/App-Standards</code></pre>
         </div>
       </div>
       <details class="step-details"><summary>Video Recap</summary>
-      <p style="margin-bottom: 0px; font-size: 0.95rem;"><em>Video coming soon.</em> Eitri maps out dependencies across your stories to generate a PM delivery report (estimates &amp; critical path) and a developer wave plan before any code is written.</p>
+      <p style="margin-bottom: 0px; font-size: 0.95rem;"><em>Video coming soon.</em> Eitri maps out dependencies across your stories to generate a PM delivery report (estimates &amp; critical path) and a developer wave plan before any code is written. It is a continuous track: new stories are added to the existing plan by default, and <code>/reconcile-stories</code> re-forecasts as issues close. Lesson 0 covers the PM side in detail.</p>
       </details>
     </div>
   </div>
 
   <div class="step-card" id="arch-tests">
     <div class="step-header">
-      <div class="step-num">4</div>
+      <div class="step-num">S3</div>
       <div>
         <div class="step-title"><code>/arch-tests-plan</code> + <code>/arch-tests-gen</code> <span class="chip chip-plus">[+]</span></div>
         <div class="step-subtitle">Architecture boundary enforcement — turns ADRs into build-failing tests</div>
@@ -1193,17 +1204,44 @@ git clone https://github.com/SGTechStack/App-Standards</code></pre>
         </div>
       </div>
       <details class="step-details"><summary>Video Recap</summary>
-      <p style="margin-bottom: 0px; font-size: 0.95rem;"><em>Video coming soon.</em> Eitri converts your architectural boundaries into automated, build-failing tests. If a developer violates a rule, the build fails immediately rather than waiting for a code review.</p>
+      <p style="margin-bottom: 0px; font-size: 0.95rem;"><em>Video coming soon.</em> <code>/arch-tests-plan</code> reads your code, docs and ADRs and writes the rules to <code>artifacts/arch-test-plan.md</code>, sorted into Enforced vs For Consideration and Core vs Feature. <code>/arch-tests-gen</code> turns the Enforced Core rules into build-failing tests (ArchUnit for Java, dependency-cruiser for TypeScript). This is a continuous track: re-run <code>/arch-tests-gen</code> when the team promotes a rule, and save a copy of the plan before re-running <code>/arch-tests-plan</code>, because it overwrites the file.</p>
       </details>
     </div>
   </div>
 
 
-  <h2 id="compliance-quality">Compliance &amp; Issue Quality</h2>
+  <h2 id="compliance-quality">Plan Each Story (Steps 1–3)</h2>
+
+  <div class="step-card" id="spec-standards-check">
+    <div class="step-header">
+      <div class="step-num">2b</div>
+      <div>
+        <div class="step-title"><code>/spec-standards-check</code> <span class="chip chip-plus">[+]</span></div>
+        <div class="step-subtitle">Standards check — align the TRD with the AppStandards its issue references</div>
+      </div>
+    </div>
+    <div class="step-body">
+      <p style="margin-bottom: 20px; font-size: 0.95rem;"><code>/to-spec</code> (Step 2a) writes the user story level TRD, but nothing checks it against the AppStandards the story depends on. <code>/spec-standards-check</code> closes that gap before the compliance audit.</p>
+      <div style="display:flex;flex-direction:column;gap:14px;margin-bottom:8px;">
+        <div>
+          <div style="margin-bottom:4px;"><strong>Driven by the Issue</strong></div>
+          <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">It reads the <strong>Standards to Refer</strong> table that <code>/stories-to-issues</code> put on the story's issue during S2, then loads every referenced standard and its questions document. If the issue has no such table, there is nothing to check and it stops.</p>
+        </div>
+        <div>
+          <div style="margin-bottom:4px;"><strong>Critical or Warning</strong></div>
+          <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">Each gap is flagged <strong>Critical</strong> (absent, contradicted, or an unjustified deviation, likely to cause rework) or <strong>Warning</strong> (partial coverage or a minor gap). Every requirement and every question is checked individually, quoting the standard verbatim.</p>
+        </div>
+        <div>
+          <div style="margin-bottom:4px;"><strong>You Decide, Then It Updates the Spec</strong></div>
+          <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">It walks you through each gap, records your decision, and offers to update the TRD. The story-planning Definition of Done requires no Critical gaps before HITL 1.</p>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <div class="step-card" id="spec-compliance">
     <div class="step-header">
-      <div class="step-num">7</div>
+      <div class="step-num">2c</div>
       <div>
         <div class="step-title"><code>/spec-compliance</code> <span class="chip chip-plus">[+]</span></div>
         <div class="step-subtitle">Compliance audit gate — catch policy flaws before they become code</div>
@@ -1257,7 +1295,7 @@ git clone https://github.com/SGTechStack/App-Standards</code></pre>
 
   <div class="step-card" id="issue-verification">
     <div class="step-header">
-      <div class="step-num">9</div>
+      <div class="step-num">3b</div>
       <div>
         <div class="step-title"><code>/issue-verification</code> <span class="chip chip-plus">[+]</span></div>
         <div class="step-subtitle">Issue quality gate — no agent picks up a vague ticket</div>
@@ -1286,7 +1324,7 @@ git clone https://github.com/SGTechStack/App-Standards</code></pre>
 
         <div>
           <div style="margin-bottom:4px;"><strong>The Remaining Five Checks</strong></div>
-          <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;"><strong>Granularity</strong> (is the slice sized to be implementable in one sitting, not sprawling or artificially split), <strong>scope honesty</strong> (does the stated scope match everything the ticket actually touches, with no hidden dependencies smuggled in), <strong>prefactor placement</strong> (is refactoring work called out and placed in its own ticket rather than bundled into unrelated feature work), <strong>staleness</strong> (do the ticket's assumptions and references still hold given how the codebase and upstream tickets have since evolved), and <strong>vocabulary/ADR conformance</strong> (does the ticket use the project's established terms and follow existing Architecture Decision Records rather than introducing its own).</p>
+          <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;"><strong>Granularity</strong> (does it cover exactly one demoable behaviour end to end: several bundled means split, unable to demo alone means merge), <strong>scope honesty</strong> (does the body describe end-to-end behaviour, or has it slid into layer-by-layer implementation notes), <strong>prefactor placement</strong> (is any preparatory refactor isolated as its own first ticket rather than smuggled into a feature slice), <strong>staleness</strong> (does the body hardcode file paths or code snippets that will go stale, which <code>/to-tickets</code> says to avoid), and <strong>vocabulary/ADR conformance</strong> (does the ticket use the domain terms from <code>CONTEXT.md</code> and follow the existing Architecture Decision Records rather than introducing its own).</p>
         </div>
 
         <div>
@@ -1301,7 +1339,7 @@ git clone https://github.com/SGTechStack/App-Standards</code></pre>
 
         <div>
           <div style="margin-bottom:4px;"><strong>Fixpoint, Then Publish</strong></div>
-          <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">The process loops until every ticket ends up GRILLED at the same time — revisions stop propagating and the batch settles. Only then is the full batch published together, in dependency order.</p>
+          <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">Once per-ticket grilling settles, the skill checks what no single ticket can show: <strong>coverage</strong> (every user story lands in some slice), <strong>overlap</strong> (no two slices claim the same behaviour), and <strong>dependency soundness</strong> (each blocked-by is a real ordering constraint, with nothing undeclared). A defect here re-opens the affected tickets. The process loops until every ticket ends up GRILLED at the same time — revisions stop propagating and the batch settles. Only then is the full batch published together, in dependency order.</p>
         </div>
 
         <div>
@@ -1315,11 +1353,39 @@ git clone https://github.com/SGTechStack/App-Standards</code></pre>
   </div>
 
 
-  <h2 id="implementation-loop">Implementation Loop</h2>
+  <div class="step-card" id="grill-me">
+    <div class="step-header">
+      <div class="step-num" style="font-size:1.2rem">✋</div>
+      <div>
+        <div class="step-title"><code>/grill-me</code> <span class="chip chip-mp">[Matt Pocock]</span></div>
+        <div class="step-subtitle">Alignment check — surfaces hidden assumptions before each HITL gate</div>
+      </div>
+    </div>
+    <div class="step-body">
+      <p style="margin-bottom: 20px; font-size: 0.95rem;">Both HITL checkpoints belong to the <strong>developer</strong>. Before signing off at either one, you can optionally run Matt Pocock's <strong><code>/grill-me</code></strong> to challenge the assumptions in what you are about to approve. The sign-off itself is the gate; <code>/grill-me</code> is an extra check.</p>
+
+      <div style="display:flex;flex-direction:column;gap:14px;margin-bottom:8px;">
+
+        <div>
+          <div style="margin-bottom:4px;"><strong>HITL 1: TRD Sign-off (after Step 2)</strong></div>
+          <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">Optionally run <code>/grill-me</code> after <code>/spec-standards-check</code> and <code>/spec-compliance</code> to stress-test the Technical Requirements Document (TRD), then sign it off before cutting tickets. Treat the TRD as a draft until then: <code>/to-spec</code> labels it <code>ready-for-agent</code> as soon as it publishes, before Steps 2b and 2c have checked it.</p>
+        </div>
+
+        <div>
+          <div style="margin-bottom:4px;"><strong>HITL 2: Issue Approval (after Step 3)</strong></div>
+          <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">Optionally run <code>/grill-me</code> after <code>/issue-verification</code> to confirm the issue set covers all edge cases and dependencies, then resolve open questions and approve the issues. Nothing gets built before HITL 2.</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <h2 id="implementation-loop">Build Each Issue (Step 4)</h2>
 
   <div class="step-card" id="do-work">
     <div class="step-header">
-      <div class="step-num">11</div>
+      <div class="step-num">4b</div>
       <div>
         <div class="step-title"><code>/do-work</code> <span class="chip chip-plus">[+]</span></div>
         <div class="step-subtitle">Self-steering feedback loop — Implement → Review → Validate → Mutation → Commit</div>
@@ -1342,23 +1408,23 @@ git clone https://github.com/SGTechStack/App-Standards</code></pre>
       <div style="display:flex;flex-direction:column;gap:14px;margin-bottom:8px;">
 
         <div>
-          <div style="margin-bottom:4px;"><strong>The Five-Phase Loop</strong></div>
-          <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">The skill maps out a five-step execution plan: <strong>Implement → Review → Validate → Mutation Gate → Commit</strong>.</p>
+          <div style="margin-bottom:4px;"><strong>The Loop and Its Gates</strong></div>
+          <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">The skill runs <strong>Implement → Review → Fix</strong> until no must-fix findings remain, then <strong>Validate → Compliance report → Mutation gate (optional) → Commit → Closeout</strong>.</p>
         </div>
 
         <div>
           <div style="margin-bottom:4px;"><strong>Automated Validation</strong> ➔ <code>code-reviewer</code></div>
-          <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">Once the initial review clears, the Validate step launches the full <code>code-reviewer</code> skill suite in parallel. This covers builds, maintainability (e.g. duplicated logic), static analysis (e.g. React array keys), org compliance (IM8 logging gaps), and framework conventions (JUnit vs native asserts), generating a consolidated HTML report.</p>
+          <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">Once the review loop clears, the Validate step runs <code>/code-reviewer</code>, which fans out every registered check in parallel: <code>build</code> (formatting, types, tests at ≥80% coverage, production build), two-axis <code>code-review</code>, <code>im8</code>, <code>thermo-nuclear</code>, <code>semgrep</code>, and the <code>react</code> or <code>springboot</code> framework reviews. Results go to <code>artifacts/code-reviewer/{slug}-compliance.html</code>. A <code>FAIL</code> (any Critical/High finding) blocks; <code>WARN</code> does not.</p>
         </div>
 
         <div>
           <div style="margin-bottom:4px;"><strong>Self-Correction Mechanism</strong></div>
-          <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">The agent does not stop if blockers are found. The workflow loops those blockers directly back to the Implement phase, automatically applying corrections. It only halts for human guidance if it fails to fix the same issue twice.</p>
+          <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">The agent does not stop if blockers are found. The workflow loops those blockers directly back to the Implement phase, automatically applying corrections. It only halts for human guidance after two failed fix rounds on the same blocker.</p>
         </div>
 
         <div>
           <div style="margin-bottom:4px;"><strong>Mutation Gate</strong></div>
-          <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">Before committing, the workflow advances to the Mutation Gate, seeding small defects into the code to prove the tests actually catch them.</p>
+          <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">Optional but recommended. Before committing, <code>/mutation-testing</code> seeds small defects into the changed files (PIT for Java, StrykerJS for TypeScript) to prove the tests catch them. The default threshold is a 70% kill rate. It is a separate gate, not one of the <code>/code-reviewer</code> checks.</p>
         </div>
 
         <div>
@@ -1426,11 +1492,10 @@ git clone https://github.com/SGTechStack/App-Standards</code></pre>
   </div>
 
 
-  <h2 id="arch-linting">Architecture Linting per Feature</h2>
 
   <div class="step-card" id="arch-tests-feature">
     <div class="step-header">
-      <div class="step-num">13</div>
+      <div class="step-num">4c</div>
       <div>
         <div class="step-title"><code>/arch-tests-gen-feature</code> <span class="chip chip-plus">[+]</span></div>
         <div class="step-subtitle">Feature boundary tests — replace placeholders with real package names</div>
@@ -1447,17 +1512,17 @@ git clone https://github.com/SGTechStack/App-Standards</code></pre>
         </div>
       </div>
       <details class="step-details"><summary>Video Recap</summary>
-      <p style="margin-bottom: 0px; font-size: 0.95rem;"><em>Video coming soon.</em> This skill automatically replaces architecture test placeholders with the actual package names used by the generated feature, enforcing boundaries during the <code>do-work</code> loop.</p>
+      <p style="margin-bottom: 0px; font-size: 0.95rem;"><em>Video coming soon.</em> Run it at Step 4c, after <code>/do-work</code>, when the issue adds a new feature module. It fills the Feature rules from the S3 plan with the module's real package or folder names, generates the tests, and records them in the plan's <code>Implemented In</code> column. <code>/do-work</code> does not run it, so commit the tests with <code>/git-commit</code> before you push.</p>
       </details>
     </div>
   </div>
 
 
-  <h2 id="story-e2e">Story E2E Evidence</h2>
+  <h2 id="story-e2e">Verify Each Story (Step 5)</h2>
 
   <div class="step-card" id="e2e">
     <div class="step-header">
-      <div class="step-num">14</div>
+      <div class="step-num">5</div>
       <div>
         <div class="step-title"><code>/e2e</code> <span class="chip chip-plus">[+]</span></div>
         <div class="step-subtitle">Story acceptance evidence: proves the story works for the user in a real browser</div>
@@ -1481,7 +1546,7 @@ git clone https://github.com/SGTechStack/App-Standards</code></pre>
 
         <div>
           <div style="margin-bottom:4px;"><strong>Foundation First, Then Campaigns</strong></div>
-          <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">On first use, if the project has no shared test setup, <code>/e2e</code> builds one before touching any story. This foundation is the trustworthy test environment every story reuses: an isolated way to reset test data so runs never interfere with each other, authentication fixtures so tests sign in as the right user, browser configuration, and automatic capture of video and traces as evidence. <code>/e2e</code> proves the foundation with one real smoke test, then re-checks its health before each later story. This mirrors how <code>/arch-tests-plan</code> lays down placeholders in Phase 1 that <code>/arch-tests-gen-feature</code> fills in Phase 5.</p>
+          <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">On first use, if the project has no shared test setup, <code>/e2e</code> builds one before touching any story. This foundation is the trustworthy test environment every story reuses: an isolated way to reset test data so runs never interfere with each other, authentication fixtures so tests sign in as the right user, browser configuration, and automatic capture of video and traces as evidence. <code>/e2e</code> proves the foundation with one real smoke test, then re-checks its health before each later story. This mirrors how <code>/arch-tests-plan</code> lays down Feature rule placeholders in the S3 track that <code>/arch-tests-gen-feature</code> fills in at Step 4c.</p>
         </div>
 
         <div>
@@ -1586,35 +1651,6 @@ git clone https://github.com/SGTechStack/App-Standards</code></pre>
   </div>
 
 
-  <h2 id="grilling-gates">Grilling Before Gates</h2>
-
-  <div class="step-card" id="grill-me">
-    <div class="step-header">
-      <div class="step-num" style="font-size:1.2rem">✋</div>
-      <div>
-        <div class="step-title"><code>/grill-me</code> <span class="chip chip-plus">[+]</span></div>
-        <div class="step-subtitle">Alignment check — surfaces hidden assumptions before each HITL gate</div>
-      </div>
-    </div>
-    <div class="step-body">
-      <p style="margin-bottom: 20px; font-size: 0.95rem;">Throughout all planning and sequencing steps, you can optionally run Matt Pocock's <strong><code>/grill-me</code></strong> command after any artefact-generating skill. This interactive session acts as a Human-in-the-Loop (HITL) checkpoint to proactively challenge assumptions and ensure perfect alignment with your intent before advancing to the next phase.</p>
-
-      <div style="display:flex;flex-direction:column;gap:14px;margin-bottom:8px;">
-
-        <div>
-          <div style="margin-bottom:4px;"><strong>HITL Gate 1: TRD Sign-off</strong></div>
-          <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">Run <code>/grill-me</code> after specification generation to stress-test your Technical Requirements Document (TRD). Once you are satisfied, signing off marks the TRD as approved and clears it for decomposition into tickets.</p>
-        </div>
-
-        <div>
-          <div style="margin-bottom:4px;"><strong>HITL Gate 2: Ticket Sign-off</strong></div>
-          <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">Run <code>/grill-me</code> after ticket verification to confirm the full issue set covers all edge cases and dependencies. Once approved, the tickets transition to execution-ready and implementation can begin.</p>
-        </div>
-
-      </div>
-    </div>
-  </div>
-
   <!-- Quiz -->
   <div class="quiz" id="quiz">
     <div class="quiz-heading-label">Knowledge check</div>
@@ -1648,12 +1684,12 @@ git clone https://github.com/SGTechStack/App-Standards</code></pre>
       </div>
 
       <div class="quiz-question">
-        <h3>4. Why does <code>/spec-compliance</code> run at Step 7 — before <code>/to-tickets</code> at Step 8?</h3>
-        <label class="quiz-option"><input type="radio" name="q4" value="a"><span>Because the ArchUnit tests generated in Step 4 require the compliance audit to complete first</span></label>
+        <h3>4. Why does <code>/spec-compliance</code> run at Step 2c — before <code>/to-tickets</code> at Step 3a?</h3>
+        <label class="quiz-option"><input type="radio" name="q4" value="a"><span>Because the ArchUnit tests generated in the S3 track require the compliance audit to complete first</span></label>
         <label class="quiz-option"><input type="radio" name="q4" value="b"><span>Because <code>/to-tickets</code> cannot access the issue tracker until a compliance-approved label is set</span></label>
         <label class="quiz-option"><input type="radio" name="q4" value="c"><span>Because fixing a compliance flaw in the document costs one edit now, whereas finding it post-implementation requires a full rework sprint</span></label>
         <label class="quiz-option"><input type="radio" name="q4" value="d"><span>Because the mutation gate in <code>/do-work</code> depends on the compliance report being present at the start</span></label>
-        <div class="quiz-explanation"><strong>Why (c) is correct:</strong> A TRD flaw caught at Step 7 costs one edit; caught post-implementation it costs a rework sprint. Options (a), (b), and (d) describe dependencies between steps that don't exist — ArchUnit tests don't require the compliance report, and <code>/to-tickets</code> doesn't check labels before running.</div>
+        <div class="quiz-explanation"><strong>Why (c) is correct:</strong> A TRD flaw caught at Step 2c costs one edit; caught post-implementation it costs a rework sprint. Options (a), (b), and (d) describe dependencies between steps that don't exist — ArchUnit tests don't require the compliance report, and <code>/to-tickets</code> doesn't check labels before running.</div>
       </div>
 
       <div class="quiz-question">
@@ -1679,26 +1715,26 @@ git clone https://github.com/SGTechStack/App-Standards</code></pre>
         <label class="quiz-option"><input type="radio" name="q7" value="a"><span>All unit tests pass and the build succeeds without any compilation errors at runtime</span></label>
         <label class="quiz-option"><input type="radio" name="q7" value="b"><span>Must-fix count is zero and all compile, test, coverage, and compliance gates are green</span></label>
         <label class="quiz-option"><input type="radio" name="q7" value="c"><span>The mutation kill rate exceeds 80% on the full codebase and all coverage thresholds are met</span></label>
-        <label class="quiz-option"><input type="radio" name="q7" value="d"><span>A human approves the implementation at HITL Gate 2 after reviewing the consolidated report</span></label>
-        <div class="quiz-explanation"><strong>Why (b) is correct:</strong> The convergence condition is Must-fix = 0 <em>and</em> all compile, test, coverage, and compliance gates green — not any single gate alone. Unit tests passing (a) is just one gate. Mutation threshold (c) is one gate. HITL Gate 2 (d) is a planning-phase gate that runs before <code>/do-work</code> begins, not as its exit condition.</div>
+        <label class="quiz-option"><input type="radio" name="q7" value="d"><span>A human approves the implementation at HITL 2 after reviewing the consolidated report</span></label>
+        <div class="quiz-explanation"><strong>Why (b) is correct:</strong> The convergence condition is Must-fix = 0 <em>and</em> all compile, test, coverage, and compliance gates green — not any single gate alone. Unit tests passing (a) is just one gate. Mutation threshold (c) is one gate. HITL 2 (d) is a planning-phase checkpoint that runs before <code>/do-work</code> begins, not as its exit condition.</div>
       </div>
 
       <div class="quiz-question">
         <h3>8. Why is the <code>/mutation-testing</code> gate specifically scoped to changed files rather than the entire codebase?</h3>
         <label class="quiz-option"><input type="radio" name="q8" value="a"><span>To exclude mutation survivors in unchanged files from the 70% kill rate threshold calculation</span></label>
         <label class="quiz-option"><input type="radio" name="q8" value="b"><span>To recalculate coverage metrics only for the files modified in the current feature slice</span></label>
-        <label class="quiz-option"><input type="radio" name="q8" value="c"><span>To keep the feedback loop fast enough to run on every iteration without slowing down delivery</span></label>
+        <label class="quiz-option"><input type="radio" name="q8" value="c"><span>To keep the gate fast enough to run on every issue without slowing down delivery</span></label>
         <label class="quiz-option"><input type="radio" name="q8" value="d"><span>To ensure mutation testing completes before the compile-and-test gate runs inside the do-work loop</span></label>
-        <div class="quiz-explanation"><strong>Why (c) is correct:</strong> Scoping to changed files keeps the gate fast per feature slice — fast enough to run on every loop iteration without slowing delivery. Option (a) describes a side-effect, not the design intent. Options (b) and (d) describe mechanisms that don't match how the mutation and coverage gates work inside the loop.</div>
+        <div class="quiz-explanation"><strong>Why (c) is correct:</strong> Scoping to changed files keeps the gate fast enough to run once per issue, after validation and before the commit, without slowing delivery. Option (a) describes a side-effect, not the design intent. Options (b) and (d) describe mechanisms that don't match how the mutation and coverage gates work inside the loop.</div>
       </div>
 
       <div class="quiz-question">
         <h3>9. You need to check only IM8 security controls on a changeset, without running all other reviewers. Which invocation is correct?</h3>
         <label class="quiz-option"><input type="radio" name="q9" value="a"><span><code>/code-reviewer im8</code> — runs only the IM8 Application Technical Controls review on the diff</span></label>
-        <label class="quiz-option"><input type="radio" name="q9" value="b"><span><code>/code-reviewer standards</code> — checks the changeset against the repo's CODING_STANDARDS.md</span></label>
+        <label class="quiz-option"><input type="radio" name="q9" value="b"><span><code>/code-reviewer code-review</code> — runs the two-axis review against repo standards and the originating issue</span></label>
         <label class="quiz-option"><input type="radio" name="q9" value="c"><span><code>/code-reviewer semgrep</code> — scans the changeset for injection flaws and hardcoded secrets</span></label>
-        <label class="quiz-option"><input type="radio" name="q9" value="d"><span><code>/code-reviewer springboot</code> — runs all eight Spring Boot specialist reviewers on the diff</span></label>
-        <div class="quiz-explanation"><strong>Why (a) is correct:</strong> <code>/code-reviewer im8</code> targets the IM8 Application Technical Controls reviewer specifically. <code>standards</code> (b) checks repo-convention compliance via CODING_STANDARDS.md. <code>semgrep</code> (c) scans for injection and secrets patterns. <code>springboot</code> (d) runs all eight Spring Boot specialist reviewers — more than you asked for.</div>
+        <label class="quiz-option"><input type="radio" name="q9" value="d"><span><code>/code-reviewer springboot</code> — runs all seven Spring Boot specialist reviewers on the diff</span></label>
+        <div class="quiz-explanation"><strong>Why (a) is correct:</strong> <code>/code-reviewer im8</code> targets the IM8 Application Technical Controls reviewer specifically. <code>code-review</code> (b) runs the two-axis review against repo standards and the originating issue. <code>semgrep</code> (c) scans for injection and secrets patterns. <code>springboot</code> (d) runs all seven Spring Boot specialist reviewers — more than you asked for.</div>
       </div>
 
       <div class="quiz-question">
@@ -1711,7 +1747,7 @@ git clone https://github.com/SGTechStack/App-Standards</code></pre>
       </div>
 
       <div class="quiz-question">
-        <h3>11. <code>/arch-tests-gen</code> (Step 4) uses <code>&lt;feature&gt;</code> placeholders in boundary tests. What does <code>/arch-tests-gen-feature</code> (Step 13) specifically add?</h3>
+        <h3>11. <code>/arch-tests-gen</code> (S3) leaves <code>&lt;feature&gt;</code> placeholders for per-module rules. What does <code>/arch-tests-gen-feature</code> (Step 4c) specifically add?</h3>
         <label class="quiz-option"><input type="radio" name="q11" value="a"><span>It extends the rule plan with new architectural constraints discovered during feature implementation</span></label>
         <label class="quiz-option"><input type="radio" name="q11" value="b"><span>It instantiates the placeholders with real package and folder names for the slice just built</span></label>
         <label class="quiz-option"><input type="radio" name="q11" value="c"><span>It regenerates the full dependency-cruiser configuration to cover all features built so far</span></label>

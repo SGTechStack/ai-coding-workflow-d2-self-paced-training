@@ -2013,35 +2013,28 @@
             </div>
 
             <div>
-              <div style="margin-bottom:4px;"><strong>3. Register in the Orchestrator</strong></div>
-              <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">Add your standard's
-                path-mapping entries into <code>APPFW_STANDARD_REFS</code> in
-                <code>skills/dependency-orchestrator/report-generator.py</code>:</p>
+              <div style="margin-bottom:4px;"><strong>3. Register Them in the Orchestrator</strong> ➔ <code>configs/standards.md</code></div>
+              <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">The orchestrator's
+                single source of truth for standards is <code>skills/dependency-orchestrator/configs/standards.md</code>.
+                You do not tag standards on your stories. During backwards mapping, each derived task node is matched against
+                the file's <strong>Node to Standard Mapping</strong> rules, and a match sets that node's
+                <code>appfw_standard</code> field. To add your own standard, extend three sections:</p>
+              <ul style="font-size:0.875rem;color:var(--text-muted);margin:6px 0;line-height:1.65;padding-left:20px;">
+                <li><strong>Standards Catalog:</strong> add the standard, its sub-standards and their paths</li>
+                <li><strong>Dependencies Between Standards:</strong> list any standard that must be built first, so the orchestrator adds it as a predecessor node</li>
+                <li><strong>Node to Standard Mapping:</strong> add a concept-based row naming the keywords that trigger it</li>
+              </ul>
               <div class="emr-example" style="margin: 4px 0;">
-                <div class="emr-example-label">skills/dependency-orchestrator/report-generator.py</div>
-                <pre><code>APPFW_STANDARD_REFS = {
-    # ... existing AppStandards entries ...
-    "EMR_FHIR":      "../standards-emr/fhir-profiles/index.md",
-    "EMR_AUDIT":     "../standards-emr/audit-logging/emr-audit-schema.md",
-}</code></pre>
+                <div class="emr-example-label">configs/standards.md — Concept-based mapping (custom row)</div>
+                <pre><code>| Concept / keywords in story | Standard to apply | Disambiguation |
+|---|---|---|
+| clinical audit, ICD-10 change, diagnosis edit | `Standards-Emr/audit-logging` | — |</code></pre>
               </div>
-            </div>
-
-            <div>
-              <div style="margin-bottom:4px;"><strong>4. Tag Stories with Standard Keys</strong></div>
-              <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">In your user story files,
-                tag the <code>appfw_standard</code> field so the orchestrator maps each story to its relevant standards:
-              </p>
-              <div class="emr-example" style="margin: 4px 0;">
-                <div class="emr-example-label">spec.md — Patient Registration story (excerpt)</div>
-                <pre><code>## US-01: Register Patient
-appfw_standard: [USER_ACCESS_CONTROL_STANDALONE, LOGGING_GENERAL, EMR_AUDIT]
-
-As a front-desk staff member, I want to register a new patient...</code></pre>
-              </div>
-              <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">The Dev Delivery Plan will
-                then include the relevant standard sections for developers to reference during <code>/wayfinder</code>,
-                without them having to search the entire standards catalog.</p>
+              <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">Every story whose tasks
+                pick up the standard lists it in the Dev Delivery Plan, and <code>/stories-to-issues</code> copies it into
+                the issue's Standards to Refer table. From there, <code>/wayfinder</code> (Step 1),
+                <code>/spec-standards-check</code> (Step 2b) and <code>/do-work</code> (Step 4) read only the standards
+                named for that story, without searching the entire catalog.</p>
             </div>
           </div>
 
@@ -2194,9 +2187,9 @@ with before/after values, actor ID, and timestamp.</code></pre>
                 need.</p>
               <div class="emr-example" style="margin-top: 10px;">
                 <div class="emr-example-label">skills/do-work/common/kb-router.md — custom entry for Singpass SDK</div>
-                <pre><code>- signal: "import.*singpass"
-  prefix: SingpassSDK
-  description: Singpass MyInfo SDK patterns and approved integration methods</code></pre>
+                <pre><code>| Signal | Candidate query prefix |
+| --- | --- |
+| Singpass / MyInfo SDK imports, OIDC callback handlers, MyInfo person API calls | `SingpassSDK` |</code></pre>
               </div>
             </div>
 
@@ -2262,7 +2255,7 @@ export BEDROCK_KB_TAG_VALUE="emr-system"</code></pre>
               <div style="margin-bottom:4px;"><strong>2. Extending the Suite</strong> ➔
                 <code>code-reviewer/SKILL.md</code></div>
               <p style="font-size:0.875rem;color:var(--text-muted);margin:0;line-height:1.65;">To register a new check
-                (e.g., mutation testing), simply add a row to the table in <code>code-reviewer/SKILL.md</code>. The
+                (e.g., a new scanner or linter), simply add a row to the table in <code>code-reviewer/SKILL.md</code>. The
                 dispatcher will automatically include it in every subsequent run.</p>
             </div>
 
@@ -2313,14 +2306,14 @@ export BEDROCK_KB_TAG_VALUE="emr-system"</code></pre>
           <label class="quiz-option"><input type="radio" name="q1" value="b"><span>Phase 1 — supply domain terminology
               in <code>CONTEXT.md</code> (for <code>/wayfinder</code>) or <code>constitution.md</code></span></label>
           <label class="quiz-option"><input type="radio" name="q1" value="c"><span>Phase 2 — add TOCC as a standard in
-              <code>APPFW_STANDARD_REFS</code></span></label>
+              <code>configs/standards.md</code></span></label>
           <label class="quiz-option"><input type="radio" name="q1" value="d"><span>Phase 5 — define TOCC naming rules in
               <code>CODING_STANDARDS.md</code></span></label>
           <div class="quiz-explanation"><strong>Why (b) is correct:</strong> TOCC is clinical domain vocabulary. It
             belongs in Phase 1 and should be supplied in <code>CONTEXT.md</code> (or <code>constitution.md</code>) so
             investigation tickets use the correct language from the start. Option (a) is incorrect because
             <code>/wayfinder</code> does not query the Bedrock KB. Bedrock is exclusively for implementation-time coding
-            guidance. Option (c) <code>APPFW_STANDARD_REFS</code> is for architectural standards. Option (d)
+            guidance. Option (c) <code>configs/standards.md</code> is for architectural standards. Option (d)
             <code>CODING_STANDARDS.md</code> is for code-level conventions.</div>
         </div>
 
@@ -2329,14 +2322,14 @@ export BEDROCK_KB_TAG_VALUE="emr-system"</code></pre>
             do you register this standard so the orchestrator includes it in the Dev Delivery Plan?</h3>
           <label class="quiz-option"><input type="radio" name="q2" value="a"><span>Phase 3 — add a Markdown file to
               <code>skills/policies/references/</code></span></label>
-          <label class="quiz-option"><input type="radio" name="q2" value="b"><span>Phase 2 — register the profile in
-              <code>APPFW_STANDARD_REFS</code> within <code>report-generator.py</code></span></label>
+          <label class="quiz-option"><input type="radio" name="q2" value="b"><span>Phase 2 — register the profile in the orchestrator's
+              <code>configs/standards.md</code> catalog and node mapping</span></label>
           <label class="quiz-option"><input type="radio" name="q2" value="c"><span>Phase 5 — add a rule block to
               <code>CODING_STANDARDS.md</code></span></label>
           <label class="quiz-option"><input type="radio" name="q2" value="d"><span>Phase 4 — upload the profile to the
               AWS Bedrock S3 data source</span></label>
           <div class="quiz-explanation"><strong>Why (b) is correct:</strong> Phase 2 governs architectural standards.
-            Registering your custom FHIR profile in <code>APPFW_STANDARD_REFS</code> allows the
+            Registering your custom FHIR profile in <code>configs/standards.md</code> (catalog plus a node-mapping rule) allows the
             <code>/dependency-orchestrator</code> to automatically surface it as a requirement in the Dev Delivery Plan.
             Option (a) Phase 3 is for compliance controls. Option (c) Phase 5 is for code review conventions. Option (d)
             Phase 4 Bedrock is for implementation-time coding guidance.</div>
@@ -2367,7 +2360,7 @@ export BEDROCK_KB_TAG_VALUE="emr-system"</code></pre>
           <label class="quiz-option"><input type="radio" name="q4" value="b"><span>Phase 3 — Save the Markdown policy in
               <code>skills/policies/references/</code> and register it</span></label>
           <label class="quiz-option"><input type="radio" name="q4" value="c"><span>Phase 2 — Add it to the
-              <code>arch/arch-test-plan.md</code> rule set</span></label>
+              <code>artifacts/arch-test-plan.md</code> rule set</span></label>
           <label class="quiz-option"><input type="radio" name="q4" value="d"><span>Phase 4 — Upload it to the Bedrock KB
               so <code>/query-kb</code> retrieves it</span></label>
           <div class="quiz-explanation"><strong>Why (b) is correct:</strong> Custom policies must be provided as
@@ -2420,26 +2413,26 @@ export BEDROCK_KB_TAG_VALUE="emr-system"</code></pre>
           <h3>7. Which file maps code signals (e.g., file extensions, class annotations) to Bedrock KB query prefixes
             during the <code>/do-work</code> implementation loop?</h3>
           <label class="quiz-option"><input type="radio" name="q7"
-              value="a"><span><code>arch/arch-test-plan.md</code></span></label>
+              value="a"><span><code>artifacts/arch-test-plan.md</code></span></label>
           <label class="quiz-option"><input type="radio" name="q7"
               value="b"><span><code>skills/policies/SKILL.md</code></span></label>
           <label class="quiz-option"><input type="radio" name="q7"
               value="c"><span><code>skills/do-work/common/kb-router.md</code></span></label>
           <label class="quiz-option"><input type="radio" name="q7"
-              value="d"><span><code>skills/dependency-orchestrator/report-generator.py</code></span></label>
+              value="d"><span><code>skills/dependency-orchestrator/configs/standards.md</code></span></label>
           <div class="quiz-explanation"><strong>Why (c) is correct:</strong> During Phase 4, <code>kb-router.md</code>
             is the exact file that maps code signals (like file extensions or import patterns) to Bedrock KB query
             prefixes, ensuring the right documentation is retrieved automatically for each implementation context.
             Option (a) <code>arch-test-plan.md</code> defines architectural boundary rules. Option (b)
             <code>skills/policies/SKILL.md</code> registers compliance policies. Option (d)
-            <code>report-generator.py</code> maps AppStandards to stories in the orchestrator's delivery plan.</div>
+            <code>configs/standards.md</code> maps AppStandards to task nodes in the orchestrator's delivery plan.</div>
         </div>
 
         <div class="quiz-question">
           <h3>8. The <code>/code-review</code> Standards axis fails to flag violations of your team's custom styling
             conventions. What is the most likely cause?</h3>
           <label class="quiz-option"><input type="radio" name="q8" value="a"><span>The
-              <code>arch/arch-test-plan.md</code> file has no rules defined for this feature</span></label>
+              <code>artifacts/arch-test-plan.md</code> file has no rules defined for this feature</span></label>
           <label class="quiz-option"><input type="radio" name="q8" value="b"><span>The <code>CODING_STANDARDS.md</code>
               file does not exist at the repository root</span></label>
           <label class="quiz-option"><input type="radio" name="q8" value="c"><span>The Bedrock KB has not been synced
